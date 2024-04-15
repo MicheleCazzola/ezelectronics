@@ -59,7 +59,9 @@ Actors here:
 
 -------------
 **Michele**
-
+- Cliente
+- Manager dello store
+- Database direi di **no**: penso che lo svilupperemo come sqlite dato che a web app facciamo quello; essendo di fatto su file interno al progetto, ricordo che il prof disse che non era da includere negli attori, ma stava nel sistema.
 -------------
 **Giuseppe**
 
@@ -104,8 +106,13 @@ Actors here:
 **Flaviana**
 
 -------------
-**Michele**
-
+**Michele**  
+- FR3.4: Recuperare tutti i prodotti, eventualmente solo quelli venduti
+- FR3.5: Recuperare un prodotto, dato il suo codice
+- FR3.6: Recuperare tutti i prodotti appartenenti ad una data categoria, eventualmente solo quelli venduti
+- FR3.7: Recuperare tutti i prodotti appartenenti ad un dato modello, eventualmente solo quelli venduti
+- FR3.8: Eliminare tutti i prodotti (solo test?)
+- FR3.9: Eliminare uno prodotto, dato il suo codice
 -------------
 **Giuseppe**
 
@@ -130,7 +137,27 @@ Actors here:
 
 -------------
 **Michele**
-
+- Usabilità:
+  - non deve essere necessario training per utilizzare l'applicazione in autonomia
+- Affidabilità/Disponibilità:
+  - l'uptime del server deve essere pari al 99%
+- Efficienza:
+  - il tempo di risposta deve essere pari o inferiore a 2 secondi
+- Correttezza:
+  - ??
+- Manutenibilità:
+  - risolvere un problema software deve richiedere un effort massimo di 7 person/hours
+  - modificare una funzionalità esistente deve richiedere un effort massimo di 7 person/hours
+  - eliminare una funzionalità esistente deve richiedere un effort massimo di 3 person/hours
+  - aggiungere una nuova funzionalità deve richiedere un effort massimo di 35 person/hours
+- Portabilità:
+  - modificare il DBMS su cui memorizzare i dati deve richiedere un effort massimo di 35 person/hours
+  - l'applicazione web deve essere disponibile sui browser Chrome, Firefox, Edge, Safari e Opera
+- Safety: 
+  - il sistema non deve causare danni a persone o ambienti (è SW, quindi non saprei nemmeno se includerlo)
+- Security (***non ne sono troppo sicuro, forse bisogna indagare più a fondo sulla parte di access***):
+  - il numero di accessi malintenzionati deve essere inferiore a 1 all'anno
+  - qualcosa su privacy dei dati utente (crittografia, cors?), possibile GDPR-compliance o simili
 -------------
 **Giuseppe**
 
