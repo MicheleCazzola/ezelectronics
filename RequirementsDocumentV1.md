@@ -49,7 +49,21 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 \<Define here Context diagram using UML use case diagram>
 
-\<actors are a subset of stakeholders>
+\<actors are a subset of stakeholders>  
+Actors here:  
+------------- 
+**Francesco**
+
+-------------
+**Flaviana**
+
+-------------
+**Michele**
+
+-------------
+**Giuseppe**
+
+-------------
 
 ## Interfaces
 
@@ -83,6 +97,20 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |  FR2  |             |
 | FRx.. |             |
 
+------------- 
+**Francesco**
+
+-------------
+**Flaviana**
+
+-------------
+**Michele**
+
+-------------
+**Giuseppe**
+
+-------------
+
 ## Non Functional Requirements
 
 \<Describe constraints on functional requirements>
@@ -93,6 +121,20 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |  NFR2   |                                    |             |           |
 |  NFR3   |                                    |             |           |
 | NFRx .. |                                    |             |           |
+
+------------- 
+**Francesco**
+
+-------------
+**Flaviana**
+
+-------------
+**Michele**
+
+-------------
+**Giuseppe**
+
+-------------
 
 # Use case diagram and use cases
 
