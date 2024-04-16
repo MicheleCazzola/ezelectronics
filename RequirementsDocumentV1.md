@@ -93,11 +93,15 @@ Actors here:
 
 \<they match to high level use cases>
 
-|  ID   | Description |
-| :---: | :---------: |
-|  FR1  |             |
-|  FR2  |             |
-| FRx.. |             |
+| ID  |                      Description                       |
+| :-: | :----------------------------------------------------: |
+| FR1 |                   Create a new user                    |
+| FR2 |            Display a list of all the users             |
+| FR3 |          Display a list of all the customers           |
+| FR3 |           Display a list of all the managers           |
+| FR4 |                Log in an existing user                 |
+| FR5 |                Log out a logged in user                |
+| FR6 | Display information about the currently logged in user |
 
 ------------- 
 **Francesco**
@@ -173,13 +177,13 @@ Actors here:
 
 ### Use case 1, UC1
 
-| Actors Involved  |                                                                      |
-| :--------------: | :------------------------------------------------------------------: |
-|   Precondition   | \<Boolean expression, must evaluate to true before the UC can start> |
-|  Post condition  |  \<Boolean expression, must evaluate to true after UC is finished>   |
-| Nominal Scenario |         \<Textual description of actions executed by the UC>         |
-|     Variants     |                      \<other normal executions>                      |
-|    Exceptions    |                        \<exceptions, errors >                        |
+| Actors Involved  |                                                                  Users                                                                   |
+| :--------------: | :--------------------------------------------------------------------------------------------------------------------------------------: |
+|   Precondition   |                                                          User is not logged in                                                           |
+|  Post condition  |                                                            User is logged in                                                             |
+| Nominal Scenario | The user inserts his credentials (username and password) in the login page, presses the confirm button and is redirected to the homepage |
+|     Variants     |                                                                                                                                          |
+|    Exceptions    |                       If the credentials are invalid, an error message is shown after pressing the confirm button                        |
 
 ##### Scenario 1.1
 
@@ -206,7 +210,13 @@ Actors here:
 
 ### Use case 2, UC2
 
-..
+| Actors Involved  |                                                                          Users                                                                          |
+| :--------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------: |
+|   Precondition   |                                                                  User is not logged in                                                                  |
+|  Post condition  |                                                                    User is logged in                                                                    |
+| Nominal Scenario | The user inserts his info (username, name, surname, password and role) in the signup page, presses the confirm button and is redirected to the homepage |
+|     Variants     |                                                                                                                                                         |
+|    Exceptions    |                              If the username is already taken, an error message is shown after pressing the confirm button                              |
 
 ### Use case x, UCx
 
@@ -216,7 +226,10 @@ Actors here:
 
 \<use UML class diagram to define important terms, or concepts in the domain of the application, and their relationships>
 
-\<concepts must be used consistently all over the document, ex in use cases, requirements etc>
+- user
+- customer
+- manager
+  \<concepts must be used consistently all over the document, ex in use cases, requirements etc>
 
 # System Design
 
