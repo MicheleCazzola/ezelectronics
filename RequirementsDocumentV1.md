@@ -50,22 +50,31 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 \<Define here Context diagram using UML use case diagram>
 
 \<actors are a subset of stakeholders>  
-Actors here:  
-------------- 
-**Francesco**
+Actors here:
 
--------------
+---
+
+**Francesco**
+- Utente -> Cliente / Manager
+- Sistema di pagamento (Paypal, Satispay, Visa/Mastercard/Amex vanno separati?)
+- Sistema di spedizione (anche qui, ha senso separare DHL/GLS ecc visto che le api di interazione sono possibilmente diverse?)
+---
+
 **Flaviana**
 
--------------
+---
+
 **Michele**
+
 - Cliente
 - Manager dello store
 - Database direi di **no**: penso che lo svilupperemo come sqlite dato che a web app facciamo quello; essendo di fatto su file interno al progetto, ricordo che il prof disse che non era da includere negli attori, ma stava nel sistema.
--------------
+
+---
+
 **Giuseppe**
 
--------------
+---
 
 ## Interfaces
 
@@ -93,34 +102,46 @@ Actors here:
 
 \<they match to high level use cases>
 
-| ID  |                      Description                       |
-| :-: | :----------------------------------------------------: |
-| FR1 |                   Create a new user                    |
-| FR2 |            Display a list of all the users             |
-| FR3 |          Display a list of all the customers           |
-| FR3 |           Display a list of all the managers           |
-| FR4 |                Log in an existing user                 |
-| FR5 |                Log out a logged in user                |
-| FR6 | Display information about the currently logged in user |
+| ID  | Description |
+| :-: | :---------: |
+| FR1 |             |
+| FR2 |             |
+| FR3 |             |
+| FR3 |             |
+| FR4 |             |
+| FR5 |             |
+| FR6 |             |
 
-------------- 
+---
+
 **Francesco**
 
--------------
+- Creare un nuovo utente
+- Accedere con un utente esistente
+- Disconnettere un utente loggato
+- Receuperare informazioni sull'utente attualmente loggato
+- Recuperare una lista di tutti gli utenti, eventualmente filtrati per ruolo (cliente/manager)
+
+---
+
 **Flaviana**
 
--------------
-**Michele**  
+---
+
+**Michele**
+
 - FR3.4: Recuperare tutti i prodotti, eventualmente solo quelli venduti
 - FR3.5: Recuperare un prodotto, dato il suo codice
 - FR3.6: Recuperare tutti i prodotti appartenenti ad una data categoria, eventualmente solo quelli venduti
 - FR3.7: Recuperare tutti i prodotti appartenenti ad un dato modello, eventualmente solo quelli venduti
 - FR3.8: Eliminare tutti i prodotti (solo test?)
 - FR3.9: Eliminare uno prodotto, dato il suo codice
--------------
+
+---
+
 **Giuseppe**
 
--------------
+---
 
 ## Non Functional Requirements
 
@@ -133,14 +154,30 @@ Actors here:
 |  NFR3   |                                    |             |           |
 | NFRx .. |                                    |             |           |
 
-------------- 
+---
+
 **Francesco**
 
--------------
+- Privacy:
+  - Il sistema non deve conservare dati personali e identificativi degli utenti se non sono necessari
+  - I dati personali e identificativi degli utenti devono essere gestiti nel rispetto delle normative GDPR
+- Security:
+  - Il software non deve essere vulnerabile ad attacchi XSS e SQL injection
+  - Le dipendenze con vulnerabilità critiche (CVSS rating >= 6) devono essere aggiornate entro 1 settimana
+  - Le dipendenze con vulnerabilità note di qualsiasi tipo devono essere aggiornate entro 2 mesi
+  - Non deve essere possibile utilizzare una password non sicura (una password è considerata sicura se ha >=10 caratteri e contiene simboli, numeri, lettere maiuscole e minuscole)
+  - I dati di accesso degli utenti devono essere memorizzati e gestiti con pratiche allo stato dell'arte (salt+hash al momento della stesura di questo documento)
+  - Deve essere possibile abilitare la 2FA per utenti che lo desiderano
+  - Il server deve mantenere dei log di tutti i tentativi di accesso per almeno 3 mesi, per poter individuare tentativi di accesso fraudolenti
+
+---
+
 **Flaviana**
 
--------------
+---
+
 **Michele**
+
 - Usabilità:
   - non deve essere necessario training per utilizzare l'applicazione in autonomia
 - Affidabilità/Disponibilità:
@@ -157,15 +194,17 @@ Actors here:
 - Portabilità:
   - modificare il DBMS su cui memorizzare i dati deve richiedere un effort massimo di 35 person/hours
   - l'applicazione web deve essere disponibile sui browser Chrome, Firefox, Edge, Safari e Opera
-- Safety: 
+- Safety:
   - il sistema non deve causare danni a persone o ambienti (è SW, quindi non saprei nemmeno se includerlo)
-- Security (***non ne sono troppo sicuro, forse bisogna indagare più a fondo sulla parte di access***):
+- Security (**_non ne sono troppo sicuro, forse bisogna indagare più a fondo sulla parte di access_**):
   - il numero di accessi malintenzionati deve essere inferiore a 1 all'anno
   - qualcosa su privacy dei dati utente (crittografia, cors?), possibile GDPR-compliance o simili
--------------
+
+---
+
 **Giuseppe**
 
--------------
+---
 
 # Use case diagram and use cases
 
@@ -177,13 +216,13 @@ Actors here:
 
 ### Use case 1, UC1
 
-| Actors Involved  |                                                                  Users                                                                   |
-| :--------------: | :--------------------------------------------------------------------------------------------------------------------------------------: |
-|   Precondition   |                                                          User is not logged in                                                           |
-|  Post condition  |                                                            User is logged in                                                             |
-| Nominal Scenario | The user inserts his credentials (username and password) in the login page, presses the confirm button and is redirected to the homepage |
-|     Variants     |                                                                                                                                          |
-|    Exceptions    |                       If the credentials are invalid, an error message is shown after pressing the confirm button                        |
+| Actors Involved  |     |
+| :--------------: | :-: |
+|   Precondition   |     |
+|  Post condition  |     |
+| Nominal Scenario |     |
+|     Variants     |     |
+|    Exceptions    |     |
 
 ##### Scenario 1.1
 
@@ -210,13 +249,13 @@ Actors here:
 
 ### Use case 2, UC2
 
-| Actors Involved  |                                                                          Users                                                                          |
-| :--------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------: |
-|   Precondition   |                                                                  User is not logged in                                                                  |
-|  Post condition  |                                                                    User is logged in                                                                    |
-| Nominal Scenario | The user inserts his info (username, name, surname, password and role) in the signup page, presses the confirm button and is redirected to the homepage |
-|     Variants     |                                                                                                                                                         |
-|    Exceptions    |                              If the username is already taken, an error message is shown after pressing the confirm button                              |
+| Actors Involved  |     |
+| :--------------: | :-: |
+|   Precondition   |     |
+|  Post condition  |     |
+| Nominal Scenario |     |
+|     Variants     |     |
+|    Exceptions    |     |
 
 ### Use case x, UCx
 
@@ -226,8 +265,8 @@ Actors here:
 
 \<use UML class diagram to define important terms, or concepts in the domain of the application, and their relationships>
 
-- user
-- customer
+- utente
+- cliente
 - manager
   \<concepts must be used consistently all over the document, ex in use cases, requirements etc>
 
