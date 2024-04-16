@@ -61,6 +61,8 @@ Actors here:
 ---
 
 **Flaviana**
+- Cliente
+- Manager
 
 ---
 
@@ -125,6 +127,12 @@ Actors here:
 ---
 
 **Flaviana**
+- Ritornare un utente dato uno specifico username
+- Eliminare un utente dato uno specifico username
+- Eliminare tutti gli utenti (solo a scopo di test)
+- Creare un nuovo prodotto
+- Registrare l'arrivo di un set di prodotti dello stesso modello
+- Contrassegnare un prodotto come venduto
 
 ---
 
@@ -173,6 +181,8 @@ Actors here:
 ---
 
 **Flaviana**
+- Affidabilità: ogni utente non deve segnalare più di 2 bug all'anno
+- Correttezza: l'applicazione deve essere in grado di gestire un aumento del traffico senza degrado delle prestazioni
 
 ---
 
