@@ -76,6 +76,11 @@ Actors here:
 
 **Giuseppe**
 
+- Cliente -> ovvero Utente **loggato**
+- anche qui si presenta il caso database -> lo metto per completezza
+
+
+
 ---
 
 ## Interfaces
@@ -149,6 +154,14 @@ Actors here:
 
 **Giuseppe**
 
+- Recuperare il carrello corrente del cliente loggato
+- Aggiungere un prodotto al carrello corrente del cliente loggato
+- Pagare il carrello corrente del cliente loggato. Impostare il totale del carrello alla somma degli importi dei singoli prodotti presenti all'interno. Impostare la data di pagamento del suddetto carrello a quella del sistema. **Vanno separati?**
+- Recuperare lo storico dei carrelli che sono stati pagati dall'utente che è attualmente loggato.
+- Eliminare un prodotto dal carrello corrente del cliente loggato
+- Eliminare l'intero carrello corrente del cliente loggato
+- Eliminare tutti i carrelli esistenti (**solo test e pulizia db**)
+
 ---
 
 ## Non Functional Requirements
@@ -213,6 +226,13 @@ Actors here:
 ---
 
 **Giuseppe**
+
+- Affidabilità:
+  - Il sistema può essere utilizzato dal Lunedi alla domenica h24 a meno di manutenzioni straordinarie
+- Security:
+  -  Il
+sistema deve effettuare sempre un controllo sui reali privilegi di chi effettua qualunque operazione
+prima di autorizzare operazioni di lettura/scrittura, esecuzione o cancellazione.
 
 ---
 
