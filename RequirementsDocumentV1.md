@@ -49,6 +49,8 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 \<Define here Context diagram using UML use case diagram>
 
+[Context diagram](#https://git-softeng.polito.it/se-2023-24/group-ita-42/ezelectronics/-/blob/dev/media/context_diagram.png?ref_type=heads)
+
 \<actors are a subset of stakeholders>  
 Actors here:
 
@@ -286,10 +288,9 @@ prima di autorizzare operazioni di lettura/scrittura, esecuzione o cancellazione
 
 \<use UML class diagram to define important terms, or concepts in the domain of the application, and their relationships>
 
-- utente
-- cliente
-- manager
   \<concepts must be used consistently all over the document, ex in use cases, requirements etc>
+
+[Class diagram](#https://git-softeng.polito.it/se-2023-24/group-ita-42/ezelectronics/-/blob/dev/media/glossario.png?ref_type=heads)
 
 # System Design
 
