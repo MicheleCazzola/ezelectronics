@@ -83,6 +83,24 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |  FR2  |             |
 | FRx.. |             |
 
+---
+
+**Francesco**
+
+---
+
+**Flaviana**
+
+---
+
+**Michele**
+
+---
+
+**Giuseppe**
+
+---
+
 ## Non Functional Requirements
 
 \<Describe constraints on functional requirements>
