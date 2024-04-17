@@ -1,65 +1,64 @@
-# Requirements Document - current EZElectronics
+# Documento dei requisiti - EZElectronics attuale
 
-Date:
+Data:
 
-Version: V1 - description of EZElectronics in CURRENT form (as received by teachers)
+Versione: V1 - descrizione di EZElectronics nella forma ATTUALE (come ricevuta dagli insegnanti)
 
-| Version number | Change |
-| :------------: | :----: |
-|                |        |
+| Numero di versione | Modifica |
+| :---------------: | :------: |
+|                   |          |
 
-# Contents
+# Contenuti
 
-- [Requirements Document - current EZElectronics](#requirements-document---current-ezelectronics)
-- [Contents](#contents)
-- [Informal description](#informal-description)
-- [Stakeholders](#stakeholders)
-- [Context Diagram and interfaces](#context-diagram-and-interfaces)
-  - [Context Diagram](#context-diagram)
-  - [Interfaces](#interfaces)
-- [Stories and personas](#stories-and-personas)
-- [Functional and non functional requirements](#functional-and-non-functional-requirements)
-  - [Functional Requirements](#functional-requirements)
-  - [Non Functional Requirements](#non-functional-requirements)
-- [Use case diagram and use cases](#use-case-diagram-and-use-cases)
-  - [Use case diagram](#use-case-diagram)
-    - [Use case 1, UC1](#use-case-1-uc1)
+- [Documento dei requisiti - EZElectronics attuale](#documento-dei-requisiti---ezelectronics-attuale)
+- [Contenuti](#contenuti)
+- [Descrizione informale](#descrizione-informale)
+- [Stakeholders](#portatori-di-interesse)
+- [Context Diagram e interfacce](#diagramma-di-contesto-e-interfacce)
+  - [Context Diagram](#diagramma-di-contesto)
+  - [Interfacce](#interfacce)
+- [Storie e personas](#storie-e-personas)
+- [Requisiti funzionali e non funzionali](#requisiti-funzionali-e-non-funzionali)
+  - [Requisiti funzionali](#requisiti-funzionali)
+  - [Requisiti non funzionali](#requisiti-non-funzionali)
+- [Use Case Diagram e casi d'uso](#diagramma-dei-casi-duso-e-casi-duso)
+  - [Use Case Diagram](#diagramma-dei-casi-duso)
+    - [Caso d'uso 1, UC1](#caso-duso-1-uc1)
       - [Scenario 1.1](#scenario-11)
       - [Scenario 1.2](#scenario-12)
       - [Scenario 1.x](#scenario-1x)
-    - [Use case 2, UC2](#use-case-2-uc2)
-    - [Use case x, UCx](#use-case-x-ucx)
-- [Glossary](#glossary)
-- [System Design](#system-design)
-- [Deployment Diagram](#deployment-diagram)
+    - [Caso d'uso 2, UC2](#caso-duso-2-uc2)
+    - [Caso d'uso x, UCx](#caso-duso-x-ucx)
+- [Glossario](#glossario)
+- [System Design](#progettazione-del-sistema)
+- [Deployment Diagram](#diagramma-di-distribuzione)
 
-# Informal description
+# Descrizione informale
 
-EZElectronics (read EaSy Electronics) is a software application designed to help managers of electronics stores to manage their products and offer them to customers through a dedicated website. Managers can assess the available products, record new ones, and confirm purchases. Customers can see available products, add them to a cart and see the history of their past purchases.
+EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progettata per aiutare i gestori dei negozi di elettronica a gestire i loro prodotti e offrirli ai clienti attraverso un sito web dedicato. I gestori possono valutare i prodotti disponibili, registrarne di nuovi e confermare gli acquisti. I clienti possono visualizzare i prodotti disponibili, aggiungerli al carrello e visualizzare la cronologia dei loro acquisti passati.
 
 # Stakeholders
 
-| Stakeholder name | Description |
-| :--------------: | :---------: |
-| Stakeholder x..  |             |
+| Nome dello stakeholder | Descrizione |
+| :----------------------------: | :---------: |
+|         stakeholder x...         |             |
 
-# Context Diagram and interfaces
+# Context Diagram e interfacce
 
 ## Context Diagram
 
-\<Define here Context diagram using UML use case diagram>
+\<Definire qui il Context Diagram utilizzando il Use Case Diagram UML>
 
-[Context diagram](#https://git-softeng.polito.it/se-2023-24/group-ita-42/ezelectronics/-/blob/dev/media/context_diagram.png?ref_type=heads)
+[Context Diagram](#https://git-softeng.polito.it/se-2023-24/group-ita-42/ezelectronics/-/blob/dev/media/context_diagram.png?ref_type=heads)
 
-\<actors are a subset of stakeholders>  
-Actors here:
+\<gli attori sono un sottoinsieme dei stakeholders>
+Attori:
 
 ---
 
 **Francesco**
 - Utente -> Cliente / Manager
-- Sistema di pagamento (Paypal, Satispay, Visa/Mastercard/Amex vanno separati?)
-- Sistema di spedizione (anche qui, ha senso separare DHL/GLS ecc visto che le api di interazione sono possibilmente diverse?)
+
 ---
 
 **Flaviana**
@@ -80,38 +79,35 @@ Actors here:
 
 - Cliente -> ovvero Utente **loggato**
 - anche qui si presenta il caso database -> lo metto per completezza
-
-
-
 ---
 
-## Interfaces
+## Interfacce
 
-\<describe here each interface in the context diagram>
+\<Descrivere qui ogni interfaccia nel Context Diagram>
 
-\<GUIs will be described graphically in a separate document>
+\<Le GUI saranno descritte graficamente in un documento separato>
 
-|   Actor   | Logical Interface | Physical Interface |
-| :-------: | :---------------: | :----------------: |
-| Actor x.. |                   |                    |
+|   Attore   | Interfaccia logica | Interfaccia fisica |
+| :--------: | :---------------: | :----------------: |
+| Attore x...|                   |                    |
 
-# Stories and personas
+# Storie e personas
 
-\<A Persona is a realistic impersonation of an actor. Define here a few personas and describe in plain text how a persona interacts with the system>
+\<Una Persona è una rappresentazione realistica di un attore. Definire qui alcune persone e descrivere in testo semplice come una persona interagisce con il sistema>
 
-\<Persona is-an-instance-of actor>
+\<Una persona è un'istanza di un attore>
 
-\<stories will be formalized later as scenarios in use cases>
+\<Le storie saranno formalizzate successivamente come scenari nei casi d'uso>
 
-# Functional and non functional requirements
+# Requisiti funzionali e non funzionali
 
-## Functional Requirements
+## Requisiti funzionali
 
-\<In the form DO SOMETHING, or VERB NOUN, describe high level capabilities of the system>
+\<Nella forma FAI QUALCOSA, o VERBO SOSTANTIVO, descrivere le capacità di alto livello del sistema>
 
-\<they match to high level use cases>
+\<Corrispondono a casi d'uso di alto livello>
 
-| ID  | Description |
+| ID  | Descrizione |
 | :-: | :---------: |
 | FR1 |             |
 | FR2 |             |
@@ -128,8 +124,8 @@ Actors here:
 - Creare un nuovo utente
 - Accedere con un utente esistente
 - Disconnettere un utente loggato
-- Receuperare informazioni sull'utente attualmente loggato
-- Recuperare una lista di tutti gli utenti, eventualmente filtrati per ruolo (cliente/manager) - test only
+- Recuperare informazioni sull'utente attualmente loggato
+- Recuperare una lista di tutti gli utenti, eventualmente filtrati per ruolo (cliente/manager) - solo test
 
 ---
 
@@ -166,16 +162,16 @@ Actors here:
 
 ---
 
-## Non Functional Requirements
+## Requisiti non funzionali
 
-\<Describe constraints on functional requirements>
+\<Descrivere i vincoli sui requisiti funzionali>
 
-|   ID    | Type (efficiency, reliability, ..) | Description | Refers to |
-| :-----: | :--------------------------------: | :---------: | :-------: |
-|  NFR1   |                                    |             |           |
-|  NFR2   |                                    |             |           |
-|  NFR3   |                                    |             |           |
-| NFRx .. |                                    |             |           |
+|   ID    | Tipo (efficienza, affidabilità, ..) | Descrizione | Si riferisce a |
+| :-----: | :--------------------------------: | :---------: | :-----------: |
+|  NFR1   |                                  |             |               |
+|  NFR2   |                                  |             |               |
+|  NFR3   |                                  |             |               |
+| NFRx .. |                                  |             |               |
 
 ---
 
@@ -229,39 +225,39 @@ prima di autorizzare operazioni di lettura/scrittura, esecuzione o cancellazione
 
 ---
 
-# Use case diagram and use cases
+# Use Case Diagram e casi d'uso
 
-## Use case diagram
+## Use Case Diagram
 
-\<define here UML Use case diagram UCD summarizing all use cases, and their relationships>
+\<Definire qui il Use Case Diagram UML che riassume tutti i casi d'uso e le loro relazioni>
 
-\<next describe here each use case in the UCD>
+\<Descrivere qui ogni caso d'uso nel Use Case Diagram>
 
-### Use case 1, UC1
+### Caso d'uso 1, UC1
 
-| Actors Involved  |     |
+| Attori coinvolti |     |
 | :--------------: | :-: |
-|   Precondition   |     |
-|  Post condition  |     |
-| Nominal Scenario |     |
-|     Variants     |     |
-|    Exceptions    |     |
+|  Precondizione   |     |
+| Postcondizione   |     |
+| Scenario nominale |     |
+| Varianti        |     |
+| Eccezioni       |     |
 
 ##### Scenario 1.1
 
-\<describe here scenarios instances of UC1>
+\<Descrivere qui gli scenari istanze di UC1>
 
-\<a scenario is a sequence of steps that corresponds to a particular execution of one use case>
+\<Uno scenario è una sequenza di passi che corrisponde a una particolare esecuzione di un caso d'uso>
 
-\<a scenario is a more formal description of a story>
+\<Uno scenario è una descrizione più formale di una storia>
 
-\<only relevant scenarios should be described>
+\<Dovrebbero essere descritti solo gli scenari rilevanti>
 
 |  Scenario 1.1  |                                                                            |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | \<Boolean expression, must evaluate to true before the scenario can start> |
-| Post condition |  \<Boolean expression, must evaluate to true after scenario is finished>   |
-|     Step#      |                                Description                                 |
+|  Precondizione  | \<Espressione booleana, deve valutarsi a true prima che lo scenario possa iniziare> |
+| Postcondizione |  \<Espressione booleana, deve valutarsi a true dopo che lo scenario è terminato>   |
+|     Passo#      |                                Descrizione                                 |
 |       1        |                                                                            |
 |       2        |                                                                            |
 |      ...       |                                                                            |
@@ -270,34 +266,35 @@ prima di autorizzare operazioni di lettura/scrittura, esecuzione o cancellazione
 
 ##### Scenario 1.x
 
-### Use case 2, UC2
+### Caso d'uso 2, UC2
 
-| Actors Involved  |     |
+| Attori coinvolti |     |
 | :--------------: | :-: |
-|   Precondition   |     |
-|  Post condition  |     |
-| Nominal Scenario |     |
-|     Variants     |     |
-|    Exceptions    |     |
+|  Precondizione   |     |
+| Postcondizione   |     |
+| Scenario nominale |     |
+| Varianti        |     |
+| Eccezioni       |     |
 
-### Use case x, UCx
+### Caso d'uso x, UCx
 
 ..
 
-# Glossary
+# Glossario
 
-\<use UML class diagram to define important terms, or concepts in the domain of the application, and their relationships>
+\<Utilizzare il diagramma delle classi UML per definire termini o concetti importanti nel dominio dell'applicazione e le loro relazioni>
 
-  \<concepts must be used consistently all over the document, ex in use cases, requirements etc>
+  \<I concetti devono essere utilizzati in modo coerente in tutto il documento, ad esempio nei casi d'uso, nei requisiti, ecc.>
 
-[Class diagram](#https://git-softeng.polito.it/se-2023-24/group-ita-42/ezelectronics/-/blob/dev/media/glossario.png?ref_type=heads)
+[Class Diagram](#https://git-softeng.polito.it/se-2023-24/group-ita-42/ezelectronics/-/blob/dev/media/glossario.png?ref_type=heads)
 
 # System Design
 
-\<describe here system design>
+\<Descrivere qui la System Design>
 
-\<must be consistent with Context diagram>
+\<Deve essere coerente con il Context Diagram>
 
 # Deployment Diagram
 
-\<describe here deployment diagram >
+\<Descrivere qui il Deployment Diagram>
+
