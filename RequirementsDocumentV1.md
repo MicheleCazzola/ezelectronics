@@ -127,7 +127,7 @@ Actors here:
 - Accedere con un utente esistente
 - Disconnettere un utente loggato
 - Receuperare informazioni sull'utente attualmente loggato
-- Recuperare una lista di tutti gli utenti, eventualmente filtrati per ruolo (cliente/manager)
+- Recuperare una lista di tutti gli utenti, eventualmente filtrati per ruolo (cliente/manager) - test only
 
 ---
 
@@ -179,18 +179,9 @@ Actors here:
 
 **Francesco**
 
-- Privacy:
-  - Il sistema non deve conservare dati personali e identificativi degli utenti se non sono necessari
-  - I dati personali e identificativi degli utenti devono essere gestiti nel rispetto delle normative GDPR
 - Security:
-  - Il software non deve essere vulnerabile ad attacchi XSS e SQL injection
-  - Le dipendenze con vulnerabilità critiche (CVSS rating >= 6) devono essere aggiornate entro 1 settimana
-  - Le dipendenze con vulnerabilità note di qualsiasi tipo devono essere aggiornate entro 2 mesi
-  - Non deve essere possibile utilizzare una password non sicura (una password è considerata sicura se ha >=10 caratteri e contiene simboli, numeri, lettere maiuscole e minuscole)
-  - I dati di accesso degli utenti devono essere memorizzati e gestiti con pratiche allo stato dell'arte (salt+hash al momento della stesura di questo documento)
-  - Deve essere possibile abilitare la 2FA per utenti che lo desiderano
-  - Il server deve mantenere dei log di tutti i tentativi di accesso per almeno 3 mesi, per poter individuare tentativi di accesso fraudolenti
-
+  - L'autenticazione deve essere gestita tramite librerie che utilizzano pratiche allo stato dell'arte
+  
 ---
 
 **Flaviana**
