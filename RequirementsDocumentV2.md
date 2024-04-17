@@ -94,6 +94,24 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |  NFR3   |                                    |             |           |
 | NFRx .. |                                    |             |           |
 
+---
+
+**Francesco**
+
+---
+
+**Flaviana**
+
+---
+
+**Michele**
+
+---
+
+**Giuseppe**
+
+---
+
 # Use case diagram and use cases
 
 ## Use case diagram
