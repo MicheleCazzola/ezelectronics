@@ -50,6 +50,8 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 \<Define here Context diagram using UML use case diagram>
 
 \<actors are a subset of stakeholders>
+- Sistema di pagamento (Paypal, Satispay, Visa/Mastercard/Amex separati?)
+- Sistema di spedizione (anche qui, ha senso separare DHL/GLS ecc visto che le api di interazione sono possibilmente diverse?)
 
 ## Interfaces
 
@@ -60,6 +62,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |   Actor   | Logical Interface | Physical Interface |
 | :-------: | :---------------: | :----------------: |
 | Actor x.. |                   |                    |
+
 
 # Stories and personas
 
