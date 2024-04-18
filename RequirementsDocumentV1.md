@@ -41,45 +41,26 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 
 | Nome dello stakeholder | Descrizione |
 | :----------------------------: | :---------: |
-|         stakeholder x...         |             |
+|         Utente         | Utilizzatore generico dell'applicazione, la sua attività principale varia a seconda della tipologia           |
+| Utente loggato | Utente che è registrato presso l'applicazione: la sua attività principale riguarda la gestione di prodotti o l'acquisto degli stessi|
+| Utente non loggato | Utente non registrato presso l'applicazione, la sua attività principale riguarda soltanto la ricerca e la navigazione tra i prodotti disponibili |
+| Cliente | Utente loggato la cui attività principale è l'acquisto di prodotti attraverso l'applicazione |
+| Manager | Utente loggato la cui attività principale è la gestione dei prodotti, sia in entrata che in uscita dal negozio virtuale |
+| Produttore | Individuo, organizzazione o azienda che produce gli oggetti che verranno messi in vendita attraverso la piattaforma |
+| Distributore | Individuo, organizzazione o azienda che distribuisce i prodotti, dal produttore al venditore (qui *Manager*) |
 
 # Context Diagram e interfacce
 
 ## Context Diagram
 
-\<Definire qui il Context Diagram utilizzando il Use Case Diagram UML>
-
 [Context Diagram](#https://git-softeng.polito.it/se-2023-24/group-ita-42/ezelectronics/-/blob/dev/media/context_diagram.png?ref_type=heads)
 
-\<gli attori sono un sottoinsieme dei stakeholders>
-Attori:
-
----
-
-**Francesco**
-- Utente -> Cliente / Manager
-
----
-
-**Flaviana**
-- Cliente
-- Manager
-
----
-
-**Michele**
-
-- Cliente
-- Manager dello store
-- Database direi di **no**: penso che lo svilupperemo come sqlite dato che a web app facciamo quello; essendo di fatto su file interno al progetto, ricordo che il prof disse che non era da includere negli attori, ma stava nel sistema.
-
----
-
-**Giuseppe**
-
-- Cliente -> ovvero Utente **loggato**
-- anche qui si presenta il caso database -> lo metto per completezza
----
+__Attori__:
+- Utente: svolge attività generiche, indipendentemente dal fatto di essere registrato, come la navigazione e la ricerca dei prodotti presenti; può essere:
+  - Utente loggato: può agire sui prodotti, con modalità e privilegi dipendenti dal ruolo; può essere a sua volta:
+    - Cliente: ha la possibilità di acquistare i prodotti, tenendo traccia delle proprie transazioni, attraverso la creazione dei carrelli virtuali;
+    - Manager: ha la possibilità di effettuare operazioni sui prodotti del negozio, tenendo traccia degli arrivi e delle quantità presenti e vendute;
+  - Utente non loggato: oltre alle attività comuni a tutti gli utenti, può registrarsi presso il negozio virtuale, con un'interfaccia dedicata.
 
 ## Interfacce
 
@@ -89,7 +70,11 @@ Attori:
 
 |   Attore   | Interfaccia logica | Interfaccia fisica |
 | :--------: | :---------------: | :----------------: |
-| Attore x...|                   |                    |
+| Utente |  GUI                 | PC/Smartphone                   |
+| Utente loggato |  GUI                 | PC/Smartphone                   |
+| Utente non loggato |  GUI                 | PC/Smartphone                   |
+| Cliente |  GUI                 | PC/Smartphone                   |
+| Manager |  GUI                 | PC/Smartphone                   |
 
 # Storie e personas
 
@@ -102,10 +87,6 @@ Attori:
 # Requisiti funzionali e non funzionali
 
 ## Requisiti funzionali
-
-\<Nella forma FAI QUALCOSA, o VERBO SOSTANTIVO, descrivere le capacità di alto livello del sistema>
-
-\<Corrispondono a casi d'uso di alto livello>
 
 | ID  | Descrizione |
 | :-: | :---------: |
@@ -150,62 +131,9 @@ Attori:
 
 |   ID    | Tipo (efficienza, affidabilità, ..) | Descrizione | Si riferisce a |
 | :-----: | :--------------------------------: | :---------: | :-----------: |
-|  NFR1   |                                  |             |               |
-|  NFR2   |                                  |             |               |
-|  NFR3   |                                  |             |               |
-| NFRx .. |                                  |             |               |
-
----
-
-**Francesco**
-
-- Security:
-  - L'autenticazione deve essere gestita tramite librerie che utilizzano pratiche allo stato dell'arte
-  
----
-
-**Flaviana**
-- Affidabilità: ogni utente non deve segnalare più di 2 bug all'anno
-- Correttezza: l'applicazione deve essere in grado di gestire un aumento del traffico senza degrado delle prestazioni
-
----
-
-**Michele**
-
-- Usabilità:
-  - non deve essere necessario training per utilizzare l'applicazione in autonomia
-- Affidabilità/Disponibilità:
-  - l'uptime del server deve essere pari al 99%
-- Efficienza:
-  - il tempo di risposta deve essere pari o inferiore a 2 secondi
-- Correttezza:
-  - ??
-- Manutenibilità:
-  - risolvere un problema software deve richiedere un effort massimo di 7 person/hours
-  - modificare una funzionalità esistente deve richiedere un effort massimo di 7 person/hours
-  - eliminare una funzionalità esistente deve richiedere un effort massimo di 3 person/hours
-  - aggiungere una nuova funzionalità deve richiedere un effort massimo di 35 person/hours
-- Portabilità:
-  - modificare il DBMS su cui memorizzare i dati deve richiedere un effort massimo di 35 person/hours
-  - l'applicazione web deve essere disponibile sui browser Chrome, Firefox, Edge, Safari e Opera
-- Safety:
-  - il sistema non deve causare danni a persone o ambienti (è SW, quindi non saprei nemmeno se includerlo)
-- Security (**_non ne sono troppo sicuro, forse bisogna indagare più a fondo sulla parte di access_**):
-  - il numero di accessi malintenzionati deve essere inferiore a 1 all'anno
-  - qualcosa su privacy dei dati utente (crittografia, cors?), possibile GDPR-compliance o simili
-
----
-
-**Giuseppe**
-
-- Affidabilità:
-  - Il sistema può essere utilizzato dal Lunedi alla domenica h24 a meno di manutenzioni straordinarie
-- Security:
-  -  Il
-sistema deve effettuare sempre un controllo sui reali privilegi di chi effettua qualunque operazione
-prima di autorizzare operazioni di lettura/scrittura, esecuzione o cancellazione.
-
----
+|  NFR1   | Usabilità                                 | Non deve essere necessario training per essere in grado di utilizzare l'applicazione in autonomia            | FR1, FR2, FR3, FR4              |
+|  NFR2   | Disponibilità                                 | L'uptime del server deve essere pari al 99%              | FR1, FR2, FR3, FR4              |
+| NFR3 | Security                                 | L'autenticazione deve essere gestita mediante librerie che utilizzano pratiche conformi allo stato dell'arte             | FR1, FR2               |
 
 # Use Case Diagram e casi d'uso
 

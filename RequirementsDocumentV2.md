@@ -134,15 +134,33 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 ---
 
 **Flaviana**
-
+- Affidabilità: ogni utente non deve segnalare più di 2 bug all'anno
+- Correttezza: l'applicazione deve essere in grado di gestire un aumento del traffico senza degrado delle prestazioni
 ---
 
 **Michele**
-
+- Efficienza:
+  - il tempo di risposta deve essere pari o inferiore a 2 secondi
+- Correttezza:
+  - ??
+- Manutenibilità:
+  - risolvere un problema software deve richiedere un effort massimo di 7 person/hours
+  - modificare una funzionalità esistente deve richiedere un effort massimo di 7 person/hours
+  - eliminare una funzionalità esistente deve richiedere un effort massimo di 3 person/hours
+  - aggiungere una nuova funzionalità deve richiedere un effort massimo di 35 person/hours
+- Portabilità:
+  - modificare il DBMS su cui memorizzare i dati deve richiedere un effort massimo di 35 person/hours
+  - l'applicazione web deve essere disponibile sui browser Chrome, Firefox, Edge, Safari e Opera
+- Safety:
+  - il sistema non deve causare danni a persone o ambienti (è SW, quindi non saprei nemmeno se includerlo)
+- Security:
+  - il numero di accessi malintenzionati deve essere inferiore a 1 all'anno
+  - qualcosa su privacy dei dati utente (crittografia, cors?), possibile GDPR-compliance o simili
 ---
 
 **Giuseppe**
-
+- Security:
+  -  Il sistema deve effettuare sempre un controllo sui reali privilegi di chi effettua qualunque operazione prima di autorizzare operazioni di lettura/scrittura, esecuzione o cancellazione.
 ---
 
 # Use case diagram and use cases
