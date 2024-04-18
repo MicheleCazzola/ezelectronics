@@ -109,58 +109,40 @@ Attori:
 
 | ID  | Descrizione |
 | :-: | :---------: |
-| FR1 |             |
-| FR2 |             |
-| FR3 |             |
-| FR3 |             |
-| FR4 |             |
-| FR5 |             |
-| FR6 |             |
-
----
-
-**Francesco**
-
-- Creare un nuovo utente
-- Accedere con un utente esistente
-- Disconnettere un utente loggato
-- Recuperare informazioni sull'utente attualmente loggato
-- Recuperare una lista di tutti gli utenti, eventualmente filtrati per ruolo (cliente/manager) - solo test
-
----
-
-**Flaviana**
-- Ritornare un utente dato uno specifico username
-- Eliminare un utente dato uno specifico username
-- Eliminare tutti gli utenti (solo a scopo di test)
-- Creare un nuovo prodotto
-- Registrare l'arrivo di un set di prodotti dello stesso modello
-- Contrassegnare un prodotto come venduto
-
----
-
-**Michele**
-
-- FR3.4: Recuperare tutti i prodotti, eventualmente solo quelli venduti
-- FR3.5: Recuperare un prodotto, dato il suo codice
-- FR3.6: Recuperare tutti i prodotti appartenenti ad una data categoria, eventualmente solo quelli venduti
-- FR3.7: Recuperare tutti i prodotti appartenenti ad un dato modello, eventualmente solo quelli venduti
-- FR3.8: Eliminare tutti i prodotti (solo test?)
-- FR3.9: Eliminare uno prodotto, dato il suo codice
-
----
-
-**Giuseppe**
-
-- Recuperare il carrello corrente del cliente loggato
-- Aggiungere un prodotto al carrello corrente del cliente loggato
-- Pagare il carrello corrente del cliente loggato. Impostare il totale del carrello alla somma degli importi dei singoli prodotti presenti all'interno. Impostare la data di pagamento del suddetto carrello a quella del sistema. **Vanno separati?**
-- Recuperare lo storico dei carrelli che sono stati pagati dall'utente che è attualmente loggato.
-- Eliminare un prodotto dal carrello corrente del cliente loggato
-- Eliminare l'intero carrello corrente del cliente loggato
-- Eliminare tutti i carrelli esistenti (**solo test e pulizia db**)
-
----
+| FR1 | Gestione degli accessi            |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR1.1 | Login            |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR1.2 | Logout           |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR1.3 | Recupero informazioni sul profilo utente |
+| FR2 | Gestione degli utenti            |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1 | Creazione nuovo utente            |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2 | Recupero utenti           |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.1 | Recupero di tutti gli utenti          |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.2 | Recupero utenti, dato un ruolo       |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.3 | Recupero utente, dato lo username          |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3 | Eliminazione utenti |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.1 | Eliminazione utente, dato lo username       |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.2 | Eliminazione di tutti gli utenti (test)|
+| FR3 | Gestione dei prodotti            |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.1 | Creazione nuovo prodotto   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.2 | Registrazione arrivo di un insieme di prodotti dello stesso modello  |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.3 | Contrassegno di un prodotto come venduto  |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4 | Recupero prodotti  |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.1 | Recupero di un prodotto, dato il suo codice          |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.2 | Recupero prodotti, eventualmente solo se venduti, dato il modello      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.3 | Recupero prodotti, eventualmente solo se venduti, data la categoria          |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.4 | Recupero di tutti i prodotti, eventualmente solo se venduti         |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5 | Eliminazione prodotti  |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5.1 | Eliminazione di un prodotto, dato il suo codice         |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5.2 | Eliminazione di tutti i prodotti (test)        |
+| FR4 | Gestione dei carrelli           |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.1 | Recupero carrello dell'utente loggato   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.2 | Aggiunta di un prodotto al carrello dell'utente loggato  |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.3 | Pagamento di un carrello, avente per prezzo la somma dei prezzi dei prodotti inseriti e per data la data corrente |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.4 | Recupero storico dei carrelli pagati dall'utente  |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5 | Eliminazione carrelli  |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.1 | Eliminazione di un prodotto dal carrello corrente, dato il codice del prodotto        |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.2 | Eliminazione del carrello corrente dell'utente loggato       |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.3 | Eliminazione di tutti i carrelli (test)     |
 
 ## Requisiti non funzionali
 
