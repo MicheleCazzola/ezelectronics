@@ -285,35 +285,71 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 |     Varianti      |     |
 |     Eccezioni     |     |
 
-### Caso d'uso 9, UCx
+### Elimina il carrello corrente, UC9
 
-| Attori coinvolti  |     |
-| :---------------: | :-: |
-|   Precondizione   |     |
-|  Postcondizione   |     |
-| Scenario nominale |     |
-|     Varianti      |     |
-|     Eccezioni     |     |
+| Attori coinvolti  |                                       Cliente                                        |
+| :---------------: | :----------------------------------------------------------------------------------: |
+|   Precondizione   |               Deve esistere un carrello attivo                          |
+|  Postcondizione   |              Il carrello attivo viene eliminato                   |
+| Scenario nominale | Il cliente elimina i prodotti presenti all'interno del carrello e il carrello stesso |
+|     Varianti      |                                                                                      |
+|     Eccezioni     |                                                                                      |
 
-### Caso d'uso 10, UCx
+##### Scenario 1.1 - Eliminazione del carrello corrente
 
-| Attori coinvolti  |     |
-| :---------------: | :-: |
-|   Precondizione   |     |
-|  Postcondizione   |     |
-| Scenario nominale |     |
-|     Varianti      |     |
-|     Eccezioni     |     |
 
-### Caso d'uso 11, UCx
+|  Scenario 1.1  |                                                                                     |
+| :------------: | :---------------------------------------------------------------------------------: |
+| Precondizione  | Deve esistere un carrello attivo  |
+| Postcondizione |   Il carrello attivo viene eliminato
+|     Passo#     |                                     Descrizione                                     |
+|       1        |       Il cliente clicca sul pulsante per la visualizzazione del carrello |
+|       2        |                Il sistema mostra il carrello attivo                                                                    |
+|       3        |                               Il cliente clicca sul pulsante "**Elimina carrello**"                                                  |
 
-| Attori coinvolti  |     |
-| :---------------: | :-: |
-|   Precondizione   |     |
-|  Postcondizione   |     |
-| Scenario nominale |     |
-|     Varianti      |     |
-|     Eccezioni     |     |
+
+### Visualizza storico dei carrelli pagati, UC10
+
+| Attori coinvolti  |                                                Cliente                                                |
+| :---------------: | :---------------------------------------------------------------------------------------------------: |
+|   Precondizione   |                          Deve esserci almeno un carrello pagato                                                    |
+|  Postcondizione   |                             Il sistema mostra lo storico dei carrelli pagati                            |
+| Scenario nominale |                         Il cliente visualizza lo storico dei carrelli pagati                          |
+|     Varianti      |  |
+|     Eccezioni     |                                                                                                       
+
+##### Scenario 1.1 - Visualizzazione dello storico dei carrelli
+Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esistano.
+
+|  Scenario 1.1  |                                                                                     |
+| :------------: | :---------------------------------------------------------------------------------: |
+| Precondizione  |  Deve esserci almeno un carrello pagato                                          |
+| Postcondizione |  Il sistema mostra lo storico dei carrelli|
+|     Passo#     |                                     Descrizione                                     |
+|       1        | Il cliente ha cliccato sul pulsante relativo alla visualizzazione dello storico |
+|       2        |                   Il sistema mostra lo storico dei carrelli pagati  |
+
+### Rimuovi un prodotto del carrello, UC11
+
+| Attori coinvolti  |                            Cliente                            |
+| :---------------: | :-----------------------------------------------------------: |
+|   Precondizione   |               Deve esistere un carrello attivo              |
+|  Postcondizione   | Il prodotto selezionato non è più presente all'interno del carrello |
+| Scenario nominale |   Il cliente rimuove un prodotto a sua scelta dal carrello    |
+|     Varianti      |                                                               |
+|     Eccezioni     |                                                               |
+
+##### Scenario 1.1
+
+|  Scenario 1.1  |                                                                                     |
+| :------------: | :---------------------------------------------------------------------------------: |
+| Precondizione  | Deve esistere un carrello attivo|
+| Postcondizione | Il prodotto selezionato non è più presente all'interno del carrello  |
+|     Passo#     |                                     Descrizione                                     |
+|       1        |       Il cliente clicca sul pulsante per la visualizzazione del carrello |
+|       2        |                Il sistema mostra il carrello attivo                                                                    |
+|      3       | Il cliente clicca sul pulsante di rimozione dell'elemento relativo al prodotto che vuole eliminare  |
+|       4      |      Il sistema mostra il carrello attivo senza l'elemento eliminato |
 
 ### Caso d'uso 12, UCx
 
