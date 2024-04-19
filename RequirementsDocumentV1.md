@@ -140,6 +140,7 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 
 ## Use Case Diagram
 
+![Use case Diagram](media/use_case_diagram.png)
 \<Definire qui il Use Case Diagram UML che riassume tutti i casi d'uso e le loro relazioni>
 
 \<Descrivere qui ogni caso d'uso nel Use Case Diagram>
