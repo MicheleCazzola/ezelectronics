@@ -188,7 +188,125 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 |     Varianti      |     |
 |     Eccezioni     |     |
 
-### Caso d'uso x, UCx
+### Caso d'uso 3, UCx
+
+| Attori coinvolti  |     |
+| :---------------: | :-: |
+|   Precondizione   |     |
+|  Postcondizione   |     |
+| Scenario nominale |     |
+|     Varianti      |     |
+|     Eccezioni     |     |
+
+### Caso d'uso 4, UCx
+
+| Attori coinvolti  |     |
+| :---------------: | :-: |
+|   Precondizione   |     |
+|  Postcondizione   |     |
+| Scenario nominale |     |
+|     Varianti      |     |
+|     Eccezioni     |     |
+
+### Caso d'uso 5, UCx
+
+| Attori coinvolti  |     |
+| :---------------: | :-: |
+|   Precondizione   |     |
+|  Postcondizione   |     |
+| Scenario nominale |     |
+|     Varianti      |     |
+|     Eccezioni     |     |
+
+### Caso d'uso 6, UCx
+
+| Attori coinvolti  |     |
+| :---------------: | :-: |
+|   Precondizione   |     |
+|  Postcondizione   |     |
+| Scenario nominale |     |
+|     Varianti      |     |
+|     Eccezioni     |     |
+
+### Caso d'uso 7 UCx
+
+| Attori coinvolti  |     |
+| :---------------: | :-: |
+|   Precondizione   |     |
+|  Postcondizione   |     |
+| Scenario nominale |     |
+|     Varianti      |     |
+|     Eccezioni     |     |
+
+### Caso d'uso 8, UCx
+
+| Attori coinvolti  |     |
+| :---------------: | :-: |
+|   Precondizione   |     |
+|  Postcondizione   |     |
+| Scenario nominale |     |
+|     Varianti      |     |
+|     Eccezioni     |     |
+
+### Caso d'uso 9, UCx
+
+| Attori coinvolti  |     |
+| :---------------: | :-: |
+|   Precondizione   |     |
+|  Postcondizione   |     |
+| Scenario nominale |     |
+|     Varianti      |     |
+|     Eccezioni     |     |
+
+### Caso d'uso 10, UCx
+
+| Attori coinvolti  |     |
+| :---------------: | :-: |
+|   Precondizione   |     |
+|  Postcondizione   |     |
+| Scenario nominale |     |
+|     Varianti      |     |
+|     Eccezioni     |     |
+
+### Caso d'uso 11, UCx
+
+| Attori coinvolti  |     |
+| :---------------: | :-: |
+|   Precondizione   |     |
+|  Postcondizione   |     |
+| Scenario nominale |     |
+|     Varianti      |     |
+|     Eccezioni     |     |
+
+### Caso d'uso 12, UCx
+
+| Attori coinvolti  |     |
+| :---------------: | :-: |
+|   Precondizione   |     |
+|  Postcondizione   |     |
+| Scenario nominale |     |
+|     Varianti      |     |
+|     Eccezioni     |     |
+
+### Caso d'uso 13, UCx
+
+| Attori coinvolti  |     |
+| :---------------: | :-: |
+|   Precondizione   |     |
+|  Postcondizione   |     |
+| Scenario nominale |     |
+|     Varianti      |     |
+|     Eccezioni     |     |
+
+### Caso d'uso 14, UCx
+
+| Attori coinvolti  |     |
+| :---------------: | :-: |
+|   Precondizione   |     |
+|  Postcondizione   |     |
+| Scenario nominale |     |
+|     Varianti      |     |
+|     Eccezioni     |     |
 
 ..
 
