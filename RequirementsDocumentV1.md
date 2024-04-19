@@ -5,8 +5,8 @@ Data:
 Versione: V1 - descrizione di EZElectronics nella forma ATTUALE (come ricevuta dagli insegnanti)
 
 | Numero di versione | Modifica |
-| :---------------: | :------: |
-|                   |          |
+| :----------------: | :------: |
+|                    |          |
 
 # Contenuti
 
@@ -39,15 +39,15 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 
 # Stakeholders
 
-| Nome dello stakeholder | Descrizione |
-| :----------------------------: | :---------: |
-|         Utente         | Utilizzatore generico dell'applicazione, la sua attività principale varia a seconda della tipologia           |
-| Utente loggato | Utente che è registrato presso l'applicazione: la sua attività principale riguarda la gestione di prodotti o l'acquisto degli stessi|
-| Utente non loggato | Utente non registrato presso l'applicazione, la sua attività principale riguarda soltanto la ricerca e la navigazione tra i prodotti disponibili |
-| Cliente | Utente loggato la cui attività principale è l'acquisto di prodotti attraverso l'applicazione |
-| Manager | Utente loggato la cui attività principale è la gestione dei prodotti, sia in entrata che in uscita dal negozio virtuale |
-| Produttore | Individuo, organizzazione o azienda che produce gli oggetti che verranno messi in vendita attraverso la piattaforma |
-| Distributore | Individuo, organizzazione o azienda che distribuisce i prodotti, dal produttore al venditore (qui *Manager*) |
+| Nome dello stakeholder |                                                                   Descrizione                                                                    |
+| :--------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
+|         Utente         |                       Utilizzatore generico dell'applicazione, la sua attività principale varia a seconda della tipologia                        |
+|     Utente loggato     |       Utente che è registrato presso l'applicazione: la sua attività principale riguarda la gestione di prodotti o l'acquisto degli stessi       |
+|   Utente non loggato   | Utente non registrato presso l'applicazione, la sua attività principale riguarda soltanto la ricerca e la navigazione tra i prodotti disponibili |
+|        Cliente         |                           Utente loggato la cui attività principale è l'acquisto di prodotti attraverso l'applicazione                           |
+|        Manager         |             Utente loggato la cui attività principale è la gestione dei prodotti, sia in entrata che in uscita dal negozio virtuale              |
+|       Produttore       |               Individuo, organizzazione o azienda che produce gli oggetti che verranno messi in vendita attraverso la piattaforma                |
+|      Distributore      |                   Individuo, organizzazione o azienda che distribuisce i prodotti, dal produttore al venditore (qui _Manager_)                   |
 
 # Context Diagram e interfacce
 
@@ -55,7 +55,8 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 
 [Context Diagram](#https://git-softeng.polito.it/se-2023-24/group-ita-42/ezelectronics/-/blob/dev/media/context_diagram.png?ref_type=heads)
 
-__Attori__:
+**Attori**:
+
 - Utente: svolge attività generiche, indipendentemente dal fatto di essere registrato, come la navigazione e la ricerca dei prodotti presenti; può essere:
   - Utente loggato: può agire sui prodotti, con modalità e privilegi dipendenti dal ruolo; può essere a sua volta:
     - Cliente: ha la possibilità di acquistare i prodotti, tenendo traccia delle proprie transazioni, attraverso la creazione dei carrelli virtuali;
@@ -68,13 +69,13 @@ __Attori__:
 
 \<Le GUI saranno descritte graficamente in un documento separato>
 
-|   Attore   | Interfaccia logica | Interfaccia fisica |
-| :--------: | :---------------: | :----------------: |
-| Utente |  GUI                 | PC/Smartphone                   |
-| Utente loggato |  GUI                 | PC/Smartphone                   |
-| Utente non loggato |  GUI                 | PC/Smartphone                   |
-| Cliente |  GUI                 | PC/Smartphone                   |
-| Manager |  GUI                 | PC/Smartphone                   |
+|       Attore       | Interfaccia logica | Interfaccia fisica |
+| :----------------: | :----------------: | :----------------: |
+|       Utente       |        GUI         |   PC/Smartphone    |
+|   Utente loggato   |        GUI         |   PC/Smartphone    |
+| Utente non loggato |        GUI         |   PC/Smartphone    |
+|      Cliente       |        GUI         |   PC/Smartphone    |
+|      Manager       |        GUI         |   PC/Smartphone    |
 
 # Storie e personas
 
@@ -129,29 +130,30 @@ __Attori__:
 
 \<Descrivere i vincoli sui requisiti funzionali>
 
-|   ID    | Tipo (efficienza, affidabilità, ..) | Descrizione | Si riferisce a |
-| :-----: | :--------------------------------: | :---------: | :-----------: |
-|  NFR1   | Usabilità                                 | Non deve essere necessario training per essere in grado di utilizzare l'applicazione in autonomia            | FR1, FR2, FR3, FR4              |
-|  NFR2   | Disponibilità                                 | L'uptime del server deve essere pari al 99%              | FR1, FR2, FR3, FR4              |
-| NFR3 | Security                                 | L'autenticazione deve essere gestita mediante librerie che utilizzano pratiche conformi allo stato dell'arte             | FR1, FR2               |
+|  ID  | Tipo (efficienza, affidabilità, ..) |                                                 Descrizione                                                  |   Si riferisce a   |
+| :--: | :---------------------------------: | :----------------------------------------------------------------------------------------------------------: | :----------------: |
+| NFR1 |              Usabilità              |      Non deve essere necessario training per essere in grado di utilizzare l'applicazione in autonomia       | FR1, FR2, FR3, FR4 |
+| NFR2 |            Disponibilità            |                                 L'uptime del server deve essere pari al 99%                                  | FR1, FR2, FR3, FR4 |
+| NFR3 |              Security               | L'autenticazione deve essere gestita mediante librerie che utilizzano pratiche conformi allo stato dell'arte |      FR1, FR2      |
 
 # Use Case Diagram e casi d'uso
 
 ## Use Case Diagram
 
+![Use case Diagram](media/use_case_diagram.png)
 \<Definire qui il Use Case Diagram UML che riassume tutti i casi d'uso e le loro relazioni>
 
 \<Descrivere qui ogni caso d'uso nel Use Case Diagram>
 
 ### Caso d'uso 1, UC1
 
-| Attori coinvolti |     |
-| :--------------: | :-: |
-|  Precondizione   |     |
-| Postcondizione   |     |
+| Attori coinvolti  |     |
+| :---------------: | :-: |
+|   Precondizione   |     |
+|  Postcondizione   |     |
 | Scenario nominale |     |
-| Varianti        |     |
-| Eccezioni       |     |
+|     Varianti      |     |
+|     Eccezioni     |     |
 
 ##### Scenario 1.1
 
@@ -163,14 +165,14 @@ __Attori__:
 
 \<Dovrebbero essere descritti solo gli scenari rilevanti>
 
-|  Scenario 1.1  |                                                                            |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondizione  | \<Espressione booleana, deve valutarsi a true prima che lo scenario possa iniziare> |
-| Postcondizione |  \<Espressione booleana, deve valutarsi a true dopo che lo scenario è terminato>   |
-|     Passo#      |                                Descrizione                                 |
-|       1        |                                                                            |
-|       2        |                                                                            |
-|      ...       |                                                                            |
+|  Scenario 1.1  |                                                                                     |
+| :------------: | :---------------------------------------------------------------------------------: |
+| Precondizione  | \<Espressione booleana, deve valutarsi a true prima che lo scenario possa iniziare> |
+| Postcondizione |   \<Espressione booleana, deve valutarsi a true dopo che lo scenario è terminato>   |
+|     Passo#     |                                     Descrizione                                     |
+|       1        |                                                                                     |
+|       2        |                                                                                     |
+|      ...       |                                                                                     |
 
 ##### Scenario 1.2
 
@@ -178,13 +180,13 @@ __Attori__:
 
 ### Caso d'uso 2, UC2
 
-| Attori coinvolti |     |
-| :--------------: | :-: |
-|  Precondizione   |     |
-| Postcondizione   |     |
+| Attori coinvolti  |     |
+| :---------------: | :-: |
+|   Precondizione   |     |
+|  Postcondizione   |     |
 | Scenario nominale |     |
-| Varianti        |     |
-| Eccezioni       |     |
+|     Varianti      |     |
+|     Eccezioni     |     |
 
 ### Caso d'uso x, UCx
 
@@ -194,7 +196,7 @@ __Attori__:
 
 \<Utilizzare il diagramma delle classi UML per definire termini o concetti importanti nel dominio dell'applicazione e le loro relazioni>
 
-  \<I concetti devono essere utilizzati in modo coerente in tutto il documento, ad esempio nei casi d'uso, nei requisiti, ecc.>
+\<I concetti devono essere utilizzati in modo coerente in tutto il documento, ad esempio nei casi d'uso, nei requisiti, ecc.>
 
 [Class Diagram](#https://git-softeng.polito.it/se-2023-24/group-ita-42/ezelectronics/-/blob/dev/media/glossario.png?ref_type=heads)
 
@@ -207,4 +209,3 @@ __Attori__:
 # Deployment Diagram
 
 \<Descrivere qui il Deployment Diagram>
-
