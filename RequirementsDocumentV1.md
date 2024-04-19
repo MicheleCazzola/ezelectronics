@@ -295,10 +295,10 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 |     Varianti      |                                                                                      |
 |     Eccezioni     |                                                                                      |
 
-##### Scenario 1.1 - Eliminazione del carrello corrente
+##### Scenario 9.1 - Eliminazione del carrello corrente
 
 
-|  Scenario 1.1  |                                                                                     |
+|  Scenario 9.1  |                                                                                     |
 | :------------: | :---------------------------------------------------------------------------------: |
 | Precondizione  | Deve esistere un carrello attivo  |
 | Postcondizione |   Il carrello attivo viene eliminato
@@ -318,10 +318,10 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 |     Varianti      |  |
 |     Eccezioni     |                                                                                                       
 
-##### Scenario 1.1 - Visualizzazione dello storico dei carrelli
+##### Scenario 10.1 - Visualizzazione dello storico dei carrelli
 Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esistano.
 
-|  Scenario 1.1  |                                                                                     |
+|  Scenario 10.1  |                                                                                     |
 | :------------: | :---------------------------------------------------------------------------------: |
 | Precondizione  |  Deve esserci almeno un carrello pagato                                          |
 | Postcondizione |  Il sistema mostra lo storico dei carrelli|
@@ -339,9 +339,9 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 |     Varianti      |                                                               |
 |     Eccezioni     |                                                               |
 
-##### Scenario 1.1
+##### Scenario 11.1
 
-|  Scenario 1.1  |                                                                                     |
+|  Scenario 11.1  |                                                                                     |
 | :------------: | :---------------------------------------------------------------------------------: |
 | Precondizione  | Deve esistere un carrello attivo|
 | Postcondizione | Il prodotto selezionato non è più presente all'interno del carrello  |
