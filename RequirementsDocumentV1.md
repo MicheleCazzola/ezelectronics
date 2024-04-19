@@ -205,7 +205,7 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 
 ##### Scenario 2.2
 
-|  Scenario 1.1  |                                                                |
+|  Scenario 1.2  |                                                                |
 | :------------: | :------------------------------------------------------------: |
 | Precondizione  |                                                                |
 | Postcondizione |                     L'utente non è loggato                     |
@@ -215,15 +215,26 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 |       3        |             L'utente preme sul pulsante 'Conferma'             |
 |       4        | Se i dati di accesso sono incorretti, viene mostrato un errore |
 
-### Caso d'uso 3, UCx
+### Caso d'uso 3, UC3
 
-| Attori coinvolti  |     |
-| :---------------: | :-: |
-|   Precondizione   |     |
-|  Postcondizione   |     |
-| Scenario nominale |     |
-|     Varianti      |     |
-|     Eccezioni     |     |
+| Attori coinvolti  |                      Utente loggato                      |
+| :---------------: | :------------------------------------------------------: |
+|   Precondizione   |                                                          |
+|  Postcondizione   |                  L'utente non è loggato                  |
+| Scenario nominale | L'utente preme sul pulsante 'Logout' e viene disconnesso |
+|     Varianti      |                                                          |
+|     Eccezioni     |                                                          |
+
+##### Scenario 3.1
+
+|  Scenario 3.1  |                                         |
+| :------------: | :-------------------------------------: |
+| Precondizione  |                                         |
+| Postcondizione |         L'utente non è loggato          |
+|     Passo#     |               Descrizione               |
+|       1        |  L'utente preme sul pulsante 'Logout'   |
+|       2        |       L'utente viene disconnesso        |
+|       3        | Viene mostrato un messaggio di successo |
 
 ### Caso d'uso 4, UCx
 
