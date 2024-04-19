@@ -147,46 +147,73 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 
 ### Caso d'uso 1, UC1
 
-| Attori coinvolti  |     |
-| :---------------: | :-: |
-|   Precondizione   |     |
-|  Postcondizione   |     |
-| Scenario nominale |     |
-|     Varianti      |     |
-|     Eccezioni     |     |
+| Attori coinvolti  |                        Utente non loggato                         |
+| :---------------: | :---------------------------------------------------------------: |
+|   Precondizione   |                                                                   |
+|  Postcondizione   |                                                                   |
+| Scenario nominale | L'utente non loggato inserisce i dati e registra una nuova utenza |
+|     Varianti      |                                                                   |
+|     Eccezioni     |                      username già esistente                       |
 
 ##### Scenario 1.1
 
-\<Descrivere qui gli scenari istanze di UC1>
-
-\<Uno scenario è una sequenza di passi che corrisponde a una particolare esecuzione di un caso d'uso>
-
-\<Uno scenario è una descrizione più formale di una storia>
-
-\<Dovrebbero essere descritti solo gli scenari rilevanti>
-
-|  Scenario 1.1  |                                                                                     |
-| :------------: | :---------------------------------------------------------------------------------: |
-| Precondizione  | \<Espressione booleana, deve valutarsi a true prima che lo scenario possa iniziare> |
-| Postcondizione |   \<Espressione booleana, deve valutarsi a true dopo che lo scenario è terminato>   |
-|     Passo#     |                                     Descrizione                                     |
-|       1        |                                                                                     |
-|       2        |                                                                                     |
-|      ...       |                                                                                     |
+|  Scenario 1.1  |                                                                                  |
+| :------------: | :------------------------------------------------------------------------------: |
+| Precondizione  |                                                                                  |
+| Postcondizione |                                                                                  |
+|     Passo#     |                                   Descrizione                                    |
+|       1        |                     L'utente preme sul pulsante 'Registrati'                     |
+|       2        | L'utente inserisce username, nome, cognome, password e ruolo (cliente o manager) |
+|       3        |                      L'utente preme sul pulsante 'Conferma'                      |
+|       4        |                Viene creata una nuova utenza con i dati inseriti                 |
+|       5        |                      Viene mostrata una pagina di successo                       |
 
 ##### Scenario 1.2
 
-##### Scenario 1.x
+|  Scenario 1.2  |                                                                                  |
+| :------------: | :------------------------------------------------------------------------------: |
+| Precondizione  |                                                                                  |
+| Postcondizione |                                                                                  |
+|     Passo#     |                                   Descrizione                                    |
+|       1        |                     L'utente preme sul pulsante 'Registrati'                     |
+|       2        | L'utente inserisce username, nome, cognome, password e ruolo (cliente o manager) |
+|       3        |                      L'utente preme sul pulsante 'Conferma'                      |
+|       4        |     Se esiste già un utente con lo stesso username, viene mostrato un errore     |
 
 ### Caso d'uso 2, UC2
 
-| Attori coinvolti  |     |
-| :---------------: | :-: |
-|   Precondizione   |     |
-|  Postcondizione   |     |
-| Scenario nominale |     |
-|     Varianti      |     |
-|     Eccezioni     |     |
+| Attori coinvolti  |                                            Utente non loggato                                             |
+| :---------------: | :-------------------------------------------------------------------------------------------------------: |
+|   Precondizione   |                                                                                                           |
+|  Postcondizione   |                                            L'utente è loggato                                             |
+| Scenario nominale | L'utente inserisce i dati, il sistema ne verifica la correttezza e in caso positivo si effettua l'accesso |
+|     Varianti      |                                                                                                           |
+|     Eccezioni     |         Se i dati inseriti non sono corretti viene mostrato un errore e non si effettua l'accesso         |
+
+##### Scenario 2.1
+
+|  Scenario 1.1  |                                        |
+| :------------: | :------------------------------------: |
+| Precondizione  |                                        |
+| Postcondizione |           L'utente è loggato           |
+|     Passo#     |              Descrizione               |
+|       1        |  L'utente preme sul pulsante 'Login'   |
+|       2        | L'utente inserisce username e password |
+|       3        | L'utente preme sul pulsante 'Conferma' |
+|       4        |       Viene effettuato l'accesso       |
+|       5        | Viene mostrata una pagina di successo  |
+
+##### Scenario 2.2
+
+|  Scenario 1.1  |                                                                |
+| :------------: | :------------------------------------------------------------: |
+| Precondizione  |                                                                |
+| Postcondizione |                     L'utente non è loggato                     |
+|     Passo#     |                          Descrizione                           |
+|       1        |              L'utente preme sul pulsante 'Login'               |
+|       2        |             L'utente inserisce username e password             |
+|       3        |             L'utente preme sul pulsante 'Conferma'             |
+|       4        | Se i dati di accesso sono incorretti, viene mostrato un errore |
 
 ### Caso d'uso 3, UCx
 
