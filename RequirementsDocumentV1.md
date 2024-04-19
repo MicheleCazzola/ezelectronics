@@ -94,16 +94,15 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 |                                       FR1                                        |                                              Gestione degli accessi                                               |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR1.1                    |                                                       Login                                                       |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR1.2                    |                                                      Logout                                                       |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR1.3                    |                                     Recupero informazioni sul profilo utente                                      |
 |                                       FR2                                        |                                               Gestione degli utenti                                               |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1                    |                                              Creazione nuovo utente                                               |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2                    |                                              Recupero utenti (test)                                               |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.1 |                                           Recupero di tutti gli utenti                                            |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.2 |                                          Recupero utenti, dato un ruolo                                           |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.3 |                                         Recupero utente, dato lo username                                         |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3                    |                                            Eliminazione utenti (test)                                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.1 |                                       Eliminazione utente, dato lo username                                       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.2 |                                         Eliminazione di tutti gli utenti                                          |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2                    |                                                  Recupero utenti                                                  |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.1 |                                        Recupero di tutti gli utenti (test)                                        |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.2 |                                       Recupero utenti, dato un ruolo (test)                                       |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.3 |                                     Recupero utente, dato lo username (test)                                      |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3                    |                                                Eliminazione utenti                                                |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.1 |                                   Eliminazione utente, dato lo username (test)                                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.2 |                                      Eliminazione di tutti gli utenti (test)                                      |
 |                                       FR3                                        |                                               Gestione dei prodotti                                               |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.1                    |                                             Creazione nuovo prodotto                                              |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.2                    |                        Registrazione arrivo di un insieme di prodotti dello stesso modello                        |
