@@ -41,39 +41,30 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 
 | Nome dello stakeholder |                                                                   Descrizione                                                                    |
 | :--------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
-|         Utente         |                       Utilizzatore generico dell'applicazione, la sua attività principale varia a seconda della tipologia                        |
-|     Utente loggato     |       Utente che è registrato presso l'applicazione: la sua attività principale riguarda la gestione di prodotti o l'acquisto degli stessi       |
-|   Utente non loggato   | Utente non registrato presso l'applicazione, la sua attività principale riguarda soltanto la ricerca e la navigazione tra i prodotti disponibili |
-|        Cliente         |                           Utente loggato la cui attività principale è l'acquisto di prodotti attraverso l'applicazione                           |
-|        Manager         |             Utente loggato la cui attività principale è la gestione dei prodotti, sia in entrata che in uscita dal negozio virtuale              |
+|   Utente non autenticato   | Utente non registrato presso l'applicazione, la sua attività principale riguarda ?? |
+|        Cliente         |                           Utente autenticato la cui attività principale è l'acquisto di prodotti attraverso l'applicazione                           |
+|        Manager         |             Utente autenticato la cui attività principale è la gestione dei prodotti, sia in entrata che in uscita dal negozio virtuale              |
 |       Produttore       |               Individuo, organizzazione o azienda che produce gli oggetti che verranno messi in vendita attraverso la piattaforma                |
-|      Distributore      |                   Individuo, organizzazione o azienda che distribuisce i prodotti, dal produttore al venditore (qui _Manager_)                   |
+|      Distributore      |                   Individuo, organizzazione o azienda che distribuisce i prodotti, dal produttore al venditore (_Manager_)                  |
 
 # Context Diagram e interfacce
 
 ## Context Diagram
 
-[Context Diagram](#https://git-softeng.polito.it/se-2023-24/group-ita-42/ezelectronics/-/blob/dev/media/context_diagram.png?ref_type=heads)
+![Context Diagram](/media/context_diagram.png)
 
 **Attori**:
-
-- Utente: svolge attività generiche, indipendentemente dal fatto di essere registrato, come la navigazione e la ricerca dei prodotti presenti; può essere:
-  - Utente loggato: può agire sui prodotti, con modalità e privilegi dipendenti dal ruolo; può essere a sua volta:
-    - Cliente: ha la possibilità di acquistare i prodotti, tenendo traccia delle proprie transazioni, attraverso la creazione dei carrelli virtuali;
-    - Manager: ha la possibilità di effettuare operazioni sui prodotti del negozio, tenendo traccia degli arrivi e delle quantità presenti e vendute;
-  - Utente non loggato: oltre alle attività comuni a tutti gli utenti, può registrarsi presso il negozio virtuale, con un'interfaccia dedicata.
+- Cliente: ha la possibilità di acquistare i prodotti, tenendo traccia delle proprie transazioni, attraverso la creazione dei carrelli virtuali;
+- Manager: ha la possibilità di effettuare operazioni sui prodotti del negozio, tenendo traccia degli arrivi e delle quantità presenti e vendute;
+- Utente non autenticato: oltre alle attività comuni a tutti gli utenti, può registrarsi presso il negozio virtuale, con un'interfaccia dedicata.
 
 ## Interfacce
-
-\<Descrivere qui ogni interfaccia nel Context Diagram>
 
 \<Le GUI saranno descritte graficamente in un documento separato>
 
 |       Attore       | Interfaccia logica | Interfaccia fisica |
 | :----------------: | :----------------: | :----------------: |
-|       Utente       |        GUI         |   PC/Smartphone    |
-|   Utente loggato   |        GUI         |   PC/Smartphone    |
-| Utente non loggato |        GUI         |   PC/Smartphone    |
+| Utente non autenticato |        GUI         |   PC/Smartphone    |
 |      Cliente       |        GUI         |   PC/Smartphone    |
 |      Manager       |        GUI         |   PC/Smartphone    |
 
