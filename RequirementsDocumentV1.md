@@ -384,13 +384,137 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 
 ### Caso d'uso 10, UC10
 
-| Attori coinvolti  |     |
-| :---------------: | :-: |
-|   Precondizione   |     |
-|  Postcondizione   |     |
-| Scenario nominale |     |
-|     Varianti      |     |
-|     Eccezioni     |     |
+| Attori coinvolti  |                   Manager                   |
+| :---------------: | :-----------------------------------------: |
+|   Precondizione   |                                             |
+|  Postcondizione   |                                             |
+| Scenario nominale |    Il manager aggiunge un nuovo prodotto    |
+|     Varianti      |                                             |
+|     Eccezioni     | Esiste già un prodotto con lo stesso codice |
+
+#### Scenario 10.1
+
+| Scenario 10.1  |                                                                   |
+| :------------: | :---------------------------------------------------------------: |
+| Precondizione  |                                                                   |
+| Postcondizione |                                                                   |
+|     Passo#     |                            Descrizione                            |
+|       1        |   Il manager clicca sul pulsante per inserire un nuovo prodotto   |
+|       2        |             Il sistema mostra il form di inserimento              |
+|       3        | Il manager inserisce codice, prezzo, modello, categoria, dettagli |
+|       4        |             Il manager preme sul pulsante di conferma             |
+|       5        |            Il sistema mostra un messaggio di successo             |
+
+#### Scenario 10.2
+
+| Scenario 10.2  |                                                                   |
+| :------------: | :---------------------------------------------------------------: |
+| Precondizione  |            Esiste già un prodotto con lo stesso codice            |
+| Postcondizione |                                                                   |
+|     Passo#     |                            Descrizione                            |
+|       1        |   Il manager clicca sul pulsante per inserire un nuovo prodotto   |
+|       2        |             Il sistema mostra il form di inserimento              |
+|       3        | Il manager inserisce codice, prezzo, modello, categoria, dettagli |
+|       4        |             Il manager preme sul pulsante di conferma             |
+|       5        |             Il sistema mostra un messaggio di errore              |
+
+### Caso d'uso 11, UC11
+
+| Attori coinvolti  |            Manager             |
+| :---------------: | :----------------------------: |
+|   Precondizione   |                                |
+|  Postcondizione   |                                |
+| Scenario nominale | Il manager rimuove un prodotto |
+|     Varianti      |                                |
+|     Eccezioni     |                                |
+
+#### Scenario 11.1
+
+| Scenario 11.1  |                                                            |
+| :------------: | :--------------------------------------------------------: |
+| Precondizione  |                 Esiste almeno un prodotto                  |
+| Postcondizione |                                                            |
+|     Passo#     |                        Descrizione                         |
+|       1        | Il manager clicca sul pulsante di rimozione di un prodotto |
+|       2        |           Il sistema mostra un popup di conferma           |
+|       3        |         Il manager preme sul pulsante di conferma          |
+|       4        |         Il sistema mostra un messaggio di successo         |
+
+### Caso d'uso 12, UC12
+
+| Attori coinvolti  |                     Manager                      |
+| :---------------: | :----------------------------------------------: |
+|   Precondizione   |      Esiste almeno un prodotto non venduto       |
+|  Postcondizione   |                                                  |
+| Scenario nominale | Il manager contrassegna un prodotto come venduto |
+|     Varianti      |                                                  |
+|     Eccezioni     |                                                  |
+
+#### Scenario 12.1
+
+| Scenario 12.1  |                                                          |
+| :------------: | :------------------------------------------------------: |
+| Precondizione  |          Esiste almeno un prodotto non venduto           |
+| Postcondizione |                                                          |
+|     Passo#     |                       Descrizione                        |
+|       1        | Il manager clicca sul pulsante di vendita di un prodotto |
+|       2        |        Il sistema mostra un messaggio di conferma        |
+
+### Caso d'uso 13, UC13
+
+| Attori coinvolti  |                    Manager                     |
+| :---------------: | :--------------------------------------------: |
+|   Precondizione   |           Esiste almeno un prodotto            |
+|  Postcondizione   |                                                |
+| Scenario nominale | Il manager aggiorna la quantità di un prodotto |
+|     Varianti      |                                                |
+|     Eccezioni     |                                                |
+
+#### Scenario 13.1
+
+| Scenario 13.1  |                                                           |
+| :------------: | :-------------------------------------------------------: |
+| Precondizione  |           Esiste almeno un prodotto non venduto           |
+| Postcondizione |                                                           |
+|     Passo#     |                        Descrizione                        |
+|       1        | Il manager clicca sul pulsante di modifica di un prodotto |
+|       2        |          Il manager inserisce la nuova quantità           |
+|       3        |        Il sistema mostra un messaggio di conferma         |
+
+### Caso d'uso 14, UC14
+
+# Cerca prodotti (filtra per categoria, modello, venduti)
+
+| Attori coinvolti  |                         Utente loggato                         |
+| :---------------: | :------------------------------------------------------------: |
+|   Precondizione   |                                                                |
+|  Postcondizione   |                                                                |
+| Scenario nominale |          L'utente effettua una ricerca di un prodotto          |
+|     Varianti      | È possibile filtrare per categoria, modello o prodotto venduto |
+|     Eccezioni     |                                                                |
+
+#### Scenario 14.1
+
+| Scenario 14.1  |                                             |
+| :------------: | :-----------------------------------------: |
+| Precondizione  |                                             |
+| Postcondizione |                                             |
+|     Passo#     |                 Descrizione                 |
+|       1        |   L'utente scrive nella barra di ricerca    |
+|       2        |   L'utente preme sul pulsante di ricerca    |
+|       3        | Il sistema mostra i risultati della ricerca |
+
+#### Scenario 14.2
+
+| Scenario 14.2  |                                             |
+| :------------: | :-----------------------------------------: |
+| Precondizione  |                                             |
+| Postcondizione |                                             |
+|     Passo#     |                 Descrizione                 |
+|       1        |   L'utente scrive nella barra di ricerca    |
+|       2        |     L'utente seleziona uno o più filtri     |
+|       3        |   L'utente preme sul pulsante di ricerca    |
+|       4        | Il sistema mostra i risultati della ricerca |
 
 # Glossario
 
