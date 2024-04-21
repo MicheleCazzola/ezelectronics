@@ -41,39 +41,30 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 
 | Nome dello stakeholder |                                                                   Descrizione                                                                    |
 | :--------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
-|         Utente         |                       Utilizzatore generico dell'applicazione, la sua attività principale varia a seconda della tipologia                        |
-|     Utente loggato     |       Utente che è registrato presso l'applicazione: la sua attività principale riguarda la gestione di prodotti o l'acquisto degli stessi       |
-|   Utente non loggato   | Utente non registrato presso l'applicazione, la sua attività principale riguarda soltanto la ricerca e la navigazione tra i prodotti disponibili |
-|        Cliente         |                           Utente loggato la cui attività principale è l'acquisto di prodotti attraverso l'applicazione                           |
-|        Manager         |             Utente loggato la cui attività principale è la gestione dei prodotti, sia in entrata che in uscita dal negozio virtuale              |
+|   Utente non autenticato   | Utente non registrato presso l'applicazione, la sua attività principale riguarda ?? |
+|        Cliente         |                           Utente autenticato la cui attività principale è l'acquisto di prodotti attraverso l'applicazione                           |
+|        Manager         |             Utente autenticato la cui attività principale è la gestione dei prodotti, sia in entrata che in uscita dal negozio virtuale              |
 |       Produttore       |               Individuo, organizzazione o azienda che produce gli oggetti che verranno messi in vendita attraverso la piattaforma                |
-|      Distributore      |                   Individuo, organizzazione o azienda che distribuisce i prodotti, dal produttore al venditore (qui _Manager_)                   |
+|      Distributore      |                   Individuo, organizzazione o azienda che distribuisce i prodotti, dal produttore al venditore (_Manager_)                  |
 
 # Context Diagram e interfacce
 
 ## Context Diagram
 
-[Context Diagram](#https://git-softeng.polito.it/se-2023-24/group-ita-42/ezelectronics/-/blob/dev/media/context_diagram.png?ref_type=heads)
+![Context Diagram](/media/context_diagram.png)
 
 **Attori**:
-
-- Utente: svolge attività generiche, indipendentemente dal fatto di essere registrato, come la navigazione e la ricerca dei prodotti presenti; può essere:
-  - Utente loggato: può agire sui prodotti, con modalità e privilegi dipendenti dal ruolo; può essere a sua volta:
-    - Cliente: ha la possibilità di acquistare i prodotti, tenendo traccia delle proprie transazioni, attraverso la creazione dei carrelli virtuali;
-    - Manager: ha la possibilità di effettuare operazioni sui prodotti del negozio, tenendo traccia degli arrivi e delle quantità presenti e vendute;
-  - Utente non loggato: oltre alle attività comuni a tutti gli utenti, può registrarsi presso il negozio virtuale, con un'interfaccia dedicata.
+- Cliente: ha la possibilità di acquistare i prodotti, tenendo traccia delle proprie transazioni, attraverso la creazione dei carrelli virtuali;
+- Manager: ha la possibilità di effettuare operazioni sui prodotti del negozio, tenendo traccia degli arrivi e delle quantità presenti e vendute;
+- Utente non autenticato: oltre alle attività comuni a tutti gli utenti, può registrarsi presso il negozio virtuale, con un'interfaccia dedicata.
 
 ## Interfacce
-
-\<Descrivere qui ogni interfaccia nel Context Diagram>
 
 \<Le GUI saranno descritte graficamente in un documento separato>
 
 |       Attore       | Interfaccia logica | Interfaccia fisica |
 | :----------------: | :----------------: | :----------------: |
-|       Utente       |        GUI         |   PC/Smartphone    |
-|   Utente loggato   |        GUI         |   PC/Smartphone    |
-| Utente non loggato |        GUI         |   PC/Smartphone    |
+| Utente non autenticato |        GUI         |   PC/Smartphone    |
 |      Cliente       |        GUI         |   PC/Smartphone    |
 |      Manager       |        GUI         |   PC/Smartphone    |
 
@@ -94,16 +85,15 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 |                                       FR1                                        |                                              Gestione degli accessi                                               |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR1.1                    |                                                       Login                                                       |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR1.2                    |                                                      Logout                                                       |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR1.3                    |                                     Recupero informazioni sul profilo utente                                      |
 |                                       FR2                                        |                                               Gestione degli utenti                                               |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1                    |                                              Creazione nuovo utente                                               |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2                    |                                              Recupero utenti (test)                                               |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.1 |                                           Recupero di tutti gli utenti                                            |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.2 |                                          Recupero utenti, dato un ruolo                                           |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.3 |                                         Recupero utente, dato lo username                                         |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3                    |                                            Eliminazione utenti (test)                                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.1 |                                       Eliminazione utente, dato lo username                                       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.2 |                                         Eliminazione di tutti gli utenti                                          |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2                    |                                                  Recupero utenti                                                  |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.1 |                                        Recupero di tutti gli utenti (test)                                        |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.2 |                                       Recupero utenti, dato un ruolo (test)                                       |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.3 |                                     Recupero utente, dato lo username (test)                                      |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3                    |                                                Eliminazione utenti                                                |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.1 |                                   Eliminazione utente, dato lo username (test)                                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.2 |                                      Eliminazione di tutti gli utenti (test)                                      |
 |                                       FR3                                        |                                               Gestione dei prodotti                                               |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.1                    |                                             Creazione nuovo prodotto                                              |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.2                    |                        Registrazione arrivo di un insieme di prodotti dello stesso modello                        |
@@ -147,56 +137,94 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 
 ### Caso d'uso 1, UC1
 
-| Attori coinvolti  |     |
-| :---------------: | :-: |
-|   Precondizione   |     |
-|  Postcondizione   |     |
-| Scenario nominale |     |
-|     Varianti      |     |
-|     Eccezioni     |     |
+| Attori coinvolti  |                        Utente non loggato                         |
+| :---------------: | :---------------------------------------------------------------: |
+|   Precondizione   |                                                                   |
+|  Postcondizione   |                                                                   |
+| Scenario nominale | L'utente non loggato inserisce i dati e registra una nuova utenza |
+|     Varianti      |                                                                   |
+|     Eccezioni     |                      username già esistente                       |
 
 ##### Scenario 1.1
 
-\<Descrivere qui gli scenari istanze di UC1>
-
-\<Uno scenario è una sequenza di passi che corrisponde a una particolare esecuzione di un caso d'uso>
-
-\<Uno scenario è una descrizione più formale di una storia>
-
-\<Dovrebbero essere descritti solo gli scenari rilevanti>
-
-|  Scenario 1.1  |                                                                                     |
-| :------------: | :---------------------------------------------------------------------------------: |
-| Precondizione  | \<Espressione booleana, deve valutarsi a true prima che lo scenario possa iniziare> |
-| Postcondizione |   \<Espressione booleana, deve valutarsi a true dopo che lo scenario è terminato>   |
-|     Passo#     |                                     Descrizione                                     |
-|       1        |                                                                                     |
-|       2        |                                                                                     |
-|      ...       |                                                                                     |
+|  Scenario 1.1  |                                                                                  |
+| :------------: | :------------------------------------------------------------------------------: |
+| Precondizione  |                                                                                  |
+| Postcondizione |                                                                                  |
+|     Passo#     |                                   Descrizione                                    |
+|       1        |                     L'utente preme sul pulsante 'Registrati'                     |
+|       2        | L'utente inserisce username, nome, cognome, password e ruolo (cliente o manager) |
+|       3        |                      L'utente preme sul pulsante 'Conferma'                      |
+|       4        |                Viene creata una nuova utenza con i dati inseriti                 |
+|       5        |                      Viene mostrata una pagina di successo                       |
 
 ##### Scenario 1.2
 
-##### Scenario 1.x
+|  Scenario 1.2  |                                                                                  |
+| :------------: | :------------------------------------------------------------------------------: |
+| Precondizione  |                                                                                  |
+| Postcondizione |                                                                                  |
+|     Passo#     |                                   Descrizione                                    |
+|       1        |                     L'utente preme sul pulsante 'Registrati'                     |
+|       2        | L'utente inserisce username, nome, cognome, password e ruolo (cliente o manager) |
+|       3        |                      L'utente preme sul pulsante 'Conferma'                      |
+|       4        |     Se esiste già un utente con lo stesso username, viene mostrato un errore     |
 
 ### Caso d'uso 2, UC2
 
-| Attori coinvolti  |     |
-| :---------------: | :-: |
-|   Precondizione   |     |
-|  Postcondizione   |     |
-| Scenario nominale |     |
-|     Varianti      |     |
-|     Eccezioni     |     |
+| Attori coinvolti  |                                            Utente non loggato                                             |
+| :---------------: | :-------------------------------------------------------------------------------------------------------: |
+|   Precondizione   |                                                                                                           |
+|  Postcondizione   |                                            L'utente è loggato                                             |
+| Scenario nominale | L'utente inserisce i dati, il sistema ne verifica la correttezza e in caso positivo si effettua l'accesso |
+|     Varianti      |                                                                                                           |
+|     Eccezioni     |         Se i dati inseriti non sono corretti viene mostrato un errore e non si effettua l'accesso         |
 
-### Caso d'uso 3, UCx
+##### Scenario 2.1
 
-| Attori coinvolti  |     |
-| :---------------: | :-: |
-|   Precondizione   |     |
-|  Postcondizione   |     |
-| Scenario nominale |     |
-|     Varianti      |     |
-|     Eccezioni     |     |
+|  Scenario 1.1  |                                        |
+| :------------: | :------------------------------------: |
+| Precondizione  |                                        |
+| Postcondizione |           L'utente è loggato           |
+|     Passo#     |              Descrizione               |
+|       1        |  L'utente preme sul pulsante 'Login'   |
+|       2        | L'utente inserisce username e password |
+|       3        | L'utente preme sul pulsante 'Conferma' |
+|       4        |       Viene effettuato l'accesso       |
+|       5        | Viene mostrata una pagina di successo  |
+
+##### Scenario 2.2
+
+|  Scenario 1.2  |                                                                |
+| :------------: | :------------------------------------------------------------: |
+| Precondizione  |                                                                |
+| Postcondizione |                     L'utente non è loggato                     |
+|     Passo#     |                          Descrizione                           |
+|       1        |              L'utente preme sul pulsante 'Login'               |
+|       2        |             L'utente inserisce username e password             |
+|       3        |             L'utente preme sul pulsante 'Conferma'             |
+|       4        | Se i dati di accesso sono incorretti, viene mostrato un errore |
+
+### Caso d'uso 3, UC3
+
+| Attori coinvolti  |                      Utente loggato                      |
+| :---------------: | :------------------------------------------------------: |
+|   Precondizione   |                                                          |
+|  Postcondizione   |                  L'utente non è loggato                  |
+| Scenario nominale | L'utente preme sul pulsante 'Logout' e viene disconnesso |
+|     Varianti      |                                                          |
+|     Eccezioni     |                                                          |
+
+##### Scenario 3.1
+
+|  Scenario 3.1  |                                         |
+| :------------: | :-------------------------------------: |
+| Precondizione  |                                         |
+| Postcondizione |         L'utente non è loggato          |
+|     Passo#     |               Descrizione               |
+|       1        |  L'utente preme sul pulsante 'Logout'   |
+|       2        |       L'utente viene disconnesso        |
+|       3        | Viene mostrato un messaggio di successo |
 
 ### Caso d'uso 4, UC4
 
@@ -299,35 +327,71 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 |     Varianti      |     |
 |     Eccezioni     |     |
 
-### Caso d'uso 9, UCx
+### Elimina il carrello corrente, UC9
 
-| Attori coinvolti  |     |
-| :---------------: | :-: |
-|   Precondizione   |     |
-|  Postcondizione   |     |
-| Scenario nominale |     |
-|     Varianti      |     |
-|     Eccezioni     |     |
+| Attori coinvolti  |                                       Cliente                                        |
+| :---------------: | :----------------------------------------------------------------------------------: |
+|   Precondizione   |               Deve esistere un carrello attivo                          |
+|  Postcondizione   |              Il carrello attivo viene eliminato                   |
+| Scenario nominale | Il cliente elimina i prodotti presenti all'interno del carrello e il carrello stesso |
+|     Varianti      |                                                                                      |
+|     Eccezioni     |                                                                                      |
 
-### Caso d'uso 10, UCx
+##### Scenario 9.1 - Eliminazione del carrello corrente
 
-| Attori coinvolti  |     |
-| :---------------: | :-: |
-|   Precondizione   |     |
-|  Postcondizione   |     |
-| Scenario nominale |     |
-|     Varianti      |     |
-|     Eccezioni     |     |
 
-### Caso d'uso 11, UCx
+|  Scenario 9.1  |                                                                                     |
+| :------------: | :---------------------------------------------------------------------------------: |
+| Precondizione  | Deve esistere un carrello attivo  |
+| Postcondizione |   Il carrello attivo viene eliminato
+|     Passo#     |                                     Descrizione                                     |
+|       1        |       Il cliente clicca sul pulsante per la visualizzazione del carrello |
+|       2        |                Il sistema mostra il carrello attivo                                                                    |
+|       3        |                               Il cliente clicca sul pulsante "**Elimina carrello**"                                                  |
 
-| Attori coinvolti  |     |
-| :---------------: | :-: |
-|   Precondizione   |     |
-|  Postcondizione   |     |
-| Scenario nominale |     |
-|     Varianti      |     |
-|     Eccezioni     |     |
+
+### Visualizza storico dei carrelli pagati, UC10
+
+| Attori coinvolti  |                                                Cliente                                                |
+| :---------------: | :---------------------------------------------------------------------------------------------------: |
+|   Precondizione   |                          Deve esserci almeno un carrello pagato                                                    |
+|  Postcondizione   |                             Il sistema mostra lo storico dei carrelli pagati                            |
+| Scenario nominale |                         Il cliente visualizza lo storico dei carrelli pagati                          |
+|     Varianti      |  |
+|     Eccezioni     |                                                                                                       
+
+##### Scenario 10.1 - Visualizzazione dello storico dei carrelli
+Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esistano.
+
+|  Scenario 10.1  |                                                                                     |
+| :------------: | :---------------------------------------------------------------------------------: |
+| Precondizione  |  Deve esserci almeno un carrello pagato                                          |
+| Postcondizione |  Il sistema mostra lo storico dei carrelli|
+|     Passo#     |                                     Descrizione                                     |
+|       1        | Il cliente ha cliccato sul pulsante relativo alla visualizzazione dello storico |
+|       2        |                   Il sistema mostra lo storico dei carrelli pagati  |
+
+### Rimuovi un prodotto del carrello, UC11
+
+| Attori coinvolti  |                            Cliente                            |
+| :---------------: | :-----------------------------------------------------------: |
+|   Precondizione   |               Deve esistere un carrello attivo              |
+|  Postcondizione   | Il prodotto selezionato non è più presente all'interno del carrello |
+| Scenario nominale |   Il cliente rimuove un prodotto a sua scelta dal carrello    |
+|     Varianti      |                                                               |
+|     Eccezioni     |                                                               |
+
+##### Scenario 11.1
+
+|  Scenario 11.1  |                                                                                     |
+| :------------: | :---------------------------------------------------------------------------------: |
+| Precondizione  | Deve esistere un carrello attivo|
+| Postcondizione | Il prodotto selezionato non è più presente all'interno del carrello  |
+|     Passo#     |                                     Descrizione                                     |
+|       1        |       Il cliente clicca sul pulsante per la visualizzazione del carrello |
+|       2        |                Il sistema mostra il carrello attivo                                                                    |
+|      3       | Il cliente clicca sul pulsante di rimozione dell'elemento relativo al prodotto che vuole eliminare  |
+|       4      |      Il sistema mostra il carrello attivo senza l'elemento eliminato |
 
 ### Caso d'uso 12, UCx
 
