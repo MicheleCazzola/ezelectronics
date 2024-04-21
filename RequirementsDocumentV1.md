@@ -198,35 +198,86 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 |     Varianti      |     |
 |     Eccezioni     |     |
 
-### Caso d'uso 4, UCx
+### Caso d'uso 4, UC4
 
-| Attori coinvolti  |     |
+| Attori coinvolti  |  Cliente   |
 | :---------------: | :-: |
 |   Precondizione   |     |
-|  Postcondizione   |     |
+|  Postcondizione   |    Il cliente visualizza il carrello |
 | Scenario nominale |     |
-|     Varianti      |     |
+|     Varianti      |   Non esiste un carrello  |
 |     Eccezioni     |     |
 
-### Caso d'uso 5, UCx
+|  Scenario 4.1  |                                                                                     |
+| :------------: | :---------------------------------------------------------------------------------: |
+| Precondizione  |  |
+| Postcondizione |   Il cliente visualizza il carrello   |
+|     Passo#     |                                    Descrizione                                     |
+|       1        |       Il cliente clicca sul pulsante per la visualizzazione del carrello                                                                               |
+|       2        |          Viene visualizzata una pagina che mostra il contenuto del carrello                                                                           |
 
-| Attori coinvolti  |     |
+|  Scenario 4.2  |                                                                                     |
+| :------------: | :---------------------------------------------------------------------------------: |
+| Precondizione  |  |
+| Postcondizione |   Il cliente visualizza un carrello vuoto   |
+|     Passo#     |                                    Descrizione                                     |
+|       1        |       Il cliente clicca sul pulsante per la visualizzazione del carrello                                                                               |
+|       2        |          Se il carrello non esiste, viene visualizzata una pagina che riporta che il carrello è vuoto                                                                           |
+
+
+### Caso d'uso 5, UC5
+
+| Attori coinvolti  |   Cliente  |
 | :---------------: | :-: |
-|   Precondizione   |     |
-|  Postcondizione   |     |
-| Scenario nominale |     |
+|   Precondizione   |  Il cliente deve avere almeno un prodotto nel carrello   |
+|  Postcondizione   |  Il cliente paga i prodotti presenti nel carrello   |
+| Scenario nominale |   Il cliente esegue il pagamento dei prodotti con successo  |
 |     Varianti      |     |
-|     Eccezioni     |     |
+|     Eccezioni     |   In caso di errato inserimento dei dati, il pagamento fallisce  |
 
-### Caso d'uso 6, UCx
+|  Scenario 5.1  |                                                                                     |
+| :------------: | :---------------------------------------------------------------------------------: |
+| Precondizione  | Il cliente deve avere almeno un prodotto nel carrello |
+| Postcondizione |   Il cliente paga i prodotti presenti nel carrello   |
+|     Passo#     |                                    Descrizione                                     |
+|       1        |       Il cliente clicca sul pulsante per la visualizzazione del carrello                                                                               |
+|       2        |          Il cliente clicca sul pulsante 'Procedi all'acquisto'                                                                           |
+|       3        |          Viene visualizzata la schermata dell'inserimento dati per il pagamento                                                                          |
+|       4        |          Il cliente inserisce i dati relativi al pagamento                                                                           |
+|       5        |          Il cliente clicca sul pulsante 'Acquista'                                                                           |
+|       6        |          Il sistema mostra una pagina che conferma la corretta riuscita del pagamento                                                                           |
 
-| Attori coinvolti  |     |
+|  Scenario 5.2  |                                                                                     |
+| :------------: | :---------------------------------------------------------------------------------: |
+| Precondizione  | Il cliente deve avere almeno un prodotto nel carrello |
+| Postcondizione |   Il cliente fallisce nell'eseguire il pagamento dei prodotti presenti nel carrello   |
+|     Passo#     |                                    Descrizione                                     |
+|       1        |       Il cliente clicca sul pulsante per la visualizzazione del carrello                                                                               |
+|       2        |          Il cliente clicca sul pulsante 'Procedi all'acquisto'                                                                           |
+|       3        |          Viene visualizzata la schermata dell'inserimento dati per il pagamento                                                                          |
+|       4        |          Il cliente inserisce i dati relativi al pagamento                                                                           |
+|       5        |          Il cliente clicca sul pulsante 'Acquista'                                                                           |
+|       6        |          Se i dati inseriti risultano errati, viene visualizzata una pagina di errore che riporta la mancata riuscita del pagamento                                                                        |
+
+### Caso d'uso 6, UC6
+
+| Attori coinvolti  |  Cliente   |
 | :---------------: | :-: |
-|   Precondizione   |     |
-|  Postcondizione   |     |
-| Scenario nominale |     |
-|     Varianti      |     |
+|   Precondizione   |   Il cliente visualizza l'elenco dei prodotti  |
+|  Postcondizione   |   Il cliente aggiunge un prodotto al carrello  |
+| Scenario nominale |   Il cliente visualizza il carrello aggiornato  |
+|     Varianti      |  |
 |     Eccezioni     |     |
+
+|  Scenario 6.1  |                                                                                     |
+| :------------: | :---------------------------------------------------------------------------------: |
+| Precondizione  | Il cliente visualizza l'elenco dei prodotti |
+| Postcondizione |   Il cliente aggiunge un prodotto al carrello   |
+|     Passo#     |                                    Descrizione                                     |
+|       1        |       Il cliente clicca sul prodotto che vuole aggiungere al carrello                                                                            |
+|       2        |          Viene visualizzata la pagina dei dettagli relativi al prodotto selezionato                                                                          |
+|       3        |          Il cliente clicca sul pulsante 'Aggiungi al carrello'                                                                          |
+|       4        |          Viene visualizzato il carrello con l'aggiunta del prodotto selezionato dal cliente                                                                           |
 
 ### Caso d'uso 7 UCx
 
