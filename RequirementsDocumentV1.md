@@ -237,6 +237,8 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 |     Varianti      |      Non esiste un carrello       |
 |     Eccezioni     |                                   |
 
+##### Scenario 4.1
+
 |  Scenario 4.1  |                                                                    |
 | :------------: | :----------------------------------------------------------------: |
 | Precondizione  |                                                                    |
@@ -244,6 +246,8 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 |     Passo#     |                            Descrizione                             |
 |       1        | Il cliente clicca sul pulsante per la visualizzazione del carrello |
 |       2        | Viene visualizzata una pagina che mostra il contenuto del carrello |
+
+##### Scenario 4.2
 
 |  Scenario 4.2  |                                                                                              |
 | :------------: | :------------------------------------------------------------------------------------------: |
@@ -263,6 +267,8 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 |     Varianti      |                                                               |
 |     Eccezioni     | In caso di errato inserimento dei dati, il pagamento fallisce |
 
+##### Scenario 5.1
+
 |  Scenario 5.1  |                                                                              |
 | :------------: | :--------------------------------------------------------------------------: |
 | Precondizione  |            Il cliente deve avere almeno un prodotto nel carrello             |
@@ -274,6 +280,8 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 |       4        |              Il cliente inserisce i dati relativi al pagamento               |
 |       5        |                  Il cliente clicca sul pulsante 'Acquista'                   |
 |       6        | Il sistema mostra una pagina che conferma la corretta riuscita del pagamento |
+
+##### Scenario 5.2
 
 |  Scenario 5.2  |                                                                                                                            |
 | :------------: | :------------------------------------------------------------------------------------------------------------------------: |
@@ -297,6 +305,8 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 |     Varianti      |                                              |
 |     Eccezioni     |                                              |
 
+##### Scenario 6.1
+
 |  Scenario 6.1  |                                                                                    |
 | :------------: | :--------------------------------------------------------------------------------: |
 | Precondizione  |                    Il cliente visualizza l'elenco dei prodotti                     |
@@ -307,27 +317,7 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 |       3        |               Il cliente clicca sul pulsante 'Aggiungi al carrello'                |
 |       4        | Viene visualizzato il carrello con l'aggiunta del prodotto selezionato dal cliente |
 
-### Caso d'uso 7 UCx
-
-| Attori coinvolti  |     |
-| :---------------: | :-: |
-|   Precondizione   |     |
-|  Postcondizione   |     |
-| Scenario nominale |     |
-|     Varianti      |     |
-|     Eccezioni     |     |
-
-### Caso d'uso 8, UCx
-
-| Attori coinvolti  |     |
-| :---------------: | :-: |
-|   Precondizione   |     |
-|  Postcondizione   |     |
-| Scenario nominale |     |
-|     Varianti      |     |
-|     Eccezioni     |     |
-
-### Elimina il carrello corrente, UC9
+### Elimina il carrello corrente, UC7
 
 | Attori coinvolti  |                                       Cliente                                        |
 | :---------------: | :----------------------------------------------------------------------------------: |
@@ -337,9 +327,9 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 |     Varianti      |                                                                                      |
 |     Eccezioni     |                                                                                      |
 
-##### Scenario 9.1 - Eliminazione del carrello corrente
+##### Scenario 7.1 - Eliminazione del carrello corrente
 
-|  Scenario 9.1  |                                                                    |
+|  Scenario 7.1  |                                                                    |
 | :------------: | :----------------------------------------------------------------: |
 | Precondizione  |                  Deve esistere un carrello attivo                  |
 | Postcondizione |                 Il carrello attivo viene eliminato                 |
@@ -348,7 +338,7 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 |       2        |                Il sistema mostra il carrello attivo                |
 |       3        |       Il cliente clicca sul pulsante "**Elimina carrello**"        |
 
-### Visualizza storico dei carrelli pagati, UC10
+### Visualizza storico dei carrelli pagati, UC8
 
 | Attori coinvolti  |                       Cliente                        |
 | :---------------: | :--------------------------------------------------: |
@@ -358,7 +348,7 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 |     Varianti      |                                                      |
 |     Eccezioni     |
 
-##### Scenario 10.1 - Visualizzazione dello storico dei carrelli
+##### Scenario 8.1 - Visualizzazione dello storico dei carrelli
 
 Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esistano.
 
@@ -370,7 +360,7 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 |       1        | Il cliente ha cliccato sul pulsante relativo alla visualizzazione dello storico |
 |       2        |                Il sistema mostra lo storico dei carrelli pagati                 |
 
-### Rimuovi un prodotto del carrello, UC11
+### Rimuovi un prodotto del carrello, UC9
 
 | Attori coinvolti  |                               Cliente                               |
 | :---------------: | :-----------------------------------------------------------------: |
@@ -380,9 +370,9 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 |     Varianti      |                                                                     |
 |     Eccezioni     |                                                                     |
 
-##### Scenario 11.1
+##### Scenario 9.1
 
-| Scenario 11.1  |                                                                                                    |
+|  Scenario 9.1  |                                                                                                    |
 | :------------: | :------------------------------------------------------------------------------------------------: |
 | Precondizione  |                                  Deve esistere un carrello attivo                                  |
 | Postcondizione |                Il prodotto selezionato non è più presente all'interno del carrello                 |
@@ -392,7 +382,7 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 |       3        | Il cliente clicca sul pulsante di rimozione dell'elemento relativo al prodotto che vuole eliminare |
 |       4        |                  Il sistema mostra il carrello attivo senza l'elemento eliminato                   |
 
-### Caso d'uso 12, UCx
+### Caso d'uso 10, UC10
 
 | Attori coinvolti  |     |
 | :---------------: | :-: |
@@ -401,28 +391,6 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 | Scenario nominale |     |
 |     Varianti      |     |
 |     Eccezioni     |     |
-
-### Caso d'uso 13, UCx
-
-| Attori coinvolti  |     |
-| :---------------: | :-: |
-|   Precondizione   |     |
-|  Postcondizione   |     |
-| Scenario nominale |     |
-|     Varianti      |     |
-|     Eccezioni     |     |
-
-### Caso d'uso 14, UCx
-
-| Attori coinvolti  |     |
-| :---------------: | :-: |
-|   Precondizione   |     |
-|  Postcondizione   |     |
-| Scenario nominale |     |
-|     Varianti      |     |
-|     Eccezioni     |     |
-
-..
 
 # Glossario
 
