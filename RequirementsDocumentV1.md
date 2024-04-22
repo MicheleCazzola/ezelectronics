@@ -489,11 +489,9 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 
 ### Caso d'uso 14, UC14
 
-# Cerca prodotti (filtra per categoria, modello, venduti)
-
 | Attori coinvolti  |                         Utente loggato                         |
 | :---------------: | :------------------------------------------------------------: |
-|   Precondizione   |                                                                |
+|   Precondizione   |                L'utente deve essere autenticato                |
 |  Postcondizione   |                                                                |
 | Scenario nominale |          L'utente effettua una ricerca di un prodotto          |
 |     Varianti      | È possibile filtrare per categoria, modello o prodotto venduto |
@@ -503,7 +501,7 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 
 | Scenario 14.1  |                                             |
 | :------------: | :-----------------------------------------: |
-| Precondizione  |                                             |
+| Precondizione  |      L'utente deve essere autenticato       |
 | Postcondizione |                                             |
 |     Passo#     |                 Descrizione                 |
 |       1        |   L'utente scrive nella barra di ricerca    |
@@ -514,13 +512,23 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 
 | Scenario 14.2  |                                             |
 | :------------: | :-----------------------------------------: |
-| Precondizione  |                                             |
+| Precondizione  |      L'utente deve essere autenticato       |
 | Postcondizione |                                             |
 |     Passo#     |                 Descrizione                 |
 |       1        |   L'utente scrive nella barra di ricerca    |
 |       2        |     L'utente seleziona uno o più filtri     |
 |       3        |   L'utente preme sul pulsante di ricerca    |
 |       4        | Il sistema mostra i risultati della ricerca |
+
+### Caso d'uso 15, UC15
+
+| Scenario 14.2  |                     Utente loggato                     |
+| :------------: | :----------------------------------------------------: |
+| Precondizione  |            L'utente deve essere autenticato            |
+| Postcondizione |                                                        |
+|     Passo#     |                      Descrizione                       |
+|       1        |         L'utente preme sul pulsante 'profilo'          |
+|       2        | Il sistema mostra una schermata con i dati dell'utente |
 
 # Glossario
 
