@@ -233,7 +233,7 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 | :---------------: | :-------------------------------: |
 |   Precondizione   |                                   |
 |  Postcondizione   | Il cliente visualizza il carrello |
-| Scenario nominale |                                   |
+| Scenario nominale |               Il cliente visualizza il contenuto del carrello                    |
 |     Varianti      |      Non esiste un carrello       |
 |     Eccezioni     |                                   |
 
