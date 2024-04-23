@@ -88,13 +88,7 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR1.2                    |                                                      Logout                                                       |
 |                                       FR2                                        |                                               Gestione degli utenti                                               |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1                    |                                              Creazione nuovo utente                                               |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2                    |                                                  Recupero utenti                                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.1 |                                        Recupero di tutti gli utenti (test)                                        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.2 |                                       Recupero utenti, dato un ruolo (test)                                       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.3 |                                     Recupero utente, dato lo username (test)                                      |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3                    |                                                Eliminazione utenti                                                |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.1 |                                   Eliminazione utente, dato lo username (test)                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.2 |                                      Eliminazione di tutti gli utenti (test)                                      |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2                    |                                            Recupero l' utente loggato                                             |
 |                                       FR3                                        |                                               Gestione dei prodotti                                               |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.1                    |                                             Creazione nuovo prodotto                                              |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.2                    |                        Registrazione arrivo di un insieme di prodotti dello stesso modello                        |
@@ -106,7 +100,6 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.4 |                            Recupero di tutti i prodotti, eventualmente solo se venduti                            |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5                    |                                               Eliminazione prodotti                                               |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5.1 |                                  Eliminazione di un prodotto, dato il suo codice                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5.2 |                                      Eliminazione di tutti i prodotti (test)                                      |
 |                                       FR4                                        |                                               Gestione dei carrelli                                               |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.1                    |                                       Recupero carrello dell'utente loggato                                       |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.2                    |                              Aggiunta di un prodotto al carrello dell'utente loggato                              |
@@ -115,7 +108,20 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5                    |                                               Eliminazione carrelli                                               |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.1 |                  Eliminazione di un prodotto dal carrello corrente, dato il codice del prodotto                   |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.2 |                              Eliminazione del carrello corrente dell'utente loggato                               |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.3 |                                      Eliminazione di tutti i carrelli (test)                                      |
+
+### Requisiti di test
+
+Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate unicamente per test e che non hanno corrispettivo nei casi d'uso e nelle interfacce
+
+|  ID  |              Descrizione              |
+| :--: | :-----------------------------------: |
+| TFR1 |     Recupero di tutti gli utenti      |
+| TFR2 |    Recupero utenti, dato un ruolo     |
+| TFR3 |   Recupero utente, dato lo username   |
+| TFR4 | Eliminazione utente, dato lo username |
+| TFR5 |   Eliminazione di tutti gli utenti    |
+| TFR6 |   Eliminazione di tutti i prodotti    |
+| TFR7 |   Eliminazione di tutti i carrelli    |
 
 ## Requisiti non funzionali
 
@@ -483,11 +489,9 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 
 ### Caso d'uso 14, UC14
 
-# Cerca prodotti (filtra per categoria, modello, venduti)
-
 | Attori coinvolti  |                         Utente loggato                         |
 | :---------------: | :------------------------------------------------------------: |
-|   Precondizione   |                                                                |
+|   Precondizione   |                L'utente deve essere autenticato                |
 |  Postcondizione   |                                                                |
 | Scenario nominale |          L'utente effettua una ricerca di un prodotto          |
 |     Varianti      | È possibile filtrare per categoria, modello o prodotto venduto |
@@ -497,7 +501,7 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 
 | Scenario 14.1  |                                             |
 | :------------: | :-----------------------------------------: |
-| Precondizione  |                                             |
+| Precondizione  |      L'utente deve essere autenticato       |
 | Postcondizione |                                             |
 |     Passo#     |                 Descrizione                 |
 |       1        |   L'utente scrive nella barra di ricerca    |
@@ -508,13 +512,23 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 
 | Scenario 14.2  |                                             |
 | :------------: | :-----------------------------------------: |
-| Precondizione  |                                             |
+| Precondizione  |      L'utente deve essere autenticato       |
 | Postcondizione |                                             |
 |     Passo#     |                 Descrizione                 |
 |       1        |   L'utente scrive nella barra di ricerca    |
 |       2        |     L'utente seleziona uno o più filtri     |
 |       3        |   L'utente preme sul pulsante di ricerca    |
 |       4        | Il sistema mostra i risultati della ricerca |
+
+### Caso d'uso 15, UC15
+
+| Scenario 14.2  |                     Utente loggato                     |
+| :------------: | :----------------------------------------------------: |
+| Precondizione  |            L'utente deve essere autenticato            |
+| Postcondizione |                                                        |
+|     Passo#     |                      Descrizione                       |
+|       1        |         L'utente preme sul pulsante 'profilo'          |
+|       2        | Il sistema mostra una schermata con i dati dell'utente |
 
 # Glossario
 
