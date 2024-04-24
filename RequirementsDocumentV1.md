@@ -76,6 +76,36 @@ Le GUI sono descritte graficamente nel documento [GUIPrototypeV1.md](/GUIPrototy
 
 \<Le storie saranno formalizzate successivamente come scenari nei casi d'uso>
 
+**Manager**
+
+Persona: Franco, 45 anni, manager di un negozio online
+- Franco vuole essere in grado di visionare la merce disponibile nel suo negozio
+- Franco vuole monitorare i suoi ordini di nuova merce
+- Franco vuole poter sapere quante della sua merce è stata venduta
+- Franco vuole poter eliminare i prodotti dal proprio catalogo
+- Franco vuole essere in grado di inserire più prodotti dello stesso tipi nel proprio catalogo in poco tempo
+- Franco vuole potersi disconnettere dal proprio account nel caso in cui lo desiderasse
+
+**Cliente**
+
+Persona: Giulia, 24 anni, cliente del negozio:
+- Giulia non vuole perdere troppo tempo nella fase di log in al negozio
+- Giulia vuole acquistare ciò che più le piace in modo semplice e veloce
+- Giulia vuole poter vedere che prodotti sta acquistando in modo intuitivo
+- Giulia vuole comprare solo ciò che vuole
+- Giulia vuole tenere traccia dei suoi acquisti passati in modo da poterli visionare quando vuole
+- Giulia vuole essere in grado di pagare con qualsiasi metodo di pagamento
+- Giulia vuole poter cambiare le proprie credenziali
+- Giulia desidera cercare velocemente i prodotti all'interno del negozio
+- Giulia vuole essere in grado di disconnettere il suo account quando lo desidera
+
+
+**Utente non registrato**
+
+Persona: Fulvio, 65 anni, Utente non registrato e pensionato:
+- Fulvio vuole acquistare dei prodotti in modo semplice
+- Fulvio vuole potersi registrare velocemente e con procedure semplici
+
 # Requisiti funzionali e non funzionali
 
 ## Requisiti funzionali
@@ -238,7 +268,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 | :---------------: | :-------------------------------: |
 |   Precondizione   |                                   |
 |  Postcondizione   | Il cliente visualizza il carrello |
-| Scenario nominale |                                   |
+| Scenario nominale |               Il cliente visualizza il contenuto del carrello                    |
 |     Varianti      |      Non esiste un carrello       |
 |     Eccezioni     |                                   |
 
