@@ -41,8 +41,8 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 
 | Nome dello stakeholder |                                                         Descrizione                                                         |
 | :--------------------: | :-------------------------------------------------------------------------------------------------------------------------: |
-| Utente non autenticato |                     Utente non registrato presso l'applicazione, la sua attività principale riguarda ??                     |
-|        Cliente         |              Utente autenticato la cui attività principale è l'acquisto di prodotti attraverso l'applicazione               |
+| Utente non autenticato |                     Utente non registrato presso la piattaforma, la sua attività principale riguarda registrazione e login                     |
+|        Cliente         |              Utente autenticato le cui attività principali sono l'acquisto e la visualizzazione di prodotti attraverso l'applicazione               |
 |        Manager         | Utente autenticato la cui attività principale è la gestione dei prodotti, sia in entrata che in uscita dal negozio virtuale |
 |       Produttore       |     Individuo, organizzazione o azienda che produce gli oggetti che verranno messi in vendita attraverso la piattaforma     |
 |      Distributore      |          Individuo, organizzazione o azienda che distribuisce i prodotti, dal produttore al venditore (_Manager_)           |
@@ -54,20 +54,19 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 ![Context Diagram](/media/context_diagram.png)
 
 **Attori**:
-
-- Cliente: ha la possibilità di acquistare i prodotti, tenendo traccia delle proprie transazioni, attraverso la creazione dei carrelli virtuali;
-- Manager: ha la possibilità di effettuare operazioni sui prodotti del negozio, tenendo traccia degli arrivi e delle quantità presenti e vendute;
-- Utente non autenticato: oltre alle attività comuni a tutti gli utenti, può registrarsi presso il negozio virtuale, con un'interfaccia dedicata.
+- Utente non autenticato: può solamente effettuare login oppure registrarsi presso la piattaforma, se ancora non possiede un account;
+- Cliente: ha la possibilità di visualizzare ed acquistare i prodotti, tenendo traccia delle proprie transazioni, attraverso la creazione dei carrelli virtuali;
+- Manager: ha la possibilità di effettuare operazioni sui prodotti del negozio, tenendo traccia degli arrivi e delle quantità presenti e vendute.
 
 ## Interfacce
-
-\<Le GUI saranno descritte graficamente in un documento separato>
 
 |         Attore         | Interfaccia logica | Interfaccia fisica |
 | :--------------------: | :----------------: | :----------------: |
 | Utente non autenticato |        GUI         |   PC/Smartphone    |
 |        Cliente         |        GUI         |   PC/Smartphone    |
 |        Manager         |        GUI         |   PC/Smartphone    |
+
+Le GUI sono descritte graficamente nel documento [GUIPrototypeV1.md](/GUIPrototypeV1.md)
 
 # Storie e personas
 
@@ -88,23 +87,23 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR1.2                    |                                                      Logout                                                       |
 |                                       FR2                                        |                                               Gestione degli utenti                                               |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1                    |                                              Creazione nuovo utente                                               |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2                    |                                            Recupero l' utente loggato                                             |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2                    |                                            Recupero delle informazioni dell' utente autenticato                                             |
 |                                       FR3                                        |                                               Gestione dei prodotti                                               |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.1                    |                                             Creazione nuovo prodotto                                              |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.2                    |                        Registrazione arrivo di un insieme di prodotti dello stesso modello                        |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.3                    |                                     Contrassegno di un prodotto come venduto                                      |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4                    |                                                 Recupero prodotti                                                 |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.1 |                                    Recupero di un prodotto, dato il suo codice                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.2 |                         Recupero prodotti, eventualmente solo se venduti, dato il modello                         |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.3 |                        Recupero prodotti, eventualmente solo se venduti, data la categoria                        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.4 |                            Recupero di tutti i prodotti, eventualmente solo se venduti                            |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.2 |                         Recupero prodotti, eventualmente solo se (non) venduti, dato il modello                         |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.3 |                        Recupero prodotti, eventualmente solo se (non) venduti, data la categoria                        |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.4 |                            Recupero di tutti i prodotti, eventualmente solo se (non) venduti                            |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5                    |                                               Eliminazione prodotti                                               |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5.1 |                                  Eliminazione di un prodotto, dato il suo codice                                  |
 |                                       FR4                                        |                                               Gestione dei carrelli                                               |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.1                    |                                       Recupero carrello dell'utente loggato                                       |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.2                    |                              Aggiunta di un prodotto al carrello dell'utente loggato                              |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.1                    |                                       Recupero carrello del cliente corrente                               |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.2                    |                              Aggiunta di un prodotto al carrello del cliente corrente                           |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.3                    | Pagamento di un carrello, avente per prezzo la somma dei prezzi dei prodotti inseriti e per data la data corrente |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.4                    |                                 Recupero storico dei carrelli pagati dall'utente                                  |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.4                    |                                 Recupero dello storico dei carrelli pagati dal cliente corrente                               |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5                    |                                               Eliminazione carrelli                                               |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.1 |                  Eliminazione di un prodotto dal carrello corrente, dato il codice del prodotto                   |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.2 |                              Eliminazione del carrello corrente dell'utente loggato                               |
