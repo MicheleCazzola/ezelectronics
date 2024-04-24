@@ -152,6 +152,15 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 | TFR6 |   Eliminazione di tutti i prodotti    |
 | TFR7 |   Eliminazione di tutti i carrelli    |
 
+## Table of rights
+
+|  Attore            | FR1.1 | FR1.2 | FR2.1 | FR2.2 | FR3.1 | FR3.2 | FR3.3 | FR3.4 | FR3.5 |  FR4  |
+| :----------------: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| Utente non loggato |   x   |       |   x   |       |       |       |       |       |       |       |
+| Cliente            |       |   x   |       |   x   |       |       |       |   x   |       |   x   |
+| Manager            |       |   x   |       |   x   |   x   |   x   |   x   |   x   |   x   |       |
+
+
 ## Requisiti non funzionali
 
 \<Descrivere i vincoli sui requisiti funzionali>
