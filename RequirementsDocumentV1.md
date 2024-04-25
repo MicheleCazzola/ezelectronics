@@ -51,7 +51,7 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 
 ## Context Diagram
 
-![Context Diagram](/media/context_diagram.png)
+![Context Diagram](/media/context_diagram_v1.png)
 
 **Attori**:
 - Utente non autenticato: può solamente effettuare login oppure registrarsi presso la piattaforma, se ancora non possiede un account;
@@ -175,7 +175,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 
 ## Use Case Diagram
 
-![Use case Diagram](media/use_case_diagram.png)
+![Use case Diagram](media/use_case_diagram_v1.png)
 \<Definire qui il Use Case Diagram UML che riassume tutti i casi d'uso e le loro relazioni>
 
 \<Descrivere qui ogni caso d'uso nel Use Case Diagram>
@@ -574,14 +574,16 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 
 \<I concetti devono essere utilizzati in modo coerente in tutto il documento, ad esempio nei casi d'uso, nei requisiti, ecc.>
 
-![Class Diagram](media/glossario.png)
+![Class Diagram](media/glossario_v1.png)
 
 # System Design
 
-<img src="media/system_diagram.png" width="180">
+<img src="media/system_diagram_v1.png" width="180">
 
 \<Deve essere coerente con il Context Diagram>
 
 # Deployment Diagram
+
+![Deployment Diagram](media/deployment_diagram_v1.png)
 
 \<Descrivere qui il Deployment Diagram>
