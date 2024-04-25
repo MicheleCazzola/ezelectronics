@@ -70,12 +70,6 @@ Le GUI sono descritte graficamente nel documento [GUIPrototypeV1.md](/GUIPrototy
 
 # Storie e personas
 
-\<Una Persona è una rappresentazione realistica di un attore. Definire qui alcune persone e descrivere in testo semplice come una persona interagisce con il sistema>
-
-\<Una persona è un'istanza di un attore>
-
-\<Le storie saranno formalizzate successivamente come scenari nei casi d'uso>
-
 **Manager**
 
 Persona: Franco, 45 anni, manager di un negozio online
@@ -88,17 +82,25 @@ Persona: Franco, 45 anni, manager di un negozio online
 
 **Cliente**
 
-Persona: Giulia, 24 anni, cliente del negozio:
+Persona: Giulia, 24 anni, cliente del negozio
 - Giulia non vuole perdere troppo tempo nella fase di log in al negozio
 - Giulia vuole acquistare ciò che più le piace in modo semplice e veloce
 - Giulia vuole poter vedere che prodotti sta acquistando in modo intuitivo
-- Giulia vuole comprare solo ciò che vuole
+- Giulia vuole gestire facilmente gli articoli nel suo carrello
 - Giulia vuole tenere traccia dei suoi acquisti passati in modo da poterli visionare quando vuole
-- Giulia vuole essere in grado di pagare con qualsiasi metodo di pagamento
-- Giulia vuole poter cambiare le proprie credenziali
-- Giulia desidera cercare velocemente i prodotti all'interno del negozio
-- Giulia vuole essere in grado di disconnettere il suo account quando lo desidera
+- Giulia vuole poter cambiare le proprie credenziali 
 
+Persona: Valerio, 36 anni, cliente del negozio
+- Valerio vuole poter filtrare facilmente i prodotti in base alla catogoria e/o al modello
+- Valerio vuole avere una visione chiara dei suoi acquisti precedenti
+- Valerio vuole gestire facilmente le proprie credenziali
+- Valerio vuole essere in grado di disconnettere il suo account quando non lo usa
+
+Persona: Marta, 27 anni, cliente del negozio:
+- Marta vuole aggiungere e togliere al proprio carrello tutti i prodotti che desidera
+- Marta vuole poter eliminare tutti i prodotti dal proprio carrello con una semplice mossa
+- Marta vuole accedere velocemente ai suoi acquisti
+- Marta vuole essere in grado di trovare i prodotti tramite il loro codice identificativo 
 
 **Utente non registrato**
 
@@ -361,7 +363,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |       3        |               Il cliente clicca sul pulsante 'Aggiungi al carrello'                |
 |       4        | Viene visualizzato il carrello con l'aggiunta del prodotto selezionato dal cliente |
 
-### Elimina il carrello corrente, UC7
+### Caso d'uso 7, UC7
 
 | Attori coinvolti  |                                       Cliente                                        |
 | :---------------: | :----------------------------------------------------------------------------------: |
@@ -371,7 +373,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |     Varianti      |                                                                                      |
 |     Eccezioni     |                                                                                      |
 
-##### Scenario 7.1 - Eliminazione del carrello corrente
+##### Scenario 7.1 
 
 |  Scenario 7.1  |                                                                    |
 | :------------: | :----------------------------------------------------------------: |
@@ -382,7 +384,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |       2        |                Il sistema mostra il carrello attivo                |
 |       3        |       Il cliente clicca sul pulsante "**Elimina carrello**"        |
 
-### Visualizza storico dei carrelli pagati, UC8
+### Caso d'uso 8, UC8
 
 | Attori coinvolti  |                       Cliente                        |
 | :---------------: | :--------------------------------------------------: |
@@ -392,7 +394,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |     Varianti      |                                                      |
 |     Eccezioni     |
 
-##### Scenario 8.1 - Visualizzazione dello storico dei carrelli
+##### Scenario 8.1 
 
 Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esistano.
 
@@ -404,7 +406,7 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 |       1        | Il cliente ha cliccato sul pulsante relativo alla visualizzazione dello storico |
 |       2        |                Il sistema mostra lo storico dei carrelli pagati                 |
 
-### Rimuovi un prodotto del carrello, UC9
+### Caso d'uso 9, UC9
 
 | Attori coinvolti  |                               Cliente                               |
 | :---------------: | :-----------------------------------------------------------------: |
