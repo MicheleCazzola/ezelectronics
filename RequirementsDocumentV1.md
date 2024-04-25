@@ -578,7 +578,7 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 
 # System Design
 
-\<Descrivere qui la System Design>
+<img src="media/system_diagram.png" width="180">
 
 \<Deve essere coerente con il Context Diagram>
 
