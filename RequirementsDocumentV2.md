@@ -76,17 +76,42 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 ## Functional Requirements
 
-\<In the form DO SOMETHING, or VERB NOUN, describe high level capabilities of the system>
-
-\<they match to high level use cases>
-
-|  ID   | Description |
-| :---: | :---------: |
-|  FR1  |             |
-|  FR2  |             |
-| FRx.. |             |
-
----
+|                                        ID                                        |                                                    Descrizione                                                    |
+| :------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------: |
+|                                       FR1                                        |                                              Gestione degli accessi                                               |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR1.1                    |                                                       Login                                                       |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR1.2                    |                                                      Logout                                                       |
+|                                       FR2                                        |                                               Gestione degli utenti                                               |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1                    |                                              Creazione nuovo utente                                               |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2                    |                                            Recupero delle informazioni dell'utente autenticato                                             |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3                    |                                            Recupero utenti                                            |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.1                    |                                            Recupero di tutti gli utenti                                             |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.2                    |                                            Recupero utenti, dato un ruolo                                            |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.3                    |                                            Recupero utente, dato un username                                             |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.4                    |                                            Eliminazione utenti                                          |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.4.1                    |                                            Eliminazione utente, dato l'username                                             |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.4.2                    |                                            Eliminazione di tutti gli utenti                                             |
+|                                       FR3                                        |                                               Gestione dei prodotti                                               |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.1                    |                                             Creazione nuovo prodotto                                              |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.2                    |                        Registrazione arrivo di un insieme di prodotti dello stesso modello                        |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.3                    |                                     Contrassegno di un prodotto come venduto                                      |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4                    |                                                 Recupero prodotti                                                 |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.1 |                                    Recupero di un prodotto, dato il suo codice                                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.2 |                         Recupero prodotti, eventualmente solo se (non) venduti, dato il modello                         |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.3 |                        Recupero prodotti, eventualmente solo se (non) venduti, data la categoria                        |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.4 |                            Recupero di tutti i prodotti, eventualmente solo se (non) venduti                            |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5                    |                                               Eliminazione prodotti                                               |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5.1 |                                  Eliminazione di un prodotto, dato il suo codice                                  |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5.2 |                                  Eliminazione di tutti i prodotti                                |
+|                                       FR4                                        |                                               Gestione dei carrelli                                               |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.1                    |                                       Recupero carrello del cliente corrente                               |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.2                    |                              Aggiunta di un prodotto al carrello del cliente corrente                           |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.3                    | Pagamento di un carrello, avente per prezzo la somma dei prezzi dei prodotti inseriti e per data la data corrente |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.4                    |                                 Recupero dello storico dei carrelli pagati dal cliente corrente                               |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5                    |                                               Eliminazione carrelli                                               |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.1 |                  Eliminazione di un prodotto dal carrello corrente, dato il codice del prodotto                   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.2 |                              Eliminazione del carrello corrente dell'utente loggato    |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.3 |                              Eliminazione di tutti i carrelli                        
 
 **Francesco**
 
@@ -104,16 +129,58 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 ---
 
+## Table of rights
+
+| Requisiti | Utente non loggato | Cliente | Manager | Admin |
+| :-------: | :----------------: | :-----: | :-----: | :---: |
+|   FR1.1   |         x          |         |         |   x   |
+|   FR1.2   |                    |    x    |    x    |   x   |
+|   FR2.1   |         x          |         |         |   x   |
+|   FR2.2   |                    |    x    |    x    |   x   |
+|   FR2.3   |                    |         |         |   x   |
+|   FR2.4   |                    |         |         |   x   |
+|   FR3.1   |                    |         |    x    |   x   |
+|   FR3.2   |                    |         |    x    |   x   |
+|   FR3.3   |                    |         |    x    |   x   |
+|   FR3.4   |         x          |    x    |    x    |   x   |
+|   FR3.5   |                    |         |    x    |   x   |
+|   FR4.1   |                    |    x    |         |   x   |
+|   FR4.2   |                    |    x    |         |   x   |
+|   FR4.3   |                    |    x    |         |   x   |
+|   FR4.4   |                    |    x    |         |   x   |
+|  FR4.5.1  |                    |    x    |         |   x   |
+|  FR4.5.2  |                    |    x    |         |   x   |
+|  FR4.5.3  |                    |         |         |   x   |
+
 ## Non Functional Requirements
 
 \<Describe constraints on functional requirements>
 
-|   ID    | Type (efficiency, reliability, ..) | Description | Refers to |
-| :-----: | :--------------------------------: | :---------: | :-------: |
-|  NFR1   |                                    |             |           |
-|  NFR2   |                                    |             |           |
-|  NFR3   |                                    |             |           |
-| NFRx .. |                                    |             |           |
+|  ID  | Tipo (efficienza, affidabilità, ..) |                                                 Descrizione                                                  |   Si riferisce a   |
+| :--: | :---------------------------------: | :----------------------------------------------------------------------------------------------------------: | :----------------: |
+| NFR1 |              Usabilità              |      Non deve essere necessario training per essere in grado di utilizzare l'applicazione in autonomia       | FR1, FR2, FR3, FR4 |
+| NFR2 |            Disponibilità            |                                 L'uptime del server deve essere pari al 99%                                  | FR1, FR2, FR3, FR4 |
+| NFR3 |              Security               | L'autenticazione deve essere gestita mediante librerie che utilizzano pratiche conformi allo stato dell'arte |      FR1, FR2      |
+| NFR4 |              Privacy               | Il sistema non deve conservare dati personali e identificativi degli utenti se non sono necessari |            |
+| NFR5 |              Privacy               | I dati personali e identificativi degli utenti devono essere gestiti nel rispetto delle normative GDPR |            |
+| NFR6 |              Security               | Il software non deve essere vulnerabile ad attacchi XSS e SQL injection |            |
+| NFR7 |              Security               | Le dipendenze con vulnerabilità critiche (CVSS rating >= 6) devono essere aggiornate entro 1 settimana |            |
+| NFR8 |              Security               | Le dipendenze con vulnerabilità note di qualsiasi tipo devono essere aggiornate entro 2 mesi |            |
+| NFR9 |              Security               | Non deve essere possibile utilizzare una password non sicura (una password è considerata sicura se ha >=10 caratteri e contiene simboli, numeri, lettere maiuscole e minuscole) |            |
+| NFR10 |              Security               | L'autenticazione deve essere gestita tramite librerie che utilizzano pratiche allo stato dell'arte |            |
+| NFR11 |              Security               | Deve essere possibile abilitare la 2FA per utenti che lo desiderano |            |
+| NFR12 |              Security               | Il server deve mantenere dei log di tutti i tentativi di accesso per almeno 3 mesi, per poter individuare tentativi di accesso fraudolenti |            |
+| NFR13 |              Affidabilità               | Ogni utente non deve segnalare più di 2 bug all'anno |            |
+| NFR14 |              Correttezza               | L'applicazione deve essere in grado di gestire un aumento del traffico senza degrado delle prestazioni |            |
+| NFR15 |              Efficienza               | Il tempo di risposta deve essere pari o inferiore a 2 secondi |            |
+| NFR16 |              Mantenibilità               | Risolvere un problema software deve richiedere un effort massimo di 7 person/hours |            |
+| NFR17 |              Mantenibilità               | Modificare una funzionalità esistente deve richiedere un effort massimo di 7 person/hours |            |
+| NFR18 |              Mantenibilità               | Eliminare una funzionalità esistente deve richiedere un effort massimo di 3 person/hours |            |
+| NFR19 |              Mantenibilità               | Aggiungere una nuova funzionalità deve richiedere un effort massimo di 35 person/hours |            |
+| NFR20 |              Portabilità               | Podificare il DBMS su cui memorizzare i dati deve richiedere un effort massimo di 35 person/hours |            |
+| NFR21 |              Portabilità               | L'applicazione web deve essere disponibile sui browser Chrome, Firefox, Edge, Safari e Opera |            |
+| NFR22 |              Security              | Il numero di accessi malintenzionati deve essere inferiore a 1 all'anno |            |
+| NFR23 |              Security              | Il sistema deve effettuare sempre un controllo sui reali privilegi di chi effettua qualunque operazione prima di autorizzare operazioni di lettura/scrittura, esecuzione o cancellazione. |            |
 
 ---
 
