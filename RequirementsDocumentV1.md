@@ -26,9 +26,39 @@ Versione: V1 - descrizione di EZElectronics nella forma ATTUALE (come ricevuta d
     - [Caso d'uso 1, UC1](#caso-duso-1-uc1)
       - [Scenario 1.1](#scenario-11)
       - [Scenario 1.2](#scenario-12)
-      - [Scenario 1.x](#scenario-1x)
     - [Caso d'uso 2, UC2](#caso-duso-2-uc2)
-    - [Caso d'uso x, UCx](#caso-duso-x-ucx)
+      - [Scenario 2.1](#scenario-21)
+      - [Scenario 2.2](#scenario-22)
+    - [Caso d'uso 3, UC3](#caso-duso-3-uc3)
+      - [Scenario 3.1](#scenario-31)
+    - [Caso d'uso 4, UC4](#caso-duso-4-uc4)
+      - [Scenario 4.1](#scenario-41)
+      - [Scenario 4.2](#scenario-42)
+    - [Caso d'uso 5, UC5](#caso-duso-5-uc5)
+      - [Scenario 5.1](#scenario-51)
+      - [Scenario 5.2](#scenario-52)
+    - [Caso d'uso 6, UC6](#caso-duso-6-uc6)
+      - [Scenario 6.1](#scenario-61)
+    - [Caso d'uso 7, UC7](#caso-duso-7-uc7)
+      - [Scenario 7.1](#scenario-71)
+    - [Caso d'uso 8, UC8](#caso-duso-8-uc8)
+      - [Scenario 8.1](#scenario-81)
+    - [Caso d'uso 9, UC9](#caso-duso-9-uc9)
+      - [Scenario 9.1](#scenario-91)
+    - [Caso d'uso 10, UC10](#caso-duso-10-uc10)
+      - [Scenario 10.1](#scenario-101)
+      - [Scenario 10.2](#scenario-102)
+    - [Caso d'uso 11, UC11](#caso-duso-11-uc11)
+      - [Scenario 11.1](#scenario-111)
+    - [Caso d'uso 12, UC12](#caso-duso-12-uc12)
+      - [Scenario 12.1](#scenario-121)
+    - [Caso d'uso 13, UC13](#caso-duso-13-uc13)
+      - [Scenario 13.1](#scenario-131)
+    - [Caso d'uso 14, UC14](#caso-duso-14-uc14)
+      - [Scenario 14.1](#scenario-141)
+      - [Scenario 14.2](#scenario-142)
+    - [Caso d'uso 15, UC15](#caso-duso-15-uc15)
+      - [Scenario 15.1](#scenario-151)
 - [Glossario](#glossario)
 - [System Design](#progettazione-del-sistema)
 - [Deployment Diagram](#diagramma-di-distribuzione)
@@ -51,7 +81,7 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 
 ## Context Diagram
 
-![Context Diagram](/media/context_diagram.png)
+![Context Diagram](/media/context_diagram_v1.png)
 
 **Attori**:
 - Utente non autenticato: può solamente effettuare login oppure registrarsi presso la piattaforma, se ancora non possiede un account;
@@ -70,40 +100,41 @@ Le GUI sono descritte graficamente nel documento [GUIPrototypeV1.md](/GUIPrototy
 
 # Storie e personas
 
-\<Una Persona è una rappresentazione realistica di un attore. Definire qui alcune persone e descrivere in testo semplice come una persona interagisce con il sistema>
-
-\<Una persona è un'istanza di un attore>
-
-\<Le storie saranno formalizzate successivamente come scenari nei casi d'uso>
-
 **Manager**
 
 Persona: Franco, 45 anni, manager di un negozio online
 - Franco vuole essere in grado di visionare la merce disponibile nel suo negozio
-- Franco vuole monitorare i suoi ordini di nuova merce
+- Franco vuole monitorare l'arrivo degli ordini effettuati
 - Franco vuole poter sapere quante della sua merce è stata venduta
 - Franco vuole poter eliminare i prodotti dal proprio catalogo
-- Franco vuole essere in grado di inserire più prodotti dello stesso tipi nel proprio catalogo in poco tempo
+- Franco vuole essere in grado di inserire più prodotti dello stesso modello nel proprio catalogo in poco tempo
 - Franco vuole potersi disconnettere dal proprio account nel caso in cui lo desiderasse
 
 **Cliente**
 
-Persona: Giulia, 24 anni, cliente del negozio:
+Persona: Giulia, 24 anni, cliente del negozio
 - Giulia non vuole perdere troppo tempo nella fase di log in al negozio
 - Giulia vuole acquistare ciò che più le piace in modo semplice e veloce
 - Giulia vuole poter vedere che prodotti sta acquistando in modo intuitivo
-- Giulia vuole comprare solo ciò che vuole
+- Giulia vuole gestire facilmente gli articoli nel suo carrello
 - Giulia vuole tenere traccia dei suoi acquisti passati in modo da poterli visionare quando vuole
-- Giulia vuole essere in grado di pagare con qualsiasi metodo di pagamento
-- Giulia vuole poter cambiare le proprie credenziali
-- Giulia desidera cercare velocemente i prodotti all'interno del negozio
-- Giulia vuole essere in grado di disconnettere il suo account quando lo desidera
 
+Persona: Valerio, 36 anni, cliente del negozio
+- Valerio vuole poter filtrare facilmente i prodotti in base alla categoria e/o al modello
+- Valerio vuole avere una visione chiara dei suoi acquisti precedenti
+- Valerio vuole gestire facilmente le proprie credenziali
+- Valerio vuole essere in grado di disconnettere il suo account quando non lo usa
+
+Persona: Marta, 27 anni, cliente del negozio:
+- Marta vuole aggiungere e togliere al proprio carrello tutti i prodotti che desidera
+- Marta vuole poter eliminare tutti i prodotti dal proprio carrello con una semplice mossa
+- Marta vuole accedere velocemente ai suoi acquisti
+- Marta vuole essere in grado di trovare i prodotti tramite il loro codice identificativo 
 
 **Utente non registrato**
 
-Persona: Fulvio, 65 anni, Utente non registrato e pensionato:
-- Fulvio vuole acquistare dei prodotti in modo semplice
+Persona: Fulvio, 65 anni, utente non registrato e pensionato:
+- Fulvio vuole acquistare/visionare dei prodotti in modo semplice
 - Fulvio vuole potersi registrare velocemente e con procedure semplici
 
 # Requisiti funzionali e non funzionali
@@ -188,7 +219,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 
 ## Use Case Diagram
 
-![Use case Diagram](media/use_case_diagram.png)
+![Use case Diagram](media/use_case_diagram_v1.png)
 \<Definire qui il Use Case Diagram UML che riassume tutti i casi d'uso e le loro relazioni>
 
 \<Descrivere qui ogni caso d'uso nel Use Case Diagram>
@@ -240,7 +271,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 
 ##### Scenario 2.1
 
-|  Scenario 1.1  |                                        |
+|  Scenario 2.1  |                                        |
 | :------------: | :------------------------------------: |
 | Precondizione  |                                        |
 | Postcondizione |           L'utente è loggato           |
@@ -253,7 +284,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 
 ##### Scenario 2.2
 
-|  Scenario 1.2  |                                                                |
+|  Scenario 2.2  |            |
 | :------------: | :------------------------------------------------------------: |
 | Precondizione  |                                                                |
 | Postcondizione |                     L'utente non è loggato                     |
@@ -374,7 +405,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |       3        |               Il cliente clicca sul pulsante 'Aggiungi al carrello'                |
 |       4        | Viene visualizzato il carrello con l'aggiunta del prodotto selezionato dal cliente |
 
-### Elimina il carrello corrente, UC7
+### Caso d'uso 7, UC7
 
 | Attori coinvolti  |                                       Cliente                                        |
 | :---------------: | :----------------------------------------------------------------------------------: |
@@ -384,7 +415,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |     Varianti      |                                                                                      |
 |     Eccezioni     |                                                                                      |
 
-##### Scenario 7.1 - Eliminazione del carrello corrente
+##### Scenario 7.1 
 
 |  Scenario 7.1  |                                                                    |
 | :------------: | :----------------------------------------------------------------: |
@@ -395,7 +426,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |       2        |                Il sistema mostra il carrello attivo                |
 |       3        |       Il cliente clicca sul pulsante "**Elimina carrello**"        |
 
-### Visualizza storico dei carrelli pagati, UC8
+### Caso d'uso 8, UC8
 
 | Attori coinvolti  |                       Cliente                        |
 | :---------------: | :--------------------------------------------------: |
@@ -405,11 +436,11 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |     Varianti      |                                                      |
 |     Eccezioni     |
 
-##### Scenario 8.1 - Visualizzazione dello storico dei carrelli
+##### Scenario 8.1 
 
 Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esistano.
 
-| Scenario 10.1  |                                                                                 |
+| Scenario 8.1  |                                                                                 |
 | :------------: | :-----------------------------------------------------------------------------: |
 | Precondizione  |                     Deve esserci almeno un carrello pagato                      |
 | Postcondizione |                    Il sistema mostra lo storico dei carrelli                    |
@@ -417,7 +448,7 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 |       1        | Il cliente ha cliccato sul pulsante relativo alla visualizzazione dello storico |
 |       2        |                Il sistema mostra lo storico dei carrelli pagati                 |
 
-### Rimuovi un prodotto del carrello, UC9
+### Caso d'uso 9, UC9
 
 | Attori coinvolti  |                               Cliente                               |
 | :---------------: | :-----------------------------------------------------------------: |
@@ -572,8 +603,9 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 |       4        | Il sistema mostra i risultati della ricerca |
 
 ### Caso d'uso 15, UC15
+#### Scenario 15.1
 
-| Scenario 14.2  |                     Utente loggato                     |
+| Scenario 15.1  |                     Utente loggato                     |
 | :------------: | :----------------------------------------------------: |
 | Precondizione  |            L'utente deve essere autenticato            |
 | Postcondizione |                                                        |
@@ -583,18 +615,12 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 
 # Glossario
 
-\<Utilizzare il diagramma delle classi UML per definire termini o concetti importanti nel dominio dell'applicazione e le loro relazioni>
-
-\<I concetti devono essere utilizzati in modo coerente in tutto il documento, ad esempio nei casi d'uso, nei requisiti, ecc.>
-
-![Class Diagram](media/glossario.png)
+![Class Diagram](media/glossario_v1.png)
 
 # System Design
 
-\<Descrivere qui la System Design>
-
-\<Deve essere coerente con il Context Diagram>
+<img src="media/system_diagram_v1.png" width="180">
 
 # Deployment Diagram
 
-\<Descrivere qui il Deployment Diagram>
+![Deployment Diagram](media/deployment_diagram_v1.png)
