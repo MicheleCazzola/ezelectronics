@@ -1,8 +1,8 @@
 # Project Estimation - FUTURE
 
-Date:
+Date: 26/04/2024
 
-Version:
+Version: 0.1
 
 # Estimation approach
 
@@ -27,21 +27,25 @@ Consider the EZElectronics project in FUTURE version (as proposed by your team i
 
 | component name       | Estimated effort (person hours) |
 | -------------------- | ------------------------------- |
-| requirement document |                                 |
-| GUI prototype        |                                 |
-| design document      |                                 |
-| code                 |                                 |
-| unit tests           |                                 |
-| api tests            |                                 |
-| management documents |                                 |
+| requirement document | 30                              |
+| GUI prototype        | 15                              |
+| design document      | 30                              |
+| code                 | 100                             |
+| unit tests           | 110                             |
+| api tests            | 20                              |
+| management documents | 15                              |
 
 # Estimate by activity decomposition
 
 ###
 
-| Activity name | Estimated effort (person hours) |
-| ------------- | ------------------------------- |
-|               |                                 |
+| Activity name        | Estimated effort (person hours) |
+| -------------------- | ------------------------------- |
+| requirement analysis | 30                              |
+| prototyping          | 15                              |
+| design               | 30                              |
+| coding               | 100                             |
+| testing              | 130                             |
 
 ###
 
@@ -54,5 +58,5 @@ Report here the results of the three estimation approaches. The estimates may di
 |                                    | Estimated effort | Estimated duration |
 | ---------------------------------- | ---------------- | ------------------ |
 | estimate by size                   |                  |
-| estimate by product decomposition  |                  |
-| estimate by activity decomposition |                  |
+| estimate by product decomposition  | 320              |
+| estimate by activity decomposition | 305              |
