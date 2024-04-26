@@ -154,12 +154,25 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 
 ## Table of rights
 
-|  Attore            | FR1.1 | FR1.2 | FR2.1 | FR2.2 | FR3.1 | FR3.2 | FR3.3 | FR3.4 | FR3.5 |  FR4  |
-| :----------------: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| Utente non loggato |   x   |       |   x   |       |       |       |       |       |       |       |
-| Cliente            |       |   x   |       |   x   |       |       |       |   x   |       |   x   |
-| Manager            |       |   x   |       |   x   |   x   |   x   |   x   |   x   |   x   |       |
-
+| Requisiti | Utente non loggato | Cliente | Manager |
+| :-------: | :----------------: | :-----: | :-----: |
+|   FR1.1   |         x          |         |         |
+|   FR1.2   |                    |    x    |    x    |
+|   FR2.1   |         x          |         |         |
+|   FR2.2   |                    |    x    |    x    |
+|   FR3.1   |                    |         |    x    |
+|   FR3.2   |                    |         |    x    |
+|   FR3.3   |                    |         |    x    |
+|   FR3.4   |                    |    x    |    x    |
+|   FR3.5   |                    |         |    x    |
+|    FR4    |                    |    x    |         |
+|    TFR1   |         x          |    x    |    x    |
+|    TFR2   |         x          |    x    |    x    |
+|    TFR3   |         x          |    x    |    x    |
+|    TFR4   |         x          |    x    |    x    |
+|    TFR5   |         x          |    x    |    x    |
+|    TFR6   |         x          |    x    |    x    |
+|    TFR7   |         x          |    x    |    x    |
 
 ## Requisiti non funzionali
 
