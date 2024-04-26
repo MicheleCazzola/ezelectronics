@@ -60,4 +60,4 @@ Report here the results of the three estimation approaches. The estimates may di
 | ---------------------------------- | ---------------- | ----------------------------------- |
 | estimate by size                   | 166.5            | 2                                   |
 | estimate by product decomposition  | 175              |                                     |
-| estimate by activity decomposition | 165              | 1                                   |
+| estimate by activity decomposition | 165              | 2                                   |
