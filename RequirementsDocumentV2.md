@@ -144,6 +144,13 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 **Giuseppe**
 
+- Modifica del profilo utente: inserimento, modifica e rimozione di un indirizzo di spedizione preferito, possibilità di aggiungere più indirizzi preferiti ?; inserimento, modifica e rimozione di un sistema di pagamento preferito. 
+- Acquisto rapido one-click ? 
+- Possibilità di fare un reso ? -> (quindi possibilià di aprire una "pratica" di resoe e quindi creazione di una nuova spedizione, che in teoria dovrebbe essere gestita dalla compagnia o dal manager)
+- Ricercare i prodotti come "gia acquistati"
+- Creazione di una lista dei desideri in cui aggiungere dei prodotti
+- Codici sconto e promozioni ? 
+
 ---
 ### Table of rights
 __Da aggiornare__  
