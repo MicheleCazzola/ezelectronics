@@ -41,27 +41,41 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 | Stakeholder name | Description |
 | :--------------: | :---------: |
-| Stakeholder x..  |             |
+| Utente non autenticato |                     Utente non registrato presso la piattaforma, la sua attività principale riguarda registrazione e login                     |
+|        Cliente         |              Utente autenticato le cui attività principali sono l'acquisto e la visualizzazione di prodotti attraverso l'applicazione               |
+|        Manager         | Utente autenticato la cui attività principale è la gestione dei prodotti, sia in entrata che in uscita dal negozio virtuale |
+| Admin | Amministratore del sistema, la sua attività principale è risolvere eventuali problematiche, garantendo il corretto funzionamento del sistema|
+|       Produttore       |     Individuo, organizzazione o azienda che produce gli oggetti che verranno messi in vendita attraverso la piattaforma     |
+|      Distributore      |          Organizzazione che distribuisce i prodotti, dal produttore al venditore (_Manager_)       |
+| Fornitori di pubblicità | Organizzazioni i cui prodotti sono pubblicizzati nei banner presenti all'interno dell'applicazione |
+| Servizi di pagamento | Organizzazioni che si occupano di garantire il corretto funzionamento delle transazioni di pagamento |
+| Servizio di spedizione | Organizzazione che si occupa del trasporto dei prodotti dal venditore (_Manager_) al cliente |
+
 
 # Context Diagram and interfaces
 
 ## Context Diagram
+![Context diagram](/media/version2/context_diagram.png)
 
-\<Define here Context diagram using UML use case diagram>
+**Attori**:
+- Utente non autenticato: può solamente effettuare login oppure registrarsi presso la piattaforma, se ancora non possiede un account;
+- Cliente: ha la possibilità di visualizzare ed acquistare i prodotti, tenendo traccia delle proprie transazioni, attraverso la creazione dei carrelli virtuali;
+- Manager: ha la possibilità di effettuare operazioni sui prodotti del negozio, tenendo traccia degli arrivi e delle quantità presenti e vendute.
+- Admin: ha la possibilità di effettuare ogni operazione su ogni entità presente nel sistema
+- Servizio di pagamento: API per effettuare transazioni tra manager e cliente
+- Servizio di pubblicità: API per mostrare banner pubblicitari all'interno dell'applicazione
+- Servizio di spedizione: API per creare la spedizione ed effettuare il tracking
 
-\<actors are a subset of stakeholders>
-- Sistema di pagamento (Paypal, Satispay, Visa/Mastercard/Amex separati?)
-- Sistema di spedizione (anche qui, ha senso separare DHL/GLS ecc visto che le api di interazione sono possibilmente diverse?)
+## Interfacce
 
-## Interfaces
-
-\<describe here each interface in the context diagram>
-
-\<GUIs will be described graphically in a separate document>
-
-|   Actor   | Logical Interface | Physical Interface |
-| :-------: | :---------------: | :----------------: |
-| Actor x.. |                   |                    |
+|         Attore         | Interfaccia logica | Interfaccia fisica |
+| :--------------------: | :----------------: | :----------------: |
+| Utente non autenticato |        GUI         |   PC/Smartphone    |
+|        Cliente         |        GUI         |   PC/Smartphone    |
+|        Admin           |        GUI         |   PC/Smartphone    |
+|Servizio di pagamento   |        API         |   Internet    |
+|Servizio di pubblicità  |        API         |   Internet    |
+|Servizio di spedizione  |        API         |   Internet    |
 
 
 # Stories and personas

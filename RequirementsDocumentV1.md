@@ -81,7 +81,7 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 
 ## Context Diagram
 
-![Context Diagram](/media/context_diagram_v1.png)
+![Context Diagram](/media/version1/context_diagram.png)
 
 **Attori**:
 - Utente non autenticato: può solamente effettuare login oppure registrarsi presso la piattaforma, se ancora non possiede un account;
@@ -167,7 +167,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.4                    |                                 Recupero dello storico dei carrelli pagati dal cliente corrente                               |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5                    |                                               Eliminazione carrelli                                               |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.1 |                  Eliminazione di un prodotto dal carrello corrente, dato il codice del prodotto                   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.2 |                              Eliminazione del carrello corrente dell'utente loggato                               |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.2 |                              Eliminazione del carrello corrente dell'utente autenticato                               |
 
 ### Requisiti di test
 
@@ -185,7 +185,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 
 ## Table of rights
 
-| Requisiti | Utente non loggato | Cliente | Manager |
+| Requisiti | Utente non autenticato | Cliente | Manager |
 | :-------: | :----------------: | :-----: | :-----: |
 |   FR1.1   |         x          |         |         |
 |   FR1.2   |                    |    x    |    x    |
@@ -219,18 +219,18 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 
 ## Use Case Diagram
 
-![Use case Diagram](media/use_case_diagram_v1.png)
+![Use case Diagram](media/version1/use_case_diagram.png)
 \<Definire qui il Use Case Diagram UML che riassume tutti i casi d'uso e le loro relazioni>
 
 \<Descrivere qui ogni caso d'uso nel Use Case Diagram>
 
 ### Caso d'uso 1, UC1
 
-| Attori coinvolti  |                        Utente non loggato                         |
+| Attori coinvolti  |                        Utente non autenticato                         |
 | :---------------: | :---------------------------------------------------------------: |
 |   Precondizione   |                                                                   |
 |  Postcondizione   |                                                                   |
-| Scenario nominale | L'utente non loggato inserisce i dati e registra una nuova utenza |
+| Scenario nominale | L'utente non autenticato inserisce i dati e registra una nuova utenza |
 |     Varianti      |                                                                   |
 |     Eccezioni     |                      username già esistente                       |
 
@@ -261,10 +261,10 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 
 ### Caso d'uso 2, UC2
 
-| Attori coinvolti  |                                            Utente non loggato                                             |
+| Attori coinvolti  |                                            Utente non autenticato                                             |
 | :---------------: | :-------------------------------------------------------------------------------------------------------: |
 |   Precondizione   |                                                                                                           |
-|  Postcondizione   |                                            L'utente è loggato                                             |
+|  Postcondizione   |                                            L'utente è autenticato                                             |
 | Scenario nominale | L'utente inserisce i dati, il sistema ne verifica la correttezza e in caso positivo si effettua l'accesso |
 |     Varianti      |                                                                                                           |
 |     Eccezioni     |         Se i dati inseriti non sono corretti viene mostrato un errore e non si effettua l'accesso         |
@@ -274,7 +274,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |  Scenario 2.1  |                                        |
 | :------------: | :------------------------------------: |
 | Precondizione  |                                        |
-| Postcondizione |           L'utente è loggato           |
+| Postcondizione |           L'utente è autenticato           |
 |     Passo#     |              Descrizione               |
 |       1        |  L'utente preme sul pulsante 'Login'   |
 |       2        | L'utente inserisce username e password |
@@ -287,7 +287,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |  Scenario 2.2  |            |
 | :------------: | :------------------------------------------------------------: |
 | Precondizione  |                                                                |
-| Postcondizione |                     L'utente non è loggato                     |
+| Postcondizione |                     L'utente non è autenticato                     |
 |     Passo#     |                          Descrizione                           |
 |       1        |              L'utente preme sul pulsante 'Login'               |
 |       2        |             L'utente inserisce username e password             |
@@ -296,10 +296,10 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 
 ### Caso d'uso 3, UC3
 
-| Attori coinvolti  |                      Utente loggato                      |
+| Attori coinvolti  |                      Utente autenticato                      |
 | :---------------: | :------------------------------------------------------: |
 |   Precondizione   |                                                          |
-|  Postcondizione   |                  L'utente non è loggato                  |
+|  Postcondizione   |                  L'utente non è autenticato                  |
 | Scenario nominale | L'utente preme sul pulsante 'Logout' e viene disconnesso |
 |     Varianti      |                                                          |
 |     Eccezioni     |                                                          |
@@ -309,7 +309,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |  Scenario 3.1  |                                         |
 | :------------: | :-------------------------------------: |
 | Precondizione  |                                         |
-| Postcondizione |         L'utente non è loggato          |
+| Postcondizione |         L'utente non è autenticato          |
 |     Passo#     |               Descrizione               |
 |       1        |  L'utente preme sul pulsante 'Logout'   |
 |       2        |       L'utente viene disconnesso        |
@@ -571,7 +571,7 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 
 ### Caso d'uso 14, UC14
 
-| Attori coinvolti  |                         Utente loggato                         |
+| Attori coinvolti  |                         Utente autenticato                         |
 | :---------------: | :------------------------------------------------------------: |
 |   Precondizione   |                L'utente deve essere autenticato                |
 |  Postcondizione   |                                                                |
@@ -605,7 +605,7 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 ### Caso d'uso 15, UC15
 #### Scenario 15.1
 
-| Scenario 15.1  |                     Utente loggato                     |
+| Scenario 15.1  |                     Utente autenticato                     |
 | :------------: | :----------------------------------------------------: |
 | Precondizione  |            L'utente deve essere autenticato            |
 | Postcondizione |                                                        |
@@ -615,12 +615,12 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 
 # Glossario
 
-![Class Diagram](media/glossario_v1.png)
+![Class Diagram](media/version1/glossario.png)
 
 # System Design
 
-<img src="media/system_diagram_v1.png" width="180">
+![System design](media/version1/system_diagram.png)
 
 # Deployment Diagram
 
-![Deployment Diagram](media/deployment_diagram_v1.png)
+![Deployment Diagram](media/version1/deployment_diagram.png)
