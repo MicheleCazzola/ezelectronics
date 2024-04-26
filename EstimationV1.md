@@ -50,7 +50,7 @@ Consider the EZElectronics project in CURRENT version (as given by the teachers)
 ###
 
 Assume team of 4 people, 8 hours per day, 5 days per week
-![Gantt Diagram](media/gantt_v1.png)
+![Gantt Diagram](media/version1/gantt.png)
 
 # Summary
 
