@@ -135,36 +135,38 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 ---
 
-**Michele**
-
+**Michele**  
+- Recensione di un modello di prodotto: inserimento, modifica, rimozione da parte di un cliente, comprensiva di voto (1-5 stelle) e descrizione estesa (opzionale)
+- Accesso ai servizi di pubblicità: inserimento, rimozione banner pubblicitario ()
+- Accesso ai servizi di pagamento: connessione, disconnessione, pagamento
+- Accesso a servizi di spedizione (supponiamo corriere unico): creazione nuova spedizione (solo manager), tracking (visibile anche al cliente interessato)
 ---
 
 **Giuseppe**
 
 ---
+### Table of rights
+__Da aggiornare__  
 
-## Table of rights
-
-| Requisiti | Utente non loggato | Cliente | Manager | Admin |
-| :-------: | :----------------: | :-----: | :-----: | :---: |
-|   FR1.1   |         x          |         |         |   x   |
-|   FR1.2   |                    |    x    |    x    |   x   |
-|   FR2.1   |         x          |         |         |   x   |
-|   FR2.2   |                    |    x    |    x    |   x   |
-|   FR2.3   |                    |         |         |   x   |
-|   FR2.4   |                    |         |         |   x   |
-|   FR3.1   |                    |         |    x    |   x   |
-|   FR3.2   |                    |         |    x    |   x   |
-|   FR3.3   |                    |         |    x    |   x   |
-|   FR3.4   |         x          |    x    |    x    |   x   |
-|   FR3.5   |                    |         |    x    |   x   |
-|   FR4.1   |                    |    x    |         |   x   |
-|   FR4.2   |                    |    x    |         |   x   |
-|   FR4.3   |                    |    x    |         |   x   |
-|   FR4.4   |                    |    x    |         |   x   |
-|  FR4.5.1  |                    |    x    |         |   x   |
-|  FR4.5.2  |                    |    x    |         |   x   |
-|  FR4.5.3  |                    |         |         |   x   |
+| Requisiti | Utente non autenticato | Cliente | Manager | Admin|
+| :-------: | :----------------: | :-----: | :-----: |:---:|
+|   FR1.1   |         x          |         |         ||
+|   FR1.2   |                    |    x    |    x    ||
+|   FR2.1   |         x          |         |         ||
+|   FR2.2   |                    |    x    |    x    ||
+|   FR3.1   |                    |         |    x    ||
+|   FR3.2   |                    |         |    x    ||
+|   FR3.3   |                    |         |    x    ||
+|   FR3.4   |                    |    x    |    x    ||
+|   FR3.5   |                    |         |    x    ||
+|    FR4    |                    |    x    |         ||
+|    TFR1   |         x          |    x    |    x    ||
+|    TFR2   |         x          |    x    |    x    ||
+|    TFR3   |         x          |    x    |    x    ||
+|    TFR4   |         x          |    x    |    x    ||
+|    TFR5   |         x          |    x    |    x    ||
+|    TFR6   |         x          |    x    |    x    ||
+|    TFR7   |         x          |    x    |    x    ||
 
 ## Non Functional Requirements
 
@@ -187,11 +189,11 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | NFR13 |              Affidabilità               | Ogni utente non deve segnalare più di 2 bug all'anno |            |
 | NFR14 |              Correttezza               | L'applicazione deve essere in grado di gestire un aumento del traffico senza degrado delle prestazioni |            |
 | NFR15 |              Efficienza               | Il tempo di risposta deve essere pari o inferiore a 2 secondi |            |
-| NFR16 |              Mantenibilità               | Risolvere un problema software deve richiedere un effort massimo di 7 person/hours |            |
-| NFR17 |              Mantenibilità               | Modificare una funzionalità esistente deve richiedere un effort massimo di 7 person/hours |            |
-| NFR18 |              Mantenibilità               | Eliminare una funzionalità esistente deve richiedere un effort massimo di 3 person/hours |            |
-| NFR19 |              Mantenibilità               | Aggiungere una nuova funzionalità deve richiedere un effort massimo di 35 person/hours |            |
-| NFR20 |              Portabilità               | Podificare il DBMS su cui memorizzare i dati deve richiedere un effort massimo di 35 person/hours |            |
+| NFR16 |              Manutenibilità               | Risolvere un problema software deve richiedere un effort massimo di 7 person/hours |            |
+| NFR17 |              Manutenibilità               | Modificare una funzionalità esistente deve richiedere un effort massimo di 7 person/hours |            |
+| NFR18 |              Manutenibilità               | Eliminare una funzionalità esistente deve richiedere un effort massimo di 3 person/hours |            |
+| NFR19 |              Manutenibilità               | Aggiungere una nuova funzionalità deve richiedere un effort massimo di 35 person/hours |            |
+| NFR20 |              Portabilità               | Modificare il DBMS su cui memorizzare i dati deve richiedere un effort massimo di 35 person/hours |            |
 | NFR21 |              Portabilità               | L'applicazione web deve essere disponibile sui browser Chrome, Firefox, Edge, Safari e Opera |            |
 | NFR22 |              Security              | Il numero di accessi malintenzionati deve essere inferiore a 1 all'anno |            |
 | NFR23 |              Security              | Il sistema deve effettuare sempre un controllo sui reali privilegi di chi effettua qualunque operazione prima di autorizzare operazioni di lettura/scrittura, esecuzione o cancellazione. |            |

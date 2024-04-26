@@ -183,7 +183,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 | TFR6 |   Eliminazione di tutti i prodotti    |
 | TFR7 |   Eliminazione di tutti i carrelli    |
 
-## Table of rights
+### Table of rights
 
 | Requisiti | Utente non autenticato | Cliente | Manager |
 | :-------: | :----------------: | :-----: | :-----: |
@@ -206,8 +206,6 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |    TFR7   |         x          |    x    |    x    |
 
 ## Requisiti non funzionali
-
-\<Descrivere i vincoli sui requisiti funzionali>
 
 |  ID  | Tipo (efficienza, affidabilità, ..) |                                                 Descrizione                                                  |   Si riferisce a   |
 | :--: | :---------------------------------: | :----------------------------------------------------------------------------------------------------------: | :----------------: |
