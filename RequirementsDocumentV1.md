@@ -71,8 +71,8 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 
 | Nome dello stakeholder |                                                         Descrizione                                                         |
 | :--------------------: | :-------------------------------------------------------------------------------------------------------------------------: |
-| Utente non autenticato |                     Utente non registrato presso la piattaforma, la sua attività principale riguarda registrazione e login                     |
-|        Cliente         |              Utente autenticato le cui attività principali sono l'acquisto e la visualizzazione di prodotti attraverso l'applicazione               |
+| Utente non autenticato |           Utente non registrato presso la piattaforma, la sua attività principale riguarda registrazione e login            |
+|        Cliente         |  Utente autenticato le cui attività principali sono l'acquisto e la visualizzazione di prodotti attraverso l'applicazione   |
 |        Manager         | Utente autenticato la cui attività principale è la gestione dei prodotti, sia in entrata che in uscita dal negozio virtuale |
 |       Produttore       |     Individuo, organizzazione o azienda che produce gli oggetti che verranno messi in vendita attraverso la piattaforma     |
 |      Distributore      |          Individuo, organizzazione o azienda che distribuisce i prodotti, dal produttore al venditore (_Manager_)           |
@@ -84,6 +84,7 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 ![Context Diagram](/media/version1/context_diagram.png)
 
 **Attori**:
+
 - Utente non autenticato: può solamente effettuare login oppure registrarsi presso la piattaforma, se ancora non possiede un account;
 - Cliente: ha la possibilità di visualizzare ed acquistare i prodotti, tenendo traccia delle proprie transazioni, attraverso la creazione dei carrelli virtuali;
 - Manager: ha la possibilità di effettuare operazioni sui prodotti del negozio, tenendo traccia degli arrivi e delle quantità presenti e vendute.
@@ -103,6 +104,7 @@ Le GUI sono descritte graficamente nel documento [GUIPrototypeV1.md](/GUIPrototy
 **Manager**
 
 Persona: Franco, 45 anni, manager di un negozio online
+
 - Franco vuole essere in grado di visionare la merce disponibile nel suo negozio
 - Franco vuole monitorare l'arrivo degli ordini effettuati
 - Franco vuole poter sapere quante della sua merce è stata venduta
@@ -113,6 +115,7 @@ Persona: Franco, 45 anni, manager di un negozio online
 **Cliente**
 
 Persona: Giulia, 24 anni, cliente del negozio
+
 - Giulia non vuole perdere troppo tempo nella fase di log in al negozio
 - Giulia vuole acquistare ciò che più le piace in modo semplice e veloce
 - Giulia vuole poter vedere che prodotti sta acquistando in modo intuitivo
@@ -120,20 +123,23 @@ Persona: Giulia, 24 anni, cliente del negozio
 - Giulia vuole tenere traccia dei suoi acquisti passati in modo da poterli visionare quando vuole
 
 Persona: Valerio, 36 anni, cliente del negozio
+
 - Valerio vuole poter filtrare facilmente i prodotti in base alla categoria e/o al modello
 - Valerio vuole avere una visione chiara dei suoi acquisti precedenti
 - Valerio vuole gestire facilmente le proprie credenziali
 - Valerio vuole essere in grado di disconnettere il suo account quando non lo usa
 
 Persona: Marta, 27 anni, cliente del negozio:
+
 - Marta vuole aggiungere e togliere al proprio carrello tutti i prodotti che desidera
 - Marta vuole poter eliminare tutti i prodotti dal proprio carrello con una semplice mossa
 - Marta vuole accedere velocemente ai suoi acquisti
-- Marta vuole essere in grado di trovare i prodotti tramite il loro codice identificativo 
+- Marta vuole essere in grado di trovare i prodotti tramite il loro codice identificativo
 
 **Utente non registrato**
 
 Persona: Fulvio, 65 anni, utente non registrato e pensionato:
+
 - Fulvio vuole acquistare/visionare dei prodotti in modo semplice
 - Fulvio vuole potersi registrare velocemente e con procedure semplici
 
@@ -148,26 +154,26 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR1.2                    |                                                      Logout                                                       |
 |                                       FR2                                        |                                               Gestione degli utenti                                               |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1                    |                                              Creazione nuovo utente                                               |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2                    |                                            Recupero delle informazioni dell' utente autenticato                                             |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2                    |                               Recupero delle informazioni dell' utente autenticato                                |
 |                                       FR3                                        |                                               Gestione dei prodotti                                               |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.1                    |                                             Creazione nuovo prodotto                                              |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.2                    |                        Registrazione arrivo di un insieme di prodotti dello stesso modello                        |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.3                    |                                     Contrassegno di un prodotto come venduto                                      |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4                    |                                                 Recupero prodotti                                                 |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.1 |                                    Recupero di un prodotto, dato il suo codice                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.2 |                         Recupero prodotti, eventualmente solo se (non) venduti, dato il modello                         |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.3 |                        Recupero prodotti, eventualmente solo se (non) venduti, data la categoria                        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.4 |                            Recupero di tutti i prodotti, eventualmente solo se (non) venduti                            |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.2 |                      Recupero prodotti, eventualmente solo se (non) venduti, dato il modello                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.3 |                     Recupero prodotti, eventualmente solo se (non) venduti, data la categoria                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.4 |                         Recupero di tutti i prodotti, eventualmente solo se (non) venduti                         |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5                    |                                               Eliminazione prodotti                                               |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5.1 |                                  Eliminazione di un prodotto, dato il suo codice                                  |
 |                                       FR4                                        |                                               Gestione dei carrelli                                               |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.1                    |                                       Recupero carrello del cliente corrente                               |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.2                    |                              Aggiunta di un prodotto al carrello del cliente corrente                           |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.1                    |                                      Recupero carrello del cliente corrente                                       |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.2                    |                             Aggiunta di un prodotto al carrello del cliente corrente                              |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.3                    | Pagamento di un carrello, avente per prezzo la somma dei prezzi dei prodotti inseriti e per data la data corrente |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.4                    |                                 Recupero dello storico dei carrelli pagati dal cliente corrente                               |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.4                    |                          Recupero dello storico dei carrelli pagati dal cliente corrente                          |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5                    |                                               Eliminazione carrelli                                               |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.1 |                  Eliminazione di un prodotto dal carrello corrente, dato il codice del prodotto                   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.2 |                              Eliminazione del carrello corrente dell'utente autenticato                               |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.2 |                            Eliminazione del carrello corrente dell'utente autenticato                             |
 
 ### Requisiti di test
 
@@ -186,24 +192,24 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 ### Table of rights
 
 | Requisiti | Utente non autenticato | Cliente | Manager |
-| :-------: | :----------------: | :-----: | :-----: |
-|   FR1.1   |         x          |         |         |
-|   FR1.2   |                    |    x    |    x    |
-|   FR2.1   |         x          |         |         |
-|   FR2.2   |                    |    x    |    x    |
-|   FR3.1   |                    |         |    x    |
-|   FR3.2   |                    |         |    x    |
-|   FR3.3   |                    |         |    x    |
-|   FR3.4   |                    |    x    |    x    |
-|   FR3.5   |                    |         |    x    |
-|    FR4    |                    |    x    |         |
-|    TFR1   |         x          |    x    |    x    |
-|    TFR2   |         x          |    x    |    x    |
-|    TFR3   |         x          |    x    |    x    |
-|    TFR4   |         x          |    x    |    x    |
-|    TFR5   |         x          |    x    |    x    |
-|    TFR6   |         x          |    x    |    x    |
-|    TFR7   |         x          |    x    |    x    |
+| :-------: | :--------------------: | :-----: | :-----: |
+|   FR1.1   |           x            |         |         |
+|   FR1.2   |                        |    x    |    x    |
+|   FR2.1   |           x            |         |         |
+|   FR2.2   |                        |    x    |    x    |
+|   FR3.1   |                        |         |    x    |
+|   FR3.2   |                        |         |    x    |
+|   FR3.3   |                        |         |    x    |
+|   FR3.4   |                        |    x    |    x    |
+|   FR3.5   |                        |         |    x    |
+|    FR4    |                        |    x    |         |
+|   TFR1    |           x            |    x    |    x    |
+|   TFR2    |           x            |    x    |    x    |
+|   TFR3    |           x            |    x    |    x    |
+|   TFR4    |           x            |    x    |    x    |
+|   TFR5    |           x            |    x    |    x    |
+|   TFR6    |           x            |    x    |    x    |
+|   TFR7    |           x            |    x    |    x    |
 
 ## Requisiti non funzionali
 
@@ -225,12 +231,12 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 ### Caso d'uso 1, UC1
 
 | Attori coinvolti  |                        Utente non autenticato                         |
-| :---------------: | :---------------------------------------------------------------: |
-|   Precondizione   |                                                                   |
-|  Postcondizione   |                                                                   |
+| :---------------: | :-------------------------------------------------------------------: |
+|   Precondizione   |                                                                       |
+|  Postcondizione   |                                                                       |
 | Scenario nominale | L'utente non autenticato inserisce i dati e registra una nuova utenza |
-|     Varianti      |                                                                   |
-|     Eccezioni     |                      username già esistente                       |
+|     Varianti      |                                                                       |
+|     Eccezioni     |                        username già esistente                         |
 
 ##### Scenario 1.1
 
@@ -259,10 +265,10 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 
 ### Caso d'uso 2, UC2
 
-| Attori coinvolti  |                                            Utente non autenticato                                             |
+| Attori coinvolti  |                                          Utente non autenticato                                           |
 | :---------------: | :-------------------------------------------------------------------------------------------------------: |
 |   Precondizione   |                                                                                                           |
-|  Postcondizione   |                                            L'utente è autenticato                                             |
+|  Postcondizione   |                                          L'utente è autenticato                                           |
 | Scenario nominale | L'utente inserisce i dati, il sistema ne verifica la correttezza e in caso positivo si effettua l'accesso |
 |     Varianti      |                                                                                                           |
 |     Eccezioni     |         Se i dati inseriti non sono corretti viene mostrato un errore e non si effettua l'accesso         |
@@ -272,7 +278,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |  Scenario 2.1  |                                        |
 | :------------: | :------------------------------------: |
 | Precondizione  |                                        |
-| Postcondizione |           L'utente è autenticato           |
+| Postcondizione |         L'utente è autenticato         |
 |     Passo#     |              Descrizione               |
 |       1        |  L'utente preme sul pulsante 'Login'   |
 |       2        | L'utente inserisce username e password |
@@ -282,10 +288,10 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 
 ##### Scenario 2.2
 
-|  Scenario 2.2  |            |
+|  Scenario 2.2  |                                                                |
 | :------------: | :------------------------------------------------------------: |
 | Precondizione  |                                                                |
-| Postcondizione |                     L'utente non è autenticato                     |
+| Postcondizione |                   L'utente non è autenticato                   |
 |     Passo#     |                          Descrizione                           |
 |       1        |              L'utente preme sul pulsante 'Login'               |
 |       2        |             L'utente inserisce username e password             |
@@ -294,10 +300,10 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 
 ### Caso d'uso 3, UC3
 
-| Attori coinvolti  |                      Utente autenticato                      |
+| Attori coinvolti  |                    Utente autenticato                    |
 | :---------------: | :------------------------------------------------------: |
 |   Precondizione   |                                                          |
-|  Postcondizione   |                  L'utente non è autenticato                  |
+|  Postcondizione   |                L'utente non è autenticato                |
 | Scenario nominale | L'utente preme sul pulsante 'Logout' e viene disconnesso |
 |     Varianti      |                                                          |
 |     Eccezioni     |                                                          |
@@ -307,7 +313,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |  Scenario 3.1  |                                         |
 | :------------: | :-------------------------------------: |
 | Precondizione  |                                         |
-| Postcondizione |         L'utente non è autenticato          |
+| Postcondizione |       L'utente non è autenticato        |
 |     Passo#     |               Descrizione               |
 |       1        |  L'utente preme sul pulsante 'Logout'   |
 |       2        |       L'utente viene disconnesso        |
@@ -315,13 +321,13 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 
 ### Caso d'uso 4, UC4
 
-| Attori coinvolti  |              Cliente              |
-| :---------------: | :-------------------------------: |
-|   Precondizione   |                                   |
-|  Postcondizione   | Il cliente visualizza il carrello |
-| Scenario nominale |               Il cliente visualizza il contenuto del carrello                    |
-|     Varianti      |      Non esiste un carrello       |
-|     Eccezioni     |                                   |
+| Attori coinvolti  |                     Cliente                     |
+| :---------------: | :---------------------------------------------: |
+|   Precondizione   |                                                 |
+|  Postcondizione   |        Il cliente visualizza il carrello        |
+| Scenario nominale | Il cliente visualizza il contenuto del carrello |
+|     Varianti      |             Non esiste un carrello              |
+|     Eccezioni     |                                                 |
 
 ##### Scenario 4.1
 
@@ -348,7 +354,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 | Attori coinvolti  |                            Cliente                            |
 | :---------------: | :-----------------------------------------------------------: |
 |   Precondizione   |     Il cliente deve avere almeno un prodotto nel carrello     |
-|  Postcondizione   |       Il cliente paga i prodotti presenti nel carrello        |
+|  Postcondizione   |                     L'ordine è confermato                     |
 | Scenario nominale |   Il cliente esegue il pagamento dei prodotti con successo    |
 |     Varianti      |                                                               |
 |     Eccezioni     | In caso di errato inserimento dei dati, il pagamento fallisce |
@@ -358,7 +364,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |  Scenario 5.1  |                                                                              |
 | :------------: | :--------------------------------------------------------------------------: |
 | Precondizione  |            Il cliente deve avere almeno un prodotto nel carrello             |
-| Postcondizione |               Il cliente paga i prodotti presenti nel carrello               |
+| Postcondizione |  L'ordine è confermato e il carrello corrente viene spostato nello storico   |
 |     Passo#     |                                 Descrizione                                  |
 |       1        |      Il cliente clicca sul pulsante per la visualizzazione del carrello      |
 |       2        |            Il cliente clicca sul pulsante 'Procedi all'acquisto'             |
@@ -372,7 +378,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |  Scenario 5.2  |                                                                                                                            |
 | :------------: | :------------------------------------------------------------------------------------------------------------------------: |
 | Precondizione  |                                   Il cliente deve avere almeno un prodotto nel carrello                                    |
-| Postcondizione |                     Il cliente fallisce nell'eseguire il pagamento dei prodotti presenti nel carrello                      |
+| Postcondizione |                                                 L'ordine non è finalizzato                                                 |
 |     Passo#     |                                                        Descrizione                                                         |
 |       1        |                             Il cliente clicca sul pulsante per la visualizzazione del carrello                             |
 |       2        |                                   Il cliente clicca sul pulsante 'Procedi all'acquisto'                                    |
@@ -386,8 +392,8 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 | Attori coinvolti  |                   Cliente                    |
 | :---------------: | :------------------------------------------: |
 |   Precondizione   | Il cliente visualizza l'elenco dei prodotti  |
-|  Postcondizione   | Il cliente aggiunge un prodotto al carrello  |
-| Scenario nominale | Il cliente visualizza il carrello aggiornato |
+|  Postcondizione   | Il cliente visualizza il carrello aggiornato |
+| Scenario nominale | Il cliente aggiunge un prodotto al carrello  |
 |     Varianti      |                                              |
 |     Eccezioni     |                                              |
 
@@ -396,7 +402,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |  Scenario 6.1  |                                                                                    |
 | :------------: | :--------------------------------------------------------------------------------: |
 | Precondizione  |                    Il cliente visualizza l'elenco dei prodotti                     |
-| Postcondizione |                    Il cliente aggiunge un prodotto al carrello                     |
+| Postcondizione |                    Il cliente visualizza il carrello aggiornato                    |
 |     Passo#     |                                    Descrizione                                     |
 |       1        |          Il cliente clicca sul prodotto che vuole aggiungere al carrello           |
 |       2        |     Viene visualizzata la pagina dei dettagli relativi al prodotto selezionato     |
@@ -413,7 +419,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |     Varianti      |                                                                                      |
 |     Eccezioni     |                                                                                      |
 
-##### Scenario 7.1 
+##### Scenario 7.1
 
 |  Scenario 7.1  |                                                                    |
 | :------------: | :----------------------------------------------------------------: |
@@ -434,11 +440,11 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |     Varianti      |                                                      |
 |     Eccezioni     |
 
-##### Scenario 8.1 
+##### Scenario 8.1
 
 Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esistano.
 
-| Scenario 8.1  |                                                                                 |
+|  Scenario 8.1  |                                                                                 |
 | :------------: | :-----------------------------------------------------------------------------: |
 | Precondizione  |                     Deve esserci almeno un carrello pagato                      |
 | Postcondizione |                    Il sistema mostra lo storico dei carrelli                    |
@@ -569,7 +575,7 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 
 ### Caso d'uso 14, UC14
 
-| Attori coinvolti  |                         Utente autenticato                         |
+| Attori coinvolti  |                       Utente autenticato                       |
 | :---------------: | :------------------------------------------------------------: |
 |   Precondizione   |                L'utente deve essere autenticato                |
 |  Postcondizione   |                                                                |
@@ -601,9 +607,10 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 |       4        | Il sistema mostra i risultati della ricerca |
 
 ### Caso d'uso 15, UC15
+
 #### Scenario 15.1
 
-| Scenario 15.1  |                     Utente autenticato                     |
+| Scenario 15.1  |                   Utente autenticato                   |
 | :------------: | :----------------------------------------------------: |
 | Precondizione  |            L'utente deve essere autenticato            |
 | Postcondizione |                                                        |
