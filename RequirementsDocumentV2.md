@@ -261,7 +261,7 @@ __Da aggiornare__
 |     Variants     |                      \<other normal executions>                      |
 |    Exceptions    |                        \<exceptions, errors >                        |
 
-##### Scenario 1.1
+#### Scenario 1.1
 
 \<describe here scenarios instances of UC1>
 
@@ -280,9 +280,9 @@ __Da aggiornare__
 |       2        |                                                                            |
 |      ...       |                                                                            |
 
-##### Scenario 1.2
+#### Scenario 1.2
 
-##### Scenario 1.x
+#### Scenario 1.x
 
 ### Use case 2, UC2
 

@@ -223,26 +223,25 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 ## Use Case Diagram
 
 ![Use case Diagram](media/version1/use_case_diagram.png)
-\<Definire qui il Use Case Diagram UML che riassume tutti i casi d'uso e le loro relazioni>
 
-\<Descrivere qui ogni caso d'uso nel Use Case Diagram>
+Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenticato hanno come precondizione che l'utente abbia fatto il login e sia correttamente autenticato, anche dove ciò non è esplicitamente indicato.
 
 ### Caso d'uso 1, UC1
 
 | Attori coinvolti  |                        Utente non autenticato                         |
 | :---------------: | :-------------------------------------------------------------------: |
 |   Precondizione   |                                                                       |
-|  Postcondizione   |                                                                       |
+|  Postcondizione   |                  Esiste la nuova utenza nel sistema                   |
 | Scenario nominale | L'utente non autenticato inserisce i dati e registra una nuova utenza |
 |     Varianti      |                                                                       |
 |     Eccezioni     |                        username già esistente                         |
 
-##### Scenario 1.1
+#### Scenario 1.1
 
 |  Scenario 1.1  |                                                                                  |
 | :------------: | :------------------------------------------------------------------------------: |
 | Precondizione  |                                                                                  |
-| Postcondizione |                                                                                  |
+| Postcondizione |                        Esiste la nuova utenza nel sistema                        |
 |     Passo#     |                                   Descrizione                                    |
 |       1        |                     L'utente preme sul pulsante 'Registrati'                     |
 |       2        | L'utente inserisce username, nome, cognome, password e ruolo (cliente o manager) |
@@ -250,12 +249,12 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |       4        |                Viene creata una nuova utenza con i dati inseriti                 |
 |       5        |                      Viene mostrata una pagina di successo                       |
 
-##### Scenario 1.2
+#### Scenario 1.2
 
 |  Scenario 1.2  |                                                                                  |
 | :------------: | :------------------------------------------------------------------------------: |
 | Precondizione  |                                                                                  |
-| Postcondizione |                                                                                  |
+| Postcondizione |                  Nel sistema non viene creata una nuova utenza                   |
 |     Passo#     |                                   Descrizione                                    |
 |       1        |                     L'utente preme sul pulsante 'Registrati'                     |
 |       2        | L'utente inserisce username, nome, cognome, password e ruolo (cliente o manager) |
@@ -272,7 +271,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |     Varianti      |                                                                                                           |
 |     Eccezioni     |         Se i dati inseriti non sono corretti viene mostrato un errore e non si effettua l'accesso         |
 
-##### Scenario 2.1
+#### Scenario 2.1
 
 |  Scenario 2.1  |                                        |
 | :------------: | :------------------------------------: |
@@ -285,7 +284,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |       4        |       Viene effettuato l'accesso       |
 |       5        | Viene mostrata una pagina di successo  |
 
-##### Scenario 2.2
+#### Scenario 2.2
 
 |  Scenario 2.2  |                                                                |
 | :------------: | :------------------------------------------------------------: |
@@ -307,7 +306,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |     Varianti      |                                                          |
 |     Eccezioni     |                                                          |
 
-##### Scenario 3.1
+#### Scenario 3.1
 
 |  Scenario 3.1  |                                         |
 | :------------: | :-------------------------------------: |
@@ -323,27 +322,27 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 | Attori coinvolti  |                     Cliente                     |
 | :---------------: | :---------------------------------------------: |
 |   Precondizione   |                                                 |
-|  Postcondizione   |        Il cliente visualizza il carrello        |
+|  Postcondizione   |           Il carrello viene mostrato            |
 | Scenario nominale | Il cliente visualizza il contenuto del carrello |
 |     Varianti      |             Non esiste un carrello              |
 |     Eccezioni     |                                                 |
 
-##### Scenario 4.1
+#### Scenario 4.1
 
 |  Scenario 4.1  |                                                                    |
 | :------------: | :----------------------------------------------------------------: |
 | Precondizione  |                                                                    |
-| Postcondizione |                 Il cliente visualizza il carrello                  |
+| Postcondizione |                     Il carrello viene mostrato                     |
 |     Passo#     |                            Descrizione                             |
 |       1        | Il cliente clicca sul pulsante per la visualizzazione del carrello |
 |       2        | Viene visualizzata una pagina che mostra il contenuto del carrello |
 
-##### Scenario 4.2
+#### Scenario 4.2
 
 |  Scenario 4.2  |                                                                                              |
 | :------------: | :------------------------------------------------------------------------------------------: |
 | Precondizione  |                                                                                              |
-| Postcondizione |                           Il cliente visualizza un carrello vuoto                            |
+| Postcondizione |                             Il sistema mostra un carrello vuoto                              |
 |     Passo#     |                                         Descrizione                                          |
 |       1        |              Il cliente clicca sul pulsante per la visualizzazione del carrello              |
 |       2        | Se il carrello non esiste, viene visualizzata una pagina che riporta che il carrello è vuoto |
@@ -358,7 +357,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |     Varianti      |                                                               |
 |     Eccezioni     | In caso di errato inserimento dei dati, il pagamento fallisce |
 
-##### Scenario 5.1
+#### Scenario 5.1
 
 |  Scenario 5.1  |                                                                              |
 | :------------: | :--------------------------------------------------------------------------: |
@@ -372,7 +371,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |       5        |                  Il cliente clicca sul pulsante 'Acquista'                   |
 |       6        | Il sistema mostra una pagina che conferma la corretta riuscita del pagamento |
 
-##### Scenario 5.2
+#### Scenario 5.2
 
 |  Scenario 5.2  |                                                                                                                            |
 | :------------: | :------------------------------------------------------------------------------------------------------------------------: |
@@ -396,7 +395,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 |     Varianti      |                                              |
 |     Eccezioni     |                                              |
 
-##### Scenario 6.1
+#### Scenario 6.1
 
 |  Scenario 6.1  |                                                                                    |
 | :------------: | :--------------------------------------------------------------------------------: |
@@ -413,17 +412,17 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 | Attori coinvolti  |                                       Cliente                                        |
 | :---------------: | :----------------------------------------------------------------------------------: |
 |   Precondizione   |                           Deve esistere un carrello attivo                           |
-|  Postcondizione   |                          Il carrello attivo viene eliminato                          |
+|  Postcondizione   |                  Non esiste un carrello attivo associato al cliente                  |
 | Scenario nominale | Il cliente elimina i prodotti presenti all'interno del carrello e il carrello stesso |
 |     Varianti      |                                                                                      |
 |     Eccezioni     |                                                                                      |
 
-##### Scenario 7.1
+#### Scenario 7.1
 
 |  Scenario 7.1  |                                                                    |
 | :------------: | :----------------------------------------------------------------: |
 | Precondizione  |                  Deve esistere un carrello attivo                  |
-| Postcondizione |                 Il carrello attivo viene eliminato                 |
+| Postcondizione |         Non esiste un carrello attivo associato al cliente         |
 |     Passo#     |                            Descrizione                             |
 |       1        | Il cliente clicca sul pulsante per la visualizzazione del carrello |
 |       2        |                Il sistema mostra il carrello attivo                |
@@ -433,19 +432,19 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 
 | Attori coinvolti  |                       Cliente                        |
 | :---------------: | :--------------------------------------------------: |
-|   Precondizione   |        Deve esserci almeno un carrello pagato        |
+|   Precondizione   |       Deve esistere almeno un carrello pagato        |
 |  Postcondizione   |   Il sistema mostra lo storico dei carrelli pagati   |
 | Scenario nominale | Il cliente visualizza lo storico dei carrelli pagati |
 |     Varianti      |                                                      |
 |     Eccezioni     |
 
-##### Scenario 8.1
+#### Scenario 8.1
 
 Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esistano.
 
 |  Scenario 8.1  |                                                                                 |
 | :------------: | :-----------------------------------------------------------------------------: |
-| Precondizione  |                     Deve esserci almeno un carrello pagato                      |
+| Precondizione  |                     Deve esistere almeno un carrello pagato                     |
 | Postcondizione |                    Il sistema mostra lo storico dei carrelli                    |
 |     Passo#     |                                   Descrizione                                   |
 |       1        | Il cliente ha cliccato sul pulsante relativo alla visualizzazione dello storico |
@@ -461,7 +460,7 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 |     Varianti      |                                                                     |
 |     Eccezioni     |                                                                     |
 
-##### Scenario 9.1
+#### Scenario 9.1
 
 |  Scenario 9.1  |                                                                                                    |
 | :------------: | :------------------------------------------------------------------------------------------------: |
@@ -569,7 +568,7 @@ Il cliente può visualizzare lo storico dei carrelli pagati, nel caso in cui esi
 | Postcondizione |                                                           |
 |     Passo#     |                        Descrizione                        |
 |       1        | Il manager clicca sul pulsante di modifica di un prodotto |
-|       2        |          Il manager inserisce la nuova quantità           |
+|       2        |    Il manager inserisce la nuova quantità non negativa    |
 |       3        |        Il sistema mostra un messaggio di conferma         |
 
 ### Caso d'uso 14, UC14
