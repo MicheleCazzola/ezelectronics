@@ -45,12 +45,11 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |        Cliente         |              Utente autenticato le cui attività principali sono l'acquisto e la visualizzazione di prodotti attraverso l'applicazione               |
 |        Manager         | Utente autenticato la cui attività principale è la gestione dei prodotti, sia in entrata che in uscita dal negozio virtuale |
 | Admin | Amministratore del sistema, la sua attività principale è risolvere eventuali problematiche, garantendo il corretto funzionamento del sistema|
-|       Produttore       |     Individuo, organizzazione o azienda che produce gli oggetti che verranno messi in vendita attraverso la piattaforma     |
-|      Distributore      |          Organizzazione che distribuisce i prodotti, dal produttore al venditore (_Manager_)       |
-| Fornitori di pubblicità | Organizzazioni i cui prodotti sono pubblicizzati nei banner presenti all'interno dell'applicazione |
-| Servizi di pagamento | Organizzazioni che si occupano di garantire il corretto funzionamento delle transazioni di pagamento |
-| Servizio di spedizione | Organizzazione che si occupa del trasporto dei prodotti dal venditore (_Manager_) al cliente |
-
+|       Produttore       |     Azienda che produce gli oggetti che verranno messi in vendita attraverso la piattaforma     |
+|      Distributore      |          Azienda che distribuisce i prodotti, dal produttore al venditore (_Manager_)       |
+| Fornitori di pubblicità | Azienda i cui prodotti sono pubblicizzati nei banner presenti all'interno dell'applicazione |
+| Servizi di pagamento | Aziende che si occupano di garantire il corretto funzionamento delle transazioni di pagamento |
+| Servizio di spedizione | Azienda che si occupa del trasporto dei prodotti dal venditore (_Manager_) al cliente |
 
 # Context Diagram and interfaces
 
@@ -72,6 +71,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | :--------------------: | :----------------: | :----------------: |
 | Utente non autenticato |        GUI         |   PC/Smartphone    |
 |        Cliente         |        GUI         |   PC/Smartphone    |
+|        Manager           |        GUI         |   PC/Smartphone    |
 |        Admin           |        GUI         |   PC/Smartphone    |
 |Servizio di pagamento   |        API         |   Internet    |
 |Servizio di pubblicità  |        API         |   Internet    |
@@ -96,74 +96,122 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR1.1                    |                                                       Login                                                       |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR1.2                    |                                                      Logout                                                       |
 |                                       FR2                                        |                                               Gestione degli utenti                                               |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1                    |                                              Creazione nuovo utente                                               |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2                    |                               Recupero delle informazioni dell' utente autenticato                                |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1                    |                                              Gestione account                                             |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.1                    |                                              Creazione nuovo profilo                                               |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.2                    |                               Recupero delle informazioni dell'utente autenticato                                |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.3                    |                               Modifica password                               |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.4                    |                               Modifica informazioni di contatto                                |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.5                    |                               Gestione indirizzo di consegna predefinito                                |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.6                    |                               Gestione metodo di pagamento predefinito                                |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.7                    |                               Eliminazione account                                |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2                    |                                              Ricerca utenti                                             |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.1                    |                               Recupero di tutti gli utenti                                |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.2                    |                               Ricerca utenti, dato un ruolo                                |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.3                    |                               Ricerca utente, dato lo username                                |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3                    |                                              Eliminazione utenti                                             |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.1                    |                               Eliminazione utente, dato lo username                                |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.2                    |                               Eliminazione di tutti gli utenti                                |
 |                                       FR3                                        |                                               Gestione dei prodotti                                               |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.1                    |                                             Creazione nuovo prodotto                                              |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.2                    |                        Registrazione arrivo di un insieme di prodotti dello stesso modello                        |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.3                    |                                     Contrassegno di un prodotto come venduto                                      |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4                    |                                                 Recupero prodotti                                                 |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.1 |                                    Recupero di un prodotto, dato il suo codice                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.2 |                      Recupero prodotti, eventualmente solo se (non) venduti, dato il modello                      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.3 |                     Recupero prodotti, eventualmente solo se (non) venduti, data la categoria                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.4 |                         Recupero di tutti i prodotti, eventualmente solo se (non) venduti                         |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5                    |                                  Eliminazione di un prodotto, dato il suo codice                                  |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4    | Ricerca prodotti                                                 |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.1 |                                    Ricerca di un prodotto, dato il suo codice                                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.2 |                      Ricerca dei prodotti disponibili, eventualmente per modello o categoria                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.3 |                     Ricerca dei prodotti, eventualmente se (non) venduti, filtrati per modello o categoria                   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.4 |                         Ricerca di tutti i prodotti, eventualmente solo se (non) venduti, senza l'utilizzo di altri filtri                         |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.5 |                         Recupero dei prodotti acquistati dall'utente corrente, filtrati eventualmente per categoria e/o modello                         |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5    | Acquisto diretto di un prodotto, dati modello e quantità  |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.6    | Eliminazione prodotti  |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.6.1                    |                                  Eliminazione di un prodotto, dato il suo codice                                  |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.6.2                    |                                 Eliminazione di tutti i prodotti   |
 |                                       FR4                                        |                                               Gestione dei carrelli                                               |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.1                    |                                      Recupero carrello del cliente corrente                                       |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.2                    |                             Aggiunta di un prodotto al carrello del cliente corrente                              |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.3                    | Pagamento di un carrello, avente per prezzo la somma dei prezzi dei prodotti inseriti e per data la data corrente |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.4                    |                          Recupero dello storico dei carrelli pagati dal cliente corrente                          |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5                    |                                               Eliminazione carrelli                                               |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.1 |                    Rimozione di un prodotto dal carrello corrente, dato il codice del prodotto                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.2 |                            Eliminazione del carrello corrente dell'utente autenticato                             |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.1                    |                                      Visualizzazione carrello del cliente corrente                                       |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.2                    |                             Aggiunta di un prodotto al carrello del cliente corrente, dato il suo modello                              |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.3                    | Pagamento di un carrello |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.4                    |                          Visualizzazione dello storico dei carrelli pagati dal cliente corrente                          |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5                    |                                               Operazioni di eliminazione                                               |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.1 |                    Rimozione di un prodotto dal carrello corrente            |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.2 |                            Eliminazione di tutti i prodotti dal carrello corrente                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.3 |                            Eliminazione di tutti i carrelli                |
+| FR5 | Gestione lista desideri |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.1  | Inserimento prodotto, per modello |  
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.2  | Rimozione di un prodotto tra quelli inseriti |  
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.3  | Rimozione di tutti i prodotti  |           
+| FR6 | Gestione recensioni |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.1  | Inserimento recensione, per il modello di un prodotto acquistato |  
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.2  | Modifica di una recensione effettuata |  
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.3  | Eliminazione recensioni  | 
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.3.1 |  Eliminazione di una recensione effettuata dall'utente corrente |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.3.2 |  Eliminazione di una recensione qualsiasi, eventualmente filtrata per modello o categoria del prodotto |  
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.3.3 |  Eliminazione di tutte le recensioni, eventualmente filtrate per modello o categoria del prodotto |  
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.4  | Ricerca recensioni |  
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.4.1 |  Ricerca recensioni effettuate dall'utente corrente, eventualmente filtrate per modello e/o categoria di un prodotto |   
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.4.2 |  Ricerca recensioni effettuate da tutti gli utenti, eventualmente filtrate per modello e/o categoria di un prodotto |     
+| FR7 | Gestione pubblicità |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR7.1  | Ricezione annuncio pubblicitario da servizio esterno |   
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR7.2  | Nascondi annuncio pubblicitario |
+| FR8 | Gestione pagamento |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.1  | Gestione richiesta di pagamento |   
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.2  | Invio esito di pagamento al cliente |
+| FR9 | Gestione spedizione |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR9.1  | Creazione nuova spedizione |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR9.2  | Ricerca spedizioni | 
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR9.2.1 |  Ricerca spedizioni dell'utente corrente, eventualmente per stato (non iniziate, in corso, concluse) |      
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR9.2.2 |  Ricerca spedizioni di tutti gli utenti, eventualmente per stato (non iniziate, in corso, concluse) |   
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR9.3  | Abilitazione al cliente della possibilità di vedere in tempo reale le informazioni relative allo stato della spedizione (_tracking_) |
 
-**Francesco**
 
----
-
-**Flaviana**
-
----
-
-**Michele**  
-- Recensione di un modello di prodotto: inserimento, modifica, rimozione da parte di un cliente, comprensiva di voto (1-5 stelle) e descrizione estesa (opzionale)
-- Accesso ai servizi di pubblicità: inserimento, rimozione banner pubblicitario ()
-- Accesso ai servizi di pagamento: connessione, disconnessione, pagamento
-- Accesso a servizi di spedizione (supponiamo corriere unico): creazione nuova spedizione (solo manager), tracking (visibile anche al cliente interessato)
----
-
-**Giuseppe**
-
-- Modifica del profilo utente: inserimento, modifica e rimozione di un indirizzo di spedizione preferito, possibilità di aggiungere più indirizzi preferiti ?; inserimento, modifica e rimozione di un sistema di pagamento preferito. 
-- Acquisto rapido one-click ? 
-- Possibilità di fare un reso ? -> (quindi possibilià di aprire una "pratica" di resoe e quindi creazione di una nuova spedizione, che in teoria dovrebbe essere gestita dalla compagnia o dal manager)
-- Ricercare i prodotti come "gia acquistati"
-- Creazione di una lista dei desideri in cui aggiungere dei prodotti
-- Codici sconto e promozioni ? 
-
----
 ### Table of rights
-__Da aggiornare__  
 
-| Requisiti | Utente non autenticato | Cliente | Manager | Admin|
+| Requisito | Utente non autenticato | Cliente | Manager | Admin |
 | :-------: | :----------------: | :-----: | :-----: |:---:|
-|   FR1.1   |         x          |         |         ||
-|   FR1.2   |                    |    x    |    x    ||
-|   FR2.1   |         x          |         |         ||
-|   FR2.2   |                    |    x    |    x    ||
-|   FR3.1   |                    |         |    x    ||
-|   FR3.2   |                    |         |    x    ||
-|   FR3.3   |                    |         |    x    ||
-|   FR3.4   |                    |    x    |    x    ||
-|   FR3.5   |                    |         |    x    ||
-|    FR4    |                    |    x    |         ||
-|    TFR1   |         x          |    x    |    x    ||
-|    TFR2   |         x          |    x    |    x    ||
-|    TFR3   |         x          |    x    |    x    ||
-|    TFR4   |         x          |    x    |    x    ||
-|    TFR5   |         x          |    x    |    x    ||
-|    TFR6   |         x          |    x    |    x    ||
-|    TFR7   |         x          |    x    |    x    ||
+| FR1.1 | x |  |  |  |
+| FR1.2 |  | x | x | x |
+| FR2.1.1 | x |  |  |  |
+| FR2.1.2 |  | x | x | x |
+| FR2.1.3 |  | x | x | x |
+| FR2.1.4 |  | x | x | x |
+| FR2.1.5 |  | x | x | x |
+| FR2.1.6 |  | x | x | x |
+| FR2.1.7 |  | x | x | x |
+| FR2.2 |  |  |  | x |
+| FR2.3 |  |  |  | x |
+| FR3.1 |  |  | x | x |
+| FR3.2 |  |  | x | x |
+| FR3.3 |  |  | x | x |
+| FR3.4.1 |  |  | x | x |
+| FR3.4.2 | x | x | x | x |
+| FR3.4.3 |  |  | x | x |
+| FR3.4.4 |  |  | x | x |
+| FR3.4.5 |  | x |  | x |
+| FR3.5 |  | x |  | x |
+| FR3.6 |  |  | x | x |
+| FR4.1 |  | x |  | x |
+| FR4.2 |  | x |  | x |
+| FR4.3 |  | x |  | x |
+| FR4.4 |  | x |  | x |
+| FR4.5.1 |  | x |  | x |
+| FR4.5.2 |  | x |  | x |
+| FR4.5.3 |  |  |  | x |
+| FR5 |  | x |  | x |
+| FR6.1 |  | x |  | x |
+| FR6.2 |  | x |  | x |
+| FR6.3.1 |  | x |  | x |
+| FR6.3.2 |  |  |  | x |
+| FR6.3.3 |  |  |  | x |
+| FR6.4.1 |  | x |  | x |
+| FR6.4.2 |  |  | x | x |
+| FR7 |  |  |  |  |
+| FR7.1 |  |  |  |  |
+| FR7.2 |  |  |  |  |
+| FR8 |  |  |  |  |
+| FR8.1 |  |  |  |  |
+| FR8.2 |  |  |  |  |
+| FR9.1 |  |  |  |  |
+| FR9.2.1 |  | x |  | x |
+| FR9.2.2 |  |  |  | x |
+| FR9.3 |  |  |  |  |
 
 ## Non Functional Requirements
 
