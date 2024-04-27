@@ -13,16 +13,16 @@ Versione: V1 - descrizione di EZElectronics nella forma ATTUALE (come ricevuta d
 - [Documento dei requisiti - EZElectronics attuale](#documento-dei-requisiti---ezelectronics-attuale)
 - [Contenuti](#contenuti)
 - [Descrizione informale](#descrizione-informale)
-- [Stakeholders](#portatori-di-interesse)
-- [Context Diagram e interfacce](#diagramma-di-contesto-e-interfacce)
-  - [Context Diagram](#diagramma-di-contesto)
+- [Stakeholders](#stakeholders)
+- [Context Diagram e interfacce](#context-diagram-e-interfacce)
+  - [Context Diagram](#context-diagram)
   - [Interfacce](#interfacce)
 - [Storie e personas](#storie-e-personas)
 - [Requisiti funzionali e non funzionali](#requisiti-funzionali-e-non-funzionali)
   - [Requisiti funzionali](#requisiti-funzionali)
   - [Requisiti non funzionali](#requisiti-non-funzionali)
-- [Use Case Diagram e casi d'uso](#diagramma-dei-casi-duso-e-casi-duso)
-  - [Use Case Diagram](#diagramma-dei-casi-duso)
+- [Use Case Diagram e casi d'uso](#use-case-diagram-e-casi-duso)
+  - [Use Case Diagram](#use-case-diagram)
     - [Caso d'uso 1, UC1](#caso-duso-1-uc1)
       - [Scenario 1.1](#scenario-11)
       - [Scenario 1.2](#scenario-12)
@@ -60,8 +60,8 @@ Versione: V1 - descrizione di EZElectronics nella forma ATTUALE (come ricevuta d
     - [Caso d'uso 15, UC15](#caso-duso-15-uc15)
       - [Scenario 15.1](#scenario-151)
 - [Glossario](#glossario)
-- [System Design](#progettazione-del-sistema)
-- [Deployment Diagram](#diagramma-di-distribuzione)
+- [System Design](#system-design)
+- [Deployment Diagram](#deployment-diagram)
 
 # Descrizione informale
 
@@ -75,7 +75,8 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 |        Cliente         |  Utente autenticato le cui attività principali sono l'acquisto e la visualizzazione di prodotti attraverso l'applicazione   |
 |        Manager         | Utente autenticato la cui attività principale è la gestione dei prodotti, sia in entrata che in uscita dal negozio virtuale |
 |       Produttore       |     Individuo, organizzazione o azienda che produce gli oggetti che verranno messi in vendita attraverso la piattaforma     |
-|      Distributore      |          Individuo, organizzazione o azienda che distribuisce i prodotti, dal produttore al venditore (_Manager_)           |
+|      Distributore      |          Azienda che distribuisce i prodotti, dal produttore al venditore (_Manager_)           |
+| Servizio di spedizione | Azienda che si occupa del trasporto dei prodotti dal venditore (_Manager_) al cliente |
 
 # Context Diagram e interfacce
 
@@ -190,7 +191,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 
 ### Table of rights
 
-| Requisiti | Utente non autenticato | Cliente | Manager |
+| Requisito | Utente non autenticato | Cliente | Manager |
 | :-------: | :--------------------: | :-----: | :-----: |
 |   FR1.1   |           x            |         |         |
 |   FR1.2   |                        |    x    |    x    |
