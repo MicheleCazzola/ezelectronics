@@ -75,8 +75,8 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 |        Cliente         |  Utente autenticato le cui attività principali sono l'acquisto e la visualizzazione di prodotti attraverso l'applicazione   |
 |        Manager         | Utente autenticato la cui attività principale è la gestione dei prodotti, sia in entrata che in uscita dal negozio virtuale |
 |       Produttore       |     Individuo, organizzazione o azienda che produce gli oggetti che verranno messi in vendita attraverso la piattaforma     |
-|      Distributore      |          Azienda che distribuisce i prodotti, dal produttore al venditore (_Manager_)           |
-| Servizio di spedizione | Azienda che si occupa del trasporto dei prodotti dal venditore (_Manager_) al cliente |
+|      Distributore      |                        Azienda che distribuisce i prodotti, dal produttore al venditore (_Manager_)                         |
+| Servizio di spedizione |                    Azienda che si occupa del trasporto dei prodotti dal venditore (_Manager_) al cliente                    |
 
 # Context Diagram e interfacce
 
@@ -260,7 +260,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |       1        |                     L'utente preme sul pulsante 'Registrati'                     |
 |       2        | L'utente inserisce username, nome, cognome, password e ruolo (cliente o manager) |
 |       3        |                      L'utente preme sul pulsante 'Conferma'                      |
-|       4        |     Se esiste già un utente con lo stesso username, viene mostrato un errore     |
+|       4        |       Se c'è un errore nei dati, il sistema mostra un messaggio di errore        |
 
 ### Caso d'uso 2, UC2
 
@@ -274,28 +274,26 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 
 #### Scenario 2.1
 
-|  Scenario 2.1  |                                        |
-| :------------: | :------------------------------------: |
-| Precondizione  |                                        |
-| Postcondizione |         L'utente è autenticato         |
-|     Passo#     |              Descrizione               |
-|       1        |  L'utente preme sul pulsante 'Login'   |
-|       2        | L'utente inserisce username e password |
-|       3        | L'utente preme sul pulsante 'Conferma' |
-|       4        |       Viene effettuato l'accesso       |
-|       5        | Viene mostrata una pagina di successo  |
+|  Scenario 2.1  |                                             |
+| :------------: | :-----------------------------------------: |
+| Precondizione  |                                             |
+| Postcondizione |           L'utente è autenticato            |
+|     Passo#     |                 Descrizione                 |
+|       2        |   L'utente inserisce username e password    |
+|       3        |   L'utente preme sul pulsante 'Conferma'    |
+|       4        | Il sistema verifica la correttezza dei dati |
+|       5        |    Viene mostrata una pagina di successo    |
 
 #### Scenario 2.2
 
-|  Scenario 2.2  |                                                                |
-| :------------: | :------------------------------------------------------------: |
-| Precondizione  |                                                                |
-| Postcondizione |                   L'utente non è autenticato                   |
-|     Passo#     |                          Descrizione                           |
-|       1        |              L'utente preme sul pulsante 'Login'               |
-|       2        |             L'utente inserisce username e password             |
-|       3        |             L'utente preme sul pulsante 'Conferma'             |
-|       4        | Se i dati di accesso sono incorretti, viene mostrato un errore |
+|  Scenario 2.2  |                                                                          |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondizione  |                                                                          |
+| Postcondizione |                        L'utente non è autenticato                        |
+|     Passo#     |                               Descrizione                                |
+|       2        |                  L'utente inserisce username e password                  |
+|       3        |                  L'utente preme sul pulsante 'Conferma'                  |
+|       4        | Se i dati di accesso sono incorretti, viene mostrato un messaggio errore |
 
 ### Caso d'uso 3, UC3
 
@@ -309,14 +307,14 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 
 #### Scenario 3.1
 
-|  Scenario 3.1  |                                         |
-| :------------: | :-------------------------------------: |
-| Precondizione  |                                         |
-| Postcondizione |       L'utente non è autenticato        |
-|     Passo#     |               Descrizione               |
-|       1        |  L'utente preme sul pulsante 'Logout'   |
-|       2        |       L'utente viene disconnesso        |
-|       3        | Viene mostrato un messaggio di successo |
+|  Scenario 3.1  |                                        |
+| :------------: | :------------------------------------: |
+| Precondizione  |                                        |
+| Postcondizione |       L'utente non è autenticato       |
+|     Passo#     |              Descrizione               |
+|       1        |  L'utente preme sul pulsante 'Logout'  |
+|       2        |       L'utente viene disconnesso       |
+|       3        | Il sistema mostra la pagina di accesso |
 
 ### Caso d'uso 4, UC4
 
@@ -354,7 +352,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 | :---------------: | :-----------------------------------------------------------: |
 |   Precondizione   |     Il cliente deve avere almeno un prodotto nel carrello     |
 |  Postcondizione   |                     L'ordine è confermato                     |
-| Scenario nominale |   Il cliente esegue il pagamento dei prodotti con successo    |
+| Scenario nominale |          Il cliente acquista i prodotti nel carrello          |
 |     Varianti      |                                                               |
 |     Eccezioni     | In caso di errato inserimento dei dati, il pagamento fallisce |
 
