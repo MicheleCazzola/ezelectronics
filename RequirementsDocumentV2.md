@@ -111,6 +111,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3                    |                                              Eliminazione utenti                                             |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.1                    |                               Eliminazione utente, dato lo username                                |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.2                    |                               Eliminazione di tutti gli utenti                                |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.4                    |                                              Assegnazione ruolo ad un utente registrato                                           |
 |                                       FR3                                        |                                               Gestione dei prodotti                                               |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.1                    |                                             Creazione nuovo prodotto                                              |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.2                    |                        Registrazione arrivo di un insieme di prodotti dello stesso modello                        |
@@ -176,6 +177,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR2.1.6 |  | x | x | x |
 | FR2.1.7 |  | x | x | x |
 | FR2.2 |  |  |  | x |
+| FR2.3 |  |  |  | x |
 | FR2.3 |  |  |  | x |
 | FR3.1 |  |  | x | x |
 | FR3.2 |  |  | x | x |
