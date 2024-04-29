@@ -36,13 +36,13 @@ Versione: V1 - descrizione di EZElectronics nella forma ATTUALE (come ricevuta d
       - [Scenario 4.2](#scenario-42)
     - [Caso d'uso 5, UC5](#caso-duso-5-uc5)
       - [Scenario 5.1](#scenario-51)
-      - [Scenario 5.2](#scenario-52)
     - [Caso d'uso 6, UC6](#caso-duso-6-uc6)
       - [Scenario 6.1](#scenario-61)
     - [Caso d'uso 7, UC7](#caso-duso-7-uc7)
       - [Scenario 7.1](#scenario-71)
     - [Caso d'uso 8, UC8](#caso-duso-8-uc8)
       - [Scenario 8.1](#scenario-81)
+      - [Scenario 8.2](#scenario-82)
     - [Caso d'uso 9, UC9](#caso-duso-9-uc9)
       - [Scenario 9.1](#scenario-91)
     - [Caso d'uso 10, UC10](#caso-duso-10-uc10)
@@ -52,6 +52,7 @@ Versione: V1 - descrizione di EZElectronics nella forma ATTUALE (come ricevuta d
       - [Scenario 11.1](#scenario-111)
     - [Caso d'uso 12, UC12](#caso-duso-12-uc12)
       - [Scenario 12.1](#scenario-121)
+      - [Scenario 12.2](#scenario-122)
     - [Caso d'uso 13, UC13](#caso-duso-13-uc13)
       - [Scenario 13.1](#scenario-131)
     - [Caso d'uso 14, UC14](#caso-duso-14-uc14)
@@ -363,26 +364,10 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 | Precondizione  |            Il cliente deve avere almeno un prodotto nel carrello             |
 | Postcondizione |  L'ordine è confermato e il carrello corrente viene spostato nello storico   |
 |     Passo#     |                                 Descrizione                                  |
-|       1        |      Il cliente clicca sul pulsante per la visualizzazione del carrello      |
-|       2        |            Il cliente clicca sul pulsante 'Procedi all'acquisto'             |
-|       3        |    Viene visualizzata la schermata dell'inserimento dati per il pagamento    |
-|       4        |              Il cliente inserisce i dati relativi al pagamento               |
-|       5        |                  Il cliente clicca sul pulsante 'Acquista'                   |
-|       6        | Il sistema mostra una pagina che conferma la corretta riuscita del pagamento |
-
-#### Scenario 5.2
-
-|  Scenario 5.2  |                                                                                                                            |
-| :------------: | :------------------------------------------------------------------------------------------------------------------------: |
-| Precondizione  |                                   Il cliente deve avere almeno un prodotto nel carrello                                    |
-| Postcondizione |                                                 L'ordine non è finalizzato                                                 |
-|     Passo#     |                                                        Descrizione                                                         |
-|       1        |                             Il cliente clicca sul pulsante per la visualizzazione del carrello                             |
-|       2        |                                   Il cliente clicca sul pulsante 'Procedi all'acquisto'                                    |
-|       3        |                           Viene visualizzata la schermata dell'inserimento dati per il pagamento                           |
-|       4        |                                     Il cliente inserisce i dati relativi al pagamento                                      |
-|       5        |                                         Il cliente clicca sul pulsante 'Acquista'                                          |
-|       6        | Se i dati inseriti risultano errati, viene visualizzata una pagina di errore che riporta la mancata riuscita del pagamento |
+|       1        |      Il cliente clicca sul pulsante 'Vai al carrello'      |
+|       2        |            Il cliente visualizza il contenuto del carrello             |
+|       3        |    Il cliente clicca sul pulsante 'Acquista'    |
+|       4        |              Il sistema mostra la homepage del cliente con un messaggio che conferma la corretta riuscita dell'acquisto              |
 
 ### Caso d'uso 6, UC6
 
