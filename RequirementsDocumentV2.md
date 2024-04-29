@@ -172,9 +172,9 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR2.1.1 | x |  |  |  |
 | FR2.1.2 |  | x | x | x |
 | FR2.1.3 |  | x | x | x |
-| FR2.1.4 |  | x | x | x |
-| FR2.1.5 |  | x | x | x |
-| FR2.1.6 |  | x | x | x |
+| FR2.1.4 |  | x |  | x |
+| FR2.1.5 |  | x |  | x |
+| FR2.1.6 |  | x |  | x |
 | FR2.1.7 |  | x | x | x |
 | FR2.2 |  |  |  | x |
 | FR2.3 |  |  |  | x |
