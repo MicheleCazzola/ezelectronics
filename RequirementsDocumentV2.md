@@ -119,13 +119,12 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4    | Ricerca prodotti                                                 |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.1 |                                    Ricerca di un prodotto, dato il suo codice                                    |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.2 |                      Ricerca dei prodotti disponibili, eventualmente per modello o categoria                      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.3 |                     Ricerca dei prodotti, eventualmente se (non) venduti, filtrati per modello o categoria                   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.3 |                     Ricerca dei prodotti, eventualmente solo se (non) venduti, filtrati per modello o categoria                   |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.4 |                         Ricerca di tutti i prodotti, eventualmente solo se (non) venduti, senza l'utilizzo di altri filtri                         |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.5 |                         Recupero dei prodotti acquistati dall'utente corrente, filtrati eventualmente per categoria e/o modello                         |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5    | Acquisto diretto di un prodotto, dati modello e quantità  |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.6    | Eliminazione prodotti  |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.6.1                    |                                  Eliminazione di un prodotto, dato il suo codice                                  |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.6.2                    |                                 Eliminazione di tutti i prodotti   |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5    | Eliminazione prodotti  |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5.1                    |                                  Eliminazione di un prodotto, dato il suo codice                                  |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5.2                    |                                 Eliminazione di tutti i prodotti   |
 |                                       FR4                                        |                                               Gestione dei carrelli                                               |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.1                    |                                      Visualizzazione carrello del cliente corrente                                       |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.2                    |                             Aggiunta di un prodotto al carrello del cliente corrente, dato il suo modello                              |
@@ -134,33 +133,29 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5                    |                                               Operazioni di eliminazione                                               |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.1 |                    Rimozione di un prodotto dal carrello corrente            |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.2 |                            Eliminazione di tutti i prodotti dal carrello corrente                           |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.3 |                            Eliminazione di tutti i carrelli                |
-| FR5 | Gestione lista desideri |
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.1  | Inserimento prodotto, per modello |  
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.2  | Rimozione di un prodotto tra quelli inseriti |  
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.3  | Rimozione di tutti i prodotti  |           
-| FR6 | Gestione recensioni |
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.1  | Inserimento recensione, per il modello di un prodotto acquistato |  
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.2  | Modifica di una recensione effettuata |  
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.3  | Eliminazione recensioni  | 
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.3.1 |  Eliminazione di una recensione effettuata dall'utente corrente |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.3.2 |  Eliminazione di una recensione qualsiasi, eventualmente filtrata per modello o categoria del prodotto |  
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.3.3 |  Eliminazione di tutte le recensioni, eventualmente filtrate per modello o categoria del prodotto |  
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.4  | Ricerca recensioni |  
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.4.1 |  Ricerca recensioni effettuate dall'utente corrente, eventualmente filtrate per modello e/o categoria di un prodotto |   
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.4.2 |  Ricerca recensioni effettuate da tutti gli utenti, eventualmente filtrate per modello e/o categoria di un prodotto |     
-| FR7 | Gestione pubblicità |
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR7.1  | Ricezione annuncio pubblicitario da servizio esterno |   
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR7.2  | Nascondi annuncio pubblicitario |
-| FR8 | Gestione pagamento |
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.1  | Gestione richiesta di pagamento |   
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.2  | Invio esito di pagamento al cliente |
-| FR9 | Gestione spedizione |
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR9.1  | Creazione nuova spedizione |
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR9.2  | Ricerca spedizioni | 
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR9.2.1 |  Ricerca spedizioni dell'utente corrente, eventualmente per stato (non iniziate, in corso, concluse) |      
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR9.2.2 |  Ricerca spedizioni di tutti gli utenti, eventualmente per stato (non iniziate, in corso, concluse) |   
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR9.3  | Abilitazione al cliente della possibilità di vedere in tempo reale le informazioni relative allo stato della spedizione (_tracking_) |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.3 |                            Eliminazione di tutti i carrelli                |         
+| FR5 | Gestione recensioni |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.1  | Inserimento recensione, per il modello di un prodotto acquistato |  
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.2  | Modifica di una recensione effettuata |  
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.3  | Eliminazione recensioni  | 
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.3.1 |  Eliminazione di una recensione effettuata dall'utente corrente |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.3.2 |  Eliminazione di una recensione qualsiasi, eventualmente filtrata per modello o categoria del prodotto |  
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.3.3 |  Eliminazione di tutte le recensioni, eventualmente filtrate per modello o categoria del prodotto |  
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4  | Ricerca recensioni |  
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.1 |  Ricerca recensioni effettuate dall'utente corrente, eventualmente filtrate per modello e/o categoria di un prodotto |   
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.2 |  Ricerca recensioni effettuate da tutti gli utenti, eventualmente filtrate per modello e/o categoria di un prodotto |     
+| FR6 | Gestione pubblicità |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.1  | Ricezione annuncio pubblicitario da servizio esterno |   
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.2  | Gestione possibilità di nascondere gli annunci pubblicitari all'interno della piattaforma |
+| FR7 | Gestione pagamento |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR7.1  | Gestione richiesta di pagamento |   
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR7.2  | Invio esito di pagamento al cliente |
+| FR8 | Gestione spedizione |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.1  | Creazione nuova spedizione |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.2  | Ricerca spedizioni | 
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.2.1 |  Ricerca spedizioni dell'utente corrente, eventualmente per stato (non iniziate, in corso, concluse) |      
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.2.2 |  Ricerca spedizioni di tutti gli utenti, eventualmente per stato (non iniziate, in corso, concluse) |   
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.3  | Abilitazione della possibilità di vedere in tempo reale le informazioni relative allo stato della spedizione (_tracking_) |
 
 
 ### Table of rights
@@ -187,8 +182,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR3.4.3 |  |  | x | x |
 | FR3.4.4 |  |  | x | x |
 | FR3.4.5 |  | x |  | x |
-| FR3.5 |  | x |  | x |
-| FR3.6 |  |  | x | x |
+| FR3.5 |  |  | x | x |
 | FR4.1 |  | x |  | x |
 | FR4.2 |  | x |  | x |
 | FR4.3 |  | x |  | x |
@@ -196,24 +190,23 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR4.5.1 |  | x |  | x |
 | FR4.5.2 |  | x |  | x |
 | FR4.5.3 |  |  |  | x |
-| FR5 |  | x |  | x |
-| FR6.1 |  | x |  | x |
-| FR6.2 |  | x |  | x |
-| FR6.3.1 |  | x |  | x |
-| FR6.3.2 |  |  |  | x |
-| FR6.3.3 |  |  |  | x |
-| FR6.4.1 |  | x |  | x |
-| FR6.4.2 |  |  | x | x |
-| FR7 |  |  |  |  |
-| FR7.1 |  |  |  |  |
-| FR7.2 |  |  |  |  |
-| FR8 |  |  |  |  |
-| FR8.1 |  |  |  |  |
-| FR8.2 |  |  |  |  |
-| FR9.1 |  |  |  |  |
-| FR9.2.1 |  | x |  | x |
-| FR9.2.2 |  |  |  | x |
-| FR9.3 |  |  |  |  |
+| FR5.1 |  | x |  | x |
+| FR5.2 |  | x |  | x |
+| FR5.3.1 |  | x |  | x |
+| FR5.3.2 |  |  |  | x |
+| FR5.3.3 |  |  |  | x |
+| FR5.4.1 |  | x |  | x |
+| FR5.4.2 |  |  | x | x |
+| FR6 |  |  |  | x |
+| FR6.1 |  |  |  | x |
+| FR6.2 |  |  |  | x |
+| FR7 |  |  |  | x |
+| FR7.1 |  |  |  | x |
+| FR7.2 |  |  |  | x |
+| FR8.1 |  |  |  | x |
+| FR8.2.1 |  | x |  | x |
+| FR8.2.2 |  |  |  | x |
+| FR8.3 |  |  |  | x |
 
 ## Non Functional Requirements
 
