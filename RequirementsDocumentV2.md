@@ -414,7 +414,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       4        |       Se c'è un errore nei dati, il sistema mostra un messaggio di errore        |
 
 
-### Caso d'uso 2, UC2
+### Log in, UC2
 
 | Attori coinvolti  |                                          Utente non autenticato                                           |
 | :---------------: | :-------------------------------------------------------------------------------------------------------: |
@@ -449,7 +449,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 
                                                                         
-### Caso d'uso 3, UC3
+### Log Out, UC3
 
 | Attori coinvolti  |                    Utente autenticato                    |
 | :---------------: | :------------------------------------------------------: |
@@ -470,7 +470,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       2        |       L'utente viene disconnesso       |
 |       3        | Il sistema mostra la pagina di accesso |
 
-### Caso d'uso 4, UC4
+### Visualizza carrello, UC4
 
 | Attori coinvolti  |                     Cliente                     |
 | :---------------: | :---------------------------------------------: |
@@ -500,7 +500,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       1        |              Il cliente clicca sul pulsante 'Vai al carrello'              |
 |       2        | Viene visualizzata una pagina che riporta che il carrello è vuoto |
 
-### Use case 5, UC5
+### Paga Carrello, UC5
 
 | Attori coinvolti  |                            Cliente                            |
 | :---------------: | :-----------------------------------------------------------: |
@@ -522,7 +522,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       3        |    Il cliente clicca sul pulsante 'Acquista'    |
 |       4        |              Il sistema mostra la homepage del cliente con un messaggio che conferma la corretta riuscita dell'acquisto              |
 
-### Use case 6, UC6
+### Aggiungi un prodotto al carrello, UC6
 
 
 | Attori coinvolti  |                          Cliente                         |
