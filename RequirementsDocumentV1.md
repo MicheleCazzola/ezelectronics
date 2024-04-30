@@ -138,9 +138,9 @@ Persona: Marta, 27 anni, cliente del negozio:
 - Marta vuole accedere velocemente ai suoi acquisti
 - Marta vuole essere in grado di trovare i prodotti tramite il loro codice identificativo
 
-**Utente non registrato**
+**Utente non autenticato**
 
-Persona: Fulvio, 65 anni, utente non registrato e pensionato:
+Persona: Fulvio, 65 anni, utente non autenticato e pensionato:
 
 - Fulvio vuole acquistare/visionare dei prodotti in modo semplice
 - Fulvio vuole potersi registrare velocemente e con procedure semplici
@@ -228,7 +228,7 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 
 Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenticato hanno come precondizione che l'utente abbia fatto il login e sia correttamente autenticato, anche dove ciò non è esplicitamente indicato.
 
-### Caso d'uso 1, UC1
+### Sign Up, UC1
 
 | Attori coinvolti  |                        Utente non autenticato                         |
 | :---------------: | :-------------------------------------------------------------------: |
@@ -263,7 +263,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |       3        |                      L'utente clicca sul pulsante 'Conferma'                      |
 |       4        |       Se c'è un errore nei dati, il sistema mostra un messaggio di errore        |
 
-### Caso d'uso 2, UC2
+### Log In, UC2
 
 | Attori coinvolti  |                                          Utente non autenticato                                           |
 | :---------------: | :-------------------------------------------------------------------------------------------------------: |
@@ -296,7 +296,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |       3        |                  L'utente clicca sul pulsante 'Login'                  |
 |       4        | Se i dati di accesso non sono corretti, viene mostrato un messaggio errore |
 
-### Caso d'uso 3, UC3
+### Log Out, UC3
 
 | Attori coinvolti  |                    Utente autenticato                    |
 | :---------------: | :------------------------------------------------------: |
@@ -317,7 +317,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |       2        |       L'utente viene disconnesso       |
 |       3        | Il sistema mostra la pagina di accesso |
 
-### Caso d'uso 4, UC4
+### Visualizza carrello, UC4
 
 | Attori coinvolti  |                     Cliente                     |
 | :---------------: | :---------------------------------------------: |
@@ -347,7 +347,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |       1        |              Il cliente clicca sul pulsante 'Vai al carrello'              |
 |       2        | Viene visualizzata una pagina che riporta che il carrello è vuoto |
 
-### Caso d'uso 5, UC5
+### Paga carrello, UC5
 
 | Attori coinvolti  |                            Cliente                            |
 | :---------------: | :-----------------------------------------------------------: |
@@ -369,7 +369,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |       3        |    Il cliente clicca sul pulsante 'Acquista'    |
 |       4        |              Il sistema mostra la homepage del cliente con un messaggio che conferma la corretta riuscita dell'acquisto              |
 
-### Caso d'uso 6, UC6
+### Aggiungi un prodotto al carrello, UC6
 
 | Attori coinvolti  |                   Cliente                    |
 | :---------------: | :------------------------------------------: |
@@ -389,7 +389,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |       1        |          Il cliente clicca sul pulsante 'Aggiungi al carrello' relativo al prodotto che intende acquistare          |
 |       2        | Viene visualizzato il carrello con l'aggiunta del prodotto selezionato dal cliente |
 
-### Caso d'uso 7, UC7
+### Elimina il carrello corrente, UC7
 
 | Attori coinvolti  |                                       Cliente                                        |
 | :---------------: | :----------------------------------------------------------------------------------: |
@@ -411,7 +411,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |       3        |       Il cliente clicca sul pulsante 'Elimina carrello'        |
 |       4        |       Il sistema mostra una pagina che riporta che il carrello è vuoto        |
 
-### Caso d'uso 8, UC8
+### Visualizza storico dei carrelli pagati, UC8
 
 | Attori coinvolti  |                       Cliente                        |
 | :---------------: | :--------------------------------------------------: |
@@ -441,7 +441,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |       1        | Il cliente clicca sul pulsante 'Storico carrelli' |
 |       2        |                Il sistema mostra una pagina che riporta che non ci sono carrelli pagati                |
 
-### Caso d'uso 9, UC9
+### Rimuovi un prodotto dal carrello, UC9
 
 | Attori coinvolti  |                               Cliente                               |
 | :---------------: | :-----------------------------------------------------------------: |
@@ -463,7 +463,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |       3        | Il cliente clicca sul pulsante 'Rimuovi' relativo al prodotto che vuole eliminare dal carrello |
 |       4        |                  Il sistema mostra il carrello privo del prodotto rimosso                   |
 
-### Caso d'uso 10, UC10
+### Inserimento nuovo prodotto, UC10
 
 | Attori coinvolti  |                   Manager                   |
 | :---------------: | :-----------------------------------------: |
@@ -495,7 +495,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |       2        |             Il manager clicca sul pulsante 'Inserisci'              |
 |       3        | Il sistema mostra un messaggio di mancata riuscita dell'operazione |
 
-### Caso d'uso 11, UC11
+### Rimozione prodotto, UC11
 
 | Attori coinvolti  |            Manager             |
 | :---------------: | :----------------------------: |
@@ -517,7 +517,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |       3        |           Il sistema mostra l'elenco dei prodotti senza il prodotto eliminato           |
 
 
-### Caso d'uso 12, UC12
+### Contrassegna un prodotto come venduto, UC12
 
 | Attori coinvolti  |                     Manager                      |
 | :---------------: | :----------------------------------------------: |
@@ -550,7 +550,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |       3        |        Il sistema si rende conto che il codice inserito non corrisponde a nessun prodotto disponibile        |
 |       4        |        Il sistema mostra un messaggio di errore        |
 
-### Caso d'uso 13, UC13
+### Aggiorna quantità, UC13
 
 | Attori coinvolti  |                    Manager                     |
 | :---------------: | :--------------------------------------------: |
@@ -571,7 +571,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |       2        |    Il manager clicca sul pulsante 'Registra'    |
 |       3        |        Il sistema mostra un messaggio di corretta riuscita dell'operazione         |
 
-### Caso d'uso 14, UC14
+### Ricerca prodotti, UC14
 
 | Attori coinvolti  |                       Utente autenticato                       |
 | :---------------: | :------------------------------------------------------------: |
@@ -604,7 +604,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |       3        | Il sistema mostra una pagina che riporta che non ci sono prodotti corrispondenti ai filtri di ricerca applicati |
 
 
-### Caso d'uso 15, UC15
+### Visualizza il profilo, UC15
 
 | Attori coinvolti  |                       Utente autenticato                       |
 | :---------------: | :------------------------------------------------------------: |

@@ -80,11 +80,68 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 # Stories and personas
 
-\<A Persona is a realistic impersonation of an actor. Define here a few personas and describe in plain text how a persona interacts with the system>
+**Manager**
 
-\<Persona is-an-instance-of actor>
+Persona: Franco, 45 anni, manager di un negozio online
 
-\<stories will be formalized later as scenarios in use cases>
+- Franco vuole essere in grado di visionare la merce disponibile nel suo negozio
+- Franco vuole monitorare l'arrivo degli ordini effettuati
+- Franco vuole poter sapere quante della sua merce è stata venduta
+- Franco vuole poter eliminare i prodotti dal proprio catalogo
+- Franco vuole essere in grado di inserire più prodotti dello stesso modello nel proprio catalogo in poco tempo
+- Franco vuole potersi disconnettere dal proprio account nel caso in cui lo desiderasse
+- Franco vuole gestire gli annunci pubblicitari presenti nel suo negozio online
+- Franco vuole poter cercare la merce non venduta di uno stessa tipologia
+- Franco vuole avere una visione generale di tutte le recensioni lasciate ai prodotti che vende
+- Franco vuole trovare velocemente le recensioni di un prodotto 
+
+
+**Cliente**
+
+Persona: Giulia, 24 anni, cliente del negozio
+
+- Giulia non vuole perdere troppo tempo nella fase di log in al negozio
+- Giulia vuole acquistare ciò che più le piace in modo semplice e veloce
+- Giulia vuole poter vedere che prodotti sta acquistando in modo intuitivo
+- Giulia vuole gestire facilmente gli articoli nel suo carrello
+- Giulia vuole tenere traccia dei suoi acquisti passati in modo da poterli visionare quando vuole
+- Giulia vuole poter recensire i prodotti che ha acquistato in modo da lasciare la propria opinione
+- Giulia vorrebbe nascondere gli annunci pubblicitari
+- Giulia vorrebbe avere più indirizzi di consegna salvati in modo da poter farsi spedire gli acquisti dove le sembri più comodo
+
+Persona: Valerio, 36 anni, cliente del negozio
+
+- Valerio vuole poter filtrare facilmente i prodotti in base alla categoria e/o al modello
+- Valerio vuole avere una visione chiara dei suoi acquisti precedenti
+- Valerio vuole gestire facilmente le proprie credenziali
+- Valerio vuole essere in grado di disconnettere il suo account quando non lo usa
+- Valerio vuole poter visionare le sue precedenti spedizioni
+- Valerio preferirebbe scrivere salvare il suo indirizzo di consegna in modo da non doverlo riscriverlo ogni volta che effettua un acquisto
+
+Persona: Marta, 27 anni, cliente del negozio:
+
+- Marta vuole aggiungere e togliere al proprio carrello tutti i prodotti che desidera
+- Marta vuole poter eliminare tutti i prodotti dal proprio carrello con una semplice mossa
+- Marta vuole accedere velocemente ai suoi acquisti
+- Marta vuole essere in grado di trovare i prodotti tramite il loro codice identificativo
+- Marta vuole tenere traccia delle sue spedizioni in corso
+
+Persona: Giancarlo, 30 anni, cliente del negozio:
+- Giancarlo vuole poter salvare il suo metodo di pagamento così da averlo pronto in tutte le occasioni
+- Giancarlo vuole poter lasciare un voto al prodotto che ha acquistato in modo da essere d'aiuto agli altri utenti
+- Giancarlo vuole cercare le recensioni che ha lasciato sui prodotti
+- Giancarlo vuole poter essere in grado di modificare o di eliminare una recensione che ha lasciato 
+- Giancarlo vuole cercare i prodotti di uno stessa categoria in modo semplice e intuitivo
+
+
+
+**Utente non autenticato**
+
+Persona: Fulvio, 65 anni, utente non registrato e pensionato:
+
+- Fulvio vuole acquistare/visionare dei prodotti in modo semplice
+- Fulvio vuole potersi registrare velocemente e con procedure semplice
+- Fulvio vuole poter cercare i prodotti disponibili in modo agile
 
 # Functional and non functional requirements
 
@@ -293,7 +350,203 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 \<next describe here each use case in the UCD>
 
-### Use case 1, UC1
+
+-----
+\<Themeplate use case>
+### Caso d'uso , UC
+
+| Attori coinvolti  |                                                          |
+| :---------------: | :------------------------------------------------------: |
+|   Precondizione   |                                                          |
+|  Postcondizione   |                                                          |
+| Scenario nominale |                                                          |
+|     Varianti      |                                                          |
+|     Eccezioni     |                                                          |
+
+#### Scenario .1
+
+|  Scenario .1   |                                             |
+| :------------: | :-----------------------------------------: |
+| Precondizione  |                                             |
+| Postcondizione |                                             |
+|     Passo#     |                                             |
+|       2        |                                             |
+|       3        |                                             |
+|       4        |                                             |
+|       5        |                                             |
+
+
+-----
+
+### Sing up, UC1
+
+ Attori coinvolti  |                        Utente non autenticato                         |
+| :---------------: | :-------------------------------------------------------------------: |
+|   Precondizione   |                                                                       |
+|  Postcondizione   |                  Esiste la nuova utenza nel sistema                   |
+| Scenario nominale | L'utente non autenticato inserisce i dati e registra una nuova utenza |
+|     Varianti      |                                                                       |
+|     Eccezioni     |                        L'username inserito risulta già esistente                         |
+#### Scenario 1.1
+
+|  Scenario 1.1  |                                                                                  |
+| :------------: | :------------------------------------------------------------------------------: |
+| Precondizione  |                                                                                  |
+| Postcondizione |                        Esiste la nuova utenza nel sistema                        |
+|     Passo#     |                                   Descrizione                                    |
+|       1        |                     L'utente clicca sul pulsante 'Registrati'                     |
+|       2        | L'utente inserisce username, nome, cognome, password e ruolo (cliente o manager) |
+|       3        |                      L'utente preme sul pulsante 'Conferma'                      |
+|       4        |                Viene creata una nuova utenza con i dati inseriti                 |
+|       5        |                      Si viene riportati alla pagina di login, che mostra un messaggio di corretta avvenuta della registrazione                       |
+
+#### Scenario 1.2
+
+|  Scenario 1.2  |                                                                                  |
+| :------------: | :------------------------------------------------------------------------------: |
+| Precondizione  |                                                                                  |
+| Postcondizione |                  Nel sistema non viene creata una nuova utenza                   |
+|     Passo#     |                                   Descrizione                                    |
+|       1        |                     L'utente preme sul pulsante 'Registrati'                     |
+|       2        | L'utente inserisce username, nome, cognome, password e ruolo (cliente o manager) |
+|       3        |                      L'utente clicca sul pulsante 'Conferma'                      |
+|       4        |       Se c'è un errore nei dati, il sistema mostra un messaggio di errore        |
+
+
+### Log in, UC2
+
+| Attori coinvolti  |                                          Utente non autenticato                                           |
+| :---------------: | :-------------------------------------------------------------------------------------------------------: |
+|   Precondizione   |                                                                                                           |
+|  Postcondizione   |                                          L'utente è autenticato                                           |
+| Scenario nominale | L'utente inserisce i dati, il sistema ne verifica la correttezza e in caso positivo effettua l'accesso |
+|     Varianti      |                                                                                                           |
+|     Eccezioni     |         Se i dati inseriti non sono corretti viene mostrato un errore e non si effettua l'accesso         |
+
+#### Scenario 2.1
+
+|  Scenario 2.1  |                                             |
+| :------------: | :-----------------------------------------: |
+| Precondizione  |                                             |
+| Postcondizione |           L'utente è autenticato            |
+|     Passo#     |                 Descrizione                 |
+|       2        |   L'utente inserisce username e password    |
+|       3        |   L'utente clicca sul pulsante 'Login'    |
+|       4        | Il sistema verifica la correttezza dei dati |
+|       5        |    Viene mostrata l'homepage dell'utente    |
+
+#### Scenario 2.2
+
+|  Scenario 2.2  |                                                                          |
+| :------------: | :----------------------------------------------------------------------: |
+| Precondizione  |                                                                          |
+| Postcondizione |                        L'utente non è autenticato                        |
+|     Passo#     |                               Descrizione                                |
+|       2        |                  L'utente inserisce username e password                  |
+|       3        |                  L'utente clicca sul pulsante 'Login'                  |
+|       4        | Se i dati di accesso non sono corretti, viene mostrato un messaggio errore |
+
+
+                                                                        
+### Log Out, UC3
+
+| Attori coinvolti  |                    Utente autenticato                    |
+| :---------------: | :------------------------------------------------------: |
+|   Precondizione   |                                                          |
+|  Postcondizione   |                L'utente non è autenticato                |
+| Scenario nominale | L'utente clilla sul pulsante 'Logout' e viene disconnesso |
+|     Varianti      |                                                          |
+|     Eccezioni     |                                                          |
+
+#### Scenario 3.1
+
+|  Scenario 3.1  |                                        |
+| :------------: | :------------------------------------: |
+| Precondizione  |                                        |
+| Postcondizione |       L'utente non è autenticato       |
+|     Passo#     |              Descrizione               |
+|       1        |  L'utente preme sul pulsante 'Logout'  |
+|       2        |       L'utente viene disconnesso       |
+|       3        | Il sistema mostra la pagina di accesso |
+
+### Visualizza carrello, UC4
+
+| Attori coinvolti  |                     Cliente                     |
+| :---------------: | :---------------------------------------------: |
+|   Precondizione   |                                                 |
+|  Postcondizione   |           Viene mostrato il carrello            |
+| Scenario nominale | Il cliente visualizza il contenuto del carrello |
+|     Varianti      |             Non esiste un carrello              |
+|     Eccezioni     |                                                 |
+
+#### Scenario 4.1
+
+|  Scenario 4.1  |                                                                    |
+| :------------: | :----------------------------------------------------------------: |
+| Precondizione  |           Il carrello esiste                                                         |
+| Postcondizione |                     Viene mostrato il carrello                     |
+|     Passo#     |                            Descrizione                             |
+|       1        | Il cliente clicca sul pulsante 'Vai al carrello' |
+|       2        | Viene visualizzata una pagina che mostra il contenuto del carrello |
+
+#### Scenario 4.2
+
+|  Scenario 4.2  |                                                                                              |
+| :------------: | :------------------------------------------------------------------------------------------: |
+| Precondizione  |              Il carrello non esiste                                                                                |
+| Postcondizione |                             Il sistema mostra un carrello vuoto                              |
+|     Passo#     |                                         Descrizione                                          |
+|       1        |              Il cliente clicca sul pulsante 'Vai al carrello'              |
+|       2        | Viene visualizzata una pagina che riporta che il carrello è vuoto |
+
+### Paga Carrello, UC5
+
+| Attori coinvolti  |                            Cliente                            |
+| :---------------: | :-----------------------------------------------------------: |
+|   Precondizione   |     Il cliente deve avere almeno un prodotto nel carrello     |
+|  Postcondizione   |                     L'ordine è confermato                     |
+| Scenario nominale |          Il cliente acquista i prodotti nel carrello          |
+|     Varianti      |                                                               |
+|     Eccezioni     | In caso di errato inserimento dei dati, il pagamento fallisce |
+
+#### Scenario 5.1
+
+|  Scenario 5.1  |                                                                              |
+| :------------: | :--------------------------------------------------------------------------: |
+| Precondizione  |            Il cliente deve avere almeno un prodotto nel carrello; Il cliente deve aver impostato un metodo predefinito di pagamento e un indirizzo di spedizione.             |
+| Postcondizione |  L'ordine è confermato e il carrello corrente viene spostato nello storico   |
+|     Passo#     |                                 Descrizione                                  |
+|       1        |      Il cliente clicca sul pulsante 'Vai al carrello'      |
+|       2        |            Il cliente visualizza il contenuto del carrello             |
+|       3        |    Il cliente clicca sul pulsante 'Acquista'    |
+|       4        |              Il sistema mostra la homepage del cliente con un messaggio che conferma la corretta riuscita dell'acquisto              |
+
+### Aggiungi un prodotto al carrello, UC6
+
+
+| Attori coinvolti  |                          Cliente                         |
+| :---------------: | :------------------------------------------------------: |
+|   Precondizione   |                                                          |
+|  Postcondizione   |                                                          |
+| Scenario nominale |                                                          |
+|     Varianti      |                                                          |
+|     Eccezioni     |                                                          |
+
+#### Scenario .1
+
+|  Scenario .1   |                                             |
+| :------------: | :-----------------------------------------: |
+| Precondizione  |                                             |
+| Postcondizione |                                             |
+|     Passo#     |                                             |
+|       2        |                                             |
+|       3        |                                             |
+|       4        |                                             |
+|       5        |                                             |
+
+
+
+### Use case 7, UC7
 
 | Actors Involved  |                                                                      |
 | :--------------: | :------------------------------------------------------------------: |
@@ -303,7 +556,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |     Variants     |                      \<other normal executions>                      |
 |    Exceptions    |                        \<exceptions, errors >                        |
 
-#### Scenario 1.1
+#### Scenario 7.1
 
 \<describe here scenarios instances of UC1>
 
@@ -322,17 +575,193 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |       2        |                                                                            |
 |      ...       |                                                                            |
 
-#### Scenario 1.2
+### Use case 8, UC1
 
-#### Scenario 1.x
+| Actors Involved  |                                                                      |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   | \<Boolean expression, must evaluate to true before the UC can start> |
+|  Post condition  |  \<Boolean expression, must evaluate to true after UC is finished>   |
+| Nominal Scenario |         \<Textual description of actions executed by the UC>         |
+|     Variants     |                      \<other normal executions>                      |
+|    Exceptions    |                        \<exceptions, errors >                        |
 
-### Use case 2, UC2
+#### Scenario 8.1
 
-..
+\<describe here scenarios instances of UC1>
 
-### Use case x, UCx
+\<a scenario is a sequence of steps that corresponds to a particular execution of one use case>
 
-..
+\<a scenario is a more formal description of a story>
+
+\<only relevant scenarios should be described>
+
+|  Scenario 1.1  |                                                                            |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | \<Boolean expression, must evaluate to true before the scenario can start> |
+| Post condition |  \<Boolean expression, must evaluate to true after scenario is finished>   |
+|     Step#      |                                Description                                 |
+|       1        |                                                                            |
+|       2        |                                                                            |
+|      ...       |                                                                            |
+
+### Use case 9, UC9
+
+| Actors Involved  |                                                                      |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   | \<Boolean expression, must evaluate to true before the UC can start> |
+|  Post condition  |  \<Boolean expression, must evaluate to true after UC is finished>   |
+| Nominal Scenario |         \<Textual description of actions executed by the UC>         |
+|     Variants     |                      \<other normal executions>                      |
+|    Exceptions    |                        \<exceptions, errors >                        |
+
+#### Scenario 9.1
+
+\<describe here scenarios instances of UC1>
+
+\<a scenario is a sequence of steps that corresponds to a particular execution of one use case>
+
+\<a scenario is a more formal description of a story>
+
+\<only relevant scenarios should be described>
+
+|  Scenario 1.1  |                                                                            |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | \<Boolean expression, must evaluate to true before the scenario can start> |
+| Post condition |  \<Boolean expression, must evaluate to true after scenario is finished>   |
+|     Step#      |                                Description                                 |
+|       1        |                                                                            |
+|       2        |                                                                            |
+|      ...       |                                                                            |
+
+
+
+### Use case 10, UC10
+
+| Actors Involved  |                                                                      |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   | \<Boolean expression, must evaluate to true before the UC can start> |
+|  Post condition  |  \<Boolean expression, must evaluate to true after UC is finished>   |
+| Nominal Scenario |         \<Textual description of actions executed by the UC>         |
+|     Variants     |                      \<other normal executions>                      |
+|    Exceptions    |                        \<exceptions, errors >                        |
+
+#### Scenario 10.1
+
+\<describe here scenarios instances of UC1>
+
+\<a scenario is a sequence of steps that corresponds to a particular execution of one use case>
+
+\<a scenario is a more formal description of a story>
+
+\<only relevant scenarios should be described>
+
+|  Scenario 1.1  |                                                                            |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | \<Boolean expression, must evaluate to true before the scenario can start> |
+| Post condition |  \<Boolean expression, must evaluate to true after scenario is finished>   |
+|     Step#      |                                Description                                 |
+|       1        |                                                                            |
+|       2        |                                                                            |
+|      ...       |                                                                            |
+
+
+
+
+### Use case 11, UC11
+
+| Actors Involved  |                                                                      |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   | \<Boolean expression, must evaluate to true before the UC can start> |
+|  Post condition  |  \<Boolean expression, must evaluate to true after UC is finished>   |
+| Nominal Scenario |         \<Textual description of actions executed by the UC>         |
+|     Variants     |                      \<other normal executions>                      |
+|    Exceptions    |                        \<exceptions, errors >                        |
+
+#### Scenario 11.1
+
+\<describe here scenarios instances of UC1>
+
+\<a scenario is a sequence of steps that corresponds to a particular execution of one use case>
+
+\<a scenario is a more formal description of a story>
+
+\<only relevant scenarios should be described>
+
+|  Scenario 1.1  |                                                                            |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | \<Boolean expression, must evaluate to true before the scenario can start> |
+| Post condition |  \<Boolean expression, must evaluate to true after scenario is finished>   |
+|     Step#      |                                Description                                 |
+|       1        |                                                                            |
+|       2        |                                                                            |
+|      ...       |                                                                            |
+
+
+
+
+
+### Use case 12, UC12
+
+| Actors Involved  |                                                                      |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   | \<Boolean expression, must evaluate to true before the UC can start> |
+|  Post condition  |  \<Boolean expression, must evaluate to true after UC is finished>   |
+| Nominal Scenario |         \<Textual description of actions executed by the UC>         |
+|     Variants     |                      \<other normal executions>                      |
+|    Exceptions    |                        \<exceptions, errors >                        |
+
+#### Scenario 12.1
+
+\<describe here scenarios instances of UC1>
+
+\<a scenario is a sequence of steps that corresponds to a particular execution of one use case>
+
+\<a scenario is a more formal description of a story>
+
+\<only relevant scenarios should be described>
+
+|  Scenario 1.1  |                                                                            |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | \<Boolean expression, must evaluate to true before the scenario can start> |
+| Post condition |  \<Boolean expression, must evaluate to true after scenario is finished>   |
+|     Step#      |                                Description                                 |
+|       1        |                                                                            |
+|       2        |                                                                            |
+|      ...       |                                                                            |
+
+
+
+### Use case 13, UC13
+
+| Actors Involved  |                                                                      |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondition   | \<Boolean expression, must evaluate to true before the UC can start> |
+|  Post condition  |  \<Boolean expression, must evaluate to true after UC is finished>   |
+| Nominal Scenario |         \<Textual description of actions executed by the UC>         |
+|     Variants     |                      \<other normal executions>                      |
+|    Exceptions    |                        \<exceptions, errors >                        |
+
+#### Scenario 13.1
+
+\<describe here scenarios instances of UC1>
+
+\<a scenario is a sequence of steps that corresponds to a particular execution of one use case>
+
+\<a scenario is a more formal description of a story>
+
+\<only relevant scenarios should be described>
+
+|  Scenario 1.1  |                                                                            |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondition  | \<Boolean expression, must evaluate to true before the scenario can start> |
+| Post condition |  \<Boolean expression, must evaluate to true after scenario is finished>   |
+|     Step#      |                                Description                                 |
+|       1        |                                                                            |
+|       2        |                                                                            |
+|      ...       |                                                                            |
+
+
+
 
 # Glossary
 
