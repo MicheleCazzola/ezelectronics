@@ -138,9 +138,9 @@ Persona: Marta, 27 anni, cliente del negozio:
 - Marta vuole accedere velocemente ai suoi acquisti
 - Marta vuole essere in grado di trovare i prodotti tramite il loro codice identificativo
 
-**Utente non registrato**
+**Utente non autenticato**
 
-Persona: Fulvio, 65 anni, utente non registrato e pensionato:
+Persona: Fulvio, 65 anni, utente non autenticato e pensionato:
 
 - Fulvio vuole acquistare/visionare dei prodotti in modo semplice
 - Fulvio vuole potersi registrare velocemente e con procedure semplici

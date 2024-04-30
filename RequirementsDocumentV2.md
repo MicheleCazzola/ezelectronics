@@ -80,11 +80,68 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 # Stories and personas
 
-\<A Persona is a realistic impersonation of an actor. Define here a few personas and describe in plain text how a persona interacts with the system>
+**Manager**
 
-\<Persona is-an-instance-of actor>
+Persona: Franco, 45 anni, manager di un negozio online
 
-\<stories will be formalized later as scenarios in use cases>
+- Franco vuole essere in grado di visionare la merce disponibile nel suo negozio
+- Franco vuole monitorare l'arrivo degli ordini effettuati
+- Franco vuole poter sapere quante della sua merce è stata venduta
+- Franco vuole poter eliminare i prodotti dal proprio catalogo
+- Franco vuole essere in grado di inserire più prodotti dello stesso modello nel proprio catalogo in poco tempo
+- Franco vuole potersi disconnettere dal proprio account nel caso in cui lo desiderasse
+- Franco vuole gestire gli annunci pubblicitari presenti nel suo negozio online
+- Franco vuole poter cercare la merce non venduta di uno stessa tipologia
+- Franco vuole avere una visione generale di tutte le recensioni lasciate ai prodotti che vende
+- Franco vuole trovare velocemente le recensioni di un prodotto 
+
+
+**Cliente**
+
+Persona: Giulia, 24 anni, cliente del negozio
+
+- Giulia non vuole perdere troppo tempo nella fase di log in al negozio
+- Giulia vuole acquistare ciò che più le piace in modo semplice e veloce
+- Giulia vuole poter vedere che prodotti sta acquistando in modo intuitivo
+- Giulia vuole gestire facilmente gli articoli nel suo carrello
+- Giulia vuole tenere traccia dei suoi acquisti passati in modo da poterli visionare quando vuole
+- Giulia vuole poter recensire i prodotti che ha acquistato in modo da lasciare la propria opinione
+- Giulia vorrebbe nascondere gli annunci pubblicitari
+- Giulia vorrebbe avere più indirizzi di consegna salvati in modo da poter farsi spedire gli acquisti dove le sembri più comodo
+
+Persona: Valerio, 36 anni, cliente del negozio
+
+- Valerio vuole poter filtrare facilmente i prodotti in base alla categoria e/o al modello
+- Valerio vuole avere una visione chiara dei suoi acquisti precedenti
+- Valerio vuole gestire facilmente le proprie credenziali
+- Valerio vuole essere in grado di disconnettere il suo account quando non lo usa
+- Valerio vuole poter visionare le sue precedenti spedizioni
+- Valerio preferirebbe scrivere salvare il suo indirizzo di consegna in modo da non doverlo riscriverlo ogni volta che effettua un acquisto
+
+Persona: Marta, 27 anni, cliente del negozio:
+
+- Marta vuole aggiungere e togliere al proprio carrello tutti i prodotti che desidera
+- Marta vuole poter eliminare tutti i prodotti dal proprio carrello con una semplice mossa
+- Marta vuole accedere velocemente ai suoi acquisti
+- Marta vuole essere in grado di trovare i prodotti tramite il loro codice identificativo
+- Marta vuole tenere traccia delle sue spedizioni in corso
+
+Persona: Giancarlo, 30 anni, cliente del negozio:
+- Giancarlo vuole poter salvare il suo metodo di pagamento così da averlo pronto in tutte le occasioni
+- Giancarlo vuole poter lasciare un voto al prodotto che ha acquistato in modo da essere d'aiuto agli altri utenti
+- Giancarlo vuole cercare le recensioni che ha lasciato sui prodotti
+- Giancarlo vuole poter essere in grado di modificare o di eliminare una recensione che ha lasciato 
+- Giancarlo vuole cercare i prodotti di uno stessa categoria in modo semplice e intuitivo
+
+
+
+**Utente non autenticato**
+
+Persona: Fulvio, 65 anni, utente non registrato e pensionato:
+
+- Fulvio vuole acquistare/visionare dei prodotti in modo semplice
+- Fulvio vuole potersi registrare velocemente e con procedure semplice
+- Fulvio vuole poter cercare i prodotti disponibili in modo agile
 
 # Functional and non functional requirements
 
