@@ -111,7 +111,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3                    |                                              Eliminazione utenti                                             |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.1                    |                               Eliminazione utente, dato lo username                                |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.2                    |                               Eliminazione di tutti gli utenti                                |
-|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.4                    |                                              Assegnazione ruolo ad un utente registrato                                           |
+|                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.4                    | Creazione nuovo account, relativo ad un altro utente |
 |                                       FR3                                        |                                               Gestione dei prodotti                                               |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.1                    |                                             Creazione nuovo prodotto                                              |
 |                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.2                    |                        Registrazione arrivo di un insieme di prodotti dello stesso modello                        |
@@ -153,9 +153,11 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR8 | Gestione spedizione |
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.1  | Creazione nuova spedizione |
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.2  | Ricerca spedizioni | 
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.2.1 |  Ricerca spedizioni dell'utente corrente, eventualmente per stato (non iniziate, in corso, concluse) |      
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.2.1 |  Visualizzazione dello stato della spedizione relativa ad un carrello dell'utente corrente (presa in carico, in corso, effettuata) |      
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.2.2 |  Ricerca spedizioni di tutti gli utenti, eventualmente per stato (non iniziate, in corso, concluse) |   
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.3  | Abilitazione della possibilità di vedere in tempo reale le informazioni relative allo stato della spedizione (_tracking_) |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.3  | Tracking della spedizione |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.3.1 |  Recupero stato e luogo della spedizione | 
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.3.2 |  Visualizzazione stato e luogo della spedizione | 
 
 
 ### Table of rights
@@ -173,7 +175,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR2.1.7 |  | x | x | x |
 | FR2.2 |  |  |  | x |
 | FR2.3 |  |  |  | x |
-| FR2.3 |  |  |  | x |
+| FR2.4 |  |  |  | x |
 | FR3.1 |  |  | x | x |
 | FR3.2 |  |  | x | x |
 | FR3.3 |  |  | x | x |
@@ -197,16 +199,13 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR5.3.3 |  |  |  | x |
 | FR5.4.1 |  | x |  | x |
 | FR5.4.2 |  |  | x | x |
-| FR6 |  |  |  | x |
 | FR6.1 |  |  |  | x |
-| FR6.2 |  |  |  | x |
+| FR6.2 |  |  | x | x |
 | FR7 |  |  |  | x |
-| FR7.1 |  |  |  | x |
-| FR7.2 |  |  |  | x |
-| FR8.1 |  |  |  | x |
 | FR8.2.1 |  | x |  | x |
 | FR8.2.2 |  |  |  | x |
-| FR8.3 |  |  |  | x |
+| FR8.3.1 |  |  |  | x |
+| FR8.3.2 |  | x |  |  |
 
 ## Non Functional Requirements
 
