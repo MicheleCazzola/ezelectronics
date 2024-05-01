@@ -87,12 +87,6 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 
 ![Context Diagram](/media/version1/context_diagram.png)
 
-**Attori**:
-
-- Utente non autenticato: può solamente effettuare login oppure registrarsi presso la piattaforma, se ancora non possiede un account;
-- Cliente: ha la possibilità di visualizzare ed acquistare i prodotti, tenendo traccia delle proprie transazioni, attraverso la creazione dei carrelli virtuali;
-- Manager: ha la possibilità di effettuare operazioni sui prodotti del negozio, tenendo traccia degli arrivi e delle quantità presenti e vendute.
-
 ## Interfacce
 
 |         Attore         | Interfaccia logica | Interfaccia fisica |
