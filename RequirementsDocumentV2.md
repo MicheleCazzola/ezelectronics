@@ -20,6 +20,7 @@ Version: V1 - description of EZElectronics in FUTURE form (as proposed by the te
 - [Stories and personas](#stories-and-personas)
 - [Functional and non functional requirements](#functional-and-non-functional-requirements)
   - [Functional Requirements](#functional-requirements)
+  - [Table of rights](#table-of-rights)
   - [Non Functional Requirements](#non-functional-requirements)
 - [Use case diagram and use cases](#use-case-diagram-and-use-cases)
   - [Use case diagram](#use-case-diagram)
@@ -41,29 +42,20 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 
 | Stakeholder name | Description |
 | :--------------: | :---------: |
-| Utente non autenticato |                     Utente non registrato presso la piattaforma, la sua attività principale riguarda registrazione e login                     |
-|        Cliente         |              Utente autenticato le cui attività principali sono l'acquisto e la visualizzazione di prodotti attraverso l'applicazione               |
-|        Manager         | Utente autenticato la cui attività principale è la gestione dei prodotti, sia in entrata che in uscita dal negozio virtuale |
-| Admin | Amministratore del sistema, la sua attività principale è risolvere eventuali problematiche, garantendo il corretto funzionamento del sistema|
+| Utente non autenticato |                     Utente che non si è autenticato presso la piattaforma, indipendentemente dal fatto che possieda o meno un account |
+|        Cliente         |              Utente autenticato, cliente del negozio  |
+|        Manager         | Utente autenticato, gestore del negozio |
+| Admin | Utente autenticato, amministratore del sistema di gestione EZElectronics |
 |       Produttore       |     Azienda che produce gli oggetti che verranno messi in vendita attraverso la piattaforma     |
-|      Distributore      |          Azienda che distribuisce i prodotti, dal produttore al venditore (_Manager_)       |
-| Fornitori di pubblicità | Azienda i cui prodotti sono pubblicizzati nei banner presenti all'interno dell'applicazione |
-| Servizi di pagamento | Aziende che si occupano di garantire il corretto funzionamento delle transazioni di pagamento |
-| Servizio di spedizione | Azienda che si occupa del trasporto dei prodotti dal venditore (_Manager_) al cliente |
+|      Distributore      |          Azienda che distribuisce i prodotti, dal produttore al manager      |
+| Fornitori di pubblicità | Aziende i cui prodotti sono pubblicizzati nei banner presenti all'interno dell'applicazione |
+| Servizio di pagamento | Azienda che si occupa di gestire garantire il corretto funzionamento delle transazioni di pagamento |
+| Servizio di spedizione | Azienda che si occupa del trasporto dei prodotti dal negozio fisico al cliente |
 
 # Context Diagram and interfaces
 
 ## Context Diagram
 ![Context diagram](/media/version2/context_diagram.png)
-
-**Attori**:
-- Utente non autenticato: può solamente effettuare login oppure registrarsi presso la piattaforma, se ancora non possiede un account;
-- Cliente: ha la possibilità di visualizzare ed acquistare i prodotti, tenendo traccia delle proprie transazioni, attraverso la creazione dei carrelli virtuali;
-- Manager: ha la possibilità di effettuare operazioni sui prodotti del negozio, tenendo traccia degli arrivi e delle quantità presenti e vendute.
-- Admin: ha la possibilità di effettuare ogni operazione su ogni entità presente nel sistema
-- Servizio di pagamento: API per effettuare transazioni tra manager e cliente
-- Servizio di pubblicità: API per mostrare banner pubblicitari all'interno dell'applicazione
-- Servizio di spedizione: API per creare la spedizione ed effettuare il tracking
 
 ## Interfacce
 
@@ -71,11 +63,11 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | :--------------------: | :----------------: | :----------------: |
 | Utente non autenticato |        GUI         |   PC/Smartphone    |
 |        Cliente         |        GUI         |   PC/Smartphone    |
-|        Manager           |        GUI         |   PC/Smartphone    |
+|        Manager         |        GUI         |   PC/Smartphone    |
 |        Admin           |        GUI         |   PC/Smartphone    |
-|Servizio di pagamento   |        API         |   Internet    |
-|Servizio di pubblicità  |        API         |   Internet    |
-|Servizio di spedizione  |        API         |   Internet    |
+| Servizio di pagamento  |        API         |   Internet         |
+| Servizio di pubblicità |        API         |   Internet         |
+| Servizio di spedizione |        API         |   Internet         |
 
 
 # Stories and personas
@@ -200,13 +192,15 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.3.3 |  Eliminazione di tutte le recensioni, eventualmente filtrate per modello o categoria del prodotto |  
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4  | Ricerca recensioni |  
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.1 |  Ricerca recensioni effettuate dall'utente corrente, eventualmente filtrate per modello e/o categoria di un prodotto |   
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.2 |  Ricerca recensioni effettuate da tutti gli utenti, eventualmente filtrate per modello e/o categoria di un prodotto |     
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.2 |  Ricerca recensioni effettuate da tutti gli utenti |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.2.1 |  Visualizzazione recensioni effettuate da tutti gli utenti, dato un modello di prodotto |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.2.2 |  Ricerca recensioni effettuate da tutti gli utenti, eventualmente filtrate per categoria e/o modello di un prodotto |  
 | FR6 | Gestione pubblicità |
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.1  | Ricezione annuncio pubblicitario da servizio esterno |   
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.2  | Gestione possibilità di nascondere gli annunci pubblicitari all'interno della piattaforma |
 | FR7 | Gestione pagamento |
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR7.1  | Gestione richiesta di pagamento |   
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR7.2  | Invio esito di pagamento al cliente |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR7.2  | Invio esito di pagamento al cliente (successo/fallimento) |
 | FR8 | Gestione spedizione |
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.1  | Creazione nuova spedizione |
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.2  | Ricerca spedizioni | 
@@ -255,7 +249,8 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 | FR5.3.2 |  |  |  | x |
 | FR5.3.3 |  |  |  | x |
 | FR5.4.1 |  | x |  | x |
-| FR5.4.2 |  |  | x | x |
+| FR5.4.2.1 |  | x |  | x |
+| FR5.4.2.2 |  |  | x | x |
 | FR6.1 |  |  |  | x |
 | FR6.2 |  |  | x | x |
 | FR7 |  |  |  | x |
