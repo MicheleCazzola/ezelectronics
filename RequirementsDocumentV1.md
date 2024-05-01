@@ -20,6 +20,8 @@ Versione: V1 - descrizione di EZElectronics nella forma ATTUALE (come ricevuta d
 - [Storie e personas](#storie-e-personas)
 - [Requisiti funzionali e non funzionali](#requisiti-funzionali-e-non-funzionali)
   - [Requisiti funzionali](#requisiti-funzionali)
+  - [Requisiti di test](#requisiti-di-test)
+  - [Table of rights](#table-of-rights)
   - [Requisiti non funzionali](#requisiti-non-funzionali)
 - [Use Case Diagram e casi d'uso](#use-case-diagram-e-casi-duso)
   - [Use Case Diagram](#use-case-diagram)
@@ -72,12 +74,12 @@ EZElectronics (pronunciato EaSy Electronics) è un'applicazione software progett
 
 | Nome dello stakeholder |                                                         Descrizione                                                         |
 | :--------------------: | :-------------------------------------------------------------------------------------------------------------------------: |
-| Utente non autenticato |           Utente non registrato presso la piattaforma, la sua attività principale riguarda registrazione e login            |
-|        Cliente         |  Utente autenticato le cui attività principali sono l'acquisto e la visualizzazione di prodotti attraverso l'applicazione   |
-|        Manager         | Utente autenticato la cui attività principale è la gestione dei prodotti, sia in entrata che in uscita dal negozio virtuale |
-|       Produttore       |     Individuo, organizzazione o azienda che produce gli oggetti che verranno messi in vendita attraverso la piattaforma     |
-|      Distributore      |                        Azienda che distribuisce i prodotti, dal produttore al venditore (_Manager_)                         |
-| Servizio di spedizione |                    Azienda che si occupa del trasporto dei prodotti dal venditore (_Manager_) al cliente                    |
+| Utente non autenticato |                     Utente che non si è autenticato presso la piattaforma, indipendentemente dal fatto che possieda o meno un account |
+|        Cliente         |              Utente autenticato, cliente del negozio  |
+|        Manager         | Utente autenticato, gestore del negozio |
+|       Produttore       |     Azienda che produce gli oggetti che verranno messi in vendita attraverso la piattaforma     |
+|      Distributore      |          Azienda che distribuisce i prodotti, dal produttore al manager      |
+| Servizio di spedizione | Azienda che si occupa del trasporto dei prodotti dal negozio fisico al cliente |
 
 # Context Diagram e interfacce
 
