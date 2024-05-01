@@ -8,7 +8,7 @@ Version:
 
 Il prototipo di GUI realizzato per la versione corrente possiede solo il layout browser, essendo un'applicazione web; supponendo il front-end realizzato in modo responsive, tale layout rimane valido sia per un utilizzo desktop, che per un utilizzo da smartphone.
 
-Il [documento completo](/GUIs/version2/version2.pdf) contiene tutti i possibili layout, incluse le eccezioni: per esse è stato talvolta realizzato un unico layout dedicato, il quale raggruppa le caratteristiche comuni di diversi scenari, relativi al medesimo caso d'uso (ad esempio i casi di presenza di input di testo o filtri di ricerca non validi); esso contiene i link funzionanti sui bottoni, consentendo la navigazione tra i diversi layout: tali link sono generalmente (ma non in tutti i casi) riferiti ai casi d'uso di alto livello, pertanto puntano ad una singola versione di un dato layout, tra quelle presenti, il quale può realizzarsi sia nella versione ufficiale, che in quelle alternative.
+Il [documento completo](/GUIs/version2/version2.pdf) contiene tutti i possibili layout, incluse le eccezioni: per esse è stato talvolta realizzato un unico layout dedicato, il quale raggruppa le caratteristiche comuni di diversi scenari, relativi al medesimo caso d'uso (ad esempio i casi di presenza di input di testo, filtri di ricerca non validi oppure ritorno da operazioni concluse con successo); esso contiene i link funzionanti sui bottoni, consentendo la navigazione tra i diversi layout: tali link conducono solo alla versione ufficiale di un dato layout, ma può essere riferito anche a quelle alternative.
 
 Nel documento sono presenti note a margine di alcuni layout (sia ufficiali che alternativi), per evidenziare meglio lo svolgimento degli scenari interessati e le diverse funzionalità dei link presenti, che variano a seconda dell'utente (cliente o manager), o, più frequentemente, da dati immessi all'interno dei form oppure dall'esito di operazioni fallibili, come il pagamento o l'aggiunta di un prodotto al carrello.
 
@@ -24,14 +24,14 @@ Di seguito si elencano i prototipi di interfaccia grafica dei casi d'uso princip
 ![Sign up](/GUIs/version2/media/sign_up.png)
 
 - Profilo utente:
-    - cliente:![Profilo cliente](/GUIs/version2/media/user_info.png)
-    - manager:![Profilo manager](/GUIs/version2/media/user_info%20(user_info_manager).png)
+    - cliente:![Profilo cliente](/GUIs/version2/media/user_info_customer.png)
+    - manager:![Profilo manager](/GUIs/version2/media/user_info_manager.png)
 
 - Modifica password:
     - cliente:![Modifica password](/GUIs/version2/media/new_password.png)
-    - manager: ![Modifica password](/GUIs/version2/media/new_password%20(manager).png)
+    - manager: ![Modifica password](/GUIs/version2/media/new_password_manager.png)
 
-- Impostazione di un'informazione del cliente (qui mostrato solo per l'indirizzo di consegna):
+- Impostazione di un'informazione nel profilo utente del cliente (qui mostrato solo per l'indirizzo di consegna):
 ![Impostazione indirizzo di consegna](/GUIs/version2/media/add_address.png)
 
 - Homepage di un cliente:
@@ -39,6 +39,9 @@ Di seguito si elencano i prototipi di interfaccia grafica dei casi d'uso princip
 
 - Lista prodotti trovati da un cliente:
 ![Prodotti lato cliente](GUIs/version2/media/products_retrieved_customer.png)
+
+- Lista recensioni di un prodotto trovato da un cliente:
+![Recensioni prodotto lato cliente](/GUIs/version2/media/product_reviews_retrieved_customer.png)
 
 - Lista acquisti effettuati da un cliente:
 ![Acquisti cliente](GUIs/version2/media/products_retrieved_customer_already_purchased.png)
@@ -72,6 +75,6 @@ Di seguito si elencano i prototipi di interfaccia grafica dei casi d'uso princip
 ![Prodotti lato manager](GUIs/version2/media/products_retrieved_manager.png)
 
 - Lista recensioni trovate da un manager:
-![Lista recensioni negozio](GUIs/version2/media/reviews_retrieved_manager.png)
+![Lista recensioni negozio](GUIs/version2/media/product_reviews_retrieved_manager.png)
 
 
