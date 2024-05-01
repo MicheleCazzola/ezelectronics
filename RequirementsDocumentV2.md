@@ -378,39 +378,42 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 -----
 
-### Sing up, UC1
+### Sign up, UC1
 
- Attori coinvolti  |                        Utente non autenticato                         |
+ Attori coinvolti  |  Utente non autenticato  |
 | :---------------: | :-------------------------------------------------------------------: |
-|   Precondizione   |                                                                       |
-|  Postcondizione   |                  Esiste la nuova utenza nel sistema                   |
+|   Precondizione   |  |
+|  Postcondizione   |  Esiste una nuova utenza nel sistema  |
 | Scenario nominale | L'utente non autenticato inserisce i dati e registra una nuova utenza |
-|     Varianti      |                                                                       |
-|     Eccezioni     |                        L'username inserito risulta già esistente                         |
+|     Varianti      |  |
+|     Eccezioni     |   L'username inserito risulta già esistente |
+
 #### Scenario 1.1
 
-|  Scenario 1.1  |                                                                                  |
+|  Scenario 1.1  |  |
 | :------------: | :------------------------------------------------------------------------------: |
-| Precondizione  |                                                                                  |
-| Postcondizione |                        Esiste la nuova utenza nel sistema                        |
-|     Passo#     |                                   Descrizione                                    |
-|       1        |                     L'utente clicca sul pulsante 'Registrati'                     |
-|       2        | L'utente inserisce username, nome, cognome, password e ruolo (cliente o manager) |
-|       3        |                      L'utente preme sul pulsante 'Conferma'                      |
-|       4        |                Viene creata una nuova utenza con i dati inseriti                 |
-|       5        |                      Si viene riportati alla pagina di login, che mostra un messaggio di corretta avvenuta della registrazione                       |
+| Precondizione  |  |
+| Postcondizione | Esiste la nuova utenza nel sistema  |
+|     Passo#     | Descrizione  |
+|       1        | L'utente clicca sul pulsante 'Registrati' |
+|       2        | L'utente inserisce username, nome, cognome e password,  e seleziona un ruolo (cliente o manager) |
+|       3        | L'utente clicca sul pulsante 'Conferma' |
+|       4        | Il sistema verifica l'unicità dell'username e ottiene un riscontro positivo |
+|       5        | Viene creata una nuova utenza con i dati inseriti |
+|       6        | Si viene riportati alla pagina di login, che mostra un messaggio di corretta riuscita della registrazione |
 
 #### Scenario 1.2
 
-|  Scenario 1.2  |                                                                                  |
+|  Scenario 1.2  |  |
 | :------------: | :------------------------------------------------------------------------------: |
-| Precondizione  |                                                                                  |
-| Postcondizione |                  Nel sistema non viene creata una nuova utenza                   |
-|     Passo#     |                                   Descrizione                                    |
-|       1        |                     L'utente preme sul pulsante 'Registrati'                     |
-|       2        | L'utente inserisce username, nome, cognome, password e ruolo (cliente o manager) |
-|       3        |                      L'utente clicca sul pulsante 'Conferma'                      |
-|       4        |       Se c'è un errore nei dati, il sistema mostra un messaggio di errore        |
+| Precondizione  |  |
+| Postcondizione | Non viene creata una nuova utenza nel sistema |
+|     Passo#     | Descrizione |
+|       1        |  L'utente clicca sul pulsante 'Registrati' |
+|       2        | L'utente inserisce username, nome, cognome e password, e selezione un ruolo (cliente o manager) |
+|       3        | L'utente clicca sul pulsante 'Conferma' |
+|       4        | Il sistema verifica l'unicità dell'username e ottiene un riscontro negativo |
+|       5        | Il sistema mostra un messaggio di errore |
 
 
 ### Log in, UC2
@@ -431,30 +434,30 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 | Postcondizione |           L'utente è autenticato            |
 |     Passo#     |                 Descrizione                 |
 |       2        |   L'utente inserisce username e password    |
-|       3        |   L'utente clicca sul pulsante 'Login'    |
-|       4        | Il sistema verifica la correttezza dei dati |
+|       3        |   L'utente clicca sul pulsante 'Login'      |
+|       4        | Il sistema verifica la correttezza dei dati e ottiene un riscontro positivo |
 |       5        |    Viene mostrata l'homepage dell'utente    |
 
 #### Scenario 2.2
 
-|  Scenario 2.2  |                                                                          |
+|  Scenario 2.2  |  |
 | :------------: | :----------------------------------------------------------------------: |
-| Precondizione  |                                                                          |
-| Postcondizione |                        L'utente non è autenticato                        |
-|     Passo#     |                               Descrizione                                |
-|       2        |                  L'utente inserisce username e password                  |
-|       3        |                  L'utente clicca sul pulsante 'Login'                  |
-|       4        | Se i dati di accesso non sono corretti, viene mostrato un messaggio errore |
+| Precondizione  |  |
+| Postcondizione | L'utente non è autenticato |
+|     Passo#     | Descrizione |
+|       2        | L'utente inserisce username e password |
+|       3        | L'utente clicca sul pulsante 'Login' |
+|       4        | Il sistema verifica la correttezza dei dati e ottiene un riscontro negativo |
+|       5        | Viene mostrato un messaggio errore |
 
 
-                                                                        
 ### Log Out, UC3
 
 | Attori coinvolti  |                    Utente autenticato                    |
 | :---------------: | :------------------------------------------------------: |
 |   Precondizione   |                                                          |
 |  Postcondizione   |                L'utente non è autenticato                |
-| Scenario nominale | L'utente clilla sul pulsante 'Logout' e viene disconnesso |
+| Scenario nominale | L'utente clicca sul pulsante 'Logout' e viene disconnesso |
 |     Varianti      |                                                          |
 |     Eccezioni     |                                                          |
 
@@ -483,20 +486,20 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 |  Scenario 4.1  |                                                                    |
 | :------------: | :----------------------------------------------------------------: |
-| Precondizione  |           Il carrello esiste                                                         |
-| Postcondizione |                     Viene mostrato il carrello                     |
+| Precondizione  |           Esiste un carrello attivo associato al cliente                                                         |
+| Postcondizione |  Viene mostrato il contenuto del carrello     |
 |     Passo#     |                            Descrizione                             |
-|       1        | Il cliente clicca sul pulsante 'Vai al carrello' |
+|       1        | Il cliente clicca sull'icona del carrello |
 |       2        | Viene visualizzata una pagina che mostra il contenuto del carrello |
 
 #### Scenario 4.2
 
 |  Scenario 4.2  |                                                                                              |
 | :------------: | :------------------------------------------------------------------------------------------: |
-| Precondizione  |              Il carrello non esiste                                                                                |
+| Precondizione  | Non siste un carrello attivo associato al cliente |
 | Postcondizione |                             Il sistema mostra un carrello vuoto                              |
 |     Passo#     |                                         Descrizione                                          |
-|       1        |              Il cliente clicca sul pulsante 'Vai al carrello'              |
+|       1        |              Il cliente clicca sull'icona del carrello              |
 |       2        | Viene visualizzata una pagina che riporta che il carrello è vuoto |
 
 ### Paga Carrello, UC5
@@ -507,16 +510,16 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |  Postcondizione   |                     L'ordine è confermato                     |
 | Scenario nominale |          Il cliente acquista i prodotti nel carrello          |
 |     Varianti      |                                                               |
-|     Eccezioni     | In caso di errato inserimento dei dati, il pagamento fallisce |
+|     Eccezioni     |  |
 
 #### Scenario 5.1
 
-|  Scenario 5.1  |                                                                              |
+|  Scenario 5.1  |                                                                             |
 | :------------: | :--------------------------------------------------------------------------: |
-| Precondizione  |            Il cliente deve avere almeno un prodotto nel carrello; Il cliente deve aver impostato un metodo predefinito di pagamento e un indirizzo di spedizione.             |
+| Precondizione  | Il cliente deve avere almeno un prodotto nel carrello,  deve aver impostato un metodo predefinito di pagamento e un indirizzo di spedizione |
 | Postcondizione |  L'ordine è confermato e il carrello corrente viene spostato nello storico   |
 |     Passo#     |                                 Descrizione                                  |
-|       1        |      Il cliente clicca sul pulsante 'Vai al carrello'      |
+|       1        |      Il cliente clicca sull'icona del carrello      |
 |       2        |            Il cliente visualizza il contenuto del carrello             |
 |       3        |    Il cliente clicca sul pulsante 'Acquista'    |
 |       4        |              Il sistema mostra la homepage del cliente con un messaggio che conferma la corretta riuscita dell'acquisto              |
@@ -526,241 +529,530 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 | Attori coinvolti  |                          Cliente                         |
 | :---------------: | :------------------------------------------------------: |
-|   Precondizione   |                                                          |
-|  Postcondizione   |                                                          |
-| Scenario nominale |                                                          |
+|   Precondizione   |      Il cliente visualizza l'elenco dei prodotti                                                    |
+|  Postcondizione   |      Il carrello viene aggiornato                                                    |
+| Scenario nominale |      Il cliente aggiunge un prodotto al carrello                                                    |
 |     Varianti      |                                                          |
 |     Eccezioni     |                                                          |
 
-#### Scenario .1
+#### Scenario 6.1
 
-|  Scenario .1   |                                             |
+|  Scenario 6.1   |                                             |
 | :------------: | :-----------------------------------------: |
-| Precondizione  |                                             |
-| Postcondizione |                                             |
-|     Passo#     |                                             |
-|       2        |                                             |
-|       3        |                                             |
-|       4        |                                             |
-|       5        |                                             |
+| Precondizione  | Il cliente visualizza l'elenco dei prodotti |
+| Postcondizione | Il carrello viene aggiornato |
+|     Passo#     |                  Descrizione                |
+|       1        | Il cliente clicca sul pulsante 'Aggiungi al carrello' relativo al prodotto che intende acquistare |
+|       2        | Il sistema mostra un messaggio di corretta riuscita dell'operazione |
 
+### Elimina il carrello corrente, UC7
 
-
-### Use case 7, UC7
-
-| Actors Involved  |                                                                      |
+| Attori coinvolti  | Cliente |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   | \<Boolean expression, must evaluate to true before the UC can start> |
-|  Post condition  |  \<Boolean expression, must evaluate to true after UC is finished>   |
-| Nominal Scenario |         \<Textual description of actions executed by the UC>         |
-|     Variants     |                      \<other normal executions>                      |
-|    Exceptions    |                        \<exceptions, errors >                        |
+|   Precondizione   | Esiste un carrello attivo associato al cliente |
+|  Postcondizione  |   Non esiste un carrello attivo associato al cliente  |
+| Scenario Nominale | Il cliente elimina i prodotti presenti all'interno del carrello e quindi carrello stesso |
+|     Varianti     |  |
+|    Eccezioni    |  |
 
 #### Scenario 7.1
 
-\<describe here scenarios instances of UC1>
-
-\<a scenario is a sequence of steps that corresponds to a particular execution of one use case>
-
-\<a scenario is a more formal description of a story>
-
-\<only relevant scenarios should be described>
-
-|  Scenario 1.1  |                                                                            |
+|  Scenario 7.1  | |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | \<Boolean expression, must evaluate to true before the scenario can start> |
-| Post condition |  \<Boolean expression, must evaluate to true after scenario is finished>   |
-|     Step#      |                                Description                                 |
-|       1        |                                                                            |
-|       2        |                                                                            |
-|      ...       |                                                                            |
+|  Precondizione  | Esiste un carrello attivo associato al cliente |
+| Postcondizione |  Non esiste un carrello attivo associato al cliente   |
+|     Step#      |  Descrizione  |
+|       1        | Il cliente clicca sull'icona del carrello |
+|       2        | Il sistema mostra il carrello attivo |
+|       3        | Il cliente clicca sul pulsante 'Svuota carrello' |
+|       4        | Viene visualizzata una pagina che riporta che il carrello è vuoto |
 
-### Use case 8, UC1
 
-| Actors Involved  |                                                                      |
+### Visualizza storico dei carrelli pagati, UC8
+
+| Attori coinvolti  | Cliente |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   | \<Boolean expression, must evaluate to true before the UC can start> |
-|  Post condition  |  \<Boolean expression, must evaluate to true after UC is finished>   |
-| Nominal Scenario |         \<Textual description of actions executed by the UC>         |
-|     Variants     |                      \<other normal executions>                      |
-|    Exceptions    |                        \<exceptions, errors >                        |
+|   Precondizione   |  |
+|  Postcondizione  | Il sistema mostra lo storico dei carrelli pagati  |
+| Scenario Nominale | Il cliente visualizza lo storico dei carrelli pagati |
+|     Varianti     | Non esiste un carrello pagato associato al cliente |
+|    Eccezioni     |  |
 
 #### Scenario 8.1
 
-\<describe here scenarios instances of UC1>
-
-\<a scenario is a sequence of steps that corresponds to a particular execution of one use case>
-
-\<a scenario is a more formal description of a story>
-
-\<only relevant scenarios should be described>
-
-|  Scenario 1.1  |                                                                            |
+|  Scenario 8.1  |  |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | \<Boolean expression, must evaluate to true before the scenario can start> |
-| Post condition |  \<Boolean expression, must evaluate to true after scenario is finished>   |
-|     Step#      |                                Description                                 |
-|       1        |                                                                            |
-|       2        |                                                                            |
-|      ...       |                                                                            |
+|  Precondizione | Esiste almeno un carrello pagato associato al cliente|
+| Postcondizione | Il sistema mostra lo storico dei carrelli pagati associati al cliente |
+|     Step#      |  Descrizione  |
+|       1        | Il cliente clicca sull'icona del carrello |
+|       2        | Il sistema mostra il contenuto del carrello associato al cliente |
+|       3        | Il cliente clicca su 'Storico carrelli' |
+|       4        | Il sistema mostra lo storico dei carrelli pagati |
 
-### Use case 9, UC9
+#### Scenario 8.2
 
-| Actors Involved  |                                                                      |
+|  Scenario 8.2  |  |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione | Non esiste un carrello pagato associato al cliente |
+| Postcondizione | Il sistema mostra uno storico vuoto |
+|     Step#      |  Descrizione  |
+|       1        | Il cliente clicca sull'icona del carrello |
+|       2        | Il sistema mostra il contenuto del carrello associato al cliente|
+|       3        | Il cliente clicca su 'Storico carrelli' |
+|       4        | Il sistema mostra una pagina che riporta che non ci sono carrelli già pagati dal cliente|
+
+
+### Rimuovi un prodotto dal carrello, UC9
+
+| Attori coinvolti  | Cliente |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   | \<Boolean expression, must evaluate to true before the UC can start> |
-|  Post condition  |  \<Boolean expression, must evaluate to true after UC is finished>   |
-| Nominal Scenario |         \<Textual description of actions executed by the UC>         |
-|     Variants     |                      \<other normal executions>                      |
-|    Exceptions    |                        \<exceptions, errors >                        |
+|   Precondizione   | Almeno un prodotto è presente nel carrello del cliente |
+|  Postcondizione  | Il prodotto selezionato non è più presente all'interno del carrello del cliente|
+| Scenario Nominale | Il cliente rimuove un prodotto dal carrello |
+|     Varianti     |  |
+|    Eccezioni     |  |
 
 #### Scenario 9.1
 
-\<describe here scenarios instances of UC1>
-
-\<a scenario is a sequence of steps that corresponds to a particular execution of one use case>
-
-\<a scenario is a more formal description of a story>
-
-\<only relevant scenarios should be described>
-
-|  Scenario 1.1  |                                                                            |
+|  Scenario 9.1  | |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | \<Boolean expression, must evaluate to true before the scenario can start> |
-| Post condition |  \<Boolean expression, must evaluate to true after scenario is finished>   |
-|     Step#      |                                Description                                 |
-|       1        |                                                                            |
-|       2        |                                                                            |
-|      ...       |                                                                            |
+|  Precondizione | Almeno un prodotto è presente nel carrello del cliente |
+| Postcondizione | Il prodotto selezionato non è più presente all'interno del carrello del cliente|
+|     Step#      | Descrizione |
+|       1        | Il cliente clicca sull'icona del carrello |
+|       2        | Il sistema mostra il contenuto del carrello |
+|       3        | Il cliente clicca sul pulsante 'Rimuovi' relativo al prodotto che intende eliminare dal carrello |
+|       4        | Il sistema mostra il contenuto del carrello privo del prodotto eliminato |
 
+### Inserimento nuovo prodotto, UC10
 
-
-### Use case 10, UC10
-
-| Actors Involved  |                                                                      |
+| Attori coinvolti  | Manager |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   | \<Boolean expression, must evaluate to true before the UC can start> |
-|  Post condition  |  \<Boolean expression, must evaluate to true after UC is finished>   |
-| Nominal Scenario |         \<Textual description of actions executed by the UC>         |
-|     Variants     |                      \<other normal executions>                      |
-|    Exceptions    |                        \<exceptions, errors >                        |
+|   Precondizione   |  |
+|  Postcondizione  | Un nuovo prodotto è stato aggiunto |
+| Scenario Nominale | Il manager aggiunge un nuovo prodotto |
+|     Varianti     |  |
+|    Eccezioni     | Esiste già un prodotto con lo stesso codice |
 
 #### Scenario 10.1
 
-\<describe here scenarios instances of UC1>
+| Scenario 10.1  |  |
+| :------------: | :---------------------------------------------------------------: |
+| Precondizione  |  |
+| Postcondizione | Un nuovo prodotto è stato aggiunto |
+|     Passo#     | Descrizione |
+|       1        | Il manager compila il form 'Nuovo prodotto' inserendo codice, prezzo, data di arrivo, modello, categoria e dettagli relativi al nuovo prodotto |
+|       2        | Il manager clicca sul pulsante 'Inserisci' |
+|       3        | Il sistema verifica che il codice inserito sia univoco e ottiene un riscontro positivo |
+|       4        | Il sistema mostra un messaggio di corretta riuscita dell'operazione |
 
-\<a scenario is a sequence of steps that corresponds to a particular execution of one use case>
+#### Scenario 10.2
 
-\<a scenario is a more formal description of a story>
-
-\<only relevant scenarios should be described>
-
-|  Scenario 1.1  |                                                                            |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | \<Boolean expression, must evaluate to true before the scenario can start> |
-| Post condition |  \<Boolean expression, must evaluate to true after scenario is finished>   |
-|     Step#      |                                Description                                 |
-|       1        |                                                                            |
-|       2        |                                                                            |
-|      ...       |                                                                            |
+| Scenario 10.2  |  |
+| :------------: | :---------------------------------------------------------------: |
+| Precondizione  | Esiste già un prodotto con lo stesso codice del nuovo prodotto |
+| Postcondizione | Il nuovo prodotto non viene aggiunto |
+|     Passo#     |   Descrizione |
+|       1        |   Il manager compila il form 'Nuovo prodotto' inserendo codice, prezzo, data di arrivo, modello, categoria e dettagli relativi al nuovo prodotto   |
+|       2        | Il manager clicca sul pulsante 'Inserisci' |
+|       3        | Il sistema verifica che il codice inserito sia univoco e ottiene un riscontro negativo |
+|       4        | Il sistema mostra un messaggio di mancata riuscita dell'operazione |
 
 
+### Rimozione prodotto, UC11
 
-
-### Use case 11, UC11
-
-| Actors Involved  |                                                                      |
+| Attori coinvolti  | Manager |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   | \<Boolean expression, must evaluate to true before the UC can start> |
-|  Post condition  |  \<Boolean expression, must evaluate to true after UC is finished>   |
-| Nominal Scenario |         \<Textual description of actions executed by the UC>         |
-|     Variants     |                      \<other normal executions>                      |
-|    Exceptions    |                        \<exceptions, errors >                        |
+|   Precondizione   | Esiste almeno un prodotto |
+|  Postcondizione  | Il prodotto eliminato non è più disponibile per la visualizzazione |
+| Scenario Nominale | Il manager rimuove un prodotto |
+|     Varianti     |  |
+|    Eccezioni     |  |
 
 #### Scenario 11.1
 
-\<describe here scenarios instances of UC1>
-
-\<a scenario is a sequence of steps that corresponds to a particular execution of one use case>
-
-\<a scenario is a more formal description of a story>
-
-\<only relevant scenarios should be described>
-
-|  Scenario 1.1  |                                                                            |
+|  Scenario 11.1  | |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | \<Boolean expression, must evaluate to true before the scenario can start> |
-| Post condition |  \<Boolean expression, must evaluate to true after scenario is finished>   |
-|     Step#      |                                Description                                 |
-|       1        |                                                                            |
-|       2        |                                                                            |
-|      ...       |                                                                            |
+|  Precondizione | Esiste almeno un prodotto |
+| Postcondizione | Il prodotto eliminato non è più disponibile per la visualizzazione |
+|     Step#      | Descrizione |
+|       1        | Il manager visualizza l'elenco dei prodotti |
+|       2        | Il manager clicca sul pulsante 'Elimina' relativo al prodotto che vuole rimuovere |
+|       3        | Il sistema mostra l'elenco dei prodotti senza il prodotto eliminato |
 
 
+### Contrassegna un prodotto come venduto, UC12
 
-
-
-### Use case 12, UC12
-
-| Actors Involved  |                                                                      |
+| Attori coinvolti  | Manager |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   | \<Boolean expression, must evaluate to true before the UC can start> |
-|  Post condition  |  \<Boolean expression, must evaluate to true after UC is finished>   |
-| Nominal Scenario |         \<Textual description of actions executed by the UC>         |
-|     Variants     |                      \<other normal executions>                      |
-|    Exceptions    |                        \<exceptions, errors >                        |
+|   Precondizione   | Esiste almeno un prodotto non venduto |
+|  Postcondizione  | Il prodotto selezionato risulta venduto |
+| Scenario Nominale | Il manager contrassegna un prodotto come venduto |
+|     Varianti     | Il codice inserito non corrisponde a nessun prodotto disponibile |
+|    Eccezioni     |  |
 
 #### Scenario 12.1
 
-\<describe here scenarios instances of UC1>
+| Scenario 12.1  |                                                          |
+| :------------: | :------------------------------------------------------: |
+| Precondizione  | Esiste almeno un prodotto non venduto |
+| Postcondizione | Il prodotto selezionato risulta venduto  |
+|     Passo#     |                       Descrizione                        |
+|       1        | Il manager compila il form 'Registra vendita' inserendo il codice del prodotto e la data di vendita |
+|       2        |        Il manager clicca sul pulsante 'Vendi'        |
+|       3        | Il sistema verifica che il codice inserito corrisponda a un prodotto disponibile e ottiene un riscontro positivo |
+|       4        | Il sistema mostra un messaggio di avvenuta riuscita dell'operazione |
 
-\<a scenario is a sequence of steps that corresponds to a particular execution of one use case>
+#### Scenario 12.2
 
-\<a scenario is a more formal description of a story>
-
-\<only relevant scenarios should be described>
-
-|  Scenario 1.1  |                                                                            |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | \<Boolean expression, must evaluate to true before the scenario can start> |
-| Post condition |  \<Boolean expression, must evaluate to true after scenario is finished>   |
-|     Step#      |                                Description                                 |
-|       1        |                                                                            |
-|       2        |                                                                            |
-|      ...       |                                                                            |
+| Scenario 12.2  |  |
+| :------------: | :------------------------------------------------------: |
+| Precondizione  |          Esiste almeno un prodotto non venduto          |
+| Postcondizione | Il prodotto selezionato non risulta venduto  |
+|     Passo#     |  Descrizione |
+|       1        | Il manager compila il form 'Registra vendita' inserendo il codice del prodotto e la data di vendita |
+|       2        |        Il manager clicca sul pulsante 'Vendi'        |
+|       3        |  Il sistema verifica che il codice inserito corrisponda a un prodotto disponibile e ottiene un riscontro negativo |
+|       4        |        Il sistema mostra un messaggio di errore        |
 
 
+### Aggiornamento quantità, UC13
 
-### Use case 13, UC13
-
-| Actors Involved  |                                                                      |
+| Attori coinvolti  | Manager |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondition   | \<Boolean expression, must evaluate to true before the UC can start> |
-|  Post condition  |  \<Boolean expression, must evaluate to true after UC is finished>   |
-| Nominal Scenario |         \<Textual description of actions executed by the UC>         |
-|     Variants     |                      \<other normal executions>                      |
-|    Exceptions    |                        \<exceptions, errors >                        |
+|   Precondizione   |  |
+|  Postcondizione  | Un nuovo set di prodotti è stato registrato |
+| Scenario Nominale | Il manager registra l'arrivo di un nuovo set di prodotti |
+|     Varianti     |  |
+|    Eccezioni     |  |
 
 #### Scenario 13.1
 
-\<describe here scenarios instances of UC1>
+| Scenario 13.1  |          |
+| :------------: | :-------------------------------------------------------: |
+| Precondizione  |           Esiste almeno un prodotto           |
+| Postcondizione | L'arrivo di un nuovo set di prodotti è stato registrato |
+|     Passo#     |    Descrizione   |
+|       1        | Il manager compila il form 'Nuovo arrivo' inserendo modello, categoria, quantità, data di arrivo, prezzo e dettagli  |
+|       2        |    Il manager clicca sul pulsante 'Registra'    |
+|       3        |        Il sistema mostra un messaggio di corretta riuscita dell'operazione         |
 
-\<a scenario is a sequence of steps that corresponds to a particular execution of one use case>
 
-\<a scenario is a more formal description of a story>
+### Ricerca prodotti, UC14
 
-\<only relevant scenarios should be described>
+| Attori coinvolti  |     Utente autenticato    |
+| :---------------: | :------------------------------------------------------------: |
+|   Precondizione   |                                |
+|  Postcondizione   | L'utente visualizza una lista di prodotti          |
+| Scenario nominale |  L'utente effettua una ricerca di un prodotto  |
+|     Varianti      | Non ci sono prodotti corrispondenti alla ricerca effetuata |
+|     Eccezioni     |  |
 
-|  Scenario 1.1  |                                                                            |
+#### Scenario 14.1
+
+| Scenario 14.1  |                                             |
+| :------------: | :-----------------------------------------: |
+| Precondizione  |     Sono presenti prodotti corrispondenti ai filtri di ricerca applicati        |
+| Postcondizione |                    L'utente visualizza una lista di prodotti                         |
+|     Passo#     |                 Descrizione                 |
+|       1        |   L'utente seleziona uno o più filtri nel form 'Cerca Prodotti'    |
+|       2        |   L'utente clicca sul pulsante 'Cerca'    |
+|       3        | Il sistema mostra l'elenco dei prodotti corrispondenti ai filtri di ricerca applicati |
+
+#### Scenario 14.2
+
+| Scenario 14.2  |                                             |
+| :------------: | :-----------------------------------------: |
+| Precondizione  |     Non sono presenti prodotti corrispondenti ai filtri di ricerca applicati        |
+| Postcondizione |   L'utente visualizza una lista vuota                                          |
+|     Passo#     |                 Descrizione                 |
+|       1        |   L'utente seleziona uno o più filtri nel form 'Cerca Prodotti'    |
+|       2        |   L'utente clicca sul pulsante 'Cerca'    |
+|       3        | Il sistema mostra una pagina che riporta che non ci sono prodotti corrispondenti ai filtri di ricerca applicati |
+
+
+### Visualizza il profilo, UC15
+
+| Attori coinvolti  |                       Utente autenticato                       |
+| :---------------: | :------------------------------------------------------------: |
+|   Precondizione   |                               |
+|  Postcondizione   |    Vengono mostrati i dettagli relativi al profilo dell'utente autenticato                                                            |
+| Scenario nominale |          L'utente visualizza i dettagli del proprio profilo          |
+|     Varianti      |  |
+|     Eccezioni     |  |
+
+#### Scenario 15.1
+
+| Scenario 15.1  |                   Utente autenticato                   |
+| :------------: | :----------------------------------------------------: |
+| Precondizione  |                        |
+| Postcondizione |     Vengono mostrati i dettagli relativi al profilo dell'utente autenticato                                                    |
+|     Passo#     |                      Descrizione                       |
+|       1        |         L'utente clicca sul pulsante 'Profilo'          |
+|       2        | Il sistema mostra una schermata con i dati relativi all'utente |
+
+### Modifica il profilo, UC16
+
+| Attori coinvolti  |  |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondizione   |  |
+|  Postcondizione  |  |
+| Scenario Nominale |  |
+|     Varianti     |  |
+|    Eccezioni     |  |
+
+#### Scenario .1
+
+|  Scenario .1  | |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | \<Boolean expression, must evaluate to true before the scenario can start> |
-| Post condition |  \<Boolean expression, must evaluate to true after scenario is finished>   |
-|     Step#      |                                Description                                 |
-|       1        |                                                                            |
-|       2        |                                                                            |
-|      ...       |                                                                            |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
+
+#### Scenario .2
+
+|  Scenario .2  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
+
+### Use case 17, UC17
+
+| Attori coinvolti  |  |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondizione   |  |
+|  Postcondizione  |  |
+| Scenario Nominale |  |
+|     Varianti     |  |
+|    Eccezioni     |  |
+
+#### Scenario .1
+
+|  Scenario .1  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
+
+#### Scenario .2
+
+|  Scenario .2  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
 
 
+### Use case 18, UC18
+
+| Attori coinvolti  |  |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondizione   |  |
+|  Postcondizione  |  |
+| Scenario Nominale |  |
+|     Varianti     |  |
+|    Eccezioni     |  |
+
+#### Scenario .1
+
+|  Scenario .1  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
+
+#### Scenario .2
+
+|  Scenario .2  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
+
+
+### Use case 19, UC19
+
+| Attori coinvolti  |  |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondizione   |  |
+|  Postcondizione  |  |
+| Scenario Nominale |  |
+|     Varianti     |  |
+|    Eccezioni     |  |
+
+#### Scenario .1
+
+|  Scenario .1  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
+
+#### Scenario .2
+
+|  Scenario .2  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
+
+
+### Use case 20, UC20
+
+| Attori coinvolti  |  |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondizione   |  |
+|  Postcondizione  |  |
+| Scenario Nominale |  |
+|     Varianti     |  |
+|    Eccezioni     |  |
+
+#### Scenario .1
+
+|  Scenario .1  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
+
+#### Scenario .2
+
+|  Scenario .2  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
+
+
+### Use case 21, UC21
+
+| Attori coinvolti  |  |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondizione   |  |
+|  Postcondizione  |  |
+| Scenario Nominale |  |
+|     Varianti     |  |
+|    Eccezioni     |  |
+
+#### Scenario .1
+
+|  Scenario .1  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
+
+#### Scenario .2
+
+|  Scenario .2  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
+
+
+### Use case 22, UC22
+
+| Attori coinvolti  |  |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondizione   |  |
+|  Postcondizione  |  |
+| Scenario Nominale |  |
+|     Varianti     |  |
+|    Eccezioni     |  |
+
+#### Scenario .1
+
+|  Scenario .1  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
+
+#### Scenario .2
+
+|  Scenario .2  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
+
+
+### Use case 23, UC23
+
+| Attori coinvolti  |  |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondizione   |  |
+|  Postcondizione  |  |
+| Scenario Nominale |  |
+|     Varianti     |  |
+|    Eccezioni     |  |
+
+#### Scenario .1
+
+|  Scenario .1  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
+
+#### Scenario .2
+
+|  Scenario .2  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
 
 
 # Glossary
