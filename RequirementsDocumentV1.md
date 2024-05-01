@@ -25,42 +25,42 @@ Versione: V1 - descrizione di EZElectronics nella forma ATTUALE (come ricevuta d
   - [Requisiti non funzionali](#requisiti-non-funzionali)
 - [Use Case Diagram e casi d'uso](#use-case-diagram-e-casi-duso)
   - [Use Case Diagram](#use-case-diagram)
-    - [Caso d'uso 1, UC1](#caso-duso-1-uc1)
+    - [Caso d'uso 1, UC1](#sign-up-uc1)
       - [Scenario 1.1](#scenario-11)
       - [Scenario 1.2](#scenario-12)
-    - [Caso d'uso 2, UC2](#caso-duso-2-uc2)
+    - [Caso d'uso 2, UC2](#log-in-uc2)
       - [Scenario 2.1](#scenario-21)
       - [Scenario 2.2](#scenario-22)
-    - [Caso d'uso 3, UC3](#caso-duso-3-uc3)
+    - [Caso d'uso 3, UC3](#log-out-uc3)
       - [Scenario 3.1](#scenario-31)
-    - [Caso d'uso 4, UC4](#caso-duso-4-uc4)
+    - [Caso d'uso 4, UC4](#visualizza-carrello-uc4)
       - [Scenario 4.1](#scenario-41)
       - [Scenario 4.2](#scenario-42)
-    - [Caso d'uso 5, UC5](#caso-duso-5-uc5)
+    - [Caso d'uso 5, UC5](#paga-carrello-uc5)
       - [Scenario 5.1](#scenario-51)
-    - [Caso d'uso 6, UC6](#caso-duso-6-uc6)
+    - [Caso d'uso 6, UC6](#aggiungi-un-prodotto-al-carrello-uc6)
       - [Scenario 6.1](#scenario-61)
-    - [Caso d'uso 7, UC7](#caso-duso-7-uc7)
+    - [Caso d'uso 7, UC7](#elimina-il-carrello-corrente-uc7)
       - [Scenario 7.1](#scenario-71)
-    - [Caso d'uso 8, UC8](#caso-duso-8-uc8)
+    - [Caso d'uso 8, UC8](#visualizza-storico-dei-carrelli-pagati-uc8)
       - [Scenario 8.1](#scenario-81)
       - [Scenario 8.2](#scenario-82)
-    - [Caso d'uso 9, UC9](#caso-duso-9-uc9)
+    - [Caso d'uso 9, UC9](#rimuovi-un-prodotto-dal-carrello-uc9)
       - [Scenario 9.1](#scenario-91)
-    - [Caso d'uso 10, UC10](#caso-duso-10-uc10)
+    - [Caso d'uso 10, UC10](#inserimento-nuovo-prodotto-uc10)
       - [Scenario 10.1](#scenario-101)
       - [Scenario 10.2](#scenario-102)
-    - [Caso d'uso 11, UC11](#caso-duso-11-uc11)
+    - [Caso d'uso 11, UC11](#rimozione-prodotto-uc11)
       - [Scenario 11.1](#scenario-111)
-    - [Caso d'uso 12, UC12](#caso-duso-12-uc12)
+    - [Caso d'uso 12, UC12](#contrassegna-un-prodotto-come-venduto-uc12)
       - [Scenario 12.1](#scenario-121)
       - [Scenario 12.2](#scenario-122)
-    - [Caso d'uso 13, UC13](#caso-duso-13-uc13)
+    - [Caso d'uso 13, UC13](#aggiornamento-quantità-uc13)
       - [Scenario 13.1](#scenario-131)
-    - [Caso d'uso 14, UC14](#caso-duso-14-uc14)
+    - [Caso d'uso 14, UC14](#ricerca-prodotti-uc14)
       - [Scenario 14.1](#scenario-141)
       - [Scenario 14.2](#scenario-142)
-    - [Caso d'uso 15, UC15](#caso-duso-15-uc15)
+    - [Caso d'uso 15, UC15](#visualizza-il-profilo-uc15)
       - [Scenario 15.1](#scenario-151)
 - [Glossario](#glossario)
 - [System Design](#system-design)
@@ -224,50 +224,52 @@ Tutti i requisiti in questa sezione fanno riferimento a funzionalità utilizzate
 
 Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenticato hanno come precondizione che l'utente abbia fatto il login e sia correttamente autenticato, anche dove ciò non è esplicitamente indicato.
 
-### Sign Up, UC1
+### Sign up, UC1
 
-| Attori coinvolti  |                        Utente non autenticato                         |
+| Attori coinvolti  | Utente non autenticato |
 | :---------------: | :-------------------------------------------------------------------: |
-|   Precondizione   |                                                                       |
-|  Postcondizione   |                  Esiste la nuova utenza nel sistema                   |
+|  Precondizione    |  |
+|  Postcondizione   | Esiste una nuova utenza nel sistema |
 | Scenario nominale | L'utente non autenticato inserisce i dati e registra una nuova utenza |
-|     Varianti      |                                                                       |
-|     Eccezioni     |                        L'username inserito risulta già esistente                         |
+|     Varianti      |  |
+|     Eccezioni     | L'username inserito risulta già esistente |
 
 #### Scenario 1.1
 
-|  Scenario 1.1  |                                                                                  |
+|  Scenario 1.1  |  |
 | :------------: | :------------------------------------------------------------------------------: |
-| Precondizione  |                                                                                  |
-| Postcondizione |                        Esiste la nuova utenza nel sistema                        |
-|     Passo#     |                                   Descrizione                                    |
-|       1        |                     L'utente clicca sul pulsante 'Registrati'                     |
-|       2        | L'utente inserisce username, nome, cognome, password e ruolo (cliente o manager) |
-|       3        |                      L'utente preme sul pulsante 'Conferma'                      |
-|       4        |                Viene creata una nuova utenza con i dati inseriti                 |
-|       5        |                      Si viene riportati alla pagina di login, che mostra un messaggio di corretta avvenuta della registrazione                       |
+| Precondizione  |  |
+| Postcondizione | Esiste la nuova utenza nel sistema  |
+|     Passo#     | Descrizione  |
+|       1        | L'utente clicca sul pulsante 'Registrati' |
+|       2        | L'utente inserisce username, nome, cognome e password,  e seleziona un ruolo (cliente o manager) |
+|       3        | L'utente clicca sul pulsante 'Conferma' |
+|       4        | Il sistema verifica l'unicità dell'username e ottiene un riscontro positivo |
+|       5        | Viene creata una nuova utenza con i dati inseriti |
+|       6        | Si viene riportati alla pagina di login, che mostra un messaggio di corretta riuscita della registrazione |
 
 #### Scenario 1.2
 
-|  Scenario 1.2  |                                                                                  |
+|  Scenario 1.2  |  |
 | :------------: | :------------------------------------------------------------------------------: |
-| Precondizione  |                                                                                  |
-| Postcondizione |                  Nel sistema non viene creata una nuova utenza                   |
-|     Passo#     |                                   Descrizione                                    |
-|       1        |                     L'utente preme sul pulsante 'Registrati'                     |
-|       2        | L'utente inserisce username, nome, cognome, password e ruolo (cliente o manager) |
-|       3        |                      L'utente clicca sul pulsante 'Conferma'                      |
-|       4        |       Se c'è un errore nei dati, il sistema mostra un messaggio di errore        |
+| Precondizione  |  |
+| Postcondizione | Non viene creata una nuova utenza nel sistema |
+|     Passo#     | Descrizione |
+|       1        |  L'utente clicca sul pulsante 'Registrati' |
+|       2        | L'utente inserisce username, nome, cognome e password, e selezione un ruolo (cliente o manager) |
+|       3        | L'utente clicca sul pulsante 'Conferma' |
+|       4        | Il sistema verifica l'unicità dell'username e ottiene un riscontro negativo |
+|       5        | Il sistema mostra un messaggio di errore |
 
-### Log In, UC2
+### Log in, UC2
 
-| Attori coinvolti  |                                          Utente non autenticato                                           |
+| Attori coinvolti  | Utente non autenticato |
 | :---------------: | :-------------------------------------------------------------------------------------------------------: |
-|   Precondizione   |                                                                                                           |
-|  Postcondizione   |                                          L'utente è autenticato                                           |
+|   Precondizione   |  |
+|  Postcondizione   | L'utente è autenticato |
 | Scenario nominale | L'utente inserisce i dati, il sistema ne verifica la correttezza e in caso positivo effettua l'accesso |
-|     Varianti      |                                                                                                           |
-|     Eccezioni     |         Se i dati inseriti non sono corretti viene mostrato un errore e non si effettua l'accesso         |
+|     Varianti      |  |
+|     Eccezioni     | Se i dati inseriti non sono corretti viene mostrato un errore e non si effettua l'accesso |
 
 #### Scenario 2.1
 
@@ -277,30 +279,31 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 | Postcondizione |           L'utente è autenticato            |
 |     Passo#     |                 Descrizione                 |
 |       2        |   L'utente inserisce username e password    |
-|       3        |   L'utente clicca sul pulsante 'Login'    |
-|       4        | Il sistema verifica la correttezza dei dati |
+|       3        |   L'utente clicca sul pulsante 'Login'      |
+|       4        | Il sistema verifica la correttezza dei dati e ottiene un riscontro positivo |
 |       5        |    Viene mostrata l'homepage dell'utente    |
 
 #### Scenario 2.2
 
-|  Scenario 2.2  |                                                                          |
+|  Scenario 2.2  |  |
 | :------------: | :----------------------------------------------------------------------: |
-| Precondizione  |                                                                          |
-| Postcondizione |                        L'utente non è autenticato                        |
-|     Passo#     |                               Descrizione                                |
-|       2        |                  L'utente inserisce username e password                  |
-|       3        |                  L'utente clicca sul pulsante 'Login'                  |
-|       4        | Se i dati di accesso non sono corretti, viene mostrato un messaggio errore |
+| Precondizione  |  |
+| Postcondizione | L'utente non è autenticato |
+|     Passo#     | Descrizione |
+|       2        | L'utente inserisce username e password |
+|       3        | L'utente clicca sul pulsante 'Login' |
+|       4        | Il sistema verifica la correttezza dei dati e ottiene un riscontro negativo |
+|       5        | Viene mostrato un messaggio errore |
 
-### Log Out, UC3
+### Log out, UC3
 
-| Attori coinvolti  |                    Utente autenticato                    |
+| Attori coinvolti  | Utente autenticato |
 | :---------------: | :------------------------------------------------------: |
-|   Precondizione   |                                                          |
-|  Postcondizione   |                L'utente non è autenticato                |
-| Scenario nominale | L'utente clilla sul pulsante 'Logout' e viene disconnesso |
-|     Varianti      |                                                          |
-|     Eccezioni     |                                                          |
+|   Precondizione   |  |
+|  Postcondizione   | L'utente non è autenticato |
+| Scenario nominale | L'utente clicca sul pulsante 'Logout' e viene disconnesso |
+|     Varianti      |  |
+|     Eccezioni     |  |
 
 #### Scenario 3.1
 
@@ -309,7 +312,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 | Precondizione  |                                        |
 | Postcondizione |       L'utente non è autenticato       |
 |     Passo#     |              Descrizione               |
-|       1        |  L'utente preme sul pulsante 'Logout'  |
+|       1        |  L'utente clicca sul pulsante 'Logout' |
 |       2        |       L'utente viene disconnesso       |
 |       3        | Il sistema mostra la pagina di accesso |
 
@@ -325,45 +328,45 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 
 #### Scenario 4.1
 
-|  Scenario 4.1  |                                                                    |
+|  Scenario 4.1  |  |
 | :------------: | :----------------------------------------------------------------: |
-| Precondizione  |           Il carrello esiste                                                         |
-| Postcondizione |                     Viene mostrato il carrello                     |
-|     Passo#     |                            Descrizione                             |
+| Precondizione  | Esiste un carrello attivo associato al cliente |
+| Postcondizione | Viene mostrato il contenuto del carrello |
+|     Passo#     | Descrizione |
 |       1        | Il cliente clicca sul pulsante 'Vai al carrello' |
 |       2        | Viene visualizzata una pagina che mostra il contenuto del carrello |
 
 #### Scenario 4.2
 
-|  Scenario 4.2  |                                                                                              |
+|  Scenario 4.2  |  |
 | :------------: | :------------------------------------------------------------------------------------------: |
-| Precondizione  |              Il carrello non esiste                                                                                |
-| Postcondizione |                             Il sistema mostra un carrello vuoto                              |
-|     Passo#     |                                         Descrizione                                          |
-|       1        |              Il cliente clicca sul pulsante 'Vai al carrello'              |
+| Precondizione  | Non esiste un carrello attivo associato al cliente |
+| Postcondizione | Il sistema mostra un carrello vuoto |
+|     Passo#     | Descrizione |
+|       1        | Il cliente clicca sul pulsante 'Vai al carrello' |
 |       2        | Viene visualizzata una pagina che riporta che il carrello è vuoto |
 
 ### Paga carrello, UC5
 
-| Attori coinvolti  |                            Cliente                            |
+| Attori coinvolti  | Cliente |
 | :---------------: | :-----------------------------------------------------------: |
-|   Precondizione   |     Il cliente deve avere almeno un prodotto nel carrello     |
-|  Postcondizione   |                     L'ordine è confermato                     |
-| Scenario nominale |          Il cliente acquista i prodotti nel carrello          |
-|     Varianti      |                                                               |
-|     Eccezioni     | In caso di errato inserimento dei dati, il pagamento fallisce |
+|   Precondizione   | Il cliente deve avere almeno un prodotto nel carrello |
+|  Postcondizione   | L'ordine è confermato |
+| Scenario nominale | Il cliente acquista i prodotti nel carrello |
+|     Varianti      |  |
+|     Eccezioni     |  |
 
 #### Scenario 5.1
 
-|  Scenario 5.1  |                                                                              |
+|  Scenario 5.1  |  |
 | :------------: | :--------------------------------------------------------------------------: |
-| Precondizione  |            Il cliente deve avere almeno un prodotto nel carrello             |
-| Postcondizione |  L'ordine è confermato e il carrello corrente viene spostato nello storico   |
-|     Passo#     |                                 Descrizione                                  |
-|       1        |      Il cliente clicca sul pulsante 'Vai al carrello'      |
-|       2        |            Il cliente visualizza il contenuto del carrello             |
+| Precondizione  | Il cliente deve avere almeno un prodotto nel carrello |
+| Postcondizione | L'ordine è confermato e il carrello corrente viene spostato nello storico |
+|     Passo#     | Descrizione  |
+|       1        | Il cliente clicca sul pulsante 'Vai al carrello' |
+|       2        | Il cliente visualizza il contenuto del carrello |
 |       3        |    Il cliente clicca sul pulsante 'Acquista'    |
-|       4        |              Il sistema mostra la homepage del cliente con un messaggio che conferma la corretta riuscita dell'acquisto              |
+|       4        | Il sistema mostra la homepage del cliente con un messaggio che conferma la corretta riuscita dell'acquisto |
 
 ### Aggiungi un prodotto al carrello, UC6
 
@@ -377,140 +380,142 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 
 #### Scenario 6.1
 
-|  Scenario 6.1  |                                                                                    |
+|  Scenario 6.1  |  |
 | :------------: | :--------------------------------------------------------------------------------: |
-| Precondizione  |                    Il cliente visualizza l'elenco dei prodotti                     |
-| Postcondizione |                    Il cliente visualizza il carrello aggiornato                    |
-|     Passo#     |                                    Descrizione                                     |
-|       1        |          Il cliente clicca sul pulsante 'Aggiungi al carrello' relativo al prodotto che intende acquistare          |
+| Precondizione  | Il cliente visualizza l'elenco dei prodotti |
+| Postcondizione | Il cliente visualizza il carrello aggiornato |
+|     Passo#     | Descrizione |
+|       1        | Il cliente clicca sul pulsante 'Aggiungi al carrello' relativo al prodotto che intende acquistare |
 |       2        | Viene visualizzato il carrello con l'aggiunta del prodotto selezionato dal cliente |
 
 ### Elimina il carrello corrente, UC7
 
-| Attori coinvolti  |                                       Cliente                                        |
+| Attori coinvolti  | Cliente |
 | :---------------: | :----------------------------------------------------------------------------------: |
-|   Precondizione   |                           Esiste un carrello attivo associato al cliente                           |
-|  Postcondizione   |                  Non esiste un carrello attivo associato al cliente                  |
-| Scenario nominale | Il cliente elimina i prodotti presenti all'interno del carrello e il carrello stesso |
-|     Varianti      |                                                                                      |
-|     Eccezioni     |                                                                                      |
+|   Precondizione   | Esiste un carrello attivo associato al cliente |
+|  Postcondizione   | Non esiste un carrello attivo associato al cliente |
+| Scenario nominale | Il cliente elimina i prodotti presenti all'interno del carrello e quindi il carrello stesso |
+|     Varianti      |  |
+|     Eccezioni     |  |
 
 #### Scenario 7.1
 
-|  Scenario 7.1  |                                                                    |
+|  Scenario 7.1  |  |
 | :------------: | :----------------------------------------------------------------: |
-| Precondizione  |                  Esiste un carrello attivo                  |
-| Postcondizione |         Non esiste un carrello attivo associato al cliente         |
-|     Passo#     |                            Descrizione                             |
+| Precondizione  | Esiste un carrello attivo associato al cliente |
+| Postcondizione | Non esiste un carrello attivo associato al cliente |
+|     Passo#     | Descrizione |
 |       1        | Il cliente clicca sul pulsante 'Vai al carrello' |
-|       2        |                Il sistema mostra il carrello attivo                |
-|       3        |       Il cliente clicca sul pulsante 'Elimina carrello'        |
-|       4        |       Il sistema mostra una pagina che riporta che il carrello è vuoto        |
+|       2        | Il sistema mostra il carrello attivo |
+|       3        | Il cliente clicca sul pulsante 'Elimina carrello' |
+|       4        | Il sistema mostra una pagina che riporta che il carrello è vuoto |
 
 ### Visualizza storico dei carrelli pagati, UC8
 
 | Attori coinvolti  |                       Cliente                        |
 | :---------------: | :--------------------------------------------------: |
-|   Precondizione   |               |
+|   Precondizione   |  |
 |  Postcondizione   |   Il sistema mostra lo storico dei carrelli pagati   |
 | Scenario nominale | Il cliente visualizza lo storico dei carrelli pagati |
 |     Varianti      |       Non esiste un carrello pagato                                             |
 |     Eccezioni     |
 
-#### Scenario 8.1
+#### Scenario 8.1 
 
-|  Scenario 8.1  |                                                                                 |
+|  Scenario 8.1  |  |
 | :------------: | :-----------------------------------------------------------------------------: |
-| Precondizione  |                     Esiste almeno un carrello pagato                     |
-| Postcondizione |                    Il sistema mostra lo storico dei carrelli pagati                    |
-|     Passo#     |                                   Descrizione                                   |
+| Precondizione  | Esiste almeno un carrello pagato                     |
+| Postcondizione | Viene mostrato lo storico dei carrelli pagati |
+|     Passo#     | Descrizione  |
 |       1        | Il cliente clicca sul pulsante 'Storico carrelli' |
-|       2        |                Il sistema mostra lo storico dei carrelli pagati                 |
+|       2        | Il sistema mostra lo storico dei carrelli pagati |
 
 #### Scenario 8.2
 
-|  Scenario 8.2  |                                                                                 |
+|  Scenario 8.2  | |
 | :------------: | :-----------------------------------------------------------------------------: |
-| Precondizione  |                     Non esistono carrelli pagati                     |
-| Postcondizione |                    Il sistema mostra uno storico vuoto                   |
-|     Passo#     |                                   Descrizione                                   |
+| Precondizione  | Non esistono carrelli pagati |
+| Postcondizione | Il sistema mostra uno storico vuoto |
+|     Passo#     | Descrizione |
 |       1        | Il cliente clicca sul pulsante 'Storico carrelli' |
-|       2        |                Il sistema mostra una pagina che riporta che non ci sono carrelli pagati                |
+|       2        | Il sistema mostra una pagina che riporta che non ci sono carrelli pagati |
 
 ### Rimuovi un prodotto dal carrello, UC9
 
-| Attori coinvolti  |                               Cliente                               |
+| Attori coinvolti  | Cliente |
 | :---------------: | :-----------------------------------------------------------------: |
-|   Precondizione   |                  Esiste un carrello attivo                   |
+|   Precondizione   | Esiste un carrello attivo |
 |  Postcondizione   | Il prodotto selezionato non è più presente all'interno del carrello |
-| Scenario nominale |      Il cliente rimuove un prodotto a sua scelta dal carrello       |
-|     Varianti      |                                                                     |
-|     Eccezioni     |                                                                     |
+| Scenario nominale | Il cliente rimuove un prodotto dal carrello |
+|     Varianti      |  |
+|     Eccezioni     |  |
 
 #### Scenario 9.1
 
-|  Scenario 9.1  |                                                                                                    |
+|  Scenario 9.1  |  |
 | :------------: | :------------------------------------------------------------------------------------------------: |
-| Precondizione  |                                  Esiste un carrello attivo                                  |
-| Postcondizione |                Il prodotto selezionato non è più presente all'interno del carrello                 |
-|     Passo#     |                                            Descrizione                                             |
-|       1        |                 Il cliente clicca sul pulsante 'Vai al carrello'                 |
-|       2        |                                Il sistema mostra il carrello attivo                                |
+| Precondizione  |  Esiste un carrello attivo  |
+| Postcondizione | Il prodotto selezionato non è più presente all'interno del carrello  |
+|     Passo#     | Descrizione |
+|       1        | Il cliente clicca sul pulsante 'Vai al carrello' |
+|       2        | Il sistema mostra il carrello attivo |
 |       3        | Il cliente clicca sul pulsante 'Rimuovi' relativo al prodotto che vuole eliminare dal carrello |
-|       4        |                  Il sistema mostra il carrello privo del prodotto rimosso                   |
+|       4        | Il sistema mostra il carrello privo del prodotto rimosso  |
 
 ### Inserimento nuovo prodotto, UC10
 
 | Attori coinvolti  |                   Manager                   |
 | :---------------: | :-----------------------------------------: |
 |   Precondizione   |                                             |
-|  Postcondizione   |         Un nuovo prodotto è reso disponibile per la visualizzazione                                   |
+|  Postcondizione   |      Un nuovo prodotto è stato aggiunto     |
 | Scenario nominale |    Il manager aggiunge un nuovo prodotto    |
 |     Varianti      |                                             |
 |     Eccezioni     | Esiste già un prodotto con lo stesso codice |
 
 #### Scenario 10.1
 
-| Scenario 10.1  |                                                                   |
+| Scenario 10.1  |  |
 | :------------: | :---------------------------------------------------------------: |
-| Precondizione  |                                                                   |
-| Postcondizione |              Un nuovo prodotto viene reso disponibile per la visualizzazione                                                     |
-|     Passo#     |                            Descrizione                            |
-|       1        |   Il manager compila il form 'Nuovo prodotto' inserendo codice, prezzo, data di arrivo, modello, categoria e dettagli relativi al nuovo prodotto   |
-|       2        |             Il manager clicca sul pulsante 'Inserisci'              |
-|       3        | Il sistema mostra un messaggio di corretta riuscita dell'operazione |
+| Precondizione  |  |
+| Postcondizione | Un nuovo prodotto è stato aggiunto |
+|     Passo#     | Descrizione |
+|       1        | Il manager compila il form 'Nuovo prodotto' inserendo codice, prezzo, data di arrivo, modello, categoria e dettagli relativi al nuovo prodotto |
+|       2        | Il manager clicca sul pulsante 'Inserisci' |
+|       3        | Il sistema verifica che il codice inserito sia univoco e ottiene un riscontro positivo |
+|       4        | Il sistema mostra un messaggio di corretta riuscita dell'operazione |
 
 #### Scenario 10.2
 
-| Scenario 10.2  |                                                                   |
+| Scenario 10.2  |  |
 | :------------: | :---------------------------------------------------------------: |
-| Precondizione  |            Esiste già un prodotto con lo stesso codice            |
-| Postcondizione |          Il nuovo prodotto non viene reso disponibile per la visualizzazione                                                        |
-|     Passo#     |                            Descrizione                            |
+| Precondizione  | Esiste già un prodotto con lo stesso codice del nuovo prodotto |
+| Postcondizione | Il nuovo prodotto non viene aggiunto |
+|     Passo#     |   Descrizione |
 |       1        |   Il manager compila il form 'Nuovo prodotto' inserendo codice, prezzo, data di arrivo, modello, categoria e dettagli relativi al nuovo prodotto   |
-|       2        |             Il manager clicca sul pulsante 'Inserisci'              |
-|       3        | Il sistema mostra un messaggio di mancata riuscita dell'operazione |
+|       2        | Il manager clicca sul pulsante 'Inserisci' |
+|       3        | Il sistema verifica che il codice inserito sia univoco e ottiene un riscontro negativo |
+|       4        | Il sistema mostra un messaggio di mancata riuscita dell'operazione |
 
 ### Rimozione prodotto, UC11
 
 | Attori coinvolti  |            Manager             |
 | :---------------: | :----------------------------: |
-|   Precondizione   |           Esiste almeno un prodotto                     |
-|  Postcondizione   |                Il prodotto eliminato non è più disponibile per la visualizzazione                |
+|   Precondizione   | Esiste almeno un prodotto |
+|  Postcondizione   | Il prodotto eliminato non è più disponibile per la visualizzazione |
 | Scenario nominale | Il manager rimuove un prodotto |
 |     Varianti      |                                |
 |     Eccezioni     |                                |
 
 #### Scenario 11.1
 
-| Scenario 11.1  |                                                            |
+| Scenario 11.1  |  |
 | :------------: | :--------------------------------------------------------: |
-| Precondizione  |                 Esiste almeno un prodotto                  |
-| Postcondizione |            Il prodotto eliminato non è più disponibile per la visualizzazione                                                |
-|     Passo#     |                        Descrizione                         |
+| Precondizione  | Esiste almeno un prodotto |
+| Postcondizione |  Il prodotto eliminato non è più disponibile per la visualizzazione  |
+|     Passo#     | Descrizione |
 |       1        | Il manager visualizza l'elenco dei prodotti |
-|       2        |           Il manager clicca sul pulsante 'Elimina' relativo al prodotto che vuole rimuovere           |
-|       3        |           Il sistema mostra l'elenco dei prodotti senza il prodotto eliminato           |
+|       2        | Il manager clicca sul pulsante 'Elimina' relativo al prodotto che vuole rimuovere |
+|       3        | Il sistema mostra l'elenco dei prodotti senza il prodotto eliminato |
 
 
 ### Contrassegna un prodotto come venduto, UC12
@@ -518,63 +523,64 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 | Attori coinvolti  |                     Manager                      |
 | :---------------: | :----------------------------------------------: |
 |   Precondizione   |      Esiste almeno un prodotto non venduto       |
-|  Postcondizione   |    Il prodotto selezionato risulta venduto                                              |
+|  Postcondizione   |      Il prodotto selezionato risulta venduto     |
 | Scenario nominale | Il manager contrassegna un prodotto come venduto |
-|     Varianti      |     Il codice inserito non corrisponde a nessun prodotto disponibile                                             |
+|     Varianti      | Il codice inserito non corrisponde a nessun prodotto disponibile |
 |     Eccezioni     |                                                  |
 
 #### Scenario 12.1
 
 | Scenario 12.1  |                                                          |
 | :------------: | :------------------------------------------------------: |
-| Precondizione  |          Esiste almeno un prodotto non venduto          |
-| Postcondizione |      Il prodotto selezionato risulta venduto                                                    |
+| Precondizione  | Esiste almeno un prodotto non venduto |
+| Postcondizione | Il prodotto selezionato risulta venduto  |
 |     Passo#     |                       Descrizione                        |
 |       1        | Il manager compila il form 'Registra vendita' inserendo il codice del prodotto e la data di vendita |
 |       2        |        Il manager clicca sul pulsante 'Vendi'        |
-|       3        |        Il sistema mostra un messaggio di avvenuta riuscita dell'operazione        |
+|       3        | Il sistema verifica che il codice inserito corrisponda a un prodotto disponibile e ottiene un riscontro positivo |
+|       4        | Il sistema mostra un messaggio di avvenuta riuscita dell'operazione |
 
 #### Scenario 12.2
 
-| Scenario 12.2  |                                                          |
+| Scenario 12.2  |  |
 | :------------: | :------------------------------------------------------: |
 | Precondizione  |          Esiste almeno un prodotto non venduto          |
-| Postcondizione |      Il prodotto selezionato non risulta venduto                                                    |
-|     Passo#     |                       Descrizione                        |
+| Postcondizione | Il prodotto selezionato non risulta venduto  |
+|     Passo#     |  Descrizione |
 |       1        | Il manager compila il form 'Registra vendita' inserendo il codice del prodotto e la data di vendita |
 |       2        |        Il manager clicca sul pulsante 'Vendi'        |
-|       3        |        Il sistema si rende conto che il codice inserito non corrisponde a nessun prodotto disponibile        |
+|       3        |  Il sistema verifica che il codice inserito corrisponda a un prodotto disponibile e ottiene un riscontro negativo |
 |       4        |        Il sistema mostra un messaggio di errore        |
 
-### Aggiorna quantità, UC13
+### Aggiornamento quantità, UC13
 
 | Attori coinvolti  |                    Manager                     |
 | :---------------: | :--------------------------------------------: |
 |   Precondizione   |                       |
-|  Postcondizione   |       Viene registrato un nuovo set di prodotti                                         |
+|  Postcondizione   | L'arrivo di un nuovo set di prodotti è stato registrato  |
 | Scenario nominale | Il manager registra l'arrivo di un nuovo set di prodotti |
 |     Varianti      |                                                |
 |     Eccezioni     |                                                 |
 
 #### Scenario 13.1
 
-| Scenario 13.1  |                                                           |
+| Scenario 13.1  |          |
 | :------------: | :-------------------------------------------------------: |
 | Precondizione  |           Esiste almeno un prodotto           |
-| Postcondizione |             Viene registrato il nuovo set di prodotti                                              |
-|     Passo#     |                        Descrizione                        |
+| Postcondizione | L'arrivo di un nuovo set di prodotti è stato registrato |
+|     Passo#     |    Descrizione   |
 |       1        | Il manager compila il form 'Nuovo arrivo' inserendo modello, categoria, quantità, data di arrivo, prezzo e dettagli  |
 |       2        |    Il manager clicca sul pulsante 'Registra'    |
 |       3        |        Il sistema mostra un messaggio di corretta riuscita dell'operazione         |
 
 ### Ricerca prodotti, UC14
 
-| Attori coinvolti  |                       Utente autenticato                       |
+| Attori coinvolti  |     Utente autenticato                       |
 | :---------------: | :------------------------------------------------------------: |
 |   Precondizione   |                                |
-|  Postcondizione   |             L'utente visualizza una lista di prodotti                                                   |
-| Scenario nominale |          L'utente effettua una ricerca di un prodotto          |
-|     Varianti      | Non ci sono prodotti corrispondenti alla ricerca |
+|  Postcondizione   | L'utente visualizza una lista di prodotti          |
+| Scenario nominale |  L'utente effettua una ricerca di un prodotto  |
+|     Varianti      | Non ci sono prodotti corrispondenti alla ricerca effetuata |
 |     Eccezioni     |                                                                |
 
 #### Scenario 14.1
@@ -584,7 +590,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 | Precondizione  |     Sono presenti prodotti corrispondenti ai filtri di ricerca applicati        |
 | Postcondizione |                    L'utente visualizza una lista di prodotti                         |
 |     Passo#     |                 Descrizione                 |
-|       1        |   L'utente seleziona i filtri nel form 'Cerca Prodotti'    |
+|       1        |   L'utente seleziona uno o più filtri nel form 'Cerca Prodotti'    |
 |       2        |   L'utente clicca sul pulsante 'Cerca'    |
 |       3        | Il sistema mostra l'elenco dei prodotti corrispondenti ai filtri di ricerca applicati |
 
@@ -595,7 +601,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 | Precondizione  |     Non sono presenti prodotti corrispondenti ai filtri di ricerca applicati        |
 | Postcondizione |   L'utente visualizza una lista vuota                                          |
 |     Passo#     |                 Descrizione                 |
-|       1        |   L'utente seleziona i filtri nel form 'Cerca Prodotti'    |
+|       1        |   L'utente seleziona uno o più filtri nel form 'Cerca Prodotti'    |
 |       2        |   L'utente clicca sul pulsante 'Cerca'    |
 |       3        | Il sistema mostra una pagina che riporta che non ci sono prodotti corrispondenti ai filtri di ricerca applicati |
 
@@ -618,7 +624,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 | Postcondizione |     Vengono mostrati i dettagli relativi al profilo dell'utente autenticato                                                    |
 |     Passo#     |                      Descrizione                       |
 |       1        |         L'utente clicca sul pulsante 'Profilo'          |
-|       2        | Il sistema mostra una schermata con i dati dell'utente |
+|       2        | Il sistema mostra una schermata con i dati relativi all'utente |
 
 # Glossario
 
