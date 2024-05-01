@@ -501,23 +501,35 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 | Attori coinvolti  |                            Cliente                            |
 | :---------------: | :-----------------------------------------------------------: |
-|   Precondizione   |     Il cliente deve avere almeno un prodotto nel carrello     |
+|   Precondizione   |     Il cliente ha almeno un prodotto nel carrello     |
 |  Postcondizione   |                     L'ordine è confermato                     |
 | Scenario nominale |          Il cliente acquista i prodotti nel carrello          |
-|     Varianti      |                                                               |
+|     Varianti      |  |
 |     Eccezioni     |  |
 
 #### Scenario 5.1
 
-|  Scenario 5.1  |                                                                             |
+|  Scenario 5.1  |  |
 | :------------: | :--------------------------------------------------------------------------: |
-| Precondizione  | Il cliente deve avere almeno un prodotto nel carrello,  deve aver impostato un metodo predefinito di pagamento e un indirizzo di spedizione |
-| Postcondizione |  L'ordine è confermato e il carrello corrente viene spostato nello storico   |
+| Precondizione  | Il cliente ha almeno un prodotto nel carrello,  e ha impostato un metodo predefinito di pagamento e un indirizzo di spedizione |
+| Postcondizione |  L'acquisto è confermato e il carrello corrente viene spostato nello storico   |
 |     Passo#     |                                 Descrizione                                  |
 |       1        |      Il cliente clicca sull'icona del carrello      |
 |       2        |            Il cliente visualizza il contenuto del carrello             |
 |       3        |    Il cliente clicca sul pulsante 'Acquista'    |
 |       4        |              Il sistema mostra la homepage del cliente con un messaggio che conferma la corretta riuscita dell'acquisto              |
+
+#### Scenario 5.2
+
+|  Scenario 5.2  |  |
+| :------------: | :--------------------------------------------------------------------------: |
+| Precondizione  | Il cliente ha almeno un prodotto nel carrello,  ma non ha impostato un metodo predefinito di pagamento e/o un indirizzo di spedizione |
+| Postcondizione |  L'acquisto non viene confermato   |
+|     Passo#     |                                 Descrizione                                  |
+|       1        |      Il cliente clicca sull'icona del carrello      |
+|       2        |            Il cliente visualizza il contenuto del carrello             |
+|       3        |    Il cliente clicca sul pulsante 'Acquista'    |
+|       4        |              Il sistema mostra un messaggio di errore che segnala la mancata riuscita dell'acquisto              |
 
 ### Aggiungi un prodotto al carrello, UC6
 
@@ -538,7 +550,19 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 | Postcondizione | Il carrello viene aggiornato |
 |     Passo#     |                  Descrizione                |
 |       1        | Il cliente clicca sul pulsante 'Aggiungi al carrello' relativo al prodotto che intende acquistare |
+|       3        | Il sistema verifica che il prodotto selezionato sia ancora disponibile e ottiene un riscontro positivo |
 |       2        | Il sistema mostra un messaggio di corretta riuscita dell'operazione |
+
+#### Scenario 6.2
+
+|  Scenario 6.2   |                                             |
+| :------------: | :-----------------------------------------: |
+| Precondizione  | Il cliente visualizza l'elenco dei prodotti |
+| Postcondizione | Il carrello viene aggiornato |
+|     Passo#     |                  Descrizione                |
+|       1        | Il cliente clicca sul pulsante 'Aggiungi al carrello' relativo al prodotto che intende acquistare |
+|       3        | Il sistema verifica che il prodotto selezionato sia ancora disponibile e ottiene un riscontro negativo |
+|       2        | Il sistema mostra un messaggio di mancata riuscita dell'operazione |
 
 ### Elimina il carrello corrente, UC7
 
@@ -618,7 +642,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       1        | Il cliente clicca sull'icona del carrello |
 |       2        | Il sistema mostra il contenuto del carrello |
 |       3        | Il cliente clicca sul pulsante 'Rimuovi' relativo al prodotto che intende eliminare dal carrello |
-|       4        | Il sistema mostra il contenuto del carrello privo del prodotto eliminato |
+|       4        | Il sistema mostra il contenuto del carrello privo del prodotto eliminato e un messaggio che conferma la corretta riuscita dell'operazione |
 
 ### Inserimento nuovo prodotto, UC10
 
@@ -684,7 +708,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |   Precondizione   | Esiste almeno un prodotto non venduto |
 |  Postcondizione  | Il prodotto selezionato risulta venduto |
 | Scenario Nominale | Il manager contrassegna un prodotto come venduto |
-|     Varianti     | Il codice inserito non corrisponde a nessun prodotto disponibile |
+|     Varianti     |  |
 |    Eccezioni     |  |
 
 #### Scenario 12.1
@@ -694,22 +718,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 | Precondizione  | Esiste almeno un prodotto non venduto |
 | Postcondizione | Il prodotto selezionato risulta venduto  |
 |     Passo#     |                       Descrizione                        |
-|       1        | Il manager compila il form 'Registra vendita' inserendo il codice del prodotto e la data di vendita |
-|       2        |        Il manager clicca sul pulsante 'Vendi'        |
-|       3        | Il sistema verifica che il codice inserito corrisponda a un prodotto disponibile e ottiene un riscontro positivo |
+|       1        | Il manager visualizza la lista dei prodotti |
+|       2        | Il manager clicca sul pulsante 'Vendi' relativo al prodotto che intende contrassegnare come venduto |
 |       4        | Il sistema mostra un messaggio di avvenuta riuscita dell'operazione |
-
-#### Scenario 12.2
-
-| Scenario 12.2  |  |
-| :------------: | :------------------------------------------------------: |
-| Precondizione  |          Esiste almeno un prodotto non venduto          |
-| Postcondizione | Il prodotto selezionato non risulta venduto  |
-|     Passo#     |  Descrizione |
-|       1        | Il manager compila il form 'Registra vendita' inserendo il codice del prodotto e la data di vendita |
-|       2        |        Il manager clicca sul pulsante 'Vendi'        |
-|       3        |  Il sistema verifica che il codice inserito corrisponda a un prodotto disponibile e ottiene un riscontro negativo |
-|       4        |        Il sistema mostra un messaggio di errore        |
 
 
 ### Aggiornamento quantità, UC13
@@ -751,7 +762,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 | Precondizione  |     Sono presenti prodotti corrispondenti ai filtri di ricerca applicati        |
 | Postcondizione |                    L'utente visualizza una lista di prodotti                         |
 |     Passo#     |                 Descrizione                 |
-|       1        |   L'utente seleziona uno o più filtri nel form 'Cerca Prodotti'    |
+|       1        |   Se l'utente è un cliente deve selezionare uno o più filtri dal form 'Cerca prodotti'. Se l'utente è un manager deve spuntare la checkbox 'Prodotti' del form 'Cerca nel negozio' e selezionare uno o più filtri.    |
 |       2        |   L'utente clicca sul pulsante 'Cerca'    |
 |       3        | Il sistema mostra l'elenco dei prodotti corrispondenti ai filtri di ricerca applicati |
 
@@ -762,7 +773,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 | Precondizione  |     Non sono presenti prodotti corrispondenti ai filtri di ricerca applicati        |
 | Postcondizione |   L'utente visualizza una lista vuota                                          |
 |     Passo#     |                 Descrizione                 |
-|       1        |   L'utente seleziona uno o più filtri nel form 'Cerca Prodotti'    |
+|       1        |   Se l'utente è un cliente deve selezionare uno o più filtri dal form 'Cerca prodotti'. Se l'utente è un manager deve spuntare la checkbox 'Prodotti' del form 'Cerca nel negozio' e selezionare uno o più filtri.     |
 |       2        |   L'utente clicca sul pulsante 'Cerca'    |
 |       3        | Il sistema mostra una pagina che riporta che non ci sono prodotti corrispondenti ai filtri di ricerca applicati |
 
@@ -784,22 +795,22 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 | Precondizione  |                        |
 | Postcondizione |     Vengono mostrati i dettagli relativi al profilo dell'utente autenticato                                                    |
 |     Passo#     |                      Descrizione                       |
-|       1        |         L'utente clicca sul pulsante 'Profilo'          |
+|       1        |         L'utente clicca su 'Il mio account'          |
 |       2        | Il sistema mostra una schermata con i dati relativi all'utente |
 
 ### Modifica il profilo, UC16
 
-| Attori coinvolti  |  |
+| Attori coinvolti  | Utente autenticato |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondizione   |  |
-|  Postcondizione  |  |
-| Scenario Nominale |  |
+|  Postcondizione  | Le informazioni del profilo dell'utente sono aggiornate |
+| Scenario Nominale | L'utente aggiorna le informazioni del proprio profilo |
 |     Varianti     |  |
 |    Eccezioni     |  |
 
-#### Scenario .1
+#### Scenario 16.1
 
-|  Scenario .1  | |
+|  Scenario 16.1  | |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondizione |  |
 | Postcondizione |  |
@@ -808,9 +819,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       2        |  |
 |       3        |  |
 
-#### Scenario .2
+#### Scenario 16.2
 
-|  Scenario .2  | |
+|  Scenario 16.2  | |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondizione |  |
 | Postcondizione |  |
