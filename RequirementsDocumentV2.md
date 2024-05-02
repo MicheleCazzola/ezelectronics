@@ -375,6 +375,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 ![Use Case Diagram](media/version2/use_case_diagram.png)
 
+Anche se non indicato nel diagramma per questioni di chiarezza visiva, l'admin può effettuare ogni operazione di aggiunta, modifica o rimozione di qualsiasi oggetto.
 -----
 
 ### Sign up, UC1
@@ -572,30 +573,8 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       3        | Il sistema verifica che il prodotto selezionato sia ancora disponibile e ottiene un riscontro negativo |
 |       2        | Il sistema mostra un messaggio di mancata riuscita dell'operazione |
 
-### Elimina il carrello corrente, UC7
 
-| Attori coinvolti  | Cliente |
-| :--------------: | :------------------------------------------------------------------: |
-|   Precondizione   | Esiste un carrello attivo associato al cliente |
-|  Postcondizione  |   Non esiste un carrello attivo associato al cliente  |
-| Scenario Nominale | Il cliente elimina i prodotti presenti all'interno del carrello e quindi carrello stesso |
-|     Varianti     |  |
-|    Eccezioni    |  |
-
-#### Scenario 7.1
-
-|  Scenario 7.1  | |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondizione  | Esiste un carrello attivo associato al cliente |
-| Postcondizione |  Non esiste un carrello attivo associato al cliente   |
-|     Step#      |  Descrizione  |
-|       1        | Il cliente clicca sull'icona del carrello |
-|       2        | Il sistema mostra il carrello attivo |
-|       3        | Il cliente clicca sul pulsante 'Svuota carrello' |
-|       4        | Viene visualizzata una pagina che riporta che il carrello è vuoto |
-
-
-### Visualizza storico dei carrelli pagati, UC8
+### Visualizza storico dei carrelli pagati, UC7
 
 | Attori coinvolti  | Cliente |
 | :--------------: | :------------------------------------------------------------------: |
@@ -605,9 +584,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Varianti     | Non esiste un carrello pagato associato al cliente |
 |    Eccezioni     |  |
 
-#### Scenario 8.1
+#### Scenario 7.1
 
-|  Scenario 8.1  |  |
+|  Scenario 7.1  |  |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondizione | Esiste almeno un carrello pagato associato al cliente|
 | Postcondizione | Il sistema mostra lo storico dei carrelli pagati associati al cliente |
@@ -617,9 +596,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       3        | Il cliente clicca su 'Storico carrelli' |
 |       4        | Il sistema mostra lo storico dei carrelli pagati |
 
-#### Scenario 8.2
+#### Scenario 7.2
 
-|  Scenario 8.2  |  |
+|  Scenario 7.2  |  |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondizione | Non esiste un carrello pagato associato al cliente |
 | Postcondizione | Il sistema mostra uno storico vuoto |
@@ -628,6 +607,28 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       2        | Il sistema mostra il contenuto del carrello associato al cliente|
 |       3        | Il cliente clicca su 'Storico carrelli' |
 |       4        | Il sistema mostra una pagina che riporta che non ci sono carrelli già pagati dal cliente|
+
+### Elimina il carrello corrente, UC8
+
+| Attori coinvolti  | Cliente |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondizione   | Esiste un carrello attivo associato al cliente |
+|  Postcondizione  |   Non esiste un carrello attivo associato al cliente  |
+| Scenario Nominale | Il cliente elimina i prodotti presenti all'interno del carrello e quindi carrello stesso |
+|     Varianti     |  |
+|    Eccezioni    |  |
+
+#### Scenario 8.1
+
+|  Scenario 8.1  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione  | Esiste un carrello attivo associato al cliente |
+| Postcondizione |  Non esiste un carrello attivo associato al cliente   |
+|     Step#      |  Descrizione  |
+|       1        | Il cliente clicca sull'icona del carrello |
+|       2        | Il sistema mostra il carrello attivo |
+|       3        | Il cliente clicca sul pulsante 'Svuota carrello' |
+|       4        | Viene visualizzata una pagina che riporta che il carrello è vuoto |
 
 
 ### Rimuovi un prodotto dal carrello, UC9
@@ -652,7 +653,29 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       3        | Il cliente clicca sul pulsante 'Rimuovi' relativo al prodotto che intende eliminare dal carrello |
 |       4        | Il sistema mostra il contenuto del carrello privo del prodotto eliminato e un messaggio che conferma la corretta riuscita dell'operazione |
 
-### Inserimento nuovo prodotto, UC10
+### Visualizza dettagli spedizione, UC10
+
+| Attori coinvolti  | Cliente |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondizione   | Almeno un carrello è presente nello storico |
+|  Postcondizione  | |
+| Scenario Nominale | Il sistema mostra informazioni dettagliate sulla spedizione del carrello selezionato |
+|     Varianti     |  |
+|    Eccezioni     |  |
+
+
+#### Scenario 10.1
+
+|  Scenario 10.1  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione | Almeno un carrello è presente nello storico |
+| Postcondizione | |
+|     Step#      | Descrizione |
+|       1        | Il cliente si trova sulla schermata dello storico dei carrelli |
+|       2        | Il cliente clicca sullo stato della spedizione |
+|       3        | Il sistema mostra la schermata di dettaglio dell'ordine e della spedizione |
+
+### Inserimento nuovo prodotto, UC11
 
 | Attori coinvolti  | Manager |
 | :--------------: | :------------------------------------------------------------------: |
@@ -662,9 +685,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Varianti     |  |
 |    Eccezioni     | Esiste già un prodotto con lo stesso codice |
 
-#### Scenario 10.1
+#### Scenario 11.1
 
-| Scenario 10.1  |  |
+| Scenario 11.1  |  |
 | :------------: | :---------------------------------------------------------------: |
 | Precondizione  |  |
 | Postcondizione | Un nuovo prodotto è stato aggiunto |
@@ -675,9 +698,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       4        | Il sistema  ottiene un riscontro positivo a tutte le precedenti verifiche |
 |       5        | Il sistema mostra un messaggio di corretta riuscita dell'operazione |
 
-#### Scenario 10.2
+#### Scenario 11.2
 
-| Scenario 10.2  |  |
+| Scenario 11.2  |  |
 | :------------: | :---------------------------------------------------------------: |
 | Precondizione  | Esiste già un prodotto con lo stesso codice del nuovo prodotto |
 | Postcondizione | Il nuovo prodotto non viene aggiunto |
@@ -689,7 +712,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       5        | Il sistema mostra un messaggio di mancata riuscita dell'operazione |
 
 
-### Rimozione prodotto, UC11
+### Rimozione prodotto, UC12
 
 | Attori coinvolti  | Manager |
 | :--------------: | :------------------------------------------------------------------: |
@@ -699,9 +722,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Varianti     |  |
 |    Eccezioni     |  |
 
-#### Scenario 11.1
+#### Scenario 12.1
 
-|  Scenario 11.1  | |
+|  Scenario 12.1  | |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondizione | Esiste almeno un prodotto |
 | Postcondizione | Il prodotto eliminato non è più disponibile per la visualizzazione |
@@ -711,7 +734,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       3        | Il sistema mostra l'elenco dei prodotti senza il prodotto eliminato |
 
 
-### Contrassegna un prodotto come venduto, UC12
+### Contrassegna un prodotto come venduto, UC13
 
 | Attori coinvolti  | Manager |
 | :--------------: | :------------------------------------------------------------------: |
@@ -721,9 +744,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Varianti     |  |
 |    Eccezioni     |  |
 
-#### Scenario 12.1
+#### Scenario 13.1
 
-| Scenario 12.1  |                                                          |
+| Scenario 13.1  |                                                          |
 | :------------: | :------------------------------------------------------: |
 | Precondizione  | Esiste almeno un prodotto non venduto |
 | Postcondizione | Il prodotto selezionato risulta venduto  |
@@ -733,7 +756,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       4        | Il sistema mostra un messaggio di avvenuta riuscita dell'operazione |
 
 
-### Aggiornamento quantità, UC13
+### Aggiornamento quantità, UC14
 
 | Attori coinvolti  | Manager |
 | :--------------: | :------------------------------------------------------------------: |
@@ -743,9 +766,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Varianti     |  |
 |    Eccezioni     |  |
 
-#### Scenario 13.1
+#### Scenario 14.1
 
-| Scenario 13.1  |          |
+| Scenario 14.1  |          |
 | :------------: | :-------------------------------------------------------: |
 | Precondizione  |           Esiste almeno un prodotto           |
 | Postcondizione | L'arrivo di un nuovo set di prodotti è stato registrato |
@@ -755,9 +778,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       3        |        Il sistema verifica che tutti i campi siano stati compilati e ottiene un riscontro positivo         |
 |       4        |        Il sistema mostra un messaggio di corretta riuscita dell'operazione         |
 
-#### Scenario 13.2
+#### Scenario 14.2
 
-| Scenario 13.2  |          |
+| Scenario 14.2  |          |
 | :------------: | :-------------------------------------------------------: |
 | Precondizione  |           Esiste almeno un prodotto           |
 | Postcondizione | L'arrivo di un nuovo set di prodotti è stato registrato |
@@ -768,7 +791,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       4        |        Il sistema mostra un messaggio di errore che confera la mancata riuscita dell'operazione         |
 
 
-### Ricerca prodotti, UC14
+### Ricerca prodotti, UC15
 
 | Attori coinvolti  |     Utente    |
 | :---------------: | :------------------------------------------------------------: |
@@ -778,9 +801,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Varianti      | Non ci sono prodotti corrispondenti alla ricerca effetuata |
 |     Eccezioni     |  |
 
-#### Scenario 14.1
+#### Scenario 15.1
 
-| Scenario 14.1  |                                             |
+| Scenario 15.1  |                                             |
 | :------------: | :-----------------------------------------: |
 | Precondizione  |     Sono presenti prodotti corrispondenti ai filtri di ricerca applicati        |
 | Postcondizione |                    L'utente visualizza una lista di prodotti                         |
@@ -789,9 +812,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       2        |   L'utente clicca sul pulsante 'Cerca'    |
 |       3        | Il sistema mostra l'elenco dei prodotti corrispondenti ai filtri di ricerca applicati |
 
-#### Scenario 14.2
+#### Scenario 15.2
 
-| Scenario 14.2  |                                             |
+| Scenario 15.2  |                                             |
 | :------------: | :-----------------------------------------: |
 | Precondizione  |     Non sono presenti prodotti corrispondenti ai filtri di ricerca applicati        |
 | Postcondizione |   L'utente visualizza una lista vuota                                          |
@@ -801,7 +824,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       3        | Il sistema mostra una pagina che riporta che non ci sono prodotti corrispondenti ai filtri di ricerca applicati |
 
 
-### Visualizza il profilo, UC15
+### Visualizza il profilo, UC16
 
 | Attori coinvolti  |                       Utente autenticato                       |
 | :---------------: | :------------------------------------------------------------: |
@@ -811,9 +834,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Varianti      |  |
 |     Eccezioni     |  |
 
-#### Scenario 15.1
+#### Scenario 16.1
 
-| Scenario 15.1  |                   Utente autenticato                   |
+| Scenario 16.1  |                   Utente autenticato                   |
 | :------------: | :----------------------------------------------------: |
 | Precondizione  |                        |
 | Postcondizione |     Vengono mostrati i dettagli relativi al profilo dell'utente autenticato                                                    |
@@ -821,7 +844,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       1        |         L'utente clicca su 'Il mio account'          |
 |       2        | Il sistema mostra una schermata con i dati relativi all'utente |
 
-### Modifica il profilo, UC16
+### Modifica i dati personali, UC17
 
 | Attori coinvolti  | Utente autenticato |
 | :--------------: | :------------------------------------------------------------------: |
@@ -831,7 +854,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Varianti     |  |
 |    Eccezioni     |  |
 
-### Modifica password, UC16a
+### Modifica password, UC17a
 
 | Attori coinvolti  | Utente autenticato |
 | :--------------: | :------------------------------------------------------------------: |
@@ -841,9 +864,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Varianti     |  |
 |    Eccezioni     |  |
 
-#### Scenario 16a.1
+#### Scenario 17a.1
 
-|  Scenario 16a.1  | |
+|  Scenario 17a.1  | |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondizione |  |
 | Postcondizione | La password per l'accesso al profilo risulta aggiornata |
@@ -857,9 +880,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       7        | Il sistema ottiene un riscontro positivo a tutte le precedenti verifiche |
 |       8        | Il sistema mostra una pagina che riporta un messaggio di corretta riuscita della modifica della password |
 
-#### Scenario 16a.2
+#### Scenario 17a.2
 
-|  Scenario 16a.1  | |
+|  Scenario 17a.1  | |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondizione |  |
 | Postcondizione | La password per l'accesso al profilo non risulta aggiornata |
@@ -873,7 +896,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       7        | Il sistema ottiene un riscontro negativo ad almeno una delle precedenti verifiche |
 |       8        | Il sistema mostra un messaggio di errore che riporta il fallimento dell'operazione |
 
-### Aggiungi informazione cliente, UC16b
+### Aggiungi informazione cliente, UC17b
 
 | Attori coinvolti  | Cliente |
 | :--------------: | :------------------------------------------------------------------: |
@@ -883,9 +906,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Varianti     |  |
 |    Eccezioni     |  |
 
-#### Scenario 16b.1
+#### Scenario 17b.1
 
-|  Scenario 16b.1  | |
+|  Scenario 17b.1  | |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondizione | Il profilo risulta privo dell'informazione che si intende aggiungere |
 | Postcondizione | Un'informazione tra indirizzo di consegna, metodo di pagamento predefinito, email e telefono viene aggiunta al profilo |
@@ -898,9 +921,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       6        | Il sistema verifica che il campo sia stato compilato e ottiene un riscontro positivo |
 |       7        | Il sistema mostra la pagina del cliente aggiornata con la nuova informazione |
 
-#### Scenario 16b.2
+#### Scenario 17b.2
 
-|  Scenario 16b.2  | |
+|  Scenario 17b.2  | |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondizione | Il profilo risulta privo dell'informazione che si intende aggiungere |
 | Postcondizione | Nessuna informazione viene aggiunta |
@@ -913,7 +936,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       6        | Il sistema verifica che il campo sia stato compilato e ottiene un riscontro negativo |
 |       7        | Il sistema mostra la pagina del cliente non aggiornata |
 
-### Modifica informazione cliente, UC16c
+### Modifica informazione cliente, UC17c
 
 | Attori coinvolti  | Cliente |
 | :--------------: | :------------------------------------------------------------------: |
@@ -923,9 +946,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Varianti     |  |
 |    Eccezioni     |  |
 
-#### Scenario 16c.1
+#### Scenario 17c.1
 
-|  Scenario 16c.1  | |
+|  Scenario 17c.1  | |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondizione | Il profilo non deve essere privo dell'informazione che si intende modificare |
 | Postcondizione | Un'informazione tra indirizzo di consegna, metodo di pagamento predefinito, email e telefono viene modificata |
@@ -938,9 +961,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       6        | Il sistema verifica che il campo sia stato compilato e ottiene un riscontro positivo |
 |       7        | Il sistema mostra la pagina del cliente aggiornata con la nuova informazione |
 
-#### Scenario 16c.2
+#### Scenario 17c.2
 
-|  Scenario 16c.2  | |
+|  Scenario 17c.2  | |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondizione | Il profilo non deve essere privo dell'informazione che si intende modificare |
 | Postcondizione | Nessuna informazione viene modificata |
@@ -953,7 +976,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       6        | Il sistema verifica che il campo sia stato compilato e ottiene un riscontro negativo |
 |       7        | Il sistema mostra la pagina del cliente non aggiornata |
 
-### Elimina informazione cliente, UC16d
+### Elimina informazione cliente, UC17d
 
 | Attori coinvolti  | Cliente |
 | :--------------: | :------------------------------------------------------------------: |
@@ -963,9 +986,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Varianti     |  |
 |    Eccezioni     |  |
 
-#### Scenario 16d.1
+#### Scenario 17d.1
 
-|  Scenario 16d.1  | |
+|  Scenario 17d.1  | |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondizione | Il profilo non deve essere privo dell'informazione che si intende modificare |
 | Postcondizione | Un'informazione tra indirizzo di consegna, metodo di pagamento predefinito, email e telefono viene eliminata |
@@ -974,7 +997,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       2        | Il cliente clicca sul pulsante 'Elimina' relativo all'informazione che intende rimuovere |
 |       3        | Il sistema mostra la pagina del cliente priva dell'informazione eliminata |
 
-### Gestione visibilità pubblicità, UC16e
+### Gestione visibilità pubblicità, UC17e
 
 | Attori coinvolti  | Manager |
 | :--------------: | :------------------------------------------------------------------: |
@@ -984,9 +1007,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Varianti     |  |
 |    Eccezioni     |  |
 
-#### Scenario 16e.1
+#### Scenario 17e.1
 
-|  Scenario 16e.1  | |
+|  Scenario 17e.1  | |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondizione |  |
 | Postcondizione | La visibilità della pubblicità da parte degli utenti viene modificata |
@@ -995,7 +1018,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       2        | Il manager clicca sulla checkbox 'Mostra annunci pubblicitari agli utenti' per rendere visibile o meno gli annunci pubblicitari |
 
 
-### Elimina il profilo, UC17
+### Elimina il profilo, UC18
 
 | Attori coinvolti  | Utente autenticato |
 | :--------------: | :------------------------------------------------------------------: |
@@ -1005,9 +1028,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Varianti     |  |
 |    Eccezioni     |  |
 
-#### Scenario 17.1
+#### Scenario 18.1
 
-|  Scenario 17.1  | |
+|  Scenario 18.1  | |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondizione |  |
 | Postcondizione | L'utente autenticato diventa un utente non autenticato |
@@ -1017,59 +1040,41 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       3        | Il sistema elimina i dati dell'utente annullandone la registrazione |
 |       4        | Il sistema mostra la homepage del sito |
 
-### Ricerca utenti, UC18
+### Visualizza cronologia recensioni, UC19
 
-| Attori coinvolti  | Admin |
+| Attori coinvolti  | Cliente |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondizione   |  |
-|  Postcondizione  | Visualizzazione di utenti registrati |
-| Scenario Nominale | L'admin visualizza una lista di utenti registrati  |
-|     Varianti     |  |
-|    Eccezioni     |  |
-
-#### Scenario 18.1
-
-|  Scenario 18.1  | |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondizione | Esistono utenti registrati che corrispondono ai criteri di ricerca |
-| Postcondizione | Visualizzazione di utenti registrati |
-|     Step#      | Descrizione |
-|       1        | L'admin seleziona dal menù la voce 'Utenti' |
-|       2        | L'admin seleziona il filtro per ruolo o per username |
-|       3        | L'admin visualizza una lista di utenti registrati che corrispondono ai criteri di ricerca |
-
-#### Scenario 18.1
-
-|  Scenario 18.1  | |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondizione | Non sistono utenti registrati che corrispondono ai criteri di ricerca |
-| Postcondizione | Non vengono visualizzati utenti registrati |
-|     Step#      | Descrizione |
-|       1        | L'admin seleziona dal menù la voce 'Utenti' |
-|       2        | L'admin seleziona il filtro per ruolo o per username |
-|       3        | L'admin visualizza un messaggio che riporta che non ci sono utenti registrati corrispondenti ai criteri di ricerca |
-
-
-### Elimina l'utente, UC19
-
-| Attori coinvolti  | Admin |
-| :--------------: | :------------------------------------------------------------------: |
-|   Precondizione   | Esiste almeno un utente registrato |
-|  Postcondizione  | Il profilo di un utente registrato viene eliminato |
-| Scenario Nominale | L'admin elimina i dati e la registrazione di un utente |
+|  Postcondizione  | Viene visualizzata una lista di recensioni effettuate dal cliente |
+| Scenario Nominale | Il cliente visualizza una lista delle proprie recensioni |
 |     Varianti     |  |
 |    Eccezioni     |  |
 
 #### Scenario 19.1
 
-|  Scenario .1  | |
+|  Scenario 19.1  | |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondizione | Esiste almeno un utente registrato |
-| Postcondizione | Il profilo di un utente registrato viene eliminato |
+|  Precondizione | Esiste almeno una recensione relativa a un prodotto conforme ai criteri di ricerca |
+| Postcondizione | Viene visualizzata una lista di recensioni effettuate dal cliente |
 |     Step#      | Descrizione |
-|       1        | L'admin visualizza una lista di utenti registrati |
-|       2        | L'admin seleziona il pulsante 'Elimina' relativo all'utente che vuole eliminare |
-|       3        | Il sistema elimina i dati relativi all'utente selezionato |
+|       1        | Il cliente clicca su 'Le mie recensioni' |
+|       2        | Il sistema mostra una pagina che mostra dei filtri di ricerca e un messaggio che riporta dove cliccare per aggiungere una recensione |
+|       3        | Il cliente seleziona uno o più filtri |
+|       4        | Il cliente clicca sul pulsante 'Cerca' |
+|       5        | Il sistema mostra una lista di recensioni relative a prodotti che rispettano i criteri di ricerca |
+
+#### Scenario 19.2
+
+|  Scenario 19.2  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione | Non esiste almeno una recensione relativa a un prodotto conforme ai criteri di ricerca |
+| Postcondizione | Viene visualizzata una lista vuota |
+|     Step#      | Descrizione |
+|       1        | Il cliente clicca su 'Le mie recensioni' |
+|       2        | Il sistema mostra una pagina che mostra dei filtri di ricerca e un messaggio che riporta dove cliccare per aggiungere una recensione |
+|       3        | Il cliente seleziona uno o più filtri |
+|       4        | Il cliente clicca sul pulsante 'Cerca' |
+|       5        | Il sistema mostra una pagina che riporta che non ci sono recensioni relative a prodotti conformi ai criteri di ricerca |
 
 ### Inserisci una recensione, UC20
 
@@ -1119,7 +1124,28 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       10        | Il sistema mostra un messaggio di errore che conferma la mancata riuscita dell'operazione |
 
 
-### Elimina una recensione, UC21
+### Modifica una recensione, UC21
+
+| Attori coinvolti  | Cliente |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondizione   |  |
+|  Postcondizione  | |
+| Scenario Nominale ||
+|     Varianti     |  |
+|    Eccezioni     |  |
+
+#### Scenario 21.1
+
+|  Scenario 21.1  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione | |
+| Postcondizione | |
+|     Step#      | |
+|       1        | |
+|       2        | |
+|       3        | |
+
+### Elimina una recensione, UC22
 
 | Attori coinvolti  | Cliente |
 | :--------------: | :------------------------------------------------------------------: |
@@ -1129,9 +1155,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Varianti     |  |
 |    Eccezioni     |  |
 
-#### Scenario 21.1
+#### Scenario 22.1
 
-|  Scenario 21.1  | |
+|  Scenario 22.1  | |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondizione | Il cliente deve aver registrato almeno una recensione |
 | Postcondizione | Una recensione di un determinato prodotto viene eliminata |
@@ -1140,43 +1166,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       2        | Il cliente clicca sul pulsante 'Elimina' relativo alla recensione che intende eliminare |
 |       3        | Il sistema mostra la lista delle recensioni priva di quella appena eliminata |
 
-### Visualizza cronologia recensioni, UC22
-
-| Attori coinvolti  | Cliente |
-| :--------------: | :------------------------------------------------------------------: |
-|   Precondizione   |  |
-|  Postcondizione  | Viene visualizzata una lista di recensioni effettuate dal cliente |
-| Scenario Nominale | Il cliente visualizza una lista delle proprie recensioni |
-|     Varianti     |  |
-|    Eccezioni     |  |
-
-#### Scenario 22.1
-
-|  Scenario 22.1  | |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondizione | Esiste almeno una recensione relativa a un prodotto conforme ai criteri di ricerca |
-| Postcondizione | Viene visualizzata una lista di recensioni effettuate dal cliente |
-|     Step#      | Descrizione |
-|       1        | Il cliente clicca su 'Le mie recensioni' |
-|       2        | Il sistema mostra una pagina che mostra dei filtri di ricerca e un messaggio che riporta dove cliccare per aggiungere una recensione |
-|       3        | Il cliente seleziona uno o più filtri |
-|       4        | Il cliente clicca sul pulsante 'Cerca' |
-|       5        | Il sistema mostra una lista di recensioni relative a prodotti che rispettano i criteri di ricerca |
-
-#### Scenario 22.2
-
-|  Scenario 22.2  | |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondizione | Non esiste almeno una recensione relativa a un prodotto conforme ai criteri di ricerca |
-| Postcondizione | Viene visualizzata una lista vuota |
-|     Step#      | Descrizione |
-|       1        | Il cliente clicca su 'Le mie recensioni' |
-|       2        | Il sistema mostra una pagina che mostra dei filtri di ricerca e un messaggio che riporta dove cliccare per aggiungere una recensione |
-|       3        | Il cliente seleziona uno o più filtri |
-|       4        | Il cliente clicca sul pulsante 'Cerca' |
-|       5        | Il sistema mostra una pagina che riporta che non ci sono recensioni relative a prodotti conformi ai criteri di ricerca |
-
-### Visualizza le recensioni di un prodotto, UC23
+### Visualizza le recensioni di un prodotto, UC27
 
 | Attori coinvolti  | Utente |
 | :--------------: | :------------------------------------------------------------------: |
@@ -1186,9 +1176,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Varianti     |  |
 |    Eccezioni     |  |
 
-#### Scenario 23.1
+#### Scenario 27.1
 
-|  Scenario 23.1  | |
+|  Scenario 27.1  | |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondizione | C'è almeno una recensione relativa al prodotto selezionato |
 | Postcondizione | Vengono mostrate le recensioni di un prodotto |
@@ -1197,9 +1187,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       2        | L'utente clicca sul link 'Visualizza recensioni' relativo al prodotto di cui intende visualizzare le recensioni |
 |       3        | Il sistema mostra una pagina con la lista di recensioni disponibili per quel prodotto |
 
-#### Scenario 23.2
+#### Scenario 27.2
 
-|  Scenario 23.2  | |
+|  Scenario 27.2  | |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondizione | Non c'è almeno una recensione relativa al prodotto selezionato |
 | Postcondizione | Non vengono mostrate recensioni |
@@ -1208,7 +1198,38 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       2        | L'utente clicca sul link 'Visualizza recensioni' relativo al prodotto di cui intende visualizzare le recensioni |
 |       3        | Il sistema mostra una pagina che riporta che non ci sono recensioni disponibili per quel prodotto |
 
-### Ricerca recensioni, UC24
+### Inserisci Oggetto, UC23
+
+| Attori coinvolti  |  |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondizione   |  |
+|  Postcondizione  |  |
+| Scenario Nominale |  |
+|     Varianti     |  |
+|    Eccezioni     |  |
+
+#### Scenario .1
+
+|  Scenario .1  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
+
+#### Scenario .2
+
+|  Scenario .2  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
+### Ricerca Oggetto, UC24
 
 | Attori coinvolti  |  |
 | :--------------: | :------------------------------------------------------------------: |
@@ -1240,7 +1261,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       2        |  |
 |       3        |  |
 
-### Elimina tutti i prodotti, UC25
+### Modifica oggetto, UC25
 
 | Attori coinvolti  |  |
 | :--------------: | :------------------------------------------------------------------: |
@@ -1272,7 +1293,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       2        |  |
 |       3        |  |
 
-### Elimina tutti gli utenti, UC26
+### Elimina oggetto, UC26
 
 | Attori coinvolti  |  |
 | :--------------: | :------------------------------------------------------------------: |
@@ -1304,13 +1325,14 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       2        |  |
 |       3        |  |
 
-### Elimina tutti i carrelli, UC27
 
-| Attori coinvolti  |  |
+### Ricerca utenti, UCx
+
+| Attori coinvolti  | Admin |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondizione   |  |
-|  Postcondizione  |  |
-| Scenario Nominale |  |
+|  Postcondizione  | Visualizzazione di utenti registrati |
+| Scenario Nominale | L'admin visualizza una lista di utenti registrati  |
 |     Varianti     |  |
 |    Eccezioni     |  |
 
@@ -1318,55 +1340,46 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 |  Scenario .1  | |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondizione |  |
-| Postcondizione |  |
+|  Precondizione | Esistono utenti registrati che corrispondono ai criteri di ricerca |
+| Postcondizione | Visualizzazione di utenti registrati |
 |     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
-
-#### Scenario .2
-
-|  Scenario .2  | |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondizione |  |
-| Postcondizione |  |
-|     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
-
-### Elimina tutte le recensioni, UC28
-
-| Attori coinvolti  |  |
-| :--------------: | :------------------------------------------------------------------: |
-|   Precondizione   |  |
-|  Postcondizione  |  |
-| Scenario Nominale |  |
-|     Varianti     |  |
-|    Eccezioni     |  |
+|       1        | L'admin seleziona dal menù la voce 'Utenti' |
+|       2        | L'admin seleziona il filtro per ruolo o per username |
+|       3        | L'admin visualizza una lista di utenti registrati che corrispondono ai criteri di ricerca |
 
 #### Scenario .1
 
 |  Scenario .1  | |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondizione |  |
-| Postcondizione |  |
+|  Precondizione | Non sistono utenti registrati che corrispondono ai criteri di ricerca |
+| Postcondizione | Non vengono visualizzati utenti registrati |
 |     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
+|       1        | L'admin seleziona dal menù la voce 'Utenti' |
+|       2        | L'admin seleziona il filtro per ruolo o per username |
+|       3        | L'admin visualizza un messaggio che riporta che non ci sono utenti registrati corrispondenti ai criteri di ricerca |
 
-#### Scenario .2
 
-|  Scenario .2  | |
+### Elimina l'utente, UCx
+
+| Attori coinvolti  | Admin |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondizione   | Esiste almeno un utente registrato |
+|  Postcondizione  | Il profilo di un utente registrato viene eliminato |
+| Scenario Nominale | L'admin elimina i dati e la registrazione di un utente |
+|     Varianti     |  |
+|    Eccezioni     |  |
+
+#### Scenario x.1
+
+|  Scenario .1  | |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondizione |  |
-| Postcondizione |  |
+|  Precondizione | Esiste almeno un utente registrato |
+| Postcondizione | Il profilo di un utente registrato viene eliminato |
 |     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
+|       1        | L'admin visualizza una lista di utenti registrati |
+|       2        | L'admin seleziona il pulsante 'Elimina' relativo all'utente che vuole eliminare |
+|       3        | Il sistema elimina i dati relativi all'utente selezionato |
+
 
 # Glossary
 
