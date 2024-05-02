@@ -24,12 +24,44 @@ Version: V1 - description of EZElectronics in FUTURE form (as proposed by the te
   - [Non Functional Requirements](#non-functional-requirements)
 - [Use case diagram and use cases](#use-case-diagram-and-use-cases)
   - [Use case diagram](#use-case-diagram)
-    - [Use case 1, UC1](#use-case-1-uc1)
+    - [Use case 1, UC1](#sign-up-uc1)
       - [Scenario 1.1](#scenario-11)
       - [Scenario 1.2](#scenario-12)
-      - [Scenario 1.x](#scenario-1x)
-    - [Use case 2, UC2](#use-case-2-uc2)
-    - [Use case x, UCx](#use-case-x-ucx)
+    - [Use case 2, UC2](#log-in-uc2)
+      - [Scenario 2.1](#scenario-21)
+      - [Scenario 2.2](#scenario-22)
+    - [Use case 3, UC3](#log-out-uc3)
+      - [Scenario 3.1](#scenario-31)
+    - [Use case 4, UC4](#visualizza-carrello-uc4)
+      - [Scenario 4.1](#scenario-41)
+      - [Scenario 4.2](#scenario-42)
+    - [Use case 5, UC5](#paga-carrello-uc5)
+      - [Scenario 5.1](#scenario-51)
+      - [Scenario 5.2](#scenario-52)
+    - [Use case 6, UC6](#aggiungi-un-prodotto-al-carrello-uc6)
+      - [Scenario 6.1](#scenario-61)
+      - [Scenario 6.2](#scenario-62)
+    - [Use case 7, UC7](#elimina-il-carrello-corrente-uc7)
+      - [Scenario 7.1](#scenario-71)
+    - [Use case 8, UC8](#visualizza-storico-dei-carrelli-pagati-uc8)
+      - [Scenario 8.1](#scenario-81)
+      - [Scenario 8.2](#scenario-82)
+    - [Use case 9, UC9](#rimuovi-un-prodotto-dal-carrello-uc9)
+      - [Scenario 9.1](#scenario-91)
+    - [Use case 10, UC10](#inserimento-nuovo-prodotto-uc10)
+      - [Scenario 10.1](#scenario-101)
+      - [Scenario 10.2](#scenario-102)
+    - [Use case 11, UC11](#rimozione-prodotto-uc11)
+      - [Scenario 11.1](#scenario-111)
+    - [Use case 12, UC12](#contrassegna-un-prodotto-come-venduto-uc12)
+      - [Scenario 12.1](#scenario-121)
+    - [Use case 13, UC13](#aggiornamento-quantità-uc13)
+      - [Scenario 13.1](#scenario-131)
+    - [Use case 14, UC14](#ricerca-prodotti-uc14)
+      - [Scenario 14.1](#scenario-141)
+      - [Scenario 14.2](#scenario-142)
+    - [Use case 15, UC15](#visualizza-il-profilo-uc15)
+      - [Scenario 15.1](#scenario-151)
 - [Glossary](#glossary)
 - [System Design](#system-design)
 - [Deployment Diagram](#deployment-diagram)
@@ -805,191 +837,331 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Varianti     |  |
 |    Eccezioni     |  |
 
-#### Scenario 16.1
+### Modifica password, UC16a
 
-|  Scenario 16.1  | |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondizione |  |
-| Postcondizione |  |
-|     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
-
-#### Scenario 16.2
-
-|  Scenario 16.2  | |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondizione |  |
-| Postcondizione |  |
-|     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
-
-### Use case 17, UC17
-
-| Attori coinvolti  |  |
+| Attori coinvolti  | Utente autenticato |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondizione   |  |
-|  Postcondizione  |  |
-| Scenario Nominale |  |
+|  Postcondizione  | La password per l'accesso al profilo risulta aggiornata |
+| Scenario Nominale | L'utente aggiorna le informazioni del proprio profilo |
 |     Varianti     |  |
 |    Eccezioni     |  |
 
-#### Scenario .1
+#### Scenario 16a.1
 
-|  Scenario .1  | |
+|  Scenario 16a.1  | |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondizione |  |
-| Postcondizione |  |
+| Postcondizione | La password per l'accesso al profilo risulta aggiornata |
 |     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
+|       1        | L'utente visualizza il proprio profilo |
+|       2        | L'utente clicca sul 'Modifica' corrispondente alla voce password |
+|       3        | Il sistema mostra una pagina con il form 'Modifica password' |
+|       4        | L'utente inserisce la password corrente e la nuova password nei rispettivi campi |
+|       5        | L'utente clicca sul pulsante 'Conferma' |
+|       6        | Il sistema verifica che tutti i campi siano stati compilati, che la password corrente inserita sia corretta e che i campi 'Nuova password' e 'Conferma password' sia uguali |
+|       7        | Il sistema ottiene un riscontro positivo alle precedenti verifiche |
+|       8        | Il sistema mostra una pagina che riporta un messaggio di corretta riuscita della modifica della password |
 
-#### Scenario .2
+#### Scenario 16a.2
 
-|  Scenario .2  | |
+|  Scenario 16a.1  | |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondizione |  |
-| Postcondizione |  |
+| Postcondizione | La password per l'accesso al profilo non risulta aggiornata |
 |     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
+|       1        | L'utente visualizza il proprio profilo |
+|       2        | L'utente clicca sul 'Modifica' corrispondente alla voce 'Password' |
+|       3        | Il sistema mostra una pagina con il form 'Modifica password' |
+|       4        | L'utente inserisce la password corrente e la nuova password nei rispettivi campi |
+|       5        | L'utente clicca sul pulsante 'Conferma' |
+|       6        | Il sistema verifica che tutti i campi siano stati compilati, che la password corrente inserita sia corretta e che i campi 'Nuova password' e 'Conferma password' sia uguali |
+|       7        | Il sistema ottiene un riscontro negativo ad almeno una delle precedenti verifiche |
+|       8        | Il sistema mostra un messaggio di errore che riporta il fallimento dell'operazione |
 
+### Aggiungi informazione cliente, UC16b
 
-### Use case 18, UC18
-
-| Attori coinvolti  |  |
+| Attori coinvolti  | Cliente |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondizione   |  |
-|  Postcondizione  |  |
-| Scenario Nominale |  |
+|   Precondizione   | Il profilo risulta privo dell'informazione che si intende aggiungere |
+|  Postcondizione  | Un'informazione tra indirizzo di consegna, metodo di pagamento predefinito, email e telefono viene aggiunta al profilo |
+| Scenario Nominale | Il cliente aggiunge un'informazione al proprio profilo |
 |     Varianti     |  |
 |    Eccezioni     |  |
 
-#### Scenario .1
+#### Scenario 16b.1
 
-|  Scenario .1  | |
+|  Scenario 16b.1  | |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondizione |  |
-| Postcondizione |  |
+|  Precondizione | Il profilo risulta privo dell'informazione che si intende aggiungere |
+| Postcondizione | Un'informazione tra indirizzo di consegna, metodo di pagamento predefinito, email e telefono viene aggiunta al profilo |
 |     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
+|       1        | Il cliente visualizza il proprio profilo |
+|       2        | Il cliente clicca sul pulsante 'Aggiungi' relativo all'informazione che intende registrare |
+|       3        | Il sistema mostra un form di compilazione del campo |
+|       4        | Il cliente compila il campo con l'informazione che intende aggiungere |
+|       5        | Il cliente clicca sul pulsante 'Conferma' |
+|       6        | Il sistema verifica che il campo sia stato compilato e ottiene un riscontro positivo |
+|       7        | Il sistema mostra la pagina del cliente aggiornata con la nuova informazione |
 
-#### Scenario .2
+#### Scenario 16b.2
 
-|  Scenario .2  | |
+|  Scenario 16b.2  | |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondizione |  |
-| Postcondizione |  |
+|  Precondizione | Il profilo risulta privo dell'informazione che si intende aggiungere |
+| Postcondizione | Nessuna informazione viene aggiunta |
 |     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
+|       1        | Il cliente visualizza il proprio profilo |
+|       2        | Il cliente clicca sul pulsante 'Aggiungi' relativo all'informazione che intende registrare |
+|       3        | Il sistema mostra un form di compilazione del campo |
+|       4        | Il cliente compila il campo con l'informazione che intende aggiungere |
+|       5        | Il cliente clicca sul pulsante 'Conferma' |
+|       6        | Il sistema verifica che il campo sia stato compilato e ottiene un riscontro negativo |
+|       7        | Il sistema mostra la pagina del cliente non aggiornata |
 
+### Modifica informazione cliente, UC16c
 
-### Use case 19, UC19
-
-| Attori coinvolti  |  |
+| Attori coinvolti  | Cliente |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondizione   |  |
-|  Postcondizione  |  |
-| Scenario Nominale |  |
+|   Precondizione   | Il profilo non deve essere privo dell'informazione che si intende modificare |
+|  Postcondizione  | Un'informazione tra indirizzo di consegna, metodo di pagamento predefinito, email e telefono viene modificata |
+| Scenario Nominale | Il cliente modifica un'informazione del proprio profilo |
 |     Varianti     |  |
 |    Eccezioni     |  |
 
-#### Scenario .1
+#### Scenario 16c.1
 
-|  Scenario .1  | |
+|  Scenario 16c.1  | |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondizione |  |
-| Postcondizione |  |
+|  Precondizione | Il profilo non deve essere privo dell'informazione che si intende modificare |
+| Postcondizione | Un'informazione tra indirizzo di consegna, metodo di pagamento predefinito, email e telefono viene modificata |
 |     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
+|       1        | Il cliente visualizza il proprio profilo |
+|       2        | Il cliente clicca sul pulsante 'Modifica' relativo all'informazione che intende aggiornare |
+|       3        | Il sistema mostra un form di compilazione del campo |
+|       4        | Il cliente compila il campo con l'informazione che intende aggiungere |
+|       5        | Il cliente clicca sul pulsante 'Conferma' |
+|       6        | Il sistema verifica che il campo sia stato compilato e ottiene un riscontro positivo |
+|       7        | Il sistema mostra la pagina del cliente aggiornata con la nuova informazione |
 
-#### Scenario .2
+#### Scenario 16c.2
 
-|  Scenario .2  | |
+|  Scenario 16c.2  | |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondizione |  |
-| Postcondizione |  |
+|  Precondizione | Il profilo non deve essere privo dell'informazione che si intende modificare |
+| Postcondizione | Nessuna informazione viene modificata |
 |     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
+|       1        | Il cliente visualizza il proprio profilo |
+|       2        | Il cliente clicca sul pulsante 'Modifica' relativo all'informazione che intende aggiornare |
+|       3        | Il sistema mostra un form di compilazione del campo |
+|       4        | Il cliente compila il campo con l'informazione che intende aggiungere |
+|       5        | Il cliente clicca sul pulsante 'Conferma' |
+|       6        | Il sistema verifica che il campo sia stato compilato e ottiene un riscontro negativo |
+|       7        | Il sistema mostra la pagina del cliente non aggiornata |
 
+### Elimina informazione cliente, UC16d
 
-### Use case 20, UC20
-
-| Attori coinvolti  |  |
+| Attori coinvolti  | Cliente |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondizione   |  |
-|  Postcondizione  |  |
-| Scenario Nominale |  |
+|   Precondizione   | Il profilo non deve essere privo dell'informazione che si intende eliminare |
+|  Postcondizione  | Un'informazione tra indirizzo di consegna, metodo di pagamento predefinito, email e telefono viene eliminata |
+| Scenario Nominale | Il cliente elimina un'informazione dal proprio profilo |
 |     Varianti     |  |
 |    Eccezioni     |  |
 
-#### Scenario .1
+#### Scenario 16d.1
 
-|  Scenario .1  | |
+|  Scenario 16d.1  | |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondizione |  |
-| Postcondizione |  |
+|  Precondizione | Il profilo non deve essere privo dell'informazione che si intende modificare |
+| Postcondizione | Un'informazione tra indirizzo di consegna, metodo di pagamento predefinito, email e telefono viene eliminata |
 |     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
+|       1        | Il cliente visualizza il proprio profilo |
+|       2        | Il cliente clicca sul pulsante 'Elimina' relativo all'informazione che intende rimuovere |
+|       3        | Il sistema mostra la pagina del cliente priva dell'informazione eliminata |
 
-#### Scenario .2
+### Gestione visibilità pubblicità, UC16e
 
-|  Scenario .2  | |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondizione |  |
-| Postcondizione |  |
-|     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
-
-
-### Use case 21, UC21
-
-| Attori coinvolti  |  |
+| Attori coinvolti  | Manager |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondizione   |  |
-|  Postcondizione  |  |
-| Scenario Nominale |  |
+|  Postcondizione  | La visibilità della pubblicità da parte degli utenti viene modificata |
+| Scenario Nominale | Il manager modifica la visibilità della pubblicità da parte degli utenti |
 |     Varianti     |  |
 |    Eccezioni     |  |
 
-#### Scenario .1
+#### Scenario 16e.1
+
+|  Scenario 16e.1  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione | La visibilità della pubblicità da parte degli utenti viene modificata |
+|     Step#      | Descrizione |
+|       1        | Il manager visualizza il proprio profilo |
+|       2        | Il manager clicca sulla checkbox 'Mostra annunci pubblicitari agli utenti' per rendere visibile o meno gli annunci pubblicitari |
+
+
+### Elimina il profilo, UC17
+
+| Attori coinvolti  | Utente autenticato |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondizione   |  |
+|  Postcondizione  | L'utente autenticato diventa un utente non autenticato |
+| Scenario Nominale | l'utente annulla la propria registrazione |
+|     Varianti     |  |
+|    Eccezioni     |  |
+
+#### Scenario 17.1
+
+|  Scenario 17.1  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione | L'utente autenticato diventa un utente non autenticato |
+|     Step#      | Descrizione |
+|       1        | L'utente visualizza il proprio profilo |
+|       2        | L'utente clicca sul pulsante 'Elimina account' |
+|       3        | Il sistema elimina i dati dell'utente annullandone la registrazione |
+|       4        | Il sistema mostra la homepage del sito |
+
+### Ricerca utenti, UC18
+
+| Attori coinvolti  | Admin |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondizione   |  |
+|  Postcondizione  | Visualizzazione di utenti registrati |
+| Scenario Nominale | L'admin visualizza una lista di utenti registrati  |
+|     Varianti     |  |
+|    Eccezioni     |  |
+
+#### Scenario 18.1
+
+|  Scenario 18.1  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione | Esistono utenti registrati che corrispondono ai criteri di ricerca |
+| Postcondizione | Visualizzazione di utenti registrati |
+|     Step#      | Descrizione |
+|       1        | L'admin seleziona dal menù la voce 'Utenti' |
+|       2        | L'admin seleziona il filtro per ruolo o per username |
+|       3        | L'admin visualizza una lista di utenti registrati che corrispondono ai criteri di ricerca |
+
+#### Scenario 18.1
+
+|  Scenario 18.1  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione | Non sistono utenti registrati che corrispondono ai criteri di ricerca |
+| Postcondizione | Non vengono visualizzati utenti registrati |
+|     Step#      | Descrizione |
+|       1        | L'admin seleziona dal menù la voce 'Utenti' |
+|       2        | L'admin seleziona il filtro per ruolo o per username |
+|       3        | L'admin visualizza un messaggio che riporta che non ci sono utenti registrati corrispondenti ai criteri di ricerca |
+
+
+### Elimina l'utente, UC19
+
+| Attori coinvolti  | Admin |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondizione   | Esiste almeno un utente registrato |
+|  Postcondizione  | Il profilo di un utente registrato viene eliminato |
+| Scenario Nominale | L'admin elimina i dati e la registrazione di un utente |
+|     Varianti     |  |
+|    Eccezioni     |  |
+
+#### Scenario 19.1
 
 |  Scenario .1  | |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondizione |  |
-| Postcondizione |  |
+|  Precondizione | Esiste almeno un utente registrato |
+| Postcondizione | Il profilo di un utente registrato viene eliminato |
 |     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
+|       1        | L'admin visualizza una lista di utenti registrati |
+|       2        | L'admin seleziona il pulsante 'Elimina' relativo all'utente che vuole eliminare |
+|       3        | Il sistema elimina i dati relativi all'utente selezionato |
 
-#### Scenario .2
+### Inserisci una recensione, UC20
 
-|  Scenario .2  | |
+| Attori coinvolti  | Cliente |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondizione   | Il cliente deve aver effettuato almeno un acquisto |
+|  Postcondizione  | Una recensione viene aggiunta al prodotto selezionato |
+| Scenario Nominale | Il cliente aggiunge una recensione a uno dei prodotti che ha acquistato |
+|     Varianti     |  |
+|    Eccezioni     |  |
+
+#### Scenario 20.1
+
+|  Scenario 20.1  | |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondizione |  |
-| Postcondizione |  |
+|  Precondizione | Il cliente deve aver effettuato almeno un acquisto |
+| Postcondizione | Una recensione viene aggiunta al prodotto selezionato |
 |     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
+|       1        | Il cliente clicca su 'Le mie recensioni' |
+|       2        | Il sistema mostra una pagina che mostra dei filtri di ricerca e un messaggio che riporta dove cliccare per aggiungere una recensione |
+|       3        | Il cliente clicca sulla parola 'qui' del messaggio |
+|       4        | Il sistema mostra una lista dei prodotti acquistati dal cliente |
+|       5        | Il cliente clicca sul 'Scrivi una recensione' relativo al prodotto che vuole recensire |
+|       6        | Il sistema mostra una pagina per l'inserimento dei dati della recensione |
+|       7        | Il cliente seleziona un voto e inserisce la recensione nel campo 'Descrizione' |
+|       8        | Il cliente clicca su 'Conferma' |
+|       9        | Il sistema verifica che tutti i campi siano stati compilati e ottiene un riscontro positivo |
+|       10        | Il sistema alla pagina con la lista di prodotti acquistati dal cliente, che mostra un messaggio di conferma della corretta riuscita dell'operazione |
+
+
+#### Scenario 20.2
+
+|  Scenario 20.2  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione | Il cliente deve aver effettuato almeno un acquisto |
+| Postcondizione | Nessuna recensione viene aggiunta al prodotto selezionato |
+|     Step#      | Descrizione |
+|       1        | Il cliente clicca su 'Le mie recensioni' |
+|       2        | Il sistema mostra una pagina che mostra dei filtri di ricerca e un messaggio che riporta dove cliccare per aggiungere una recensione |
+|       3        | Il cliente clicca sulla parola 'qui' del messaggio |
+|       4        | Il sistema mostra una lista dei prodotti acquistati dal cliente |
+|       5        | Il cliente clicca sul link 'Scrivi una recensione' relativo al prodotto che vuole recensire |
+|       6        | Il sistema mostra una pagina per l'inserimento dei dati della recensione |
+|       7        | Il cliente seleziona un voto e inserisce la recensione nel campo 'Descrizione' |
+|       8        | Il cliente clicca su 'Conferma' |
+|       9        | Il sistema verifica che tutti i campi siano stati compilati e ottiene un riscontro negativo |
+|       10        | Il sistema mostra un messaggio di errore che conferma la mancata riuscita dell'operazione |
+
+
+### Elimina una recensione, UC21
+
+| Attori coinvolti  | Cliente |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondizione   | Il cliente deve aver registrato almeno una recensione |
+|  Postcondizione  | Una recensione di un determinato prodotto viene eliminata |
+| Scenario Nominale | Il cliente elimina una delle sue recensioni |
+|     Varianti     |  |
+|    Eccezioni     | Non ci sono recensioni relative a prodotti conformi ai criteri di ricerca |
+
+#### Scenario 21.1
+
+|  Scenario 21.1  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione | Il cliente deve aver registrato almeno una recensione |
+| Postcondizione | Una recensione di un determinato prodotto viene eliminata |
+|     Step#      | Descrizione |
+|       1        | Il cliente clicca su 'Le mie recensioni' |
+|       2        | Il sistema mostra una pagina che mostra dei filtri di ricerca e un messaggio che riporta dove cliccare per aggiungere una recensione |
+|       3        | Il cliente seleziona uno o più filtri |
+|       4        | Il cliente clicca su 'Cerca' |
+|       5        | Il sistema mostra una lista di recensioni relative a prodotti che rispettano i criteri di ricerca |
+|       6        | Il cliente clicca sul pulsante 'Elimina' relativo alla recensione che intende eliminare |
+|       7        | Il sistema mostra la lista delle recensioni priva di quella appena eliminata |
+
+#### Scenario 21.2
+
+|  Scenario 21.2  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione | Il cliente deve aver registrato almeno una recensione |
+| Postcondizione | Nessuna recensione viene eliminata |
+|     Step#      | Descrizione |
+|       1        | Il cliente clicca su 'Le mie recensioni' |
+|       2        | Il sistema mostra una pagina che mostra dei filtri di ricerca e un messaggio che riporta dove cliccare per aggiungere una recensione |
+|       3        | Il cliente seleziona uno o più filtri |
+|       4        | Il cliente clicca su 'Cerca' |
+|       5        | Il sistema mostra una pagina che riporta che non ci sono recensioni relative a prodotti conformi ai criteri di ricerca |
 
 
 ### Use case 22, UC22
