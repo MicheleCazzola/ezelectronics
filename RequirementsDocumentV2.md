@@ -1238,10 +1238,8 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 # System Design
 
-\<describe here system design>
-
-\<must be consistent with Context diagram>
+![System diagram](media/version1/system_diagram.png)
 
 # Deployment Diagram
 
-\<describe here deployment diagram >
+![Deployment diagram](media/version2/deployment_diagram.png)
