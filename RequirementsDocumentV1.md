@@ -244,9 +244,10 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |       1        | L'utente clicca sul pulsante 'Registrati' |
 |       2        | L'utente inserisce username, nome, cognome e password,  e seleziona un ruolo (cliente o manager) |
 |       3        | L'utente clicca sul pulsante 'Conferma' |
-|       4        | Il sistema verifica l'unicità dell'username e ottiene un riscontro positivo |
-|       5        | Viene creata una nuova utenza con i dati inseriti |
-|       6        | Si viene riportati alla pagina di login, che mostra un messaggio di corretta riuscita della registrazione |
+|       4        | Il sistema verifica che tutti i campi siano stati compilati e l'unicità dell'username |
+|       5        | Il sistema ottiene un riscontro positivo a tutte le precedenti verifiche |
+|       6        | Viene creata una nuova utenza con i dati inseriti |
+|       7        | Si viene riportati alla pagina di login, che mostra un messaggio di corretta riuscita della registrazione |
 
 #### Scenario 1.2
 
@@ -258,8 +259,9 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |       1        |  L'utente clicca sul pulsante 'Registrati' |
 |       2        | L'utente inserisce username, nome, cognome e password, e selezione un ruolo (cliente o manager) |
 |       3        | L'utente clicca sul pulsante 'Conferma' |
-|       4        | Il sistema verifica l'unicità dell'username e ottiene un riscontro negativo |
-|       5        | Il sistema mostra un messaggio di errore |
+|       4        | Il sistema verifica che tutti i campi siano stati compilati e l'unicità dell'username |
+|       5        | Il sistema  ottiene un riscontro negativo ad almeno una delle precedenti verifiche |
+|       6        | Il sistema mostra un messaggio di errore |
 
 ### Log in, UC2
 
@@ -280,8 +282,9 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |     Passo#     |                 Descrizione                 |
 |       2        |   L'utente inserisce username e password    |
 |       3        |   L'utente clicca sul pulsante 'Login'      |
-|       4        | Il sistema verifica la correttezza dei dati e ottiene un riscontro positivo |
-|       5        |    Viene mostrata l'homepage dell'utente    |
+|       4        | Il sistema verifica che tutti i campi siano stati compilati e la correttezza dei dati |
+|       5        | Il sistema ottiene un riscontro positivo a tutte le precedenti verifiche |
+|       6        |    Viene mostrata l'homepage dell'utente    |
 
 #### Scenario 2.2
 
@@ -292,8 +295,9 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |     Passo#     | Descrizione |
 |       2        | L'utente inserisce username e password |
 |       3        | L'utente clicca sul pulsante 'Login' |
-|       4        | Il sistema verifica la correttezza dei dati e ottiene un riscontro negativo |
-|       5        | Viene mostrato un messaggio errore |
+|       4        | Il sistema verifica che tutti i campi siano stati compilati e la correttezza dei dati |
+|       5        | Il sistema ottiene un riscontro negativo ad almeno una delle precedenti verifiche |
+|       6        | Viene mostrato un messaggio errore |
 
 ### Log out, UC3
 
@@ -481,8 +485,9 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |     Passo#     | Descrizione |
 |       1        | Il manager compila il form 'Nuovo prodotto' inserendo codice, prezzo, data di arrivo, modello, categoria e dettagli relativi al nuovo prodotto |
 |       2        | Il manager clicca sul pulsante 'Inserisci' |
-|       3        | Il sistema verifica che il codice inserito sia univoco e ottiene un riscontro positivo |
-|       4        | Il sistema mostra un messaggio di corretta riuscita dell'operazione |
+|       3        | Il sistema verifica che tutti i campi siano stati compilati e che il codice inserito sia univoco |
+|       4        | Il sistema  ottiene un riscontro positivo a tutte le precedenti verifiche |
+|       5        | Il sistema mostra un messaggio di corretta riuscita dell'operazione |
 
 #### Scenario 10.2
 
@@ -493,8 +498,9 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |     Passo#     |   Descrizione |
 |       1        |   Il manager compila il form 'Nuovo prodotto' inserendo codice, prezzo, data di arrivo, modello, categoria e dettagli relativi al nuovo prodotto   |
 |       2        | Il manager clicca sul pulsante 'Inserisci' |
-|       3        | Il sistema verifica che il codice inserito sia univoco e ottiene un riscontro negativo |
-|       4        | Il sistema mostra un messaggio di mancata riuscita dell'operazione |
+|       3        | Il sistema verifica che tutti i campi siano stati compilati e che il codice inserito sia univoco |
+|       4        | Il sistema ottiene un riscontro negativo ad almeno una delle precedenti verifiche |
+|       5        | Il sistema mostra un messaggio di mancata riuscita dell'operazione |
 
 ### Rimozione prodotto, UC11
 
@@ -571,7 +577,20 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |     Passo#     |    Descrizione   |
 |       1        | Il manager compila il form 'Nuovo arrivo' inserendo modello, categoria, quantità, data di arrivo, prezzo e dettagli  |
 |       2        |    Il manager clicca sul pulsante 'Registra'    |
-|       3        |        Il sistema mostra un messaggio di corretta riuscita dell'operazione         |
+|       3        |        Il sistema verifica che tutti i campi siano stati compilati e ottiene un riscontro positivo         |
+|       4        |        Il sistema mostra un messaggio di corretta riuscita dell'operazione         |
+
+#### Scenario 13.2
+
+| Scenario 13.2  |          |
+| :------------: | :-------------------------------------------------------: |
+| Precondizione  |           Esiste almeno un prodotto           |
+| Postcondizione | L'arrivo di un nuovo set di prodotti è stato registrato |
+|     Passo#     |    Descrizione   |
+|       1        | Il manager compila il form 'Nuovo arrivo' inserendo modello, categoria, quantità, data di arrivo, prezzo e dettagli  |
+|       2        |    Il manager clicca sul pulsante 'Registra'    |
+|       3        |        Il sistema verifica che tutti i campi siano stati compilati e ottiene un riscontro negativo         |
+|       4        |        Il sistema mostra un messaggio di errore che confera la mancata riuscita dell'operazione         |
 
 ### Ricerca prodotti, UC14
 

@@ -376,31 +376,6 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 ![Use Case Diagram](media/version2/use_case_diagram.png)
 
 -----
-\<Themeplate use case>
-### Caso d'uso , UC
-
-| Attori coinvolti  |                                                          |
-| :---------------: | :------------------------------------------------------: |
-|   Precondizione   |                                                          |
-|  Postcondizione   |                                                          |
-| Scenario nominale |                                                          |
-|     Varianti      |                                                          |
-|     Eccezioni     |                                                          |
-
-#### Scenario .1
-
-|  Scenario .1   |                                             |
-| :------------: | :-----------------------------------------: |
-| Precondizione  |                                             |
-| Postcondizione |                                             |
-|     Passo#     |                                             |
-|       2        |                                             |
-|       3        |                                             |
-|       4        |                                             |
-|       5        |                                             |
-
-
------
 
 ### Sign up, UC1
 
@@ -422,9 +397,10 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       1        | L'utente clicca sul pulsante 'Registrati' |
 |       2        | L'utente inserisce username, nome, cognome e password,  e seleziona un ruolo (cliente o manager) |
 |       3        | L'utente clicca sul pulsante 'Conferma' |
-|       4        | Il sistema verifica l'unicità dell'username e ottiene un riscontro positivo |
-|       5        | Viene creata una nuova utenza con i dati inseriti |
-|       6        | Si viene riportati alla pagina di login, che mostra un messaggio di corretta riuscita della registrazione |
+|       4        | Il sistema verifica che tutti i campi siano stati compilati e l'unicità dell'username |
+|       5        | Il sistema ottiene un riscontro positivo a tutte le precedenti verifiche |
+|       6        | Viene creata una nuova utenza con i dati inseriti |
+|       7        | Si viene riportati alla pagina di login, che mostra un messaggio di corretta riuscita della registrazione |
 
 #### Scenario 1.2
 
@@ -436,8 +412,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       1        |  L'utente clicca sul pulsante 'Registrati' |
 |       2        | L'utente inserisce username, nome, cognome e password, e selezione un ruolo (cliente o manager) |
 |       3        | L'utente clicca sul pulsante 'Conferma' |
-|       4        | Il sistema verifica l'unicità dell'username e ottiene un riscontro negativo |
-|       5        | Il sistema mostra un messaggio di errore |
+|       4        | Il sistema verifica che tutti i campi siano stati compilati e l'unicità dell'username |
+|       5        | Il sistema  ottiene un riscontro negativo ad almeno una delle precedenti verifiche |
+|       6        | Il sistema mostra un messaggio di errore |
 
 
 ### Log in, UC2
@@ -459,8 +436,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Passo#     |                 Descrizione                 |
 |       2        |   L'utente inserisce username e password    |
 |       3        |   L'utente clicca sul pulsante 'Login'      |
-|       4        | Il sistema verifica la correttezza dei dati e ottiene un riscontro positivo |
-|       5        |    Viene mostrata l'homepage dell'utente    |
+|       4        | Il sistema verifica che tutti i campi siano stati compilati e la correttezza dei dati |
+|       5        | Il sistema ottiene un riscontro positivo a tutte le precedenti verifiche |
+|       6        |    Viene mostrata l'homepage dell'utente    |
 
 #### Scenario 2.2
 
@@ -471,11 +449,12 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Passo#     | Descrizione |
 |       2        | L'utente inserisce username e password |
 |       3        | L'utente clicca sul pulsante 'Login' |
-|       4        | Il sistema verifica la correttezza dei dati e ottiene un riscontro negativo |
-|       5        | Viene mostrato un messaggio errore |
+|       4        | Il sistema verifica che tutti i campi siano stati compilati e la correttezza dei dati |
+|       5        | Il sistema ottiene un riscontro negativo ad almeno una delle precedenti verifiche |
+|       6        | Viene mostrato un messaggio errore |
 
 
-### Log Out, UC3
+### Log out, UC3
 
 | Attori coinvolti  |                    Utente autenticato                    |
 | :---------------: | :------------------------------------------------------: |
@@ -587,7 +566,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |  Scenario 6.2   |                                             |
 | :------------: | :-----------------------------------------: |
 | Precondizione  | Il cliente visualizza l'elenco dei prodotti |
-| Postcondizione | Il carrello viene aggiornato |
+| Postcondizione | Il carrello non viene aggiornato |
 |     Passo#     |                  Descrizione                |
 |       1        | Il cliente clicca sul pulsante 'Aggiungi al carrello' relativo al prodotto che intende acquistare |
 |       3        | Il sistema verifica che il prodotto selezionato sia ancora disponibile e ottiene un riscontro negativo |
@@ -692,8 +671,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Passo#     | Descrizione |
 |       1        | Il manager compila il form 'Nuovo prodotto' inserendo codice, prezzo, data di arrivo, modello, categoria e dettagli relativi al nuovo prodotto |
 |       2        | Il manager clicca sul pulsante 'Inserisci' |
-|       3        | Il sistema verifica che il codice inserito sia univoco e ottiene un riscontro positivo |
-|       4        | Il sistema mostra un messaggio di corretta riuscita dell'operazione |
+|       3        | Il sistema verifica che tutti i campi siano stati compilati e che il codice inserito sia univoco |
+|       4        | Il sistema  ottiene un riscontro positivo a tutte le precedenti verifiche |
+|       5        | Il sistema mostra un messaggio di corretta riuscita dell'operazione |
 
 #### Scenario 10.2
 
@@ -704,8 +684,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Passo#     |   Descrizione |
 |       1        |   Il manager compila il form 'Nuovo prodotto' inserendo codice, prezzo, data di arrivo, modello, categoria e dettagli relativi al nuovo prodotto   |
 |       2        | Il manager clicca sul pulsante 'Inserisci' |
-|       3        | Il sistema verifica che il codice inserito sia univoco e ottiene un riscontro negativo |
-|       4        | Il sistema mostra un messaggio di mancata riuscita dell'operazione |
+|       3        | Il sistema verifica che tutti i campi siano stati compilati e che il codice inserito sia univoco |
+|       4        | Il sistema ottiene un riscontro negativo ad almeno una delle precedenti verifiche |
+|       5        | Il sistema mostra un messaggio di mancata riuscita dell'operazione |
 
 
 ### Rimozione prodotto, UC11
@@ -771,12 +752,25 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Passo#     |    Descrizione   |
 |       1        | Il manager compila il form 'Nuovo arrivo' inserendo modello, categoria, quantità, data di arrivo, prezzo e dettagli  |
 |       2        |    Il manager clicca sul pulsante 'Registra'    |
-|       3        |        Il sistema mostra un messaggio di corretta riuscita dell'operazione         |
+|       3        |        Il sistema verifica che tutti i campi siano stati compilati e ottiene un riscontro positivo         |
+|       4        |        Il sistema mostra un messaggio di corretta riuscita dell'operazione         |
+
+#### Scenario 13.2
+
+| Scenario 13.2  |          |
+| :------------: | :-------------------------------------------------------: |
+| Precondizione  |           Esiste almeno un prodotto           |
+| Postcondizione | L'arrivo di un nuovo set di prodotti è stato registrato |
+|     Passo#     |    Descrizione   |
+|       1        | Il manager compila il form 'Nuovo arrivo' inserendo modello, categoria, quantità, data di arrivo, prezzo e dettagli  |
+|       2        |    Il manager clicca sul pulsante 'Registra'    |
+|       3        |        Il sistema verifica che tutti i campi siano stati compilati e ottiene un riscontro negativo         |
+|       4        |        Il sistema mostra un messaggio di errore che confera la mancata riuscita dell'operazione         |
 
 
 ### Ricerca prodotti, UC14
 
-| Attori coinvolti  |     Utente autenticato    |
+| Attori coinvolti  |     Utente    |
 | :---------------: | :------------------------------------------------------------: |
 |   Precondizione   |                                |
 |  Postcondizione   | L'utente visualizza una lista di prodotti          |
@@ -791,7 +785,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 | Precondizione  |     Sono presenti prodotti corrispondenti ai filtri di ricerca applicati        |
 | Postcondizione |                    L'utente visualizza una lista di prodotti                         |
 |     Passo#     |                 Descrizione                 |
-|       1        |   Se l'utente è un cliente deve selezionare uno o più filtri dal form 'Cerca prodotti'. Se l'utente è un manager deve spuntare la checkbox 'Prodotti' del form 'Cerca nel negozio' e selezionare uno o più filtri.    |
+|       1        |   Se l'utente è un cliente o un utente non autenticato deve selezionare uno o più filtri dal form 'Cerca prodotti'. Se l'utente è un manager deve spuntare la checkbox 'Prodotti' del form 'Cerca nel negozio' e selezionare uno o più filtri.    |
 |       2        |   L'utente clicca sul pulsante 'Cerca'    |
 |       3        | Il sistema mostra l'elenco dei prodotti corrispondenti ai filtri di ricerca applicati |
 
@@ -802,7 +796,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 | Precondizione  |     Non sono presenti prodotti corrispondenti ai filtri di ricerca applicati        |
 | Postcondizione |   L'utente visualizza una lista vuota                                          |
 |     Passo#     |                 Descrizione                 |
-|       1        |   Se l'utente è un cliente deve selezionare uno o più filtri dal form 'Cerca prodotti'. Se l'utente è un manager deve spuntare la checkbox 'Prodotti' del form 'Cerca nel negozio' e selezionare uno o più filtri.     |
+|       1        |   Se l'utente è un cliente o un utente non autenticato deve selezionare uno o più filtri dal form 'Cerca prodotti'. Se l'utente è un manager deve spuntare la checkbox 'Prodotti' del form 'Cerca nel negozio' e selezionare uno o più filtri.     |
 |       2        |   L'utente clicca sul pulsante 'Cerca'    |
 |       3        | Il sistema mostra una pagina che riporta che non ci sono prodotti corrispondenti ai filtri di ricerca applicati |
 
@@ -860,7 +854,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       4        | L'utente inserisce la password corrente e la nuova password nei rispettivi campi |
 |       5        | L'utente clicca sul pulsante 'Conferma' |
 |       6        | Il sistema verifica che tutti i campi siano stati compilati, che la password corrente inserita sia corretta e che i campi 'Nuova password' e 'Conferma password' sia uguali |
-|       7        | Il sistema ottiene un riscontro positivo alle precedenti verifiche |
+|       7        | Il sistema ottiene un riscontro positivo a tutte le precedenti verifiche |
 |       8        | Il sistema mostra una pagina che riporta un messaggio di corretta riuscita della modifica della password |
 
 #### Scenario 16a.2
@@ -1133,7 +1127,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |  Postcondizione  | Una recensione di un determinato prodotto viene eliminata |
 | Scenario Nominale | Il cliente elimina una delle sue recensioni |
 |     Varianti     |  |
-|    Eccezioni     | Non ci sono recensioni relative a prodotti conformi ai criteri di ricerca |
+|    Eccezioni     |  |
 
 #### Scenario 21.1
 
@@ -1142,29 +1136,79 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |  Precondizione | Il cliente deve aver registrato almeno una recensione |
 | Postcondizione | Una recensione di un determinato prodotto viene eliminata |
 |     Step#      | Descrizione |
-|       1        | Il cliente clicca su 'Le mie recensioni' |
-|       2        | Il sistema mostra una pagina che mostra dei filtri di ricerca e un messaggio che riporta dove cliccare per aggiungere una recensione |
-|       3        | Il cliente seleziona uno o più filtri |
-|       4        | Il cliente clicca su 'Cerca' |
-|       5        | Il sistema mostra una lista di recensioni relative a prodotti che rispettano i criteri di ricerca |
-|       6        | Il cliente clicca sul pulsante 'Elimina' relativo alla recensione che intende eliminare |
-|       7        | Il sistema mostra la lista delle recensioni priva di quella appena eliminata |
+|       1        | Il cliente visualizza la lista delle sue recensioni |
+|       2        | Il cliente clicca sul pulsante 'Elimina' relativo alla recensione che intende eliminare |
+|       3        | Il sistema mostra la lista delle recensioni priva di quella appena eliminata |
 
-#### Scenario 21.2
+### Visualizza cronologia recensioni, UC22
 
-|  Scenario 21.2  | |
+| Attori coinvolti  | Cliente |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondizione   |  |
+|  Postcondizione  | Viene visualizzata una lista di recensioni effettuate dal cliente |
+| Scenario Nominale | Il cliente visualizza una lista delle proprie recensioni |
+|     Varianti     |  |
+|    Eccezioni     |  |
+
+#### Scenario 22.1
+
+|  Scenario 22.1  | |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondizione | Il cliente deve aver registrato almeno una recensione |
-| Postcondizione | Nessuna recensione viene eliminata |
+|  Precondizione | Esiste almeno una recensione relativa a un prodotto conforme ai criteri di ricerca |
+| Postcondizione | Viene visualizzata una lista di recensioni effettuate dal cliente |
 |     Step#      | Descrizione |
 |       1        | Il cliente clicca su 'Le mie recensioni' |
 |       2        | Il sistema mostra una pagina che mostra dei filtri di ricerca e un messaggio che riporta dove cliccare per aggiungere una recensione |
 |       3        | Il cliente seleziona uno o più filtri |
-|       4        | Il cliente clicca su 'Cerca' |
+|       4        | Il cliente clicca sul pulsante 'Cerca' |
+|       5        | Il sistema mostra una lista di recensioni relative a prodotti che rispettano i criteri di ricerca |
+
+#### Scenario 22.2
+
+|  Scenario 22.2  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione | Non esiste almeno una recensione relativa a un prodotto conforme ai criteri di ricerca |
+| Postcondizione | Viene visualizzata una lista vuota |
+|     Step#      | Descrizione |
+|       1        | Il cliente clicca su 'Le mie recensioni' |
+|       2        | Il sistema mostra una pagina che mostra dei filtri di ricerca e un messaggio che riporta dove cliccare per aggiungere una recensione |
+|       3        | Il cliente seleziona uno o più filtri |
+|       4        | Il cliente clicca sul pulsante 'Cerca' |
 |       5        | Il sistema mostra una pagina che riporta che non ci sono recensioni relative a prodotti conformi ai criteri di ricerca |
 
+### Visualizza le recensioni di un prodotto, UC23
 
-### Use case 22, UC22
+| Attori coinvolti  | Utente |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondizione   |  |
+|  Postcondizione  | Vengono mostrate le recensioni di un prodotto |
+| Scenario Nominale | L'utente visualizza le recensioni di un prodotto |
+|     Varianti     |  |
+|    Eccezioni     |  |
+
+#### Scenario 23.1
+
+|  Scenario 23.1  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione | C'è almeno una recensione relativa al prodotto selezionato |
+| Postcondizione | Vengono mostrate le recensioni di un prodotto |
+|     Step#      | Descrizione |
+|       1        | L'utente visualizza i prodotti |
+|       2        | L'utente clicca sul link 'Visualizza recensioni' relativo al prodotto di cui intende visualizzare le recensioni |
+|       3        | Il sistema mostra una pagina con la lista di recensioni disponibili per quel prodotto |
+
+#### Scenario 23.2
+
+|  Scenario 23.2  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione | Non c'è almeno una recensione relativa al prodotto selezionato |
+| Postcondizione | Non vengono mostrate recensioni |
+|     Step#      | Descrizione |
+|       1        | L'utente visualizza i prodotti |
+|       2        | L'utente clicca sul link 'Visualizza recensioni' relativo al prodotto di cui intende visualizzare le recensioni |
+|       3        | Il sistema mostra una pagina che riporta che non ci sono recensioni disponibili per quel prodotto |
+
+### Ricerca recensioni, UC24
 
 | Attori coinvolti  |  |
 | :--------------: | :------------------------------------------------------------------: |
@@ -1196,8 +1240,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       2        |  |
 |       3        |  |
 
-
-### Use case 23, UC23
+### Elimina tutti i prodotti, UC25
 
 | Attori coinvolti  |  |
 | :--------------: | :------------------------------------------------------------------: |
@@ -1229,6 +1272,101 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       2        |  |
 |       3        |  |
 
+### Elimina tutti gli utenti, UC26
+
+| Attori coinvolti  |  |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondizione   |  |
+|  Postcondizione  |  |
+| Scenario Nominale |  |
+|     Varianti     |  |
+|    Eccezioni     |  |
+
+#### Scenario .1
+
+|  Scenario .1  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
+
+#### Scenario .2
+
+|  Scenario .2  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
+
+### Elimina tutti i carrelli, UC27
+
+| Attori coinvolti  |  |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondizione   |  |
+|  Postcondizione  |  |
+| Scenario Nominale |  |
+|     Varianti     |  |
+|    Eccezioni     |  |
+
+#### Scenario .1
+
+|  Scenario .1  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
+
+#### Scenario .2
+
+|  Scenario .2  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
+
+### Elimina tutte le recensioni, UC28
+
+| Attori coinvolti  |  |
+| :--------------: | :------------------------------------------------------------------: |
+|   Precondizione   |  |
+|  Postcondizione  |  |
+| Scenario Nominale |  |
+|     Varianti     |  |
+|    Eccezioni     |  |
+
+#### Scenario .1
+
+|  Scenario .1  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
+
+#### Scenario .2
+
+|  Scenario .2  | |
+| :------------: | :------------------------------------------------------------------------: |
+|  Precondizione |  |
+| Postcondizione |  |
+|     Step#      | Descrizione |
+|       1        |  |
+|       2        |  |
+|       3        |  |
 
 # Glossary
 
