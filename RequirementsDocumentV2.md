@@ -341,10 +341,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 ## Use case diagram
 
-\<define here UML Use case diagram UCD summarizing all use cases, and their relationships>
-
-\<next describe here each use case in the UCD>
-
+![Use Case Diagram](media/version2/use_case_diagram.png)
 
 -----
 \<Themeplate use case>
