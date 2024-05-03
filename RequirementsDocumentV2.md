@@ -688,7 +688,7 @@ Anche se non indicato nel diagramma per questioni di chiarezza visiva, l'admin p
 | Precondizione  |  |
 | Postcondizione | Un nuovo prodotto è stato aggiunto |
 |     Passo#     | Descrizione |
-|       1        | Il manager compila il form 'Nuovo prodotto' inserendo codice, prezzo, data di arrivo, modello, categoria e dettagli relativi al nuovo prodotto |
+|       1        | Il manager compila il form 'Nuovo prodotto' inserendo prezzo, data di arrivo, modello, categoria e dettagli relativi al nuovo prodotto |
 |       2        | Il manager clicca sul pulsante 'Inserisci' |
 |       3        | Il sistema verifica che tutti i campi siano stati compilati e che il codice inserito sia univoco |
 |       4        | Il sistema  ottiene un riscontro positivo a tutte le precedenti verifiche |
@@ -701,7 +701,7 @@ Anche se non indicato nel diagramma per questioni di chiarezza visiva, l'admin p
 | Precondizione  | Esiste già un prodotto con lo stesso codice del nuovo prodotto |
 | Postcondizione | Il nuovo prodotto non viene aggiunto |
 |     Passo#     |   Descrizione |
-|       1        |   Il manager compila il form 'Nuovo prodotto' inserendo codice, prezzo, data di arrivo, modello, categoria e dettagli relativi al nuovo prodotto   |
+|       1        |   Il manager compila il form 'Nuovo prodotto' inserendo prezzo, data di arrivo, modello, categoria e dettagli relativi al nuovo prodotto   |
 |       2        | Il manager clicca sul pulsante 'Inserisci' |
 |       3        | Il sistema verifica che tutti i campi siano stati compilati e che il codice inserito sia univoco |
 |       4        | Il sistema ottiene un riscontro negativo ad almeno una delle precedenti verifiche |
