@@ -92,6 +92,7 @@ Scegli classe:
 2. Prodotti
 3. Carrelli
 4. Recensioni
+5. Spedizioni
 
 >
 ```
@@ -125,6 +126,12 @@ In base al ruolo selezionato vengono mostrati campi differenti:
 ```
 Inserisci indirizzo di spedizione [opzionale]:
 inserisci metodo di pagamento [opzionale]:
+```
+
+- manager
+
+```
+TODO
 ```
 
 #### Menu Utenti - Modifica
@@ -198,6 +205,79 @@ Vuoi davvero rimuovere l'utente U1234 - Mario Rossi, cliente?
 
 ### Menu Prodotti
 
+```
+Scegli operazione:
+1. Inserimento
+2. Modifica
+3. Rimuovi
+
+>
+```
+
+#### Menu Prodotti - Inserimento
+
+```
+Inserisci il codice prodotto [auto]:
+Inserisci il modello:
+Inserisci il prezzo:
+```
+
+#### Menu Prodotti - Modifica
+
+```
+Inserisci le keyword di ricerca
+
+>
+```
+
+Dopo l'inserimento:
+
+```
+Seleziona il prodotto o premi invio per mostrarne altri:
+1. P1234 - Iphone13
+2. P2341 - SamsungGalaxyS20
+...
+
+>
+```
+
+Viene mostrata la lista degli attributi del prodotto selezionato:
+
+```
+1. Codice
+2. Modello
+3. Prezzo
+```
+
+#### Menu Prodotti - Rimozione
+
+```
+Inserisci le keyword di ricerca
+
+>
+```
+
+Dopo l'inserimento:
+
+```
+Seleziona l'utente o premi invio per mostrarne altri:
+1. P1234 - Iphone13
+2. P2341 - SamsungGalaxyS20
+...
+
+>
+```
+
+Dopo la scelta:
+
+```
+Vuoi davvero rimuovere il prodotto P1234?
+(y/n)
+>
+```
+
 ### Menu Carrelli
 
 ### Menu Recensioni
+
+### Menu Spedizioni
