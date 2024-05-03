@@ -232,7 +232,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |  Postcondizione   | Esiste una nuova utenza nel sistema |
 | Scenario nominale | L'utente non autenticato inserisce i dati e registra una nuova utenza |
 |     Varianti      |  |
-|     Eccezioni     | L'username inserito risulta già esistente |
+|     Eccezioni     | L'username inserito risulta già esistente, non vengono compilati tutti i campi del form |
 
 #### Scenario 1.1
 
@@ -271,7 +271,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |  Postcondizione   | L'utente è autenticato |
 | Scenario nominale | L'utente inserisce i dati, il sistema ne verifica la correttezza e in caso positivo effettua l'accesso |
 |     Varianti      |  |
-|     Eccezioni     | Se i dati inseriti non sono corretti viene mostrato un errore e non si effettua l'accesso |
+|     Eccezioni     | Se i dati inseriti non sono corretti o non vengono compilati tutti i campi del form, viene mostrato un errore e non si effettua l'accesso |
 
 #### Scenario 2.1
 
@@ -474,7 +474,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |  Postcondizione   |      Un nuovo prodotto è stato aggiunto     |
 | Scenario nominale |    Il manager aggiunge un nuovo prodotto    |
 |     Varianti      |                                             |
-|     Eccezioni     | Esiste già un prodotto con lo stesso codice |
+|     Eccezioni     | Esiste già un prodotto con lo stesso codice, non vengono compilati tutti i campi del form |
 
 #### Scenario 10.1
 
@@ -566,7 +566,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |  Postcondizione   | L'arrivo di un nuovo set di prodotti è stato registrato  |
 | Scenario nominale | Il manager registra l'arrivo di un nuovo set di prodotti |
 |     Varianti      |                                                |
-|     Eccezioni     |                                                 |
+|     Eccezioni     |   Non vengono compilati tutti i campi del form    |
 
 #### Scenario 13.1
 
