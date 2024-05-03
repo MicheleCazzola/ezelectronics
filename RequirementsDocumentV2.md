@@ -295,77 +295,22 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 |  ID  | Tipo (efficienza, affidabilità, ..) |                                                 Descrizione                                                  |   Si riferisce a   |
 | :--: | :---------------------------------: | :----------------------------------------------------------------------------------------------------------: | :----------------: |
-| NFR1 |              Usabilità              |      Non deve essere necessario training per essere in grado di utilizzare l'applicazione in autonomia       | FR1, FR2, FR3, FR4 |
-| NFR2 |            Disponibilità            |                                 L'uptime del server deve essere pari al 99%                                  | FR1, FR2, FR3, FR4 |
-| NFR3 |              Security               | L'autenticazione deve essere gestita mediante librerie che utilizzano pratiche conformi allo stato dell'arte |      FR1, FR2      |
-| NFR4 |              Privacy               | Il sistema non deve conservare dati personali e identificativi degli utenti se non sono necessari |            |
-| NFR5 |              Privacy               | I dati personali e identificativi degli utenti devono essere gestiti nel rispetto delle normative GDPR |            |
-| NFR6 |              Security               | Il software non deve essere vulnerabile ad attacchi XSS e SQL injection |            |
-| NFR7 |              Security               | Le dipendenze con vulnerabilità critiche (CVSS rating >= 6) devono essere aggiornate entro 1 settimana |            |
-| NFR8 |              Security               | Le dipendenze con vulnerabilità note di qualsiasi tipo devono essere aggiornate entro 2 mesi |            |
-| NFR9 |              Security               | Non deve essere possibile utilizzare una password non sicura (una password è considerata sicura se ha >=10 caratteri e contiene simboli, numeri, lettere maiuscole e minuscole) |            |
-| NFR10 |              Security               | L'autenticazione deve essere gestita tramite librerie che utilizzano pratiche allo stato dell'arte |            |
-| NFR11 |              Security               | Deve essere possibile abilitare la 2FA per utenti che lo desiderano |            |
-| NFR12 |              Security               | Il server deve mantenere dei log di tutti i tentativi di accesso per almeno 3 mesi, per poter individuare tentativi di accesso fraudolenti |            |
-| NFR13 |              Affidabilità               | Ogni utente non deve segnalare più di 2 bug all'anno |            |
-| NFR14 |              Correttezza               | L'applicazione deve essere in grado di gestire un aumento del traffico senza degrado delle prestazioni |            |
-| NFR15 |              Efficienza               | Il tempo di risposta deve essere pari o inferiore a 2 secondi |            |
-| NFR16 |              Manutenibilità               | Risolvere un problema software deve richiedere un effort massimo di 7 person/hours |            |
-| NFR17 |              Manutenibilità               | Modificare una funzionalità esistente deve richiedere un effort massimo di 7 person/hours |            |
-| NFR18 |              Manutenibilità               | Eliminare una funzionalità esistente deve richiedere un effort massimo di 3 person/hours |            |
-| NFR19 |              Manutenibilità               | Aggiungere una nuova funzionalità deve richiedere un effort massimo di 35 person/hours |            |
-| NFR20 |              Portabilità               | Modificare il DBMS su cui memorizzare i dati deve richiedere un effort massimo di 35 person/hours |            |
-| NFR21 |              Portabilità               | L'applicazione web deve essere disponibile sui browser Chrome, Firefox, Edge, Safari e Opera |            |
-| NFR22 |              Security              | Il numero di accessi malintenzionati deve essere inferiore a 1 all'anno |            |
-| NFR23 |              Security              | Il sistema deve effettuare sempre un controllo sui reali privilegi di chi effettua qualunque operazione prima di autorizzare operazioni di lettura/scrittura, esecuzione o cancellazione. |            |
-
----
-
-**Francesco**
-
-- Privacy:
-  - Il sistema non deve conservare dati personali e identificativi degli utenti se non sono necessari
-  - I dati personali e identificativi degli utenti devono essere gestiti nel rispetto delle normative GDPR
-- Security:
-  - Il software non deve essere vulnerabile ad attacchi XSS e SQL injection
-  - Le dipendenze con vulnerabilità critiche (CVSS rating >= 6) devono essere aggiornate entro 1 settimana
-  - Le dipendenze con vulnerabilità note di qualsiasi tipo devono essere aggiornate entro 2 mesi
-  - Non deve essere possibile utilizzare una password non sicura (una password è considerata sicura se ha >=10 caratteri e contiene simboli, numeri, lettere maiuscole e minuscole)
-  - L'autenticazione deve essere gestita tramite librerie che utilizzano pratiche allo stato dell'arte
-  - Deve essere possibile abilitare la 2FA per utenti che lo desiderano
-  - Il server deve mantenere dei log di tutti i tentativi di accesso per almeno 3 mesi, per poter individuare tentativi di accesso fraudolenti
-
----
-
-**Flaviana**
-- Affidabilità: ogni utente non deve segnalare più di 2 bug all'anno
-- Correttezza: l'applicazione deve essere in grado di gestire un aumento del traffico senza degrado delle prestazioni
----
-
-**Michele**
-- Efficienza:
-  - il tempo di risposta deve essere pari o inferiore a 2 secondi
-- Correttezza:
-  - ??
-- Manutenibilità:
-  - risolvere un problema software deve richiedere un effort massimo di 7 person/hours
-  - modificare una funzionalità esistente deve richiedere un effort massimo di 7 person/hours
-  - eliminare una funzionalità esistente deve richiedere un effort massimo di 3 person/hours
-  - aggiungere una nuova funzionalità deve richiedere un effort massimo di 35 person/hours
-- Portabilità:
-  - modificare il DBMS su cui memorizzare i dati deve richiedere un effort massimo di 35 person/hours
-  - l'applicazione web deve essere disponibile sui browser Chrome, Firefox, Edge, Safari e Opera
-- Safety:
-  - il sistema non deve causare danni a persone o ambienti (è SW, quindi non saprei nemmeno se includerlo)
-- Security:
-  - il numero di accessi malintenzionati deve essere inferiore a 1 all'anno
-  - qualcosa su privacy dei dati utente (crittografia, cors?), possibile GDPR-compliance o simili
----
-
-**Giuseppe**
-- Security:
-  -  Il sistema deve effettuare sempre un controllo sui reali privilegi di chi effettua qualunque operazione prima di autorizzare operazioni di lettura/scrittura, esecuzione o cancellazione.
----
+| NFR1 |              Usabilità              |      Non deve essere necessario training per essere in grado di utilizzare l'applicazione in autonomia       | FR1, FR2.1, FR3, FR4.1, FR4.2, FR4.3, FR4.4, FR4.5.2, FR4.5.3, FR5.1, FR5.2, FR5.3.1, FR5.4, FR6.2, FR8.3.2   |
+| NFR2 |            Disponibilità            |                                 L'uptime del server deve essere pari al 99%                                  | All |
+| NFR3 |              Security               | L'autenticazione deve essere gestita mediante librerie che utilizzano pratiche conformi allo stato dell'arte |      FR1, FR2.1      |
+| NFR4 |              Privacy               | Il sistema non deve conservare dati personali e identificativi degli utenti se non sono necessari |     FR2.1       |
+| NFR5 |              Security               | Il software non deve essere vulnerabile ad attacchi XSS e SQL injection |     All       |
+| NFR6 |              Security               | Le dipendenze con vulnerabilità critiche (CVSS rating >= 6) devono essere aggiornate entro 1 settimana |    All        |
+| NFR7 |              Security               | Le dipendenze con vulnerabilità note di qualsiasi tipo devono essere aggiornate entro 2 mesi |    All        |
+| NFR8 |              Affidabilità               | Ogni utente non deve segnalare più di 2 bug all'anno |      FR1, FR2.1, FR3, FR4.1, FR4.2, FR4.3, FR4.4, FR4.5.2, FR4.5.3, FR5.1, FR5.2, FR5.3.1, FR5.4, FR6.2, FR8.3.2      |
+| NFR15 |              Efficienza               | Il tempo di risposta deve essere pari o inferiore a 500 millisecondi |    All        |
+| NFR14 |              Correttezza               | L'applicazione deve essere in grado di gestire un aumento del traffico senza degrado delle prestazioni (tempo di risposta inferiore a 500 ms) |    All        |
+| NFR16 |              Manutenibilità               | Risolvere un problema software deve richiedere un effort massimo di 7 person/hours |   All         |
+| NFR17 |              Manutenibilità               | Modificare una funzionalità esistente deve richiedere un effort massimo di 7 person/hours |     All       |
+| NFR18 |              Manutenibilità               | Eliminare una funzionalità esistente deve richiedere un effort massimo di 3 person/hours |     All       |
+| NFR19 |              Manutenibilità               | Aggiungere una nuova funzionalità deve richiedere un effort massimo di 35 person/hours |      All      |
+| NFR20 |              Portabilità               | Modificare il DBMS su cui memorizzare i dati deve richiedere un effort massimo di 35 person/hours |     FR1, FR2, FR3, FR4, FR5, FR7, FR8       |
+| NFR21 |              Portabilità               | L'applicazione web deve essere disponibile sui browser Chrome, Firefox, Edge, Safari e Opera |     All       |
 
 # Use case diagram and use cases
 
