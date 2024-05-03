@@ -130,7 +130,6 @@ Persona: Giulia, 24 anni, cliente del negozio
 - Giulia vuole gestire facilmente gli articoli nel suo carrello
 - Giulia vuole tenere traccia dei suoi acquisti passati in modo da poterli visionare quando vuole
 - Giulia vuole poter recensire i prodotti che ha acquistato in modo da lasciare la propria opinione
-- Giulia vorrebbe nascondere gli annunci pubblicitari
 - Giulia vorrebbe avere più indirizzi di consegna salvati in modo da poter farsi spedire gli acquisti dove le sembri più comodo
 
 Persona: Valerio, 36 anni, cliente del negozio
@@ -147,7 +146,6 @@ Persona: Marta, 27 anni, cliente del negozio:
 - Marta vuole aggiungere e togliere al proprio carrello tutti i prodotti che desidera
 - Marta vuole poter eliminare tutti i prodotti dal proprio carrello con una semplice mossa
 - Marta vuole accedere velocemente ai suoi acquisti
-- Marta vuole essere in grado di trovare i prodotti tramite il loro codice identificativo
 - Marta vuole tenere traccia delle sue spedizioni in corso
 
 Persona: Giancarlo, 30 anni, cliente del negozio:
