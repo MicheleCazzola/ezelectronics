@@ -1109,18 +1109,18 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 | Precondizione  |                                                                                      |
 | Postcondizione |                       Presenza di un nuovo oggetto nel negozio                       |
 |     Step#      |                                     Descrizione                                      |
-|       1        |          L'admin seleziona dalla sua interfaccia la voce 'aggiungi oggetto'          |
-|       2        |             L'admin seleziona il tipo di oggetto da inserire nel sistema             |
+|       1        |          L'admin digita la classe dell'oggetto che vuole inserire         |
+|       2        |             L'admin digita 'Inserimento'  per inserirlo   |
 |       3        | L'admin completa i campi richiesti dal sistema riguardo le informazioni dell'oggetto |
-|       4        |                      L'admin seleziona il pulsante di conferma                       |
-|       5        |            Il sistema aggiunge al sistema l'oggetto compilato dall'admin             |
+|       4        |            L'admin conferma le sue scelte premendo invio            |
+|       5        |           Il sistema aggiunge al sistema l'oggetto compilato dall'admin             |
 
 ### Ricerca Oggetto, UC24
 
 | Attori coinvolti  |                               Admin                               |
 | :---------------: | :---------------------------------------------------------------: |
 |   Precondizione   |                                                                   |
-|  Postcondizione   |              L'admin visualizza una lista di oggetti              |
+|  Postcondizione   |                            |
 | Scenario Nominale | L'admin effettua la ricerca di un oggetto all'interno del sistema |
 |     Varianti      | Non sono presenti oggetti corrispondenti alla ricerca effettuata  |
 |     Eccezioni     |                                                                   |
@@ -1130,21 +1130,25 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 | Scenario 24.1  |                                                                                                                                       |
 | :------------: | :-----------------------------------------------------------------------------------------------------------------------------------: |
 | Precondizione  |                                  Sono presenti oggetti corrispondenti ai filtri di ricerca applicati                                  |
-| Postcondizione |                                                L'admin visualizza una lista di oggetti                                                |
-|     Step#      |                                                              Descrizione                                                              |
-|       1        | L'admin inserisce nella sezione di ricerca il nome o seleziona la categoria, il modello o "venduti" dell'oggetto che si vuole cercare |
-|       2        |                                                  L'admin clicca sul pulsante "cerca"                                                  |
-|       3        |                        Il sistema mostra l'elenco di oggetti che corrispondono ai parametri di ricera inseriti                        |
+| Postcondizione |       L'admin visualizza una lista di oggetti    |
+|     Step#      | Descrizione                                                              |
+|       1        |          L'admin digita la classe dell'oggetto che vuole inserire         |
+|       2        | L'admin accede alla sezione di ricerca digitando 'Ricerca' |
+| 3 | L'admin digita zero o più parole chiave relative a ciò che vuole cercare |
+|       3        |        L'admin clicca invio per procedere con la ricerca   |
+|       4        |  Il sistema mostra l'elenco di oggetti che corrispondono ai parametri di ricera inseriti                        |
 
-#### Scenario 24.2
+#### Scenario 24.2 - Eccezione e Variante?
 
 | Scenario 24.2  |                                                                                                                                       |
 | :------------: | :-----------------------------------------------------------------------------------------------------------------------------------: |
 | Precondizione  |                                   Non sono presenti oggetti corrispondenti alla ricerca effettuata                                    |
 | Postcondizione |                                                 L'admin non visualizza alcun oggetto                                                  |
 |     Step#      |                                                              Descrizione                                                              |
-|       1        | L'admin inserisce nella sezione di ricerca il nome o seleziona la categoria, il modello o "venduti" dell'oggetto che si vuole cercare |
-|       2        |                                                  L'admin clicca sul pulsante "cerca"                                                  |
+|       1        |          L'admin digita la classe dell'oggetto che vuole cercare         |
+|       2        | L'admin accede alla sezione di ricerca digitando 'Ricerca' |
+| 3 | L'admin digita zero o più parole chiave relative a ciò che vuole cercare |
+|       3        |        L'admin clicca invio per procedere con la ricerca   |
 |       3        |            Il sistema mostra una pagina che riporta che non ci sono oggetti corrispondenti ai parametri di ricerca forniti            |
 
 ### Modifica oggetto, UC25
@@ -1161,35 +1165,26 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 | Scenario 25.1  |                                                                                                        |
 | :------------: | :----------------------------------------------------------------------------------------------------: |
-| Precondizione  |                          L'admin visualizza l'oggetto che desidera modificare                          |
+| Precondizione  |                  |
 | Postcondizione |                           Il sistema salva le modifiche apportate dall'admin                           |
 |     Step#      |                                              Descrizione                                               |
-|       1        |                                L'admin clicca sul pulsante di modifica                                 |
-|       2        |                                  L'admin apporta le modifiche volute                                   |
-|       3        |                                L'admin clicca sul pulsante di conferma                                 |
-|       4        |                            Il sistema verifica la validità delle modifiche                             |
-|       5        |                Il sistema ottiene riscontro positivo relativo alle modifiche apportate                 |
-|       6        | Il sistema mostra una pagina che riporta un messaggio di corretta riuscita della modifica dell'oggetto |
+|       1        |          L'admin digita la classe dell'oggetto che vuole modificare         |
+|       2        | L'admin accede alla sezione di modifica digitando 'Modifica' |
+|       3       |                                  L'admin cerca, digitando una o più keyword, l'elemento che vuole modificare     |
+|       4        |                                L'admin clicca il pulsante di invio per confermare la ricerca   |
+| 5 | L'admin seleziona il prodotto da modificare nella lista proposta dal sistema |
+| 6 | L'admin apporta le modifiche che desidera all'oggetto selezionato |
+|       7       |                            Il sistema verifica la validità delle modifiche                             |
+|       8        |                Il sistema ottiene riscontro positivo relativo alle modifiche apportate                 |
+|       9        | Il sistema mostra una pagina che riporta un messaggio di corretta riuscita della modifica dell'oggetto |
 
-#### Scenario 25.2
 
-| Scenario 25.2  |                                                                                    |
-| :------------: | :--------------------------------------------------------------------------------: |
-| Precondizione  |                L'admin visualizza l'oggetto che desidera modificare                |
-| Postcondizione |               Il sistema non salva le modifiche apportate dall'admin               |
-|     Step#      |                                    Descrizione                                     |
-|       1        |                      L'admin clicca sul pulsante di modifica                       |
-|       2        |                        L'admin apporta le modifiche volute                         |
-|       3        |                      L'admin clicca sul pulsante di conferma                       |
-|       4        |                  Il sistema verifica la validità delle modifiche                   |
-|       5        |      Il sistema ottiene riscontro negativo relativo alle modifiche apportate       |
-|       6        | Il sistema mostra un messaggio di errore che riporta il fallimento dell'operazione |
 
 ### Elimina oggetto, UC26
 
 | Attori coinvolti  |                              Admin                               |
 | :---------------: | :--------------------------------------------------------------: |
-|   Precondizione   | L'admin visualizza l'oggetto che desidera eliminare dal sistema  |
+|   Precondizione   |  |
 |  Postcondizione   | L'oggetto selezionato non è più presente all'interno del sistema |
 | Scenario Nominale |              L'admin rimuove dal sistema un oggetto              |
 |     Varianti      |                                                                  |
@@ -1199,12 +1194,16 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 | Scenario 26.1  |                                                                  |
 | :------------: | :--------------------------------------------------------------: |
-| Precondizione  | L'admin visualizza l'oggetto che desidera eliminare dal sistema  |
+| Precondizione  |   |
 | Postcondizione | L'oggetto selezionato non è più presente all'interno del sistema |
 |     Step#      |                           Descrizione                            |
-|       1        |          L'admin clicca sul pulsante "Elimina oggetto"           |
-|       2        |             L'admin clicca sul pulsante di conferma              |
-|       3        |                   Il sistema rimuove l'oggetto                   |
+|       1        |          L'admin digita la classe dell'oggetto che vuole eliminare         |
+|       2        | L'admin accede alla sezione relativa all'eliminazione di un oggetto digitando 'Rimuovi' |
+|       3       |                                  L'admin cerca, digitando una o più keyword, l'elemento che vuole eliminare     |
+|       4        |                                L'admin clicca il pulsante di invio per confermare la ricerca   |
+| 5 | L'admin seleziona il prodotto da eliminare nella lista proposta dal sistema |
+| 6 | L'admin conferma la sua scelta digitando "y" in caso di scelta positiva e "n" nel caso volesse annullare l'operazione |
+| 7 | Il sistema rimuove l'oggetto |
 
 ### Visualizza le recensioni di un prodotto, UC27
 
