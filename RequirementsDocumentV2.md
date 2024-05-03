@@ -422,7 +422,7 @@ Anche se non indicato nel diagramma per questioni di chiarezza visiva, l'admin p
 |  Postcondizione   |                                          L'utente è autenticato                                           |
 | Scenario nominale | L'utente inserisce i dati, il sistema ne verifica la correttezza e in caso positivo effettua l'accesso |
 |     Varianti      |                                                                                                           |
-|     Eccezioni     |         Se i dati inseriti non sono corretti o non i campi del form sono stati compilati, viene mostrato un errore e non si effettua l'accesso         |
+|     Eccezioni     |         Se i dati inseriti non sono corretti o non tutti i campi del form sono stati compilati, viene mostrato un errore e non si effettua l'accesso         |
 
 #### Scenario 2.1
 
