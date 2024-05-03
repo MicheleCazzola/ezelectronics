@@ -648,10 +648,28 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 # Glossario
 
 ![Class Diagram](media/version1/glossario.png)
-Nota:
 
-- Il codice prodotto è lungo almeno 6 caratteri
-- Il codice carrello è numerico
+__Utente__:
+- Username: stringa non vuota, univoca all'interno del sistema, in relazione agli utenti presenti;
+- Password: stringa non vuota;
+- Nome: stringa non vuota;
+- Cognome: stringa non vuota;
+- Ruolo: stringa i cui valori possibili sono "Customer" oppure "Manager".
+
+__Prodotto__:
+- Codice: stringa lunga almeno 6 caratteri, univoca all'interno del sistema, in relazione ai prodotti presenti;
+- Prezzo: numero decimale, strettamente positivo;
+- Modello: stringa non vuota;
+- Categoria: stringa i cui valori possibili sono "Laptop", "Smartphone" oppure "Appliance";
+- DataArrivo: stringa opzionale in formato YYYY-MM-DD;
+- DataVendita: stringa opzionale in formato YYYY-MM-DD;
+- Dettagli: stringa opzionale.
+
+__Carrello__:
+- ID: numero;
+- Pagato: valore booleano;
+- DataPagamento: stringa opzionale in formato YYYY-MM-DD;
+- Prezzo totale: numero, dato dalla somma dei prezzi dei prodotti acquistati.
 
 # System Design
 
