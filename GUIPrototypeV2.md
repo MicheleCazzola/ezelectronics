@@ -146,8 +146,8 @@ Dopo l'inserimento:
 
 ```
 Seleziona l'utente o premi invio per mostrarne altri:
-1. U1234 - Mario Rossi, Cliente
-2. U2341 - Emanuele Palumbo, Manager
+1. U12345 - Mario Rossi, Cliente
+2. U23413 - Emanuele Palumbo, Manager
 ...
 
 >
@@ -188,8 +188,8 @@ Dopo l'inserimento:
 
 ```
 Seleziona l'utente o premi invio per mostrarne altri:
-1. U1234 - Mario Rossi, Cliente
-2. U2341 - Emanuele Palumbo, Manager
+1. U12345 - Mario Rossi, Cliente
+2. U23413 - Emanuele Palumbo, Manager
 ...
 
 >
@@ -198,7 +198,7 @@ Seleziona l'utente o premi invio per mostrarne altri:
 Dopo la scelta:
 
 ```
-Vuoi davvero rimuovere l'utente U1234 - Mario Rossi, cliente?
+Vuoi davvero rimuovere l'utente U12345 - Mario Rossi, cliente?
 (y/n)
 >
 ```
@@ -234,8 +234,8 @@ Dopo l'inserimento:
 
 ```
 Seleziona il prodotto o premi invio per mostrarne altri:
-1. P1234 - Iphone13
-2. P2341 - SamsungGalaxyS20
+1. P12345 - Iphone13
+2. P23413 - SamsungGalaxyS20
 ...
 
 >
@@ -261,8 +261,8 @@ Dopo l'inserimento:
 
 ```
 Seleziona l'utente o premi invio per mostrarne altri:
-1. P1234 - Iphone13
-2. P2341 - SamsungGalaxyS20
+1. P12345 - Iphone13
+2. P23413 - SamsungGalaxyS20
 ...
 
 >
@@ -271,13 +271,34 @@ Seleziona l'utente o premi invio per mostrarne altri:
 Dopo la scelta:
 
 ```
-Vuoi davvero rimuovere il prodotto P1234?
+Vuoi davvero rimuovere il prodotto P12345?
 (y/n)
 >
 ```
 
 ### Menu Carrelli
 
+Analoga a Menu Prodotti, ma con la seguente lista di attributi:
+
+```
+1. Codice
+TODO
+```
+
 ### Menu Recensioni
 
+Analoga a Menu Prodotti, ma con la seguente lista di attributi:
+
+```
+1. Codice
+TODO
+```
+
 ### Menu Spedizioni
+
+Analoga a Menu Prodotti, ma con la seguente lista di attributi:
+
+```
+1. Codice
+TODO
+```
