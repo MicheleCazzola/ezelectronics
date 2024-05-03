@@ -384,7 +384,7 @@ Anche se non indicato nel diagramma per questioni di chiarezza visiva, l'admin p
 |  Postcondizione   |  Esiste una nuova utenza nel sistema  |
 | Scenario nominale | L'utente non autenticato inserisce i dati e registra una nuova utenza |
 |     Varianti      |  |
-|     Eccezioni     |   L'username inserito risulta già esistente |
+|     Eccezioni     |   L'username inserito risulta già esistente, non vengono compilati tutti i campi del form |
 
 #### Scenario 1.1
 
@@ -424,7 +424,7 @@ Anche se non indicato nel diagramma per questioni di chiarezza visiva, l'admin p
 |  Postcondizione   |                                          L'utente è autenticato                                           |
 | Scenario nominale | L'utente inserisce i dati, il sistema ne verifica la correttezza e in caso positivo effettua l'accesso |
 |     Varianti      |                                                                                                           |
-|     Eccezioni     |         Se i dati inseriti non sono corretti viene mostrato un errore e non si effettua l'accesso         |
+|     Eccezioni     |         Se i dati inseriti non sono corretti o non i campi del form sono stati compilati, viene mostrato un errore e non si effettua l'accesso         |
 
 #### Scenario 2.1
 
@@ -681,7 +681,7 @@ Anche se non indicato nel diagramma per questioni di chiarezza visiva, l'admin p
 |  Postcondizione  | Un nuovo prodotto è stato aggiunto |
 | Scenario Nominale | Il manager aggiunge un nuovo prodotto |
 |     Varianti     |  |
-|    Eccezioni     | Esiste già un prodotto con lo stesso codice |
+|    Eccezioni     | Esiste già un prodotto con lo stesso codice, non vengono compilati tutti i campi del form |
 
 #### Scenario 11.1
 
@@ -762,7 +762,7 @@ Anche se non indicato nel diagramma per questioni di chiarezza visiva, l'admin p
 |  Postcondizione  | Un nuovo set di prodotti è stato registrato |
 | Scenario Nominale | Il manager registra l'arrivo di un nuovo set di prodotti |
 |     Varianti     |  |
-|    Eccezioni     |  |
+|    Eccezioni     | Non vengono compilati tutti i campi del form |
 
 #### Scenario 14.1
 
@@ -860,7 +860,7 @@ Anche se non indicato nel diagramma per questioni di chiarezza visiva, l'admin p
 |  Postcondizione  | La password per l'accesso al profilo risulta aggiornata |
 | Scenario Nominale | L'utente aggiorna le informazioni del proprio profilo |
 |     Varianti     |  |
-|    Eccezioni     |  |
+|    Eccezioni     | Non vengono compilati tutti i campi del form |
 
 #### Scenario 17a.1
 
@@ -902,7 +902,7 @@ Anche se non indicato nel diagramma per questioni di chiarezza visiva, l'admin p
 |  Postcondizione  | Un'informazione tra indirizzo di consegna, metodo di pagamento predefinito, email e telefono viene aggiunta al profilo |
 | Scenario Nominale | Il cliente aggiunge un'informazione al proprio profilo |
 |     Varianti     |  |
-|    Eccezioni     |  |
+|    Eccezioni     | Non vengono compilati tutti i campi del form |
 
 #### Scenario 17b.1
 
@@ -942,7 +942,7 @@ Anche se non indicato nel diagramma per questioni di chiarezza visiva, l'admin p
 |  Postcondizione  | Un'informazione tra indirizzo di consegna, metodo di pagamento predefinito, email e telefono viene modificata |
 | Scenario Nominale | Il cliente modifica un'informazione del proprio profilo |
 |     Varianti     |  |
-|    Eccezioni     |  |
+|    Eccezioni     | Non vengono compilati tutti i campi del form |
 
 #### Scenario 17c.1
 
@@ -1022,7 +1022,7 @@ Anche se non indicato nel diagramma per questioni di chiarezza visiva, l'admin p
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondizione   |  |
 |  Postcondizione  | L'utente autenticato diventa un utente non autenticato |
-| Scenario Nominale | l'utente annulla la propria registrazione |
+| Scenario Nominale | L'utente annulla la propria registrazione |
 |     Varianti     |  |
 |    Eccezioni     |  |
 
@@ -1082,7 +1082,7 @@ Anche se non indicato nel diagramma per questioni di chiarezza visiva, l'admin p
 |  Postcondizione  | Una recensione viene aggiunta al prodotto selezionato |
 | Scenario Nominale | Il cliente aggiunge una recensione a uno dei prodotti che ha acquistato |
 |     Varianti     |  |
-|    Eccezioni     |  |
+|    Eccezioni     | Non vengono compilati tutti i campi del form |
 
 #### Scenario 20.1
 
