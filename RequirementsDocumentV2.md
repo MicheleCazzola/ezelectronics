@@ -177,7 +177,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.1  |                                               Creazione nuovo profilo                                               |
 |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.2  |                                 Recupero delle informazioni dell'utente autenticato                                 |
 |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.3  |                                                  Modifica password                                                  |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.4  |                                          Modifica informazioni di contatto                                          |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.4  |                                          Gestione informazioni di contatto (email)                                          |
 |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.5  |                                     Gestione indirizzo di consegna predefinito                                      |
 |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.6  |                                      Gestione metodo di pagamento predefinito                                       |
 |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.7  |                                                Eliminazione account                                                 |
@@ -219,7 +219,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.3.2  |        Eliminazione di una recensione qualsiasi, eventualmente filtrata per modello o categoria del prodotto        |
 |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.3.3  |          Eliminazione di tutte le recensioni, eventualmente filtrate per modello o categoria del prodotto           |
 |                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4                     |                                                 Ricerca recensioni                                                  |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.1  | Ricerca recensioni effettuate dall'utente corrente, eventualmente filtrate per modello e/o categoria di un prodotto |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.1  | Ricerca recensioni effettuate dall'utente corrente, eventualmente filtrate per modello e/o categoria del prodotto a cui si riferiscono |
 |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.2  |                                  Ricerca recensioni effettuate da tutti gli utenti                                  |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.2.1 |               Visualizzazione recensioni effettuate da tutti gli utenti, dato un modello di prodotto                |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.2.2 | Ricerca recensioni effettuate da tutti gli utenti, eventualmente filtrate per categoria e/o modello di un prodotto  |
