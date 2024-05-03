@@ -1128,9 +1128,9 @@ Anche se non indicato nel diagramma per questioni di chiarezza visiva, l'admin p
 
 | Attori coinvolti  | Cliente |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondizione   |  |
-|  Postcondizione  | |
-| Scenario Nominale ||
+|   Precondizione   | Il cliente visualizza la lista delle proprie recensioni  |
+|  Postcondizione  | Il cliente visualizza la recensione con le nuove modifiche|
+| Scenario Nominale | Il cliente modifica una delle sue recensioni |
 |     Varianti     |  |
 |    Eccezioni     |  |
 
@@ -1138,12 +1138,15 @@ Anche se non indicato nel diagramma per questioni di chiarezza visiva, l'admin p
 
 |  Scenario 21.1  | |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondizione | |
-| Postcondizione | |
-|     Step#      | |
-|       1        | |
-|       2        | |
-|       3        | |
+|   Precondizione   | Il cliente visualizza la lista delle proprie recensioni  |
+|  Postcondizione  | Il cliente visualizza la recensione con le nuove modifiche|
+|     Step#      | Descrizione |
+|       1        | Il cliente clicca sul pulsante di modifica |
+|       2        | Il sistema mostra la pagina relativa alla modifica della recensione |
+|       3        | Il cliente effettua le modifiche che desidera|
+|4 |  Il cliente clicca il pulsante di conferma |
+|5 | Il sistema mostra un messaggio di avvenuta conferma | 
+
 
 ### Elimina una recensione, UC22
 
@@ -1200,130 +1203,118 @@ Anche se non indicato nel diagramma per questioni di chiarezza visiva, l'admin p
 
 ### Inserisci Oggetto, UC23
 
-| Attori coinvolti  |  |
+| Attori coinvolti  | Admin |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondizione   |  |
-|  Postcondizione  |  |
-| Scenario Nominale |  |
+|  Postcondizione  | Presenza di un nuovo oggetto nel sistema |
+| Scenario Nominale | L'admin ha aggiunto un nuovo oggetto |
 |     Varianti     |  |
 |    Eccezioni     |  |
 
-#### Scenario .1
+#### Scenario 23.1
 
 |  Scenario .1  | |
 | :------------: | :------------------------------------------------------------------------: |
 |  Precondizione |  |
-| Postcondizione |  |
+| Postcondizione |  Presenza di un nuovo oggetto nel negozio |
 |     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
+|       1        | L'admin seleziona dalla sua interfaccia la voce 'aggiungi oggetto' |
+|       2        | L'admin seleziona il tipo di oggetto da inserire nel sistema |
+|       3        | L'admin completa i campi richiesti dal sistema riguardo le informazioni dell'oggetto |
+| 4 | L'admin seleziona il pulsante di conferma |
+| 5 | Il sistema aggiunge al sistema l'oggetto compilato dall'admin |
 
-#### Scenario .2
 
-|  Scenario .2  | |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondizione |  |
-| Postcondizione |  |
-|     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
 ### Ricerca Oggetto, UC24
 
-| Attori coinvolti  |  |
+| Attori coinvolti  | Admin |
 | :--------------: | :------------------------------------------------------------------: |
 |   Precondizione   |  |
-|  Postcondizione  |  |
-| Scenario Nominale |  |
-|     Varianti     |  |
+|  Postcondizione  | L'admin visualizza una lista di oggetti |
+| Scenario Nominale | L'admin effettua la ricerca di un oggetto all'interno del sistema |
+|     Varianti     | Non sono presenti oggetti corrispondenti alla ricerca effettuata |
 |    Eccezioni     |  |
 
-#### Scenario .1
+#### Scenario 24.1
 
-|  Scenario .1  | |
+|  Scenario 24.1  | |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondizione |  |
-| Postcondizione |  |
+|  Precondizione |   Sono presenti oggetti corrispondenti ai filtri di ricerca applicati |
+| Postcondizione | L'admin visualizza una lista di oggetti |
 |     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
+|       1        | L'admin inserisce nella sezione di ricerca il nome o seleziona la categoria, il modello o "venduti" dell'oggetto che si vuole cercare |
+|       2        | L'admin clicca sul pulsante "cerca"  |
+|       3        | Il sistema mostra l'elenco di oggetti che corrispondono ai parametri di ricera inseriti |
 
-#### Scenario .2
+#### Scenario 24.2
 
-|  Scenario .2  | |
+|  Scenario 24.2  | |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondizione |  |
-| Postcondizione |  |
+|  Precondizione | Non sono presenti oggetti corrispondenti alla ricerca effettuata |
+| Postcondizione | L'admin non visualizza alcun oggetto |
 |     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
+|       1        | L'admin inserisce nella sezione di ricerca il nome o seleziona la categoria, il modello o "venduti" dell'oggetto che si vuole cercare |
+|       2        | L'admin clicca sul pulsante "cerca"  |
+|       3        | Il sistema mostra una pagina che riporta che non ci sono oggetti corrispondenti ai parametri di ricerca forniti |
 
 ### Modifica oggetto, UC25
 
-| Attori coinvolti  |  |
+| Attori coinvolti  | Admin |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondizione   |  |
-|  Postcondizione  |  |
-| Scenario Nominale |  |
-|     Varianti     |  |
-|    Eccezioni     |  |
+|   Precondizione   |  L'admin visualizza l'oggetto che desidera modificare |
+|  Postcondizione  | Il sistema salva le modifiche apportate dall'admin  |
+| Scenario Nominale | L'admin modifica un oggetto presente nel sistema |
+|     Varianti     | |
+|    Eccezioni     | Il sistema non salva le modifiche apportate dall'admin |
 
-#### Scenario .1
+#### Scenario 25.1
 
-|  Scenario .1  | |
+|  Scenario 25.1  | |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondizione |  |
-| Postcondizione |  |
+|  Precondizione |  L'admin visualizza l'oggetto che desidera modificare |
+| Postcondizione |  Il sistema salva le modifiche apportate dall'admin  |
 |     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
+|       1        | L'admin clicca sul pulsante di modifica |
+|       2        | L'admin apporta le modifiche volute |
+|       3        | L'admin clicca sul pulsante di conferma |
+| 4 |  Il sistema verifica la validità delle modifiche |
+| 5 |  Il sistema ottiene riscontro positivo relativo alle modifiche apportate |
+|       6     | Il sistema mostra una pagina che riporta un messaggio di corretta riuscita della modifica dell'oggetto|
+#### Scenario 25.2
 
-#### Scenario .2
-
-|  Scenario .2  | |
+|  Scenario 25.2  | |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondizione |  |
-| Postcondizione |  |
+|  Precondizione | L'admin visualizza l'oggetto che desidera modificare |
+| Postcondizione | Il sistema non salva le modifiche apportate dall'admin |
 |     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
+|       1        | L'admin clicca sul pulsante di modifica |
+|       2        | L'admin apporta le modifiche volute |
+|       3        | L'admin clicca sul pulsante di conferma |
+| 4 |  Il sistema verifica la validità delle modifiche |
+|5| Il sistema ottiene riscontro negativo relativo alle modifiche apportate|
+|       6       | Il sistema mostra un messaggio di errore che riporta il fallimento dell'operazione |
+
 
 ### Elimina oggetto, UC26
 
-| Attori coinvolti  |  |
+| Attori coinvolti  | Admin |
 | :--------------: | :------------------------------------------------------------------: |
-|   Precondizione   |  |
-|  Postcondizione  |  |
-| Scenario Nominale |  |
+|   Precondizione   | L'admin visualizza l'oggetto che desidera eliminare dal sistema  |
+|  Postcondizione  | L'oggetto selezionato non è più presente all'interno del sistema  |
+| Scenario Nominale |  L'admin rimuove dal sistema un oggetto |
 |     Varianti     |  |
 |    Eccezioni     |  |
 
-#### Scenario .1
+#### Scenario 26.1
 
-|  Scenario .1  | |
+|  Scenario 26.1  | |
 | :------------: | :------------------------------------------------------------------------: |
-|  Precondizione |  |
-| Postcondizione |  |
+|  Precondizione | L'admin visualizza l'oggetto che desidera eliminare dal sistema  |
+| Postcondizione |  L'oggetto selezionato non è più presente all'interno del sistema  |
 |     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
-
-#### Scenario .2
-
-|  Scenario .2  | |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondizione |  |
-| Postcondizione |  |
-|     Step#      | Descrizione |
-|       1        |  |
-|       2        |  |
-|       3        |  |
+|       1        | L'admin clicca sul pulsante "Elimina oggetto" |
+|       2        | L'admin clicca sul pulsante di conferma |
+|       3        | Il sistema rimuove l'oggetto |
 
 
 ### Ricerca utenti, UCx
