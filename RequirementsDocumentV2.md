@@ -235,9 +235,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR7.2  | Invio esito di pagamento al cliente (successo/fallimento) |
 | FR8 | Gestione spedizione |
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.1  | Creazione nuova spedizione |
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.2  | Ricerca spedizioni | 
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.2.1 |  Visualizzazione dello stato della spedizione relativa ad un carrello dell'utente corrente (presa in carico, in corso, effettuata) |      
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.2.2 |  Ricerca spedizioni di tutti gli utenti, eventualmente per stato (non iniziate, in corso, concluse) |   
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.2  | Ricerca spedizioni di tutti gli utenti, eventualmente per stato (non iniziate, in corso, concluse) |
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.3  | Tracking della spedizione |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.3.1 |  Recupero stato e luogo della spedizione | 
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.3.2 |  Visualizzazione stato e luogo della spedizione | 
@@ -286,10 +284,10 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 | FR6.1 |  |  |  | x |
 | FR6.2 |  |  | x | x |
 | FR7 |  |  |  | x |
-| FR8.2.1 |  | x |  | x |
-| FR8.2.2 |  |  |  | x |
+| FR8.1 |  |  |  | x |
+| FR8.2 |  |  |  | x |
 | FR8.3.1 |  |  |  | x |
-| FR8.3.2 |  | x |  |  |
+| FR8.3.2 |  | x |  | x |
 
 ## Non Functional Requirements
 
