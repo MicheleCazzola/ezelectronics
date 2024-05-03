@@ -223,6 +223,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.2  |                                  Ricerca recensioni effettuate da tutti gli utenti                                  |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.2.1 |               Visualizzazione recensioni effettuate da tutti gli utenti, dato un modello di prodotto                |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.2.2 | Ricerca recensioni effettuate da tutti gli utenti, eventualmente filtrate per categoria e/o modello di un prodotto  |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.3  |      Calcolo voto medio per le recensioni trovate                         |
 |                                        FR6                                         |                                                 Gestione pubblicità                                                 |
 |                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.1                     |                                Ricezione annuncio pubblicitario da servizio esterno                                 |
 |                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.2                     |              Gestione possibilità di nascondere gli annunci pubblicitari all'interno della piattaforma              |
@@ -276,6 +277,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |  FR5.4.1  |                        |    x    |         |   x   |
 | FR5.4.2.1 |                        |    x    |         |   x   |
 | FR5.4.2.2 |                        |         |    x    |   x   |
+|  FR5.4.3  |                        |         |         |   x   |
 |   FR6.1   |                        |         |         |   x   |
 |   FR6.2   |                        |         |    x    |   x   |
 |    FR7    |                        |         |         |   x   |
@@ -1267,10 +1269,51 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 # Glossary
 
-Nota:
+![Glossario](media/version2/glossario.png)
 
-- Il codice prodotto è lungo almeno 6 caratteri
-- Il codice carrello è numerico
+__Admin__ (come va modellato ?):
+- Username: stringa non vuota, univoca all'interno del sistema, in relazione a tutti gli utenti presenti;
+- Password: stringa non vuota;
+
+__Utente__:
+- Username: stringa non vuota, univoca all'interno del sistema, in relazione a tutti gli utenti presenti;
+- Password: stringa non vuota;
+- Nome: stringa non vuota;
+- Cognome: stringa non vuota.
+
+__Cliente__: specializzazione di *Utente*:
+- IndirizzoDiConsegna: stringa opzionale non vuota (validità ?);
+- MetodoDiPagamento: stringa opzionale non vuota (validità ?);
+- Email: stringa opzionale non vuota (validità, necessità ?);
+- Numero telefono: stringa opzionale non vuota (validità, necessità ?).
+
+__Manager__: specializzazione di *Utente*:
+- VisibilitàAnnunciPubblicitari (attributo di ***classe***): valore booleano, di default vero.
+
+__Modello__:
+- NomeModello: stringa non vuota, univoca all'interno del sistema, in relazione ai modelli presenti;
+- Categoria: stringa i cui valori possibili sono "Laptop", "Smartphone" oppure "Appliance".
+
+__Prodotto__:
+- ID: stringa lunga almeno 6 caratteri, univoca all'interno del sistema, in relazione ai prodotti presenti;
+- Prezzo: numero decimale, strettamente positivo;
+- DataArrivo: stringa in formato YYYY-MM-DD;
+- DataVendita: stringa opzionale in formato YYYY-MM-DD;
+- Dettagli: stringa opzionale.
+
+__Carrello__:
+- ID: numero;
+- Pagato: valore booleano;
+- DataPagamento: stringa opzionale in formato YYYY-MM-DD;
+- Prezzo totale: numero, dato dalla somma dei prezzi dei prodotti inseriti nel carrello;
+- StatoSpedizione: stringa opzionale i cui valori possibili sono "Presa in carico", "In corso", "Conclusa".
+
+__Recensione__:
+- Voto: numero intero, può assumere valori compresi tra 1 e 5, estremi inclusi;
+- Descrizione: stringa opzionale;
+- DataInserimento: stringa in formato YYYY-MM-DD.
+
+
 # System Design
 
 ![System diagram](media/version1/system_diagram.png)
