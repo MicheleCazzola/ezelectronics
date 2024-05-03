@@ -485,7 +485,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |     Passo#     | Descrizione |
 |       1        | Il manager compila il form 'Nuovo prodotto' inserendo il prezzo, data di arrivo, modello, categoria e dettagli relativi al nuovo prodotto |
 |       2        | Il manager clicca sul pulsante 'Inserisci' |
-|       3        | Il sistema verifica che tutti i campi siano stati compilati e che il codice sia univoco e di almeno 6 cifre |
+|       3        | Il sistema verifica che tutti i campi siano stati compilati e che il codice sia univoco e di almeno 6 caratteri |
 |       4        | Il sistema  ottiene un riscontro positivo a tutte le precedenti verifiche |
 |       5        | Il sistema mostra un messaggio di corretta riuscita dell'operazione |
 
@@ -498,7 +498,7 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 |     Passo#     |   Descrizione |
 |       1        |   Il manager compila il form 'Nuovo prodotto' inserendo il prezzo, data di arrivo, modello, categoria e dettagli relativi al nuovo prodotto   |
 |       2        | Il manager clicca sul pulsante 'Inserisci' |
-|       3        | Il sistema verifica che tutti i campi siano stati compilati e che il codice sia univoco e di almeno 6 cifre|
+|       3        | Il sistema verifica che tutti i campi siano stati compilati e che il codice sia univoco e di almeno 6 caratteri|
 |       4        | Il sistema ottiene un riscontro negativo ad almeno una delle precedenti verifiche |
 |       5        | Il sistema mostra un messaggio di mancata riuscita dell'operazione |
 
