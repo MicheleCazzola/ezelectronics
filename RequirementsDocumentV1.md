@@ -648,6 +648,10 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 # Glossario
 
 ![Class Diagram](media/version1/glossario.png)
+Nota:
+
+- Il codice prodotto è lungo almeno 6 caratteri
+- Il codice carrello è numerico
 
 # System Design
 

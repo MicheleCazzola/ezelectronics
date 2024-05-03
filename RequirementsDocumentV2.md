@@ -1267,10 +1267,10 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 # Glossary
 
-\<use UML class diagram to define important terms, or concepts in the domain of the application, and their relationships>
+Nota:
 
-\<concepts must be used consistently all over the document, ex in use cases, requirements etc>
-
+- Il codice prodotto è lungo almeno 6 caratteri
+- Il codice carrello è numerico
 # System Design
 
 ![System diagram](media/version1/system_diagram.png)
