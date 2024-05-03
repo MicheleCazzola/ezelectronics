@@ -96,7 +96,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | Utente non autenticato |        GUI         |   PC/Smartphone    |
 |        Cliente         |        GUI         |   PC/Smartphone    |
 |        Manager         |        GUI         |   PC/Smartphone    |
-|        Admin           |        GUI         |   PC/Smartphone    |
+|        Admin           |        Terminale         |   PC/Smartphone    |
 | Servizio di pagamento  |        API         |   Internet         |
 | Servizio di pubblicità |        API         |   Internet         |
 | Servizio di spedizione |        API         |   Internet         |
