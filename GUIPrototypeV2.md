@@ -92,7 +92,7 @@ Scegli classe:
 2. Prodotti
 3. Carrelli
 4. Recensioni
-5. Spedizioni
+5. Modelli
 
 >
 ```
@@ -119,19 +119,13 @@ Inserisci cognome:
 Inserisci ruolo (c/m):
 ```
 
-In base al ruolo selezionato vengono mostrati campi differenti:
-
-- cliente
+Se il ruolo scelto è `c` (cliente) vengono mostrati i seguenti campi:
 
 ```
 Inserisci indirizzo di spedizione [opzionale]:
 inserisci metodo di pagamento [opzionale]:
-```
-
-- manager
-
-```
-TODO
+Inserisci email [opzionale]:
+Inserisci numero di telefono [opzionale]:
 ```
 
 #### Menu Utenti - Modifica
@@ -146,36 +140,46 @@ Dopo l'inserimento:
 
 ```
 Seleziona l'utente o premi invio per mostrarne altri:
-1. U12345 - Mario Rossi, Cliente
-2. U23413 - Emanuele Palumbo, Manager
+1. mario99, Mario Rossi, Cliente
+2. ema1926, Emanuele Palumbo, Manager
 ...
 
 >
 ```
 
-Viene mostrata la lista degli attributi dell'utente selezionato, che differisce in base al ruolo:
+Viene mostrata la lista degli attributi dell'utente selezionato:
 
 ```
-1. Codice
-2. Nome
-3. Cognome
-4. Username
-5. Password
+Seleziona il campo da modificare:
+1. Nome
+2. Cognome
+3. Username
+4. Password
+
+>
 ```
 
-Per un cliente:
+Per un 'cliente' vengono mostrati anche:
 
 ```
-6. Indirizzo di spedizione
-7. Metodo di pagamento
+5. Indirizzo di spedizione
+6. Metodo di pagamento
 ```
 
-Per un manager:
-
+Dopo aver inserito un valore valido:
 ```
-TODO
+Inserisci il nuovo valore: 
 ```
 
+Il sistema effettua una verifica di validità del valore inserito:
+- successo
+```
+Il valore è stato modificato correttamente.
+```
+- errore
+```
+Il valore inserito non è valido - l'attributo non è stato modificato.
+```
 #### Menu Utenti - Rimozione
 
 ```
@@ -198,7 +202,7 @@ Seleziona l'utente o premi invio per mostrarne altri:
 Dopo la scelta:
 
 ```
-Vuoi davvero rimuovere l'utente U12345 - Mario Rossi, cliente?
+Vuoi davvero rimuovere l'utente mario99, Mario Rossi, cliente?
 (y/n)
 >
 ```
@@ -220,6 +224,9 @@ Scegli operazione:
 Inserisci il codice prodotto [auto]:
 Inserisci il modello:
 Inserisci il prezzo:
+Inserisci i dettagli [opzionale]:
+Inserisci la data di arrivo:
+Inserisci la data di vendita [opzionale]:
 ```
 
 #### Menu Prodotti - Modifica
@@ -244,9 +251,30 @@ Seleziona il prodotto o premi invio per mostrarne altri:
 Viene mostrata la lista degli attributi del prodotto selezionato:
 
 ```
+Seleziona il campo da modificare:
 1. Codice
 2. Modello
 3. Prezzo
+4. Dettagli
+5. Data di arrivo
+6. Data di vendita
+
+> 
+```
+
+Dopo aver inserito un valore valido:
+```
+Inserisci il nuovo valore: 
+```
+
+Il sistema effettua una verifica di validità del valore inserito:
+- successo
+```
+Il valore è stato modificato correttamente.
+```
+- errore
+```
+Il valore inserito non è valido - l'attributo non è stato modificato.
 ```
 
 #### Menu Prodotti - Rimozione
@@ -282,7 +310,13 @@ Analoga a Menu Prodotti, ma con la seguente lista di attributi:
 
 ```
 1. Codice
-TODO
+2. Pagato
+3. Data Pagamento
+4. Prezzo totale
+5. Stato spedizione
+
+6. Username utente proprietario
+7. Lista prodotti (tutti i codici prodotto separati da ',')
 ```
 
 ### Menu Recensioni
@@ -290,15 +324,19 @@ TODO
 Analoga a Menu Prodotti, ma con la seguente lista di attributi:
 
 ```
-1. Codice
-TODO
+1. Voto
+2. Descrizione
+3. Data inserimento
+
+4. Modello associato
+5. Utente autore
 ```
 
-### Menu Spedizioni
+### Menu Modelli
 
 Analoga a Menu Prodotti, ma con la seguente lista di attributi:
 
 ```
-1. Codice
-TODO
+1. Nome modello
+2. Categoria
 ```
