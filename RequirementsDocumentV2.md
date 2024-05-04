@@ -1409,7 +1409,7 @@ _Nota_: l'amministratore di sistema (**admin**) non è modellato nel glossario i
 
 # System Design
 
-![System diagram](media/version1/system_diagram.png)
+![System diagram](media/version1/system_diagram.jpg)
 
 # Deployment Diagram
 
