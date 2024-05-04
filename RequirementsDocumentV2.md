@@ -1356,7 +1356,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       2        |      Il sistema mostra la lista dei prodotti che rispettano i filtri inseriti      |
 |       3        |                        Il manager clicca su "Elimina tutti"                        |
 |       4        |            Il sistema rimuove tutti i prodotti che erano stati mostrati            |
-|       5        |                     Il sistema mostra un messaggio di conferma                     |
+|       5        |                     Il manager visualizza una schermata in cui viene comunicato dal sistema l'assenza dei prodotti di cui si stava cercando    |
 
 # Glossary
 
