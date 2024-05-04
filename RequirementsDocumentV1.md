@@ -673,7 +673,7 @@ __Carrello__:
 
 # System Design
 
-![System design](media/version1/system_diagram.png)
+![System design](media/version1/system_diagram.jpg)
 
 # Deployment Diagram
 

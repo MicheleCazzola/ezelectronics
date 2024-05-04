@@ -1314,4 +1314,4 @@ _Nota_: l'amministratore di sistema (__admin__) non è modellato nel glossario i
 
 # Deployment Diagram
 
-![Deployment diagram](media/version2/deployment_diagram.png)
+![Deployment diagram](media/version1/deployment_diagram.png)
