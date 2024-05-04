@@ -106,6 +106,7 @@ Scegli operazione:
 2. Modifica
 3. Rimuovi
 4. Cerca
+5. Rimuovi tutti
 
 >
 ```
@@ -241,6 +242,26 @@ Per un 'cliente' vengono mostrati anche:
 6. Metodo di pagamento
 ```
 
+#### Menu Utenti - Rimuovi tutti
+
+```
+Attenzione! Si sta per effettuare un'operazione critica. 
+Dopo la rimozione sarà impossibile recuperare i dati eliminati.
+Sei sicuro di voler procedere? (y/n)
+
+>
+```
+Se l'admin inserisce "y", il sistema procede alla rimozione di tutti gli utenti e degli oggetti che dipendono da essi (ad esempio i carrelli).
+Il sistema mostra il messaggio di conferma
+```
+Tutti gli utenti sono stati rimossi dal sistema.
+```
+
+Se l'admin inserisce "n", il sistema mostra il messaggio
+```
+Operazione abortita. Nessun utente è stato rimosso
+```
+
 ### Menu Prodotti
 
 ```
@@ -249,6 +270,7 @@ Scegli operazione:
 2. Modifica
 3. Rimuovi
 4. Cerca
+5. Rimuovi tutti
 
 >
 ```
@@ -339,6 +361,26 @@ Viene mostrata la lista degli attributi del prodotto selezionato:
 4. Dettagli: Chip A15 Bionic per prestazioni fulminee
 5. Data di arrivo: 02/05/2024
 6. Data di vendita:
+```
+
+#### Menu Prodotti - Rimuovi tutti
+
+```
+Attenzione! Si sta per effettuare un'operazione critica. 
+Dopo la rimozione sarà impossibile recuperare i dati eliminati.
+Sei sicuro di voler procedere? (y/n)
+
+>
+```
+Se l'admin inserisce "y", il sistema procede alla rimozione di tutti i prodotti e degli oggetti che dipendono da essi.
+Il sistema mostra il messaggio di conferma
+```
+Tutti i prodotti sono stati rimossi dal sistema.
+```
+
+Se l'admin inserisce "n", il sistema mostra il messaggio
+```
+Operazione abortita. Nessun prodotto è stato rimosso
 ```
 
 ### Menu Carrelli
