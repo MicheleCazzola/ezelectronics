@@ -91,8 +91,9 @@ Scegli classe:
 1. Utenti
 2. Prodotti
 3. Carrelli
-4. Recensioni
-5. Modelli
+4. Spedizioni
+5. Recensioni
+6. Modelli
 
 >
 ```
@@ -101,9 +102,10 @@ Scegli classe:
 
 ```
 Scegli operazione:
-1. Inserimento
+1. Inserisci
 2. Modifica
 3. Rimuovi
+4. Cerca
 
 >
 ```
@@ -128,47 +130,32 @@ Inserisci email [opzionale]:
 Inserisci numero di telefono [opzionale]:
 ```
 
+Al termine dell'inserimento il sistema verifica la validità dei campi inseriti:
+- successo
+```
+È stato correttamente aggiunto l'utente:
+mario99, Mario Rossi, Cliente
+con
+indirizzo di spedizione: Corso Francia, 1
+metodo di pagamento: Carta di Credito 3746 432767 81001
+email: mario.rossi@gmail.com
+numero di telefono:
+```
+- fallimento
+```
+Si è verificato un errore e non è stato inserito nessun nuovo utente
+```
 #### Menu Utenti - Modifica
 
+Il sistema mostra il menu di ricerca, poi:
 ```
-Inserisci le keyword di ricerca
-
->
+Seleziona un attributo da modificare
+> 
 ```
-
-Dopo l'inserimento:
-
+Se la scelta è valida:
 ```
-Seleziona l'utente o premi invio per mostrarne altri:
-1. mario99, Mario Rossi, Cliente
-2. ema1926, Emanuele Palumbo, Manager
-...
-
->
-```
-
-Viene mostrata la lista degli attributi dell'utente selezionato:
-
-```
-Seleziona il campo da modificare:
-1. Nome
-2. Cognome
-3. Username
-4. Password
-
->
-```
-
-Per un 'cliente' vengono mostrati anche:
-
-```
-5. Indirizzo di spedizione
-6. Metodo di pagamento
-```
-
-Dopo aver inserito un valore valido:
-```
-Inserisci il nuovo valore: 
+Inserisci il nuovo valore
+> 
 ```
 
 Il sistema effettua una verifica di validità del valore inserito:
@@ -182,38 +169,64 @@ Il valore inserito non è valido - l'attributo non è stato modificato.
 ```
 #### Menu Utenti - Rimozione
 
+Il sistema mostra il menu di ricerca, poi:
+
 ```
-Inserisci le keyword di ricerca
+Vuoi davvero rimuovere l'utente mario99, Mario Rossi, Cliente?
+(y/n)
+>
+```
+In base alla scelta, il sistema mostrerà:
+- ``` 
+  L'utente è stato rimosso
+  ```
+- ```
+  L'utente non è stato rimosso
+  ```
+#### Menu Utenti - Ricerca
+```
+Inserisci i filtri
 
 >
 ```
+I filtri sono nella forma `nomeattributo:valore`. Si possono inserire più filtri separandoli con `,`.
 
 Dopo l'inserimento:
 
 ```
 Seleziona l'utente o premi invio per mostrarne altri:
-1. U12345 - Mario Rossi, Cliente
-2. U23413 - Emanuele Palumbo, Manager
+1. mario99, Mario Rossi, cliente
+2. ema1926, Emanuele Palumbo, Manager
 ...
 
->
+> 
 ```
 
-Dopo la scelta:
+Viene mostrata la lista degli attributi dell'utente selezionato, esclusa la password:
 
 ```
-Vuoi davvero rimuovere l'utente mario99, Mario Rossi, cliente?
-(y/n)
->
+1. Nome: Mario
+2. Cognome: Rossi
+3. Username: mario99
+4. Password: *
 ```
+
+Per un 'cliente' vengono mostrati anche:
+
+```
+5. Indirizzo di spedizione
+6. Metodo di pagamento
+```
+
 
 ### Menu Prodotti
 
 ```
 Scegli operazione:
-1. Inserimento
+1. Inserisci
 2. Modifica
 3. Rimuovi
+4. Cerca
 
 >
 ```
@@ -231,40 +244,15 @@ Inserisci la data di vendita [opzionale]:
 
 #### Menu Prodotti - Modifica
 
+Il sistema mostra il menu di ricerca, poi:
 ```
-Inserisci le keyword di ricerca
-
->
-```
-
-Dopo l'inserimento:
-
-```
-Seleziona il prodotto o premi invio per mostrarne altri:
-1. P12345 - Iphone13
-2. P23413 - SamsungGalaxyS20
-...
-
->
-```
-
-Viene mostrata la lista degli attributi del prodotto selezionato:
-
-```
-Seleziona il campo da modificare:
-1. Codice
-2. Modello
-3. Prezzo
-4. Dettagli
-5. Data di arrivo
-6. Data di vendita
-
+Seleziona un attributo da modificare
 > 
 ```
-
-Dopo aver inserito un valore valido:
+Se la scelta è valida:
 ```
-Inserisci il nuovo valore: 
+Inserisci il nuovo valore
+> 
 ```
 
 Il sistema effettua una verifica di validità del valore inserito:
@@ -279,29 +267,43 @@ Il valore inserito non è valido - l'attributo non è stato modificato.
 
 #### Menu Prodotti - Rimozione
 
-```
-Inserisci le keyword di ricerca
-
->
-```
-
-Dopo l'inserimento:
-
-```
-Seleziona l'utente o premi invio per mostrarne altri:
-1. P12345 - Iphone13
-2. P23413 - SamsungGalaxyS20
-...
-
->
-```
-
-Dopo la scelta:
+Il sistema mostra il menu di ricerca, poi:
 
 ```
 Vuoi davvero rimuovere il prodotto P12345?
 (y/n)
 >
+```
+
+#### Menu Prodotti - Ricerca
+
+```
+Inserisci i filtri
+
+>
+```
+I filtri sono nella forma `nomeattributo:valore`. Si possono inserire più filtri separandoli con `,`.
+
+Dopo l'inserimento:
+
+```
+Seleziona il prodotto o premi invio per mostrarne altri:
+1. P12345 - iPhone 13
+2. P23413 - Samsung Galaxy S20
+...
+
+> 
+```
+
+Viene mostrata la lista degli attributi del prodotto selezionato:
+
+```
+1. Codice: P123456
+2. Modello: iPhone 13
+3. Prezzo: 413,85
+4. Dettagli: Chip A15 Bionic per prestazioni fulminee
+5. Data di arrivo: 02/05/2024
+6. Data di vendita: 
 ```
 
 ### Menu Carrelli
@@ -314,7 +316,6 @@ Analoga a Menu Prodotti, ma con la seguente lista di attributi:
 3. Data Pagamento
 4. Prezzo totale
 5. Stato spedizione
-
 6. Username utente proprietario
 7. Lista prodotti (tutti i codici prodotto separati da ',')
 ```
@@ -327,7 +328,6 @@ Analoga a Menu Prodotti, ma con la seguente lista di attributi:
 1. Voto
 2. Descrizione
 3. Data inserimento
-
 4. Modello associato
 5. Utente autore
 ```
@@ -339,4 +339,12 @@ Analoga a Menu Prodotti, ma con la seguente lista di attributi:
 ```
 1. Nome modello
 2. Categoria
+```
+
+### Menu Spedizioni
+
+Analoga a Menu Prodotti, ma con la seguente lista di attributi:
+```
+1. Stato
+2. Carrello di riferimento
 ```
