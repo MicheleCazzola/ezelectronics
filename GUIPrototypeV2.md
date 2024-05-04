@@ -131,7 +131,9 @@ Inserisci numero di telefono [opzionale]:
 ```
 
 Al termine dell'inserimento il sistema verifica la validità dei campi inseriti:
+
 - successo
+
 ```
 È stato correttamente aggiunto l'utente:
 mario99, Mario Rossi, Cliente
@@ -141,32 +143,43 @@ metodo di pagamento: Carta di Credito 3746 432767 81001
 email: mario.rossi@gmail.com
 numero di telefono:
 ```
+
 - fallimento
+
 ```
 Si è verificato un errore e non è stato inserito nessun nuovo utente
 ```
+
 #### Menu Utenti - Modifica
 
 Il sistema mostra il menu di ricerca, poi:
+
 ```
 Seleziona un attributo da modificare
-> 
+>
 ```
+
 Se la scelta è valida:
+
 ```
 Inserisci il nuovo valore
-> 
+>
 ```
 
 Il sistema effettua una verifica di validità del valore inserito:
+
 - successo
+
 ```
 Il valore è stato modificato correttamente.
 ```
+
 - errore
+
 ```
 Il valore inserito non è valido - l'attributo non è stato modificato.
 ```
+
 #### Menu Utenti - Rimozione
 
 Il sistema mostra il menu di ricerca, poi:
@@ -176,31 +189,41 @@ Vuoi davvero rimuovere l'utente mario99, Mario Rossi, Cliente?
 (y/n)
 >
 ```
+
 In base alla scelta, il sistema mostrerà:
-- ``` 
+
+- ```
   L'utente è stato rimosso
   ```
 - ```
   L'utente non è stato rimosso
   ```
+
 #### Menu Utenti - Ricerca
+
 ```
 Inserisci i filtri
 
 >
 ```
+
 I filtri sono nella forma `nomeattributo:valore`. Si possono inserire più filtri separandoli con `,`.
 
 Dopo l'inserimento:
 
 ```
-Seleziona l'utente o premi invio per mostrarne altri:
+Seleziona l'utente:
 1. mario99, Mario Rossi, cliente
 2. ema1926, Emanuele Palumbo, Manager
 ...
 
-> 
+>
 ```
+
+> Se la ricerca non produce risultati, il sistema mostra il seguente testo e torna al menu
+> ```
+>  Nessun utente trovato. Prova a cambiare i filtri.
+>  ```
 
 Viene mostrata la lista degli attributi dell'utente selezionato, esclusa la password:
 
@@ -217,7 +240,6 @@ Per un 'cliente' vengono mostrati anche:
 5. Indirizzo di spedizione
 6. Metodo di pagamento
 ```
-
 
 ### Menu Prodotti
 
@@ -245,22 +267,29 @@ Inserisci la data di vendita [opzionale]:
 #### Menu Prodotti - Modifica
 
 Il sistema mostra il menu di ricerca, poi:
+
 ```
 Seleziona un attributo da modificare
-> 
+>
 ```
+
 Se la scelta è valida:
+
 ```
 Inserisci il nuovo valore
-> 
+>
 ```
 
 Il sistema effettua una verifica di validità del valore inserito:
+
 - successo
+
 ```
 Il valore è stato modificato correttamente.
 ```
+
 - errore
+
 ```
 Il valore inserito non è valido - l'attributo non è stato modificato.
 ```
@@ -282,18 +311,24 @@ Inserisci i filtri
 
 >
 ```
+
 I filtri sono nella forma `nomeattributo:valore`. Si possono inserire più filtri separandoli con `,`.
 
 Dopo l'inserimento:
 
 ```
-Seleziona il prodotto o premi invio per mostrarne altri:
+Seleziona il prodotto:
 1. P12345 - iPhone 13
 2. P23413 - Samsung Galaxy S20
 ...
 
-> 
+>
 ```
+
+> Se la ricerca non produce risultati, il sistema mostra il seguente testo e torna al menu
+> ```
+> Nessun prodotto trovato. Prova a cambiare i filtri.
+> ```
 
 Viene mostrata la lista degli attributi del prodotto selezionato:
 
@@ -303,7 +338,7 @@ Viene mostrata la lista degli attributi del prodotto selezionato:
 3. Prezzo: 413,85
 4. Dettagli: Chip A15 Bionic per prestazioni fulminee
 5. Data di arrivo: 02/05/2024
-6. Data di vendita: 
+6. Data di vendita:
 ```
 
 ### Menu Carrelli
@@ -344,6 +379,7 @@ Analoga a Menu Prodotti, ma con la seguente lista di attributi:
 ### Menu Spedizioni
 
 Analoga a Menu Prodotti, ma con la seguente lista di attributi:
+
 ```
 1. Stato
 2. Carrello di riferimento
