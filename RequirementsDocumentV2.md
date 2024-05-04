@@ -1312,7 +1312,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Step#      |                               Descrizione                                |
 |       1        | Il manager clicca sul checkbox "Mostra annunci pubblicitari agli utenti" |
 
-### Elimina tutti gli oggetti di una classe, UC26
+### Elimina tutti gli oggetti di una classe, UC29
 
 | Attori coinvolti  |                            Admin                            |
 | :---------------: | :---------------------------------------------------------: |
@@ -1322,9 +1322,9 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |     Varianti      |                                                             |
 |     Eccezioni     |                                                             |
 
-#### Scenario 26.1
+#### Scenario 29.1
 
-| Scenario 26.1  |                                                                                                                                       |
+| Scenario 29.1  |                                                                                                                                       |
 | :------------: | :-----------------------------------------------------------------------------------------------------------------------------------: |
 | Precondizione  |                                                                                                                                       |
 | Postcondizione |                                                                                                                                       |
@@ -1334,6 +1334,29 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |       3        |                                             L'admin conferma la sua scelta digitando "y"                                              |
 |       4        | Il sistema rimuove tutti gli oggetti appartenenti alla classe selezionata e tutti gli oggetti di altre classi che dipendevano da essi |
 |       5        |                                              Il sistema mostra un messaggio di conferma                                               |
+
+### Elimina tutti i prodotti, UC30
+
+| Attori coinvolti  |                     Manager                     |
+| :---------------: | :---------------------------------------------: |
+|   Precondizione   |                                                 |
+|  Postcondizione   |                                                 |
+| Scenario Nominale | Il manager rimuove dal sistema tutti i prodotti |
+|     Varianti      |                                                 |
+|     Eccezioni     |                                                 |
+
+#### Scenario 30.1
+
+| Scenario 30.1  |                                                                                    |
+| :------------: | :--------------------------------------------------------------------------------: |
+| Precondizione  |                                                                                    |
+| Postcondizione |                                                                                    |
+|     Step#      |                                    Descrizione                                     |
+|       1        | Il manager effettua una ricerca tra i prodotti, eventualmente utilizzando i filtri |
+|       2        |      Il sistema mostra la lista dei prodotti che rispettano i filtri inseriti      |
+|       3        |                        Il manager clicca su "Elimina tutti"                        |
+|       4        |            Il sistema rimuove tutti i prodotti che erano stati mostrati            |
+|       5        |                     Il sistema mostra un messaggio di conferma                     |
 
 # Glossary
 
@@ -1345,32 +1368,6 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 - Password: stringa non vuota;
 - Nome: stringa non vuota;
 - Cognome: stringa non vuota.
-
-### Elimina oggetto, UC26
-
-| Attori coinvolti  |                              Admin                               |
-| :---------------: | :--------------------------------------------------------------: |
-|   Precondizione   |                                                                  |
-|  Postcondizione   | L'oggetto selezionato non è più presente all'interno del sistema |
-| Scenario Nominale |              L'admin rimuove dal sistema un oggetto              |
-|     Varianti      |                                                                  |
-|     Eccezioni     |                                                                  |
-
-#### Scenario 26.1
-
-| Scenario 26.1  |                                                                             |
-| :------------: | :-------------------------------------------------------------------------: |
-| Precondizione  |                                                                             |
-| Postcondizione |      L'oggetto selezionato non è più presente all'interno del sistema       |
-|     Step#      |                                 Descrizione                                 |
-|       1        |        L'admin seleziona la classe dell'oggetto che vuole eliminare         |
-|       2        |                         L'admin seleziona 'Rimuovi'                         |
-|       3        |                     L'admin inserisce eventuali filtri                      |
-|       4        |        L'admin clicca il pulsante di invio per confermare la ricerca        |
-|       5        | L'admin seleziona il prodotto da eliminare nella lista proposta dal sistema |
-|       6        |                L'admin conferma la sua scelta digitando "y"                 |
-|       7        |                        Il sistema rimuove l'oggetto                         |
-|       8        |                 Il sistema mostra un messaggio di conferma                  |
 
 **Cliente**: specializzazione di _Utente_:
 
