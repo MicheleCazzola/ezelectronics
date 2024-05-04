@@ -667,9 +667,9 @@ __Prodotto__:
 
 __Carrello__:
 - ID: numero;
-- Pagato: valore booleano;
+- Pagato: può assumere valore vero o falso;
 - DataPagamento: stringa opzionale in formato YYYY-MM-DD;
-- Prezzo totale: numero, dato dalla somma dei prezzi dei prodotti acquistati.
+- Prezzo totale: numero decimale, dato dalla somma dei prezzi dei prodotti acquistati.
 
 # System Design
 

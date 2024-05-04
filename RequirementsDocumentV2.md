@@ -223,7 +223,6 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.2  |                                  Ricerca recensioni effettuate da tutti gli utenti                                  |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.2.1 |               Visualizzazione recensioni effettuate da tutti gli utenti, dato un modello di prodotto                |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.2.2 | Ricerca recensioni effettuate da tutti gli utenti, eventualmente filtrate per categoria e/o modello di un prodotto  |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.3  |      Calcolo voto medio per le recensioni trovate                         |
 |                                        FR6                                         |                                                 Gestione pubblicità                                                 |
 |                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.1                     |                                Ricezione annuncio pubblicitario da servizio esterno                                 |
 |                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.2                     |              Gestione possibilità di nascondere gli annunci pubblicitari all'interno della piattaforma              |
@@ -277,7 +276,6 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |  FR5.4.1  |                        |    x    |         |   x   |
 | FR5.4.2.1 |                        |    x    |         |   x   |
 | FR5.4.2.2 |                        |         |    x    |   x   |
-|  FR5.4.3  |                        |         |         |   x   |
 |   FR6.1   |                        |         |         |   x   |
 |   FR6.2   |                        |         |    x    |   x   |
 |    FR7    |                        |         |         |   x   |
@@ -295,19 +293,18 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 | NFR1 |              Usabilità              |      Non deve essere necessario training per essere in grado di utilizzare l'applicazione in autonomia       | FR1, FR2.1, FR3, FR4.1, FR4.2, FR4.3, FR4.4, FR4.5.2, FR4.5.3, FR5.1, FR5.2, FR5.3.1, FR5.4, FR6.2, FR8.3.2   |
 | NFR2 |            Disponibilità            |                                 L'uptime del server deve essere pari al 99%                                  | All |
 | NFR3 |              Security               | L'autenticazione deve essere gestita mediante librerie che utilizzano pratiche conformi allo stato dell'arte |      FR1, FR2.1      |
-| NFR4 |              Privacy               | Il sistema non deve conservare dati personali e identificativi degli utenti se non sono necessari |     FR2.1       |
-| NFR5 |              Security               | Il software non deve essere vulnerabile ad attacchi XSS e SQL injection |     All       |
-| NFR6 |              Security               | Le dipendenze con vulnerabilità critiche (CVSS rating >= 6) devono essere aggiornate entro 1 settimana |    All        |
-| NFR7 |              Security               | Le dipendenze con vulnerabilità note di qualsiasi tipo devono essere aggiornate entro 2 mesi |    All        |
-| NFR8 |              Affidabilità               | Ogni utente non deve segnalare più di 2 bug all'anno |      FR1, FR2.1, FR3, FR4.1, FR4.2, FR4.3, FR4.4, FR4.5.2, FR4.5.3, FR5.1, FR5.2, FR5.3.1, FR5.4, FR6.2, FR8.3.2      |
-| NFR9 |              Efficienza               | Il tempo di risposta deve essere pari o inferiore a 500 millisecondi |    All        |
-| NFR10 |              Correttezza               | L'applicazione deve essere in grado di gestire un aumento del traffico senza degrado delle prestazioni (tempo di risposta inferiore a 500 ms) |    All        |
-| NFR11 |              Manutenibilità               | Risolvere un problema software deve richiedere un effort massimo di 7 person/hours |   All         |
-| NFR12 |              Manutenibilità               | Modificare una funzionalità esistente deve richiedere un effort massimo di 7 person/hours |     All       |
-| NFR13 |              Manutenibilità               | Eliminare una funzionalità esistente deve richiedere un effort massimo di 3 person/hours |     All       |
-| NFR14 |              Manutenibilità               | Aggiungere una nuova funzionalità deve richiedere un effort massimo di 35 person/hours |      All      |
-| NFR15 |              Portabilità               | Modificare il DBMS su cui memorizzare i dati deve richiedere un effort massimo di 35 person/hours |     FR1, FR2, FR3, FR4, FR5, FR7, FR8       |
-| NFR16 |              Portabilità               | L'applicazione web deve essere disponibile sui browser Chrome, Firefox, Edge, Safari e Opera |     All       |
+| NFR4 |              Security               | Il software non deve essere vulnerabile ad attacchi XSS e SQL injection |     All       |
+| NFR5 |              Security               | Le dipendenze con vulnerabilità critiche (CVSS rating >= 6) devono essere aggiornate entro 1 settimana |    All        |
+| NFR6 |              Security               | Le dipendenze con vulnerabilità note di qualsiasi tipo devono essere aggiornate entro 2 mesi |    All        |
+| NFR7 |              Affidabilità               | Ogni utente non deve segnalare più di 2 bug all'anno |      FR1, FR2.1, FR3, FR4.1, FR4.2, FR4.3, FR4.4, FR4.5.2, FR4.5.3, FR5.1, FR5.2, FR5.3.1, FR5.4, FR6.2, FR8.3.2      |
+| NFR8 |              Efficienza               | Il tempo di risposta deve essere pari o inferiore a 500 millisecondi |    All        |
+| NFR9 |              Correttezza               | L'applicazione deve essere in grado di gestire un aumento del traffico senza degrado delle prestazioni (tempo di risposta inferiore a 500 ms) |    All        |
+| NFR10 |              Manutenibilità               | Risolvere un problema software deve richiedere un effort massimo di 7 person/hours |   All         |
+| NFR11 |              Manutenibilità               | Modificare una funzionalità esistente deve richiedere un effort massimo di 7 person/hours |     All       |
+| NFR12 |              Manutenibilità               | Eliminare una funzionalità esistente deve richiedere un effort massimo di 3 person/hours |     All       |
+| NFR13 |              Manutenibilità               | Aggiungere una nuova funzionalità deve richiedere un effort massimo di 35 person/hours |      All      |
+| NFR14 |              Portabilità               | Modificare il DBMS su cui memorizzare i dati deve richiedere un effort massimo di 35 person/hours |     FR1, FR2, FR3, FR4, FR5, FR7, FR8       |
+| NFR15 |              Portabilità               | L'applicazione web deve essere disponibile sui browser Chrome, Firefox, Edge, Safari e Opera |     All       |
 
 # Use case diagram and use cases
 
@@ -1271,10 +1268,6 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 ![Glossario](media/version2/glossario.png)
 
-__Admin__ (come va modellato ?):
-- Username: stringa non vuota, univoca all'interno del sistema, in relazione a tutti gli utenti presenti;
-- Password: stringa non vuota;
-
 __Utente__:
 - Username: stringa non vuota, univoca all'interno del sistema, in relazione a tutti gli utenti presenti;
 - Password: stringa non vuota;
@@ -1282,13 +1275,12 @@ __Utente__:
 - Cognome: stringa non vuota.
 
 __Cliente__: specializzazione di *Utente*:
-- IndirizzoDiConsegna: stringa opzionale non vuota (validità ?);
-- MetodoDiPagamento: stringa opzionale non vuota (validità ?);
-- Email: stringa opzionale non vuota (validità, necessità ?);
-- Numero telefono: stringa opzionale non vuota (validità, necessità ?).
+- IndirizzoDiConsegna: stringa opzionale;
+- MetodoDiPagamento: stringa opzionale;
+- Email: stringa opzionale;
+- NumeroTelefono: stringa opzionale.
 
-__Manager__: specializzazione di *Utente*:
-- VisibilitàAnnunciPubblicitari (attributo di ***classe***): valore booleano, di default vero.
+__Manager__: specializzazione di *Utente*: non possiede attributi specifici.
 
 __Modello__:
 - NomeModello: stringa non vuota, univoca all'interno del sistema, in relazione ai modelli presenti;
@@ -1303,15 +1295,17 @@ __Prodotto__:
 
 __Carrello__:
 - ID: numero;
-- Pagato: valore booleano;
+- Pagato: può assumere valore vero o falso;
 - DataPagamento: stringa opzionale in formato YYYY-MM-DD;
-- Prezzo totale: numero, dato dalla somma dei prezzi dei prodotti inseriti nel carrello;
+- Prezzo totale: numero decimale, dato dalla somma dei prezzi dei prodotti inseriti nel carrello;
 - StatoSpedizione: stringa opzionale i cui valori possibili sono "Presa in carico", "In corso", "Conclusa".
 
 __Recensione__:
 - Voto: numero intero, può assumere valori compresi tra 1 e 5, estremi inclusi;
 - Descrizione: stringa opzionale;
 - DataInserimento: stringa in formato YYYY-MM-DD.
+
+_Nota_: l'amministratore di sistema (__admin__) non è modellato nel glossario in quanto è presente in unica istanza nel sistema.
 
 
 # System Design
