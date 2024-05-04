@@ -167,83 +167,83 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 ## Functional Requirements
 
-|                                         ID                                         |                                                     Descrizione                                                     |
-| :--------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------: |
-|                                        FR1                                         |                                               Gestione degli accessi                                                |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR1.1                     |                                                        Login                                                        |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR1.2                     |                                                       Logout                                                        |
-|                                        FR2                                         |                                                Gestione degli utenti                                                |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1                     |                                                  Gestione account                                                   |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.1  |                                               Creazione nuovo profilo                                               |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.2  |                                 Recupero delle informazioni dell'utente autenticato                                 |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.3  |                                                  Modifica password                                                  |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.4  |                                          Gestione informazioni di contatto (email)                                          |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.5  |                                     Gestione indirizzo di consegna predefinito                                      |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.6  |                                      Gestione metodo di pagamento predefinito                                       |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.7  |                                                Eliminazione account                                                 |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2                     |                                                   Ricerca utenti                                                    |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.1  |                                            Recupero di tutti gli utenti                                             |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.2  |                                            Ricerca utenti, dato un ruolo                                            |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.3  |                                          Ricerca utente, dato lo username                                           |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3                     |                                                 Eliminazione utenti                                                 |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.1  |                                        Eliminazione utente, dato lo username                                        |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.2  |                                          Eliminazione di tutti gli utenti                                           |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.4                     |                                Creazione nuovo account, relativo ad un altro utente                                 |
-|                                        FR3                                         |                                                Gestione dei prodotti                                                |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.1                     |                                              Creazione nuovo prodotto                                               |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.2                     |                         Registrazione arrivo di un insieme di prodotti dello stesso modello                         |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.3                     |                                      Contrassegno di un prodotto come venduto                                       |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4                     |                                                  Ricerca prodotti                                                   |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.1  |                                     Ricerca di un prodotto, dato il suo codice                                      |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.2  |                       Ricerca dei prodotti disponibili, eventualmente per modello o categoria                       |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.3  |             Ricerca dei prodotti, eventualmente solo se (non) venduti, filtrati per modello o categoria             |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.4  |         Ricerca di tutti i prodotti, eventualmente solo se (non) venduti, senza l'utilizzo di altri filtri          |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.5  |       Recupero dei prodotti acquistati dall'utente corrente, filtrati eventualmente per categoria e/o modello       |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5                     |                                                Eliminazione prodotti                                                |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5.1  |                                   Eliminazione di un prodotto, dato il suo codice                                   |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5.2  |                                          Eliminazione di tutti i prodotti                                           |
-|                                        FR4                                         |                                                Gestione dei carrelli                                                |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.1                     |                                    Visualizzazione carrello del cliente corrente                                    |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.2                     |                    Aggiunta di un prodotto al carrello del cliente corrente, dato il suo modello                    |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.3                     |                                              Pagamento di un carrello                                               |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.4                     |                       Visualizzazione dello storico dei carrelli pagati dal cliente corrente                        |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5                     |                                             Operazioni di eliminazione                                              |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.1  |                                   Rimozione di un prodotto dal carrello corrente                                    |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.2  |                               Eliminazione di tutti i prodotti dal carrello corrente                                |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.3  |                                          Eliminazione di tutti i carrelli                                           |
-|                                        FR5                                         |                                                 Gestione recensioni                                                 |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.1                     |                          Inserimento recensione, per il modello di un prodotto acquistato                           |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.2                     |                                        Modifica di una recensione effettuata                                        |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.3                     |                                               Eliminazione recensioni                                               |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.3.1  |                           Eliminazione di una recensione effettuata dall'utente corrente                            |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.3.2  |        Eliminazione di una recensione qualsiasi, eventualmente filtrata per modello o categoria del prodotto        |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.3.3  |          Eliminazione di tutte le recensioni, eventualmente filtrate per modello o categoria del prodotto           |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4                     |                                                 Ricerca recensioni                                                  |
+|                                         ID                                         |                                                              Descrizione                                                               |
+| :--------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------: |
+|                                        FR1                                         |                                                         Gestione degli accessi                                                         |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR1.1                     |                                                                 Login                                                                  |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR1.2                     |                                                                 Logout                                                                 |
+|                                        FR2                                         |                                                         Gestione degli utenti                                                          |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1                     |                                                            Gestione account                                                            |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.1  |                                                        Creazione nuovo profilo                                                         |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.2  |                                          Recupero delle informazioni dell'utente autenticato                                           |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.3  |                                                           Modifica password                                                            |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.4  |                                               Gestione informazioni di contatto (email)                                                |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.5  |                                               Gestione indirizzo di consegna predefinito                                               |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.6  |                                                Gestione metodo di pagamento predefinito                                                |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.7  |                                                          Eliminazione account                                                          |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2                     |                                                             Ricerca utenti                                                             |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.1  |                                                      Recupero di tutti gli utenti                                                      |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.2  |                                                     Ricerca utenti, dato un ruolo                                                      |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.3  |                                                    Ricerca utente, dato lo username                                                    |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3                     |                                                          Eliminazione utenti                                                           |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.1  |                                                 Eliminazione utente, dato lo username                                                  |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.3.2  |                                                    Eliminazione di tutti gli utenti                                                    |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.4                     |                                          Creazione nuovo account, relativo ad un altro utente                                          |
+|                                        FR3                                         |                                                         Gestione dei prodotti                                                          |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.1                     |                                                        Creazione nuovo prodotto                                                        |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.2                     |                                  Registrazione arrivo di un insieme di prodotti dello stesso modello                                   |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.3                     |                                                Contrassegno di un prodotto come venduto                                                |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4                     |                                                            Ricerca prodotti                                                            |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.1  |                                               Ricerca di un prodotto, dato il suo codice                                               |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.2  |                                Ricerca dei prodotti disponibili, eventualmente per modello o categoria                                 |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.3  |                      Ricerca dei prodotti, eventualmente solo se (non) venduti, filtrati per modello o categoria                       |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.4  |                   Ricerca di tutti i prodotti, eventualmente solo se (non) venduti, senza l'utilizzo di altri filtri                   |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.4.5  |                Recupero dei prodotti acquistati dall'utente corrente, filtrati eventualmente per categoria e/o modello                 |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5                     |                                                         Eliminazione prodotti                                                          |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5.1  |                                            Eliminazione di un prodotto, dato il suo codice                                             |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR3.5.2  |                                                    Eliminazione di tutti i prodotti                                                    |
+|                                        FR4                                         |                                                         Gestione dei carrelli                                                          |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.1                     |                                             Visualizzazione carrello del cliente corrente                                              |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.2                     |                             Aggiunta di un prodotto al carrello del cliente corrente, dato il suo modello                              |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.3                     |                                                        Pagamento di un carrello                                                        |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.4                     |                                 Visualizzazione dello storico dei carrelli pagati dal cliente corrente                                 |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5                     |                                                       Operazioni di eliminazione                                                       |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.1  |                                             Rimozione di un prodotto dal carrello corrente                                             |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.2  |                                         Eliminazione di tutti i prodotti dal carrello corrente                                         |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR4.5.3  |                                                    Eliminazione di tutti i carrelli                                                    |
+|                                        FR5                                         |                                                          Gestione recensioni                                                           |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.1                     |                                    Inserimento recensione, per il modello di un prodotto acquistato                                    |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.2                     |                                                 Modifica di una recensione effettuata                                                  |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.3                     |                                                        Eliminazione recensioni                                                         |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.3.1  |                                     Eliminazione di una recensione effettuata dall'utente corrente                                     |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.3.2  |                 Eliminazione di una recensione qualsiasi, eventualmente filtrata per modello o categoria del prodotto                  |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.3.3  |                    Eliminazione di tutte le recensioni, eventualmente filtrate per modello o categoria del prodotto                    |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4                     |                                                           Ricerca recensioni                                                           |
 |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.1  | Ricerca recensioni effettuate dall'utente corrente, eventualmente filtrate per modello e/o categoria del prodotto a cui si riferiscono |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.2  |                                  Ricerca recensioni effettuate da tutti gli utenti                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.2.1 |               Visualizzazione recensioni effettuate da tutti gli utenti, dato un modello di prodotto                |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.2.2 | Ricerca recensioni effettuate da tutti gli utenti, eventualmente filtrate per categoria e/o modello di un prodotto  |
-|                                        FR6                                         |                                                 Gestione pubblicità                                                 |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.1                     |                                Ricezione annuncio pubblicitario da servizio esterno                                 |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.2                     |              Gestione possibilità di nascondere gli annunci pubblicitari all'interno della piattaforma              |
-|                                        FR7                                         |                                                 Gestione pagamento                                                  |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR7.1                     |                                           Gestione richiesta di pagamento                                           |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR7.2                     |                              Invio esito di pagamento al cliente (successo/fallimento)                              |
-|                                        FR8                                         |                                                 Gestione spedizione                                                 |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.1                     |                                             Creazione nuova spedizione                                              |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.2                     |         Ricerca spedizioni di tutti gli utenti, eventualmente per stato (non iniziate, in corso, concluse)          |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.3                     |                                              Tracking della spedizione                                              |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.3.1  |                                       Recupero stato e luogo della spedizione                                       |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.3.2  |                                   Visualizzazione stato e luogo della spedizione                                    |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.2  |                                           Ricerca recensioni effettuate da tutti gli utenti                                            |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.2.1 |                         Visualizzazione recensioni effettuate da tutti gli utenti, dato un modello di prodotto                         |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR5.4.2.2 |           Ricerca recensioni effettuate da tutti gli utenti, eventualmente filtrate per categoria e/o modello di un prodotto           |
+|                                        FR6                                         |                                                          Gestione pubblicità                                                           |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.1                     |                                          Ricezione annuncio pubblicitario da servizio esterno                                          |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.2                     |                       Gestione possibilità di nascondere gli annunci pubblicitari all'interno della piattaforma                        |
+|                                        FR7                                         |                                                           Gestione pagamento                                                           |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR7.1                     |                                                    Gestione richiesta di pagamento                                                     |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR7.2                     |                                       Invio esito di pagamento al cliente (successo/fallimento)                                        |
+|                                        FR8                                         |                                                          Gestione spedizione                                                           |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.1                     |                                                       Creazione nuova spedizione                                                       |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.2                     |                   Ricerca spedizioni di tutti gli utenti, eventualmente per stato (non iniziate, in corso, concluse)                   |
+|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.3                     |                                                       Tracking della spedizione                                                        |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.3.1  |                                                Recupero stato e luogo della spedizione                                                 |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.3.2  |                                             Visualizzazione stato e luogo della spedizione                                             |
 
 ### Table of rights
 
 | Requisito | Utente non autenticato | Cliente | Manager | Admin |
 | :-------: | :--------------------: | :-----: | :-----: | :---: |
 |   FR1.1   |           x            |         |         |       |
-|   FR1.2   |                        |    x    |    x    |   x   |
-|  FR2.1.1  |           x            |         |         |       |
-|  FR2.1.2  |                        |    x    |    x    |   x   |
+|   FR1.2   |                        |    x    |    x    |       |
+|  FR2.1.1  |           x            |         |         |   x   |
+|  FR2.1.2  |                        |    x    |    x    |       |
 |  FR2.1.3  |                        |    x    |    x    |   x   |
 |  FR2.1.4  |                        |    x    |         |   x   |
 |  FR2.1.5  |                        |    x    |         |   x   |
@@ -253,27 +253,27 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |   FR2.3   |                        |         |         |   x   |
 |   FR2.4   |                        |         |         |   x   |
 |   FR3.1   |                        |         |    x    |   x   |
-|   FR3.2   |                        |         |    x    |   x   |
+|   FR3.2   |                        |         |    x    |       |
 |   FR3.3   |                        |         |    x    |   x   |
 |  FR3.4.1  |                        |         |    x    |   x   |
 |  FR3.4.2  |           x            |    x    |    x    |   x   |
 |  FR3.4.3  |                        |         |    x    |   x   |
 |  FR3.4.4  |                        |         |    x    |   x   |
-|  FR3.4.5  |                        |    x    |         |   x   |
+|  FR3.4.5  |                        |    x    |         |       |
 |   FR3.5   |                        |         |    x    |   x   |
-|   FR4.1   |                        |    x    |         |   x   |
-|   FR4.2   |                        |    x    |         |   x   |
-|   FR4.3   |                        |    x    |         |   x   |
+|   FR4.1   |                        |    x    |         |       |
+|   FR4.2   |                        |    x    |         |       |
+|   FR4.3   |                        |    x    |         |       |
 |   FR4.4   |                        |    x    |         |   x   |
-|  FR4.5.1  |                        |    x    |         |   x   |
-|  FR4.5.2  |                        |    x    |         |   x   |
+|  FR4.5.1  |                        |    x    |         |       |
+|  FR4.5.2  |                        |    x    |         |       |
 |  FR4.5.3  |                        |         |         |   x   |
-|   FR5.1   |                        |    x    |         |   x   |
-|   FR5.2   |                        |    x    |         |   x   |
+|   FR5.1   |                        |    x    |         |       |
+|   FR5.2   |                        |    x    |         |       |
 |  FR5.3.1  |                        |    x    |         |   x   |
 |  FR5.3.2  |                        |         |         |   x   |
 |  FR5.3.3  |                        |         |         |   x   |
-|  FR5.4.1  |                        |    x    |         |   x   |
+|  FR5.4.1  |                        |    x    |         |       |
 | FR5.4.2.1 |                        |    x    |         |   x   |
 | FR5.4.2.2 |                        |         |    x    |   x   |
 |   FR6.1   |                        |         |         |   x   |
@@ -288,23 +288,23 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 \<Describe constraints on functional requirements>
 
-|  ID  | Tipo (efficienza, affidabilità, ..) |                                                 Descrizione                                                  |   Si riferisce a   |
-| :--: | :---------------------------------: | :----------------------------------------------------------------------------------------------------------: | :----------------: |
-| NFR1 |              Usabilità              |      Non deve essere necessario training per essere in grado di utilizzare l'applicazione in autonomia       | FR1, FR2.1, FR3, FR4.1, FR4.2, FR4.3, FR4.4, FR4.5.2, FR4.5.3, FR5.1, FR5.2, FR5.3.1, FR5.4, FR6.2, FR8.3.2   |
-| NFR2 |            Disponibilità            |                                 L'uptime del server deve essere pari al 99%                                  | All |
-| NFR3 |              Security               | L'autenticazione deve essere gestita mediante librerie che utilizzano pratiche conformi allo stato dell'arte |      FR1, FR2.1      |
-| NFR4 |              Security               | Il software non deve essere vulnerabile ad attacchi XSS e SQL injection |     All       |
-| NFR5 |              Security               | Le dipendenze con vulnerabilità critiche (CVSS rating >= 6) devono essere aggiornate entro 1 settimana |    All        |
-| NFR6 |              Security               | Le dipendenze con vulnerabilità note di qualsiasi tipo devono essere aggiornate entro 2 mesi |    All        |
-| NFR7 |              Affidabilità               | Ogni utente non deve segnalare più di 2 bug all'anno |      FR1, FR2.1, FR3, FR4.1, FR4.2, FR4.3, FR4.4, FR4.5.2, FR4.5.3, FR5.1, FR5.2, FR5.3.1, FR5.4, FR6.2, FR8.3.2      |
-| NFR8 |              Efficienza               | Il tempo di risposta deve essere pari o inferiore a 500 millisecondi |    All        |
-| NFR9 |              Correttezza               | L'applicazione deve essere in grado di gestire un aumento del traffico senza degrado delle prestazioni (tempo di risposta inferiore a 500 ms) |    All        |
-| NFR10 |              Manutenibilità               | Risolvere un problema software deve richiedere un effort massimo di 7 person/hours |   All         |
-| NFR11 |              Manutenibilità               | Modificare una funzionalità esistente deve richiedere un effort massimo di 7 person/hours |     All       |
-| NFR12 |              Manutenibilità               | Eliminare una funzionalità esistente deve richiedere un effort massimo di 3 person/hours |     All       |
-| NFR13 |              Manutenibilità               | Aggiungere una nuova funzionalità deve richiedere un effort massimo di 35 person/hours |      All      |
-| NFR14 |              Portabilità               | Modificare il DBMS su cui memorizzare i dati deve richiedere un effort massimo di 35 person/hours |     FR1, FR2, FR3, FR4, FR5, FR7, FR8       |
-| NFR15 |              Portabilità               | L'applicazione web deve essere disponibile sui browser Chrome, Firefox, Edge, Safari e Opera |     All       |
+|  ID   | Tipo (efficienza, affidabilità, ..) |                                                                  Descrizione                                                                  |                                               Si riferisce a                                                |
+| :---: | :---------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------: |
+| NFR1  |              Usabilità              |                       Non deve essere necessario training per essere in grado di utilizzare l'applicazione in autonomia                       | FR1, FR2.1, FR3, FR4.1, FR4.2, FR4.3, FR4.4, FR4.5.2, FR4.5.3, FR5.1, FR5.2, FR5.3.1, FR5.4, FR6.2, FR8.3.2 |
+| NFR2  |            Disponibilità            |                                                  L'uptime del server deve essere pari al 99%                                                  |                                                     All                                                     |
+| NFR3  |              Security               |                 L'autenticazione deve essere gestita mediante librerie che utilizzano pratiche conformi allo stato dell'arte                  |                                                 FR1, FR2.1                                                  |
+| NFR4  |              Security               |                                    Il software non deve essere vulnerabile ad attacchi XSS e SQL injection                                    |                                                     All                                                     |
+| NFR5  |              Security               |                    Le dipendenze con vulnerabilità critiche (CVSS rating >= 6) devono essere aggiornate entro 1 settimana                     |                                                     All                                                     |
+| NFR6  |              Security               |                         Le dipendenze con vulnerabilità note di qualsiasi tipo devono essere aggiornate entro 2 mesi                          |                                                     All                                                     |
+| NFR7  |            Affidabilità             |                                             Ogni utente non deve segnalare più di 2 bug all'anno                                              | FR1, FR2.1, FR3, FR4.1, FR4.2, FR4.3, FR4.4, FR4.5.2, FR4.5.3, FR5.1, FR5.2, FR5.3.1, FR5.4, FR6.2, FR8.3.2 |
+| NFR8  |             Efficienza              |                                     Il tempo di risposta deve essere pari o inferiore a 500 millisecondi                                      |                                                     All                                                     |
+| NFR9  |             Correttezza             | L'applicazione deve essere in grado di gestire un aumento del traffico senza degrado delle prestazioni (tempo di risposta inferiore a 500 ms) |                                                     All                                                     |
+| NFR10 |           Manutenibilità            |                              Risolvere un problema software deve richiedere un effort massimo di 7 person/hours                               |                                                     All                                                     |
+| NFR11 |           Manutenibilità            |                           Modificare una funzionalità esistente deve richiedere un effort massimo di 7 person/hours                           |                                                     All                                                     |
+| NFR12 |           Manutenibilità            |                           Eliminare una funzionalità esistente deve richiedere un effort massimo di 3 person/hours                            |                                                     All                                                     |
+| NFR13 |           Manutenibilità            |                            Aggiungere una nuova funzionalità deve richiedere un effort massimo di 35 person/hours                             |                                                     All                                                     |
+| NFR14 |             Portabilità             |                       Modificare il DBMS su cui memorizzare i dati deve richiedere un effort massimo di 35 person/hours                       |                                      FR1, FR2, FR3, FR4, FR5, FR7, FR8                                      |
+| NFR15 |             Portabilità             |                         L'applicazione web deve essere disponibile sui browser Chrome, Firefox, Edge, Safari e Opera                          |                                                     All                                                     |
 
 # Use case diagram and use cases
 
@@ -617,30 +617,29 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 #### Scenario 11.1
 
-| Scenario 11.1  |  |
-| :------------: | :---------------------------------------------------------------: |
-| Precondizione  |  |
-| Postcondizione | Un nuovo prodotto è stato aggiunto |
-|     Passo#     | Descrizione |
+| Scenario 11.1  |                                                                                                                                           |
+| :------------: | :---------------------------------------------------------------------------------------------------------------------------------------: |
+| Precondizione  |                                                                                                                                           |
+| Postcondizione |                                                    Un nuovo prodotto è stato aggiunto                                                     |
+|     Passo#     |                                                                Descrizione                                                                |
 |       1        | Il manager compila il form 'Nuovo prodotto' inserendo il prezzo, data di arrivo, modello, categoria e dettagli relativi al nuovo prodotto |
-|       2        | Il manager clicca sul pulsante 'Inserisci' |
-|       3        | Il sistema verifica che tutti i campi siano stati compilati e che il codice sia univoco e di almeno 6 caratteri|
-|       4        | Il sistema  ottiene un riscontro positivo a tutte le precedenti verifiche |
-|       5        | Il sistema mostra un messaggio di corretta riuscita dell'operazione |
+|       2        |                                                Il manager clicca sul pulsante 'Inserisci'                                                 |
+|       3        |              Il sistema verifica che tutti i campi siano stati compilati e che il codice sia univoco e di almeno 6 caratteri              |
+|       4        |                                 Il sistema ottiene un riscontro positivo a tutte le precedenti verifiche                                  |
+|       5        |                                    Il sistema mostra un messaggio di corretta riuscita dell'operazione                                    |
 
 #### Scenario 11.2
 
-| Scenario 11.2  |  |
-| :------------: | :---------------------------------------------------------------: |
-| Precondizione  | Esiste già un prodotto con lo stesso codice del nuovo prodotto |
-| Postcondizione | Il nuovo prodotto non viene aggiunto |
-|     Passo#     |   Descrizione |
-|       1        |   Il manager compila il form 'Nuovo prodotto' inserendo il prezzo, data di arrivo, modello, categoria e dettagli relativi al nuovo prodotto   |
-|       2        | Il manager clicca sul pulsante 'Inserisci' |
-|       3        | Il sistema verifica che tutti i campi siano stati compilati e che il codice sia univoco e di almeno 6 caratteri |
-|       4        | Il sistema ottiene un riscontro negativo ad almeno una delle precedenti verifiche |
-|       5        | Il sistema mostra un messaggio di mancata riuscita dell'operazione |
-
+| Scenario 11.2  |                                                                                                                                           |
+| :------------: | :---------------------------------------------------------------------------------------------------------------------------------------: |
+| Precondizione  |                                      Esiste già un prodotto con lo stesso codice del nuovo prodotto                                       |
+| Postcondizione |                                                   Il nuovo prodotto non viene aggiunto                                                    |
+|     Passo#     |                                                                Descrizione                                                                |
+|       1        | Il manager compila il form 'Nuovo prodotto' inserendo il prezzo, data di arrivo, modello, categoria e dettagli relativi al nuovo prodotto |
+|       2        |                                                Il manager clicca sul pulsante 'Inserisci'                                                 |
+|       3        |              Il sistema verifica che tutti i campi siano stati compilati e che il codice sia univoco e di almeno 6 caratteri              |
+|       4        |                             Il sistema ottiene un riscontro negativo ad almeno una delle precedenti verifiche                             |
+|       5        |                                    Il sistema mostra un messaggio di mancata riuscita dell'operazione                                     |
 
 ### Rimozione prodotto, UC12
 
@@ -1108,47 +1107,47 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 | Precondizione  |                                                                                      |
 | Postcondizione |                       Presenza di un nuovo oggetto nel negozio                       |
 |     Step#      |                                     Descrizione                                      |
-|       1        |          L'admin digita la classe dell'oggetto che vuole inserire         |
-|       2        |             L'admin digita 'Inserimento'  per inserirlo   |
+|       1        |               L'admin digita la classe dell'oggetto che vuole inserire               |
+|       2        |                      L'admin digita 'Inserimento' per inserirlo                      |
 |       3        | L'admin completa i campi richiesti dal sistema riguardo le informazioni dell'oggetto |
-|       4        |            L'admin conferma le sue scelte premendo invio            |
-|       5        |           Il sistema aggiunge al sistema l'oggetto compilato dall'admin             |
+|       4        |                    L'admin conferma le sue scelte premendo invio                     |
+|       5        |            Il sistema aggiunge al sistema l'oggetto compilato dall'admin             |
 
 ### Ricerca Oggetto, UC24
 
 | Attori coinvolti  |                               Admin                               |
 | :---------------: | :---------------------------------------------------------------: |
 |   Precondizione   |                                                                   |
-|  Postcondizione   |                            |
+|  Postcondizione   |                                                                   |
 | Scenario Nominale | L'admin effettua la ricerca di un oggetto all'interno del sistema |
 |     Varianti      | Non sono presenti oggetti corrispondenti alla ricerca effettuata  |
 |     Eccezioni     |                                                                   |
 
 #### Scenario 24.1
 
-| Scenario 24.1  |                                                                                                                                       |
-| :------------: | :-----------------------------------------------------------------------------------------------------------------------------------: |
-| Precondizione  |                                  Sono presenti oggetti corrispondenti ai filtri di ricerca applicati                                  |
-| Postcondizione |       L'admin visualizza una lista di oggetti    |
-|     Step#      | Descrizione                                                              |
-|       1        |          L'admin digita la classe dell'oggetto che vuole inserire         |
-|       2        | L'admin accede alla sezione di ricerca digitando 'Ricerca' |
-| 3 | L'admin digita zero o più parole chiave relative a ciò che vuole cercare |
-|       3        |        L'admin clicca invio per procedere con la ricerca   |
-|       4        |  Il sistema mostra l'elenco di oggetti che corrispondono ai parametri di ricera inseriti                        |
+| Scenario 24.1  |                                                                                         |
+| :------------: | :-------------------------------------------------------------------------------------: |
+| Precondizione  |           Sono presenti oggetti corrispondenti ai filtri di ricerca applicati           |
+| Postcondizione |                         L'admin visualizza una lista di oggetti                         |
+|     Step#      |                                       Descrizione                                       |
+|       1        |                L'admin digita la classe dell'oggetto che vuole inserire                 |
+|       2        |               L'admin accede alla sezione di ricerca digitando 'Ricerca'                |
+|       3        |        L'admin digita zero o più parole chiave relative a ciò che vuole cercare         |
+|       3        |                    L'admin clicca invio per procedere con la ricerca                    |
+|       4        | Il sistema mostra l'elenco di oggetti che corrispondono ai parametri di ricera inseriti |
 
 #### Scenario 24.2 - Eccezione e Variante?
 
-| Scenario 24.2  |                                                                                                                                       |
-| :------------: | :-----------------------------------------------------------------------------------------------------------------------------------: |
-| Precondizione  |                                   Non sono presenti oggetti corrispondenti alla ricerca effettuata                                    |
-| Postcondizione |                                                 L'admin non visualizza alcun oggetto                                                  |
-|     Step#      |                                                              Descrizione                                                              |
-|       1        |          L'admin digita la classe dell'oggetto che vuole cercare         |
-|       2        | L'admin accede alla sezione di ricerca digitando 'Ricerca' |
-| 3 | L'admin digita zero o più parole chiave relative a ciò che vuole cercare |
-|       3        |        L'admin clicca invio per procedere con la ricerca   |
-|       3        |            Il sistema mostra una pagina che riporta che non ci sono oggetti corrispondenti ai parametri di ricerca forniti            |
+| Scenario 24.2  |                                                                                                                 |
+| :------------: | :-------------------------------------------------------------------------------------------------------------: |
+| Precondizione  |                        Non sono presenti oggetti corrispondenti alla ricerca effettuata                         |
+| Postcondizione |                                      L'admin non visualizza alcun oggetto                                       |
+|     Step#      |                                                   Descrizione                                                   |
+|       1        |                             L'admin digita la classe dell'oggetto che vuole cercare                             |
+|       2        |                           L'admin accede alla sezione di ricerca digitando 'Ricerca'                            |
+|       3        |                    L'admin digita zero o più parole chiave relative a ciò che vuole cercare                     |
+|       3        |                                L'admin clicca invio per procedere con la ricerca                                |
+|       3        | Il sistema mostra una pagina che riporta che non ci sono oggetti corrispondenti ai parametri di ricerca forniti |
 
 ### Modifica oggetto, UC25
 
@@ -1164,26 +1163,24 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 | Scenario 25.1  |                                                                                                        |
 | :------------: | :----------------------------------------------------------------------------------------------------: |
-| Precondizione  |                  |
+| Precondizione  |                                                                                                        |
 | Postcondizione |                           Il sistema salva le modifiche apportate dall'admin                           |
 |     Step#      |                                              Descrizione                                               |
-|       1        |          L'admin digita la classe dell'oggetto che vuole modificare         |
-|       2        | L'admin accede alla sezione di modifica digitando 'Modifica' |
-|       3       |                                  L'admin cerca, digitando una o più keyword, l'elemento che vuole modificare     |
-|       4        |                                L'admin clicca il pulsante di invio per confermare la ricerca   |
-| 5 | L'admin seleziona il prodotto da modificare nella lista proposta dal sistema |
-| 6 | L'admin apporta le modifiche che desidera all'oggetto selezionato |
-|       7       |                            Il sistema verifica la validità delle modifiche                             |
+|       1        |                       L'admin digita la classe dell'oggetto che vuole modificare                       |
+|       2        |                      L'admin accede alla sezione di modifica digitando 'Modifica'                      |
+|       3        |              L'admin cerca, digitando una o più keyword, l'elemento che vuole modificare               |
+|       4        |                     L'admin clicca il pulsante di invio per confermare la ricerca                      |
+|       5        |              L'admin seleziona il prodotto da modificare nella lista proposta dal sistema              |
+|       6        |                   L'admin apporta le modifiche che desidera all'oggetto selezionato                    |
+|       7        |                            Il sistema verifica la validità delle modifiche                             |
 |       8        |                Il sistema ottiene riscontro positivo relativo alle modifiche apportate                 |
 |       9        | Il sistema mostra una pagina che riporta un messaggio di corretta riuscita della modifica dell'oggetto |
-
-
 
 ### Elimina oggetto, UC26
 
 | Attori coinvolti  |                              Admin                               |
 | :---------------: | :--------------------------------------------------------------: |
-|   Precondizione   |  |
+|   Precondizione   |                                                                  |
 |  Postcondizione   | L'oggetto selezionato non è più presente all'interno del sistema |
 | Scenario Nominale |              L'admin rimuove dal sistema un oggetto              |
 |     Varianti      |                                                                  |
@@ -1191,18 +1188,18 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 #### Scenario 26.1
 
-| Scenario 26.1  |                                                                  |
-| :------------: | :--------------------------------------------------------------: |
-| Precondizione  |   |
-| Postcondizione | L'oggetto selezionato non è più presente all'interno del sistema |
-|     Step#      |                           Descrizione                            |
-|       1        |          L'admin digita la classe dell'oggetto che vuole eliminare         |
-|       2        | L'admin accede alla sezione relativa all'eliminazione di un oggetto digitando 'Rimuovi' |
-|       3       |                                  L'admin cerca, digitando una o più keyword, l'elemento che vuole eliminare     |
-|       4        |                                L'admin clicca il pulsante di invio per confermare la ricerca   |
-| 5 | L'admin seleziona il prodotto da eliminare nella lista proposta dal sistema |
-| 6 | L'admin conferma la sua scelta digitando "y" in caso di scelta positiva e "n" nel caso volesse annullare l'operazione |
-| 7 | Il sistema rimuove l'oggetto |
+| Scenario 26.1  |                                                                                                                       |
+| :------------: | :-------------------------------------------------------------------------------------------------------------------: |
+| Precondizione  |                                                                                                                       |
+| Postcondizione |                           L'oggetto selezionato non è più presente all'interno del sistema                            |
+|     Step#      |                                                      Descrizione                                                      |
+|       1        |                               L'admin digita la classe dell'oggetto che vuole eliminare                               |
+|       2        |                L'admin accede alla sezione relativa all'eliminazione di un oggetto digitando 'Rimuovi'                |
+|       3        |                      L'admin cerca, digitando una o più keyword, l'elemento che vuole eliminare                       |
+|       4        |                             L'admin clicca il pulsante di invio per confermare la ricerca                             |
+|       5        |                      L'admin seleziona il prodotto da eliminare nella lista proposta dal sistema                      |
+|       6        | L'admin conferma la sua scelta digitando "y" in caso di scelta positiva e "n" nel caso volesse annullare l'operazione |
+|       7        |                                             Il sistema rimuove l'oggetto                                              |
 
 ### Visualizza le recensioni di un prodotto, UC27
 
@@ -1268,45 +1265,50 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 ![Glossario](media/version2/glossario.png)
 
-__Utente__:
+**Utente**:
+
 - Username: stringa non vuota, univoca all'interno del sistema, in relazione a tutti gli utenti presenti;
 - Password: stringa non vuota;
 - Nome: stringa non vuota;
 - Cognome: stringa non vuota.
 
-__Cliente__: specializzazione di *Utente*:
+**Cliente**: specializzazione di _Utente_:
+
 - IndirizzoDiConsegna: stringa opzionale;
 - MetodoDiPagamento: stringa opzionale;
 - Email: stringa opzionale;
 - NumeroTelefono: stringa opzionale.
 
-__Manager__: specializzazione di *Utente*: non possiede attributi specifici.
+**Manager**: specializzazione di _Utente_: non possiede attributi specifici.
 
-__Modello__:
+**Modello**:
+
 - NomeModello: stringa non vuota, univoca all'interno del sistema, in relazione ai modelli presenti;
 - Categoria: stringa i cui valori possibili sono "Laptop", "Smartphone" oppure "Appliance".
 
-__Prodotto__:
+**Prodotto**:
+
 - ID: stringa lunga almeno 6 caratteri, univoca all'interno del sistema, in relazione ai prodotti presenti;
 - Prezzo: numero decimale, strettamente positivo;
 - DataArrivo: stringa in formato YYYY-MM-DD;
 - DataVendita: stringa opzionale in formato YYYY-MM-DD;
 - Dettagli: stringa opzionale.
 
-__Carrello__:
+**Carrello**:
+
 - ID: numero;
 - Pagato: può assumere valore vero o falso;
 - DataPagamento: stringa opzionale in formato YYYY-MM-DD;
 - Prezzo totale: numero decimale, dato dalla somma dei prezzi dei prodotti inseriti nel carrello;
 - StatoSpedizione: stringa opzionale i cui valori possibili sono "Presa in carico", "In corso", "Conclusa".
 
-__Recensione__:
+**Recensione**:
+
 - Voto: numero intero, può assumere valori compresi tra 1 e 5, estremi inclusi;
 - Descrizione: stringa opzionale;
 - DataInserimento: stringa in formato YYYY-MM-DD.
 
-_Nota_: l'amministratore di sistema (__admin__) non è modellato nel glossario in quanto è presente in unica istanza nel sistema.
-
+_Nota_: l'amministratore di sistema (**admin**) non è modellato nel glossario in quanto è presente in unica istanza nel sistema.
 
 # System Design
 
