@@ -1405,8 +1405,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 - ID: numero;
 - Pagato: può assumere valore vero o falso;
 - DataPagamento: stringa opzionale in formato YYYY-MM-DD;
-- Prezzo totale: numero decimale, dato dalla somma dei prezzi dei prodotti inseriti nel carrello;
-- StatoSpedizione: stringa opzionale i cui valori possibili sono "Presa in carico", "In corso", "Conclusa".
+- Prezzo totale: numero decimale, dato dalla somma dei prezzi dei prodotti inseriti nel carrello.
 
 **Recensione**:
 
