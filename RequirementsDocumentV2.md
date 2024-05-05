@@ -304,8 +304,6 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 ![Use Case Diagram](media/version2/use_case_diagram.png)
 
-## Anche se non indicato nel diagramma per questioni di chiarezza visiva, l'admin può effettuare ogni operazione di aggiunta, modifica o rimozione di qualsiasi oggetto.
-
 ### Sign up, UC1
 
 | Attori coinvolti  |                                 Utente non autenticato                                  |
