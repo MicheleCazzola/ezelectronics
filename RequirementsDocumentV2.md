@@ -828,7 +828,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |  Postcondizione   | Un'informazione tra indirizzo di consegna, metodo di pagamento predefinito, email e telefono viene aggiunta al profilo |
 | Scenario Nominale |                                 Il cliente aggiunge un'informazione al proprio profilo                                 |
 |     Varianti      |                                                                                                                        |
-|     Eccezioni     |                                      Non vengono compilati tutti i campi del form                                      |
+|     Eccezioni     |                                      Non viene compilato il campo del form                                      |
 
 #### Scenario 17b.1
 
