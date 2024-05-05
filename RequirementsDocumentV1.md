@@ -1,12 +1,9 @@
 # Documento dei requisiti - EZElectronics attuale
 
-Data:
+Data: 04/05/2024
 
 Versione: V1 - descrizione di EZElectronics nella forma ATTUALE (come ricevuta dagli insegnanti)
 
-| Numero di versione | Modifica |
-| :----------------: | :------: |
-|                    |          |
 
 # Contenuti
 
@@ -649,14 +646,14 @@ Tutti i casi d'uso il cui attore principale è Cliente, Manager o Utente Autenti
 
 ![Class Diagram](media/version1/glossario.png)
 
-__Utente__:
+**Utente**:
 - Username: stringa non vuota, univoca all'interno del sistema, in relazione agli utenti presenti;
 - Password: stringa non vuota;
 - Nome: stringa non vuota;
 - Cognome: stringa non vuota;
 - Ruolo: stringa i cui valori possibili sono "Customer" oppure "Manager".
 
-__Prodotto__:
+**Prodotto**:
 - Codice: stringa lunga almeno 6 caratteri, univoca all'interno del sistema, in relazione ai prodotti presenti;
 - Prezzo: numero decimale, strettamente positivo;
 - Modello: stringa non vuota;
@@ -665,7 +662,7 @@ __Prodotto__:
 - DataVendita: stringa opzionale in formato YYYY-MM-DD;
 - Dettagli: stringa opzionale.
 
-__Carrello__:
+**Carrello**:
 - ID: numero;
 - Pagato: può assumere valore vero o falso;
 - DataPagamento: stringa opzionale in formato YYYY-MM-DD;

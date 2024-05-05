@@ -1,10 +1,10 @@
 # Graphical User Interface Prototype - CURRENT
 
-Authors:
+Authors: Michele Cazzola
 
-Date:
+Date: 01/05/2024
 
-Version:
+Version: 1.1
 
 Il prototipo di GUI realizzato per la versione corrente possiede solo il layout browser, essendo un'applicazione web; supponendo il front-end realizzato in modo responsive, tale layout rimane valido sia per un utilizzo desktop, che per un utilizzo da smartphone.
 

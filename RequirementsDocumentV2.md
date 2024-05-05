@@ -1,12 +1,8 @@
 # Requirements Document - future EZElectronics
 
-Date:
+Date: 05/05/2024
 
-Version: V1 - description of EZElectronics in FUTURE form (as proposed by the team)
-
-| Version number | Change |
-| :------------: | :----: |
-|                |        |
+Version: V2 - description of EZElectronics in FUTURE form (as proposed by the team)
 
 # Contents
 
@@ -101,6 +97,8 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | Servizio di pagamento  |        API         |      Internet      |
 | Servizio di pubblicità |        API         |      Internet      |
 | Servizio di spedizione |        API         |      Internet      |
+
+Le GUI e l'interfaccia admin sono descritte graficamente nel documento [GUIPrototypeV2.md](/GUIPrototypeV2.md)
 
 # Stories and personas
 
@@ -1411,7 +1409,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 - Descrizione: stringa opzionale;
 - DataInserimento: stringa in formato YYYY-MM-DD.
 
-_Nota_: l'amministratore di sistema (**admin**) non è modellato nel glossario in quanto è presente in unica istanza nel sistema.
+_Nota_: l'amministratore di sistema (**admin**) non è modellato nel glossario in quanto accede al sistema tramite un'interfaccia privilegiata che non richiede nessun dato aggiuntivo.
 
 # System Design
 
