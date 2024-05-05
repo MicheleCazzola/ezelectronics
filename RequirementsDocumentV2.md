@@ -77,7 +77,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | Utente non autenticato  | Utente che non si è autenticato presso la piattaforma, indipendentemente dal fatto che possieda o meno un account |
 |         Cliente         |                                      Utente autenticato, cliente del negozio                                      |
 |         Manager         |                                      Utente autenticato, gestore del negozio                                      |
-|          Admin          |                     Utente autenticato, amministratore del sistema di gestione EZElectronics                      |
+|          Admin          |                     Amministratore del sistema di gestione EZElectronics                      |
 |       Produttore        |              Azienda che produce gli oggetti che verranno messi in vendita attraverso la piattaforma              |
 |      Distributore       |                          Azienda che distribuisce i prodotti, dal produttore al manager                           |
 | Fornitori di pubblicità |            Aziende i cui prodotti sono pubblicizzati nei banner presenti all'interno dell'applicazione            |
@@ -244,7 +244,6 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |  FR2.1.4  |                        |    x    |         |   x   |
 |  FR2.1.5  |                        |    x    |         |   x   |
 |  FR2.1.6  |                        |    x    |         |   x   |
-|  FR2.1.7  |                        |    x    |    x    |   x   |
 |   FR2.2   |                        |         |         |   x   |
 |   FR2.3   |                        |         |         |   x   |
 |   FR2.4   |                        |         |         |   x   |
