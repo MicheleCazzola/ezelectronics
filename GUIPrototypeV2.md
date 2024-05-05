@@ -126,7 +126,6 @@ Se il ruolo scelto è `c` (cliente) vengono mostrati i seguenti campi:
 
 ```
 Inserisci indirizzo di spedizione [opzionale]:
-inserisci metodo di pagamento [opzionale]:
 Inserisci email [opzionale]:
 Inserisci numero di telefono [opzionale]:
 ```
@@ -140,7 +139,6 @@ Al termine dell'inserimento il sistema verifica la validità dei campi inseriti:
 mario99, Mario Rossi, Cliente
 con
 indirizzo di spedizione: Corso Francia, 1
-metodo di pagamento: Carta di Credito 3746 432767 81001
 email: mario.rossi@gmail.com
 numero di telefono:
 ```
@@ -239,7 +237,6 @@ Per un 'cliente' vengono mostrati anche:
 
 ```
 5. Indirizzo di spedizione
-6. Metodo di pagamento
 ```
 
 #### Menu Utenti - Rimuovi tutti

@@ -149,7 +149,6 @@ Persona: Marta, 27 anni, cliente del negozio:
 
 Persona: Giancarlo, 30 anni, cliente del negozio:
 
-- Giancarlo vuole poter salvare il suo metodo di pagamento così da averlo pronto in tutte le occasioni
 - Giancarlo vuole poter lasciare un voto al prodotto che ha acquistato in modo da essere d'aiuto agli altri utenti
 - Giancarlo vuole cercare le recensioni che ha lasciato sui prodotti
 - Giancarlo vuole poter essere in grado di modificare o di eliminare una recensione che ha lasciato
@@ -179,8 +178,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.3  |                                                           Modifica password                                                            |
 |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.4  |                                               Gestione informazioni di contatto (email)                                                |
 |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.5  |                                               Gestione indirizzo di consegna predefinito                                               |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.6  |                                                Gestione metodo di pagamento predefinito                                                |
-|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.7  |                                                          Eliminazione account                                                          |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.1.6  |                                                          Eliminazione account                                                          |
 |                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2                     |                                                             Ricerca utenti                                                             |
 |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.1  |                                                      Recupero di tutti gli utenti                                                      |
 |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR2.2.2  |                                                     Ricerca utenti, dato un ruolo                                                      |
@@ -226,9 +224,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |                                        FR6                                         |                                                          Gestione pubblicità                                                           |
 |                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.1                     |                                          Ricezione annuncio pubblicitario da servizio esterno                                          |
 |                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR6.2                     |                       Gestione possibilità di nascondere gli annunci pubblicitari all'interno della piattaforma                        |
-|                                        FR7                                         |                                                           Gestione pagamento                                                           |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR7.1                     |                                                    Gestione richiesta di pagamento                                                     |
-|                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR7.2                     |                                       Invio esito di pagamento al cliente (successo/fallimento)                                        |
+|                                        FR7                                         |                                              Gestione pagamento tramite servizio esterno                                               |
 |                                        FR8                                         |                                                          Gestione spedizione                                                           |
 |                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.1                     |                                                       Creazione nuova spedizione                                                       |
 |                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FR8.2                     |                   Ricerca spedizioni di tutti gli utenti, eventualmente per stato (non iniziate, in corso, concluse)                   |
@@ -442,37 +438,51 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 ### Paga Carrello, UC5
 
-| Attori coinvolti  |                    Cliente                    |
-| :---------------: | :-------------------------------------------: |
-|   Precondizione   | Il cliente ha almeno un prodotto nel carrello |
-|  Postcondizione   |             L'ordine è confermato             |
-| Scenario nominale |  Il cliente acquista i prodotti nel carrello  |
-|     Varianti      |                                               |
-|     Eccezioni     |                                               |
+| Attori coinvolti  |                      Cliente                       |
+| :---------------: | :------------------------------------------------: |
+|   Precondizione   |   Il cliente ha almeno un prodotto nel carrello    |
+|  Postcondizione   |               L'ordine è confermato                |
+| Scenario nominale |    Il cliente acquista i prodotti nel carrello     |
+|     Varianti      |                                                    |
+|     Eccezioni     | Indirizzo di spedizione assente, pagamento fallito |
 
 #### Scenario 5.1
 
-|  Scenario 5.1  |                                                                                                                               |
-| :------------: | :---------------------------------------------------------------------------------------------------------------------------: |
-| Precondizione  | Il cliente ha almeno un prodotto nel carrello, e ha impostato un metodo predefinito di pagamento e un indirizzo di spedizione |
-| Postcondizione |                          L'acquisto è confermato e il carrello corrente viene spostato nello storico                          |
-|     Passo#     |                                                          Descrizione                                                          |
-|       1        |                                           Il cliente clicca sull'icona del carrello                                           |
-|       2        |                                        Il cliente visualizza il contenuto del carrello                                        |
-|       3        |                                           Il cliente clicca sul pulsante 'Acquista'                                           |
-|       4        |          Il sistema mostra la homepage del cliente con un messaggio che conferma la corretta riuscita dell'acquisto           |
+|  Scenario 5.1  |                                                                                                                     |
+| :------------: | :-----------------------------------------------------------------------------------------------------------------: |
+| Precondizione  |               Il cliente ha almeno un prodotto nel carrello e ha impostato un indirizzo di spedizione               |
+| Postcondizione |                     L'acquisto è confermato e il carrello corrente viene spostato nello storico                     |
+|     Passo#     |                                                     Descrizione                                                     |
+|       1        |                                      Il cliente clicca sull'icona del carrello                                      |
+|       2        |                                   Il cliente visualizza il contenuto del carrello                                   |
+|       3        |                                      Il cliente clicca sul pulsante 'Acquista'                                      |
+|       4        |                          Il sistema redireziona il cliente al sistema esterno di pagamento                          |
+|       5        | Al termine dell'operazione, il cliente viene reindirizzato alla homepage con un messaggio di conferma dell'acquisto |
 
 #### Scenario 5.2
 
-|  Scenario 5.2  |                                                                                                                                      |
-| :------------: | :----------------------------------------------------------------------------------------------------------------------------------: |
-| Precondizione  | Il cliente ha almeno un prodotto nel carrello, ma non ha impostato un metodo predefinito di pagamento e/o un indirizzo di spedizione |
-| Postcondizione |                                                   L'acquisto non viene confermato                                                    |
-|     Passo#     |                                                             Descrizione                                                              |
-|       1        |                                              Il cliente clicca sull'icona del carrello                                               |
-|       2        |                                           Il cliente visualizza il contenuto del carrello                                            |
-|       3        |                                              Il cliente clicca sul pulsante 'Acquista'                                               |
-|       4        |                        Il sistema mostra un messaggio di errore che segnala la mancata riuscita dell'acquisto                        |
+|  Scenario 5.2  |                                                                                               |
+| :------------: | :-------------------------------------------------------------------------------------------: |
+| Precondizione  | Il cliente ha almeno un prodotto nel carrello, ma non ha impostato un indirizzo di spedizione |
+| Postcondizione |                                L'acquisto non viene confermato                                |
+|     Passo#     |                                          Descrizione                                          |
+|       1        |                           Il cliente clicca sull'icona del carrello                           |
+|       2        |                        Il cliente visualizza il contenuto del carrello                        |
+|       3        |                           Il cliente clicca sul pulsante 'Acquista'                           |
+|       4        |    Il sistema mostra un messaggio di errore che segnala la mancata riuscita dell'acquisto     |
+
+#### Scenario 5.3
+
+|  Scenario 5.2  |                                                                                                                   |
+| :------------: | :---------------------------------------------------------------------------------------------------------------: |
+| Precondizione  | Il cliente ha almeno un prodotto nel carrello e ha impostato un indirizzo di spedizione, ma il pagamento fallisce |
+| Postcondizione |                                          L'acquisto non viene confermato                                          |
+|     Passo#     |                                                    Descrizione                                                    |
+|       1        |                                     Il cliente clicca sull'icona del carrello                                     |
+|       2        |                                  Il cliente visualizza il contenuto del carrello                                  |
+|       3        |                                     Il cliente clicca sul pulsante 'Acquista'                                     |
+|       4        |                         Il sistema redireziona il cliente al sistema esterno di pagamento                         |
+|       5        |              Il sistema mostra un messaggio di errore che segnala la mancanta riuscita dell'acquisto              |
 
 ### Aggiungi un prodotto al carrello, UC6
 
@@ -826,7 +836,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 | Attori coinvolti  |                                                        Cliente                                                         |
 | :---------------: | :--------------------------------------------------------------------------------------------------------------------: |
 |   Precondizione   |                          Il profilo risulta privo dell'informazione che si intende aggiungere                          |
-|  Postcondizione   | Un'informazione tra indirizzo di consegna, metodo di pagamento predefinito, email e telefono viene aggiunta al profilo |
+|  Postcondizione   | Un'informazione tra indirizzo di consegna, email e telefono viene aggiunta al profilo |
 | Scenario Nominale |                                 Il cliente aggiunge un'informazione al proprio profilo                                 |
 |     Varianti      |                                                                                                                        |
 |     Eccezioni     |                                      Non vengono compilati tutti i campi del form                                      |
@@ -836,7 +846,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 | Scenario 17b.1 |                                                                                                                        |
 | :------------: | :--------------------------------------------------------------------------------------------------------------------: |
 | Precondizione  |                          Il profilo risulta privo dell'informazione che si intende aggiungere                          |
-| Postcondizione | Un'informazione tra indirizzo di consegna, metodo di pagamento predefinito, email e telefono viene aggiunta al profilo |
+| Postcondizione | Un'informazione tra indirizzo di consegna, email e telefono viene aggiunta al profilo |
 |     Step#      |                                                      Descrizione                                                       |
 |       1        |                                        Il cliente visualizza il proprio profilo                                        |
 |       2        |               Il cliente clicca sul pulsante 'Aggiungi' relativo all'informazione che intende registrare               |
@@ -866,7 +876,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 | Attori coinvolti  |                                                    Cliente                                                    |
 | :---------------: | :-----------------------------------------------------------------------------------------------------------: |
 |   Precondizione   |                 Il profilo non deve essere privo dell'informazione che si intende modificare                  |
-|  Postcondizione   | Un'informazione tra indirizzo di consegna, metodo di pagamento predefinito, email e telefono viene modificata |
+|  Postcondizione   | Un'informazione tra indirizzo di consegna, email e telefono viene modificata |
 | Scenario Nominale |                            Il cliente modifica un'informazione del proprio profilo                            |
 |     Varianti      |                                                                                                               |
 |     Eccezioni     |                                 Non vengono compilati tutti i campi del form                                  |
@@ -876,7 +886,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 | Scenario 17c.1 |                                                                                                               |
 | :------------: | :-----------------------------------------------------------------------------------------------------------: |
 | Precondizione  |                 Il profilo non deve essere privo dell'informazione che si intende modificare                  |
-| Postcondizione | Un'informazione tra indirizzo di consegna, metodo di pagamento predefinito, email e telefono viene modificata |
+| Postcondizione | Un'informazione tra indirizzo di consegna, email e telefono viene modificata |
 |     Step#      |                                                  Descrizione                                                  |
 |       1        |                                   Il cliente visualizza il proprio profilo                                    |
 |       2        |          Il cliente clicca sul pulsante 'Modifica' relativo all'informazione che intende aggiornare           |
@@ -906,7 +916,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 | Attori coinvolti  |                                                   Cliente                                                    |
 | :---------------: | :----------------------------------------------------------------------------------------------------------: |
 |   Precondizione   |                 Il profilo non deve essere privo dell'informazione che si intende eliminare                  |
-|  Postcondizione   | Un'informazione tra indirizzo di consegna, metodo di pagamento predefinito, email e telefono viene eliminata |
+|  Postcondizione   | Un'informazione tra indirizzo di consegna, email e telefono viene eliminata |
 | Scenario Nominale |                            Il cliente elimina un'informazione dal proprio profilo                            |
 |     Varianti      |                                                                                                              |
 |     Eccezioni     |                                                                                                              |
@@ -916,7 +926,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 | Scenario 17d.1 |                                                                                                              |
 | :------------: | :----------------------------------------------------------------------------------------------------------: |
 | Precondizione  |                 Il profilo non deve essere privo dell'informazione che si intende modificare                 |
-| Postcondizione | Un'informazione tra indirizzo di consegna, metodo di pagamento predefinito, email e telefono viene eliminata |
+| Postcondizione | Un'informazione tra indirizzo di consegna, email e telefono viene eliminata |
 |     Step#      |                                                 Descrizione                                                  |
 |       1        |                                   Il cliente visualizza il proprio profilo                                   |
 |       2        |           Il cliente clicca sul pulsante 'Elimina' relativo all'informazione che intende rimuovere           |
@@ -1372,7 +1382,6 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 **Cliente**: specializzazione di _Utente_:
 
 - IndirizzoDiConsegna: stringa opzionale;
-- MetodoDiPagamento: stringa opzionale;
 - Email: stringa opzionale;
 - NumeroTelefono: stringa opzionale.
 
