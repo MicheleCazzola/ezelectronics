@@ -50,7 +50,8 @@ Consider the EZElectronics project in FUTURE version (as proposed by your team i
 
 ###
 
-Insert here Gantt chart with above activities
+Assume team of 4 people, 8 hours per day, 5 days per week
+![Gantt Diagram](media/version2/gantt.png)
 
 # Summary
 

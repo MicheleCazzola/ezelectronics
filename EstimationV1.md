@@ -58,6 +58,6 @@ Report here the results of the three estimation approaches. The estimates may di
 
 |                                    | Estimated effort | Estimated duration (calendar weeks) |
 | ---------------------------------- | ---------------- | ----------------------------------- |
-| estimate by size                   | 166.5            | 2                                   |
-| estimate by product decomposition  | 175              |                                     |
-| estimate by activity decomposition | 165              | 2                                   |
+| estimate by size                   | 166.5            | 1,04                                   |
+| estimate by product decomposition  | 175             |                                 1,09    |
+| estimate by activity decomposition | 165              | 1,03                                   |
