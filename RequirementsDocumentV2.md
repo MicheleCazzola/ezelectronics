@@ -77,7 +77,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | Utente non autenticato  | Utente che non si è autenticato presso la piattaforma, indipendentemente dal fatto che possieda o meno un account |
 |         Cliente         |                                      Utente autenticato, cliente del negozio                                      |
 |         Manager         |                                      Utente autenticato, gestore del negozio                                      |
-|          Admin          |                               amministratore del sistema di gestione EZElectronics                                |
+|          Admin          |                               Amministratore del sistema di gestione EZElectronics                                |
 |       Produttore        |              Azienda che produce gli oggetti che verranno messi in vendita attraverso la piattaforma              |
 |      Distributore       |                          Azienda che distribuisce i prodotti, dal produttore al manager                           |
 | Fornitori di pubblicità |            Aziende i cui prodotti sono pubblicizzati nei banner presenti all'interno dell'applicazione            |
@@ -825,7 +825,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 | Attori coinvolti  |                                                        Cliente                                                         |
 | :---------------: | :--------------------------------------------------------------------------------------------------------------------: |
 |   Precondizione   |                          Il profilo risulta privo dell'informazione che si intende aggiungere                          |
-|  Postcondizione   | Un'informazione tra indirizzo di consegna, metodo di pagamento predefinito, email e telefono viene aggiunta al profilo |
+|  Postcondizione   | Un'informazione tra indirizzo di consegna, email e telefono viene aggiunta al profilo |
 | Scenario Nominale |                                 Il cliente aggiunge un'informazione al proprio profilo                                 |
 |     Varianti      |                                                                                                                        |
 |     Eccezioni     |                                         Non viene compilato il campo del form                                          |
