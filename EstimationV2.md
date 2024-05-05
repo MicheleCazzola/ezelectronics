@@ -14,12 +14,12 @@ Consider the EZElectronics project in FUTURE version (as proposed by your team i
 
 |                                                                                                         | Estimate |
 | ------------------------------------------------------------------------------------------------------- | -------- |
-| NC = Estimated number of classes to be developed                                                        |          |
-| A = Estimated average size per class, in LOC                                                            |          |
-| S = Estimated size of project, in LOC (= NC \* A)                                                       |          |
-| E = Estimated effort, in person hours (here use productivity 10 LOC per person hour)                    |          |
-| C = Estimated cost, in euro (here use 1 person hour cost = 30 euro)                                     |          |
-| Estimated calendar time, in calendar weeks (Assume team of 4 people, 8 hours per day, 5 days per week ) |          |
+| NC = Estimated number of classes to be developed                                                        | 7        |
+| A = Estimated average size per class, in LOC                                                            | 550      |
+| S = Estimated size of project, in LOC (= NC \* A)                                                       | 3920     |
+| E = Estimated effort, in person hours (here use productivity 10 LOC per person hour)                    | 392.0    |
+| C = Estimated cost, in euro (here use 1 person hour cost = 30 euro)                                     | 11760    |
+| Estimated calendar time, in calendar weeks (Assume team of 4 people, 8 hours per day, 5 days per week ) | 2.45     |
 
 # Estimate by product decomposition
 
@@ -27,13 +27,14 @@ Consider the EZElectronics project in FUTURE version (as proposed by your team i
 
 | component name       | Estimated effort (person hours) |
 | -------------------- | ------------------------------- |
-| requirement document | 30                              |
+| requirement document | 35                              |
 | GUI prototype        | 15                              |
-| design document      | 30                              |
-| code                 | 100                             |
+| Admin UI prototype   | 5                               |
+| design document      | 35                              |
+| code                 | 120                             |
 | unit tests           | 110                             |
-| api tests            | 20                              |
-| management documents | 15                              |
+| api tests            | 30                              |
+| management documents | 20                              |
 
 # Estimate by activity decomposition
 
@@ -41,11 +42,11 @@ Consider the EZElectronics project in FUTURE version (as proposed by your team i
 
 | Activity name        | Estimated effort (person hours) |
 | -------------------- | ------------------------------- |
-| requirement analysis | 30                              |
-| prototyping          | 15                              |
-| design               | 30                              |
-| coding               | 100                             |
-| testing              | 130                             |
+| requirement analysis | 35                              |
+| prototyping          | 20                              |
+| design               | 35                              |
+| coding               | 120                             |
+| testing              | 140                             |
 
 ###
 
@@ -55,8 +56,8 @@ Insert here Gantt chart with above activities
 
 Report here the results of the three estimation approaches. The estimates may differ. Discuss here the possible reasons for the difference
 
-|                                    | Estimated effort | Estimated duration |
-| ---------------------------------- | ---------------- | ------------------ |
-| estimate by size                   |                  |
-| estimate by product decomposition  | 320              |
-| estimate by activity decomposition | 305              |
+|                                    | Estimated effort | Estimated duration (calendar weeks) |
+| ---------------------------------- | ---------------- | ----------------------------------- |
+| estimate by size                   | 392              | 2.45                                |
+| estimate by product decomposition  | 370              | 2.31                                |
+| estimate by activity decomposition | 350              | 2.19                                |
