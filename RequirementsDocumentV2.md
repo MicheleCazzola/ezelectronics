@@ -459,19 +459,19 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 #### Scenario 5.2
 
-|  Scenario 5.2  |                                                                                                 |
-| :------------: | :---------------------------------------------------------------------------------------------: |
-| Precondizione  |  Il cliente ha almeno un prodotto nel carrello, ma non ha impostato un indirizzo di spedizione  |
-| Postcondizione |                                 L'acquisto non viene confermato                                 |
-|     Passo#     |                                           Descrizione                                           |
-|       1        |                            Il cliente clicca sull'icona del carrello                            |
-|       2        |                         Il cliente visualizza il contenuto del carrello                         |
-|       3        |                            Il cliente clicca sul pulsante 'Acquista'                            |
-|       4        | Il sistema la homepage con un messaggio di errore che segnala la mancata riuscita dell'acquisto |
+|  Scenario 5.2  |                                                                                                        |
+| :------------: | :----------------------------------------------------------------------------------------------------: |
+| Precondizione  |     Il cliente ha almeno un prodotto nel carrello, ma non ha impostato un indirizzo di spedizione      |
+| Postcondizione |                                    L'acquisto non viene confermato                                     |
+|     Passo#     |                                              Descrizione                                               |
+|       1        |                               Il cliente clicca sull'icona del carrello                                |
+|       2        |                            Il cliente visualizza il contenuto del carrello                             |
+|       3        |                               Il cliente clicca sul pulsante 'Acquista'                                |
+|       4        | Il sistema mostra la homepage con un messaggio di errore che segnala la mancata riuscita dell'acquisto |
 
 #### Scenario 5.3
 
-|  Scenario 5.2  |                                                                                                                                                    |
+|  Scenario 5.3  |                                                                                                                                                    |
 | :------------: | :------------------------------------------------------------------------------------------------------------------------------------------------: |
 | Precondizione  |                 Il cliente ha almeno un prodotto nel carrello e ha impostato un indirizzo di spedizione, ma il pagamento fallisce                  |
 | Postcondizione |                                                          L'acquisto non viene confermato                                                           |
@@ -877,7 +877,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |  Postcondizione   | Un'informazione tra indirizzo di consegna, email e telefono viene modificata |
 | Scenario Nominale |           Il cliente modifica un'informazione del proprio profilo            |
 |     Varianti      |                                                                              |
-|     Eccezioni     |                 Non vengono compilati tutti i campi del form                 |
+|     Eccezioni     |                 Non viene compilato il campo del form                 |
 
 #### Scenario 17c.1
 
