@@ -77,7 +77,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | Utente non autenticato  | Utente che non si è autenticato presso la piattaforma, indipendentemente dal fatto che possieda o meno un account |
 |         Cliente         |                                      Utente autenticato, cliente del negozio                                      |
 |         Manager         |                                      Utente autenticato, gestore del negozio                                      |
-|          Admin          |                     Utente autenticato, amministratore del sistema di gestione EZElectronics                      |
+|          Admin          |                               amministratore del sistema di gestione EZElectronics                                |
 |       Produttore        |              Azienda che produce gli oggetti che verranno messi in vendita attraverso la piattaforma              |
 |      Distributore       |                          Azienda che distribuisce i prodotti, dal produttore al manager                           |
 | Fornitori di pubblicità |            Aziende i cui prodotti sono pubblicizzati nei banner presenti all'interno dell'applicazione            |
@@ -828,7 +828,7 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 |  Postcondizione   | Un'informazione tra indirizzo di consegna, metodo di pagamento predefinito, email e telefono viene aggiunta al profilo |
 | Scenario Nominale |                                 Il cliente aggiunge un'informazione al proprio profilo                                 |
 |     Varianti      |                                                                                                                        |
-|     Eccezioni     |                                      Non viene compilato il campo del form                                      |
+|     Eccezioni     |                                         Non viene compilato il campo del form                                          |
 
 #### Scenario 17b.1
 
@@ -1346,16 +1346,16 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 #### Scenario 30.1
 
-| Scenario 30.1  |                                                                                    |
-| :------------: | :--------------------------------------------------------------------------------: |
-| Precondizione  |                                                                                    |
-| Postcondizione |                                                                                    |
-|     Step#      |                                    Descrizione                                     |
-|       1        | Il manager effettua una ricerca tra i prodotti, eventualmente utilizzando i filtri |
-|       2        |      Il sistema mostra la lista dei prodotti che rispettano i filtri inseriti      |
-|       3        |                        Il manager clicca su "Elimina tutti"                        |
-|       4        |            Il sistema rimuove tutti i prodotti che erano stati mostrati            |
-|       5        |                     Il manager visualizza una schermata in cui viene comunicato dal sistema l'assenza dei prodotti di cui si stava cercando    |
+| Scenario 30.1  |                                                                                                                         |
+| :------------: | :---------------------------------------------------------------------------------------------------------------------: |
+| Precondizione  |                                                                                                                         |
+| Postcondizione |                                                                                                                         |
+|     Step#      |                                                       Descrizione                                                       |
+|       1        |                   Il manager effettua una ricerca tra i prodotti, eventualmente utilizzando i filtri                    |
+|       2        |                        Il sistema mostra la lista dei prodotti che rispettano i filtri inseriti                         |
+|       3        |                                          Il manager clicca su "Elimina tutti"                                           |
+|       4        |                              Il sistema rimuove tutti i prodotti che erano stati mostrati                               |
+|       5        | Il manager visualizza una schermata in cui viene comunicato dal sistema l'assenza dei prodotti di cui si stava cercando |
 
 # Glossary
 
