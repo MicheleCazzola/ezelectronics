@@ -77,7 +77,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | Utente non autenticato  | Utente che non si è autenticato presso la piattaforma, indipendentemente dal fatto che possieda o meno un account |
 |         Cliente         |                                      Utente autenticato, cliente del negozio                                      |
 |         Manager         |                                      Utente autenticato, gestore del negozio                                      |
-|          Admin          |                     Amministratore del sistema di gestione EZElectronics                      |
+|          Admin          |                               Amministratore del sistema di gestione EZElectronics                                |
 |       Produttore        |              Azienda che produce gli oggetti che verranno messi in vendita attraverso la piattaforma              |
 |      Distributore       |                          Azienda che distribuisce i prodotti, dal produttore al manager                           |
 | Fornitori di pubblicità |            Aziende i cui prodotti sono pubblicizzati nei banner presenti all'interno dell'applicazione            |
@@ -460,28 +460,28 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 #### Scenario 5.2
 
-|  Scenario 5.2  |                                                                                               |
-| :------------: | :-------------------------------------------------------------------------------------------: |
-| Precondizione  | Il cliente ha almeno un prodotto nel carrello, ma non ha impostato un indirizzo di spedizione |
-| Postcondizione |                                L'acquisto non viene confermato                                |
-|     Passo#     |                                          Descrizione                                          |
-|       1        |                           Il cliente clicca sull'icona del carrello                           |
-|       2        |                        Il cliente visualizza il contenuto del carrello                        |
-|       3        |                           Il cliente clicca sul pulsante 'Acquista'                           |
-|       4        |    Il sistema mostra un messaggio di errore che segnala la mancata riuscita dell'acquisto     |
+|  Scenario 5.2  |                                                                                                 |
+| :------------: | :---------------------------------------------------------------------------------------------: |
+| Precondizione  |  Il cliente ha almeno un prodotto nel carrello, ma non ha impostato un indirizzo di spedizione  |
+| Postcondizione |                                 L'acquisto non viene confermato                                 |
+|     Passo#     |                                           Descrizione                                           |
+|       1        |                            Il cliente clicca sull'icona del carrello                            |
+|       2        |                         Il cliente visualizza il contenuto del carrello                         |
+|       3        |                            Il cliente clicca sul pulsante 'Acquista'                            |
+|       4        | Il sistema la homepage con un messaggio di errore che segnala la mancata riuscita dell'acquisto |
 
 #### Scenario 5.3
 
-|  Scenario 5.2  |                                                                                                                   |
-| :------------: | :---------------------------------------------------------------------------------------------------------------: |
-| Precondizione  | Il cliente ha almeno un prodotto nel carrello e ha impostato un indirizzo di spedizione, ma il pagamento fallisce |
-| Postcondizione |                                          L'acquisto non viene confermato                                          |
-|     Passo#     |                                                    Descrizione                                                    |
-|       1        |                                     Il cliente clicca sull'icona del carrello                                     |
-|       2        |                                  Il cliente visualizza il contenuto del carrello                                  |
-|       3        |                                     Il cliente clicca sul pulsante 'Acquista'                                     |
-|       4        |                         Il sistema redireziona il cliente al sistema esterno di pagamento                         |
-|       5        |              Il sistema mostra un messaggio di errore che segnala la mancanta riuscita dell'acquisto              |
+|  Scenario 5.2  |                                                                                                                                                    |
+| :------------: | :------------------------------------------------------------------------------------------------------------------------------------------------: |
+| Precondizione  |                 Il cliente ha almeno un prodotto nel carrello e ha impostato un indirizzo di spedizione, ma il pagamento fallisce                  |
+| Postcondizione |                                                          L'acquisto non viene confermato                                                           |
+|     Passo#     |                                                                    Descrizione                                                                     |
+|       1        |                                                     Il cliente clicca sull'icona del carrello                                                      |
+|       2        |                                                  Il cliente visualizza il contenuto del carrello                                                   |
+|       3        |                                                     Il cliente clicca sul pulsante 'Acquista'                                                      |
+|       4        |                                         Il sistema redireziona il cliente al sistema esterno di pagamento                                          |
+|       5        | Al termine dell'operazione, il cliente viene reindirizzato alla homepage con un messaggio di errore che segnala la mancanta riuscita dell'acquisto |
 
 ### Aggiungi un prodotto al carrello, UC6
 
@@ -832,28 +832,28 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 ### Aggiungi informazione cliente, UC17b
 
-| Attori coinvolti  |                                                        Cliente                                                         |
-| :---------------: | :--------------------------------------------------------------------------------------------------------------------: |
-|   Precondizione   |                          Il profilo risulta privo dell'informazione che si intende aggiungere                          |
+| Attori coinvolti  |                                        Cliente                                        |
+| :---------------: | :-----------------------------------------------------------------------------------: |
+|   Precondizione   |         Il profilo risulta privo dell'informazione che si intende aggiungere          |
 |  Postcondizione   | Un'informazione tra indirizzo di consegna, email e telefono viene aggiunta al profilo |
-| Scenario Nominale |                                 Il cliente aggiunge un'informazione al proprio profilo                                 |
-|     Varianti      |                                                                                                                        |
-|     Eccezioni     |                                      Non vengono compilati tutti i campi del form                                      |
+| Scenario Nominale |                Il cliente aggiunge un'informazione al proprio profilo                 |
+|     Varianti      |                                                                                       |
+|     Eccezioni     |                     Non vengono compilati tutti i campi del form                      |
 
 #### Scenario 17b.1
 
-| Scenario 17b.1 |                                                                                                                        |
-| :------------: | :--------------------------------------------------------------------------------------------------------------------: |
-| Precondizione  |                          Il profilo risulta privo dell'informazione che si intende aggiungere                          |
-| Postcondizione | Un'informazione tra indirizzo di consegna, email e telefono viene aggiunta al profilo |
-|     Step#      |                                                      Descrizione                                                       |
-|       1        |                                        Il cliente visualizza il proprio profilo                                        |
-|       2        |               Il cliente clicca sul pulsante 'Aggiungi' relativo all'informazione che intende registrare               |
-|       3        |                                  Il sistema mostra un form di compilazione del campo                                   |
-|       4        |                         Il cliente compila il campo con l'informazione che intende aggiungere                          |
-|       5        |                                       Il cliente clicca sul pulsante 'Conferma'                                        |
-|       6        |                  Il sistema verifica che il campo sia stato compilato e ottiene un riscontro positivo                  |
-|       7        |                      Il sistema mostra la pagina del cliente aggiornata con la nuova informazione                      |
+| Scenario 17b.1 |                                                                                            |
+| :------------: | :----------------------------------------------------------------------------------------: |
+| Precondizione  |            Il profilo risulta privo dell'informazione che si intende aggiungere            |
+| Postcondizione |   Un'informazione tra indirizzo di consegna, email e telefono viene aggiunta al profilo    |
+|     Step#      |                                        Descrizione                                         |
+|       1        |                          Il cliente visualizza il proprio profilo                          |
+|       2        | Il cliente clicca sul pulsante 'Aggiungi' relativo all'informazione che intende registrare |
+|       3        |                    Il sistema mostra un form di compilazione del campo                     |
+|       4        |           Il cliente compila il campo con l'informazione che intende aggiungere            |
+|       5        |                         Il cliente clicca sul pulsante 'Conferma'                          |
+|       6        |    Il sistema verifica che il campo sia stato compilato e ottiene un riscontro positivo    |
+|       7        |        Il sistema mostra la pagina del cliente aggiornata con la nuova informazione        |
 
 #### Scenario 17b.2
 
@@ -872,28 +872,28 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 ### Modifica informazione cliente, UC17c
 
-| Attori coinvolti  |                                                    Cliente                                                    |
-| :---------------: | :-----------------------------------------------------------------------------------------------------------: |
-|   Precondizione   |                 Il profilo non deve essere privo dell'informazione che si intende modificare                  |
+| Attori coinvolti  |                                   Cliente                                    |
+| :---------------: | :--------------------------------------------------------------------------: |
+|   Precondizione   | Il profilo non deve essere privo dell'informazione che si intende modificare |
 |  Postcondizione   | Un'informazione tra indirizzo di consegna, email e telefono viene modificata |
-| Scenario Nominale |                            Il cliente modifica un'informazione del proprio profilo                            |
-|     Varianti      |                                                                                                               |
-|     Eccezioni     |                                 Non vengono compilati tutti i campi del form                                  |
+| Scenario Nominale |           Il cliente modifica un'informazione del proprio profilo            |
+|     Varianti      |                                                                              |
+|     Eccezioni     |                 Non vengono compilati tutti i campi del form                 |
 
 #### Scenario 17c.1
 
-| Scenario 17c.1 |                                                                                                               |
-| :------------: | :-----------------------------------------------------------------------------------------------------------: |
-| Precondizione  |                 Il profilo non deve essere privo dell'informazione che si intende modificare                  |
-| Postcondizione | Un'informazione tra indirizzo di consegna, email e telefono viene modificata |
-|     Step#      |                                                  Descrizione                                                  |
-|       1        |                                   Il cliente visualizza il proprio profilo                                    |
-|       2        |          Il cliente clicca sul pulsante 'Modifica' relativo all'informazione che intende aggiornare           |
-|       3        |                              Il sistema mostra un form di compilazione del campo                              |
-|       4        |                     Il cliente compila il campo con l'informazione che intende aggiungere                     |
-|       5        |                                   Il cliente clicca sul pulsante 'Conferma'                                   |
-|       6        |             Il sistema verifica che il campo sia stato compilato e ottiene un riscontro positivo              |
-|       7        |                 Il sistema mostra la pagina del cliente aggiornata con la nuova informazione                  |
+| Scenario 17c.1 |                                                                                            |
+| :------------: | :----------------------------------------------------------------------------------------: |
+| Precondizione  |        Il profilo non deve essere privo dell'informazione che si intende modificare        |
+| Postcondizione |        Un'informazione tra indirizzo di consegna, email e telefono viene modificata        |
+|     Step#      |                                        Descrizione                                         |
+|       1        |                          Il cliente visualizza il proprio profilo                          |
+|       2        | Il cliente clicca sul pulsante 'Modifica' relativo all'informazione che intende aggiornare |
+|       3        |                    Il sistema mostra un form di compilazione del campo                     |
+|       4        |           Il cliente compila il campo con l'informazione che intende aggiungere            |
+|       5        |                         Il cliente clicca sul pulsante 'Conferma'                          |
+|       6        |    Il sistema verifica che il campo sia stato compilato e ottiene un riscontro positivo    |
+|       7        |        Il sistema mostra la pagina del cliente aggiornata con la nuova informazione        |
 
 #### Scenario 17c.2
 
@@ -912,24 +912,24 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 ### Elimina informazione cliente, UC17d
 
-| Attori coinvolti  |                                                   Cliente                                                    |
-| :---------------: | :----------------------------------------------------------------------------------------------------------: |
-|   Precondizione   |                 Il profilo non deve essere privo dell'informazione che si intende eliminare                  |
+| Attori coinvolti  |                                   Cliente                                   |
+| :---------------: | :-------------------------------------------------------------------------: |
+|   Precondizione   | Il profilo non deve essere privo dell'informazione che si intende eliminare |
 |  Postcondizione   | Un'informazione tra indirizzo di consegna, email e telefono viene eliminata |
-| Scenario Nominale |                            Il cliente elimina un'informazione dal proprio profilo                            |
-|     Varianti      |                                                                                                              |
-|     Eccezioni     |                                                                                                              |
+| Scenario Nominale |           Il cliente elimina un'informazione dal proprio profilo            |
+|     Varianti      |                                                                             |
+|     Eccezioni     |                                                                             |
 
 #### Scenario 17d.1
 
-| Scenario 17d.1 |                                                                                                              |
-| :------------: | :----------------------------------------------------------------------------------------------------------: |
-| Precondizione  |                 Il profilo non deve essere privo dell'informazione che si intende modificare                 |
-| Postcondizione | Un'informazione tra indirizzo di consegna, email e telefono viene eliminata |
-|     Step#      |                                                 Descrizione                                                  |
-|       1        |                                   Il cliente visualizza il proprio profilo                                   |
-|       2        |           Il cliente clicca sul pulsante 'Elimina' relativo all'informazione che intende rimuovere           |
-|       3        |                  Il sistema mostra la pagina del cliente priva dell'informazione eliminata                   |
+| Scenario 17d.1 |                                                                                          |
+| :------------: | :--------------------------------------------------------------------------------------: |
+| Precondizione  |       Il profilo non deve essere privo dell'informazione che si intende modificare       |
+| Postcondizione |       Un'informazione tra indirizzo di consegna, email e telefono viene eliminata        |
+|     Step#      |                                       Descrizione                                        |
+|       1        |                         Il cliente visualizza il proprio profilo                         |
+|       2        | Il cliente clicca sul pulsante 'Elimina' relativo all'informazione che intende rimuovere |
+|       3        |        Il sistema mostra la pagina del cliente priva dell'informazione eliminata         |
 
 ### Gestione visibilità pubblicità, UC17e
 
@@ -1356,16 +1356,16 @@ Persona: Fulvio, 65 anni, utente non registrato e pensionato:
 
 #### Scenario 30.1
 
-| Scenario 30.1  |                                                                                    |
-| :------------: | :--------------------------------------------------------------------------------: |
-| Precondizione  |                                                                                    |
-| Postcondizione |                                                                                    |
-|     Step#      |                                    Descrizione                                     |
-|       1        | Il manager effettua una ricerca tra i prodotti, eventualmente utilizzando i filtri |
-|       2        |      Il sistema mostra la lista dei prodotti che rispettano i filtri inseriti      |
-|       3        |                        Il manager clicca su "Elimina tutti"                        |
-|       4        |            Il sistema rimuove tutti i prodotti che erano stati mostrati            |
-|       5        |                     Il manager visualizza una schermata in cui viene comunicato dal sistema l'assenza dei prodotti di cui si stava cercando    |
+| Scenario 30.1  |                                                                                                                         |
+| :------------: | :---------------------------------------------------------------------------------------------------------------------: |
+| Precondizione  |                                                                                                                         |
+| Postcondizione |                                                                                                                         |
+|     Step#      |                                                       Descrizione                                                       |
+|       1        |                   Il manager effettua una ricerca tra i prodotti, eventualmente utilizzando i filtri                    |
+|       2        |                        Il sistema mostra la lista dei prodotti che rispettano i filtri inseriti                         |
+|       3        |                                          Il manager clicca su "Elimina tutti"                                           |
+|       4        |                              Il sistema rimuove tutti i prodotti che erano stati mostrati                               |
+|       5        | Il manager visualizza una schermata in cui viene comunicato dal sistema l'assenza dei prodotti di cui si stava cercando |
 
 # Glossary
 
