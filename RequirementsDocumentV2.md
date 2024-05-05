@@ -77,7 +77,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | Utente non autenticato  | Utente che non si è autenticato presso la piattaforma, indipendentemente dal fatto che possieda o meno un account |
 |         Cliente         |                                      Utente autenticato, cliente del negozio                                      |
 |         Manager         |                                      Utente autenticato, gestore del negozio                                      |
-|          Admin          |                               Amministratore del sistema di gestione EZElectronics                                |
+|          Admin          |                     Amministratore del sistema di gestione EZElectronics                      |
 |       Produttore        |              Azienda che produce gli oggetti che verranno messi in vendita attraverso la piattaforma              |
 |      Distributore       |                          Azienda che distribuisce i prodotti, dal produttore al manager                           |
 | Fornitori di pubblicità |            Aziende i cui prodotti sono pubblicizzati nei banner presenti all'interno dell'applicazione            |
