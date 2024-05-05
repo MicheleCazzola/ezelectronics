@@ -417,9 +417,12 @@ Analoga a Menu Prodotti, ma con la seguente lista di attributi:
 
 ### Menu Spedizioni
 
-Analoga a Menu Prodotti, ma con la seguente lista di attributi:
+Le spedizioni sono gestite tramite un'api esterna e il sistema non tiene traccia dei dati della spedizione, ma li recupera ogni volta che sono necessari. Per questo motivo, il Menu Spedizioni non presenta operazioni di inserimento, modifica o rimozione ma esclusivamente di ricerca.
+
+Il menu di ricerca è analogo a quello di Menu Prodotti, ma con la seguente lista di attributi:
 
 ```
 1. Stato
-2. Carrello di riferimento
+2. Luogo attuale del pacco
+3. Carrello di riferimento
 ```
