@@ -73,14 +73,15 @@ class UserRoutes {
 
         /**
          * Route for retrieving all users.
-         * It requires the user to be logged in and to be an admin.
-         * It returns an array of users.
+         * It requires the user to be logged in and to be an admin. -> this.authService.isAdmin( req, res, () =>
+         * It returns an array of users. 
          */
         this.router.get(
             "/",
-            (req: any, res: any, next: any) => this.controller.getUsers()
-                .then((users: any /**User[] */) => res.status(200).json(users))
-                .catch((err) => next(err))
+            (req: any, res: any, next: any) => this.authService.isAdmin( req, res, () => this.controller.getUsers()
+                .then((users: any /**User[] */)  => res.status(200).json(users))
+                .catch((err) => next(err)) 
+            )
         )
 
         /**
@@ -91,10 +92,14 @@ class UserRoutes {
          */
         this.router.get(
             "/roles/:role",
-            (req: any, res: any, next: any) => this.controller.getUsersByRole(req.params.role)
+            body("role").isString().isIn(["Manager", "Customer", "Admin"]),
+            this.errorHandler.validateRequest,
+
+            (req: any, res: any, next: any) => this.authService.isAdmin(req, res, () => this.controller.getUsersByRole(req.params.role)
                 .then((users: any /**User[] */) => res.status(200).json(users))
                 .catch((err) => next(err))
-        )
+            )
+         )
 
         /**
          * Route for retrieving a user by its username.
@@ -104,9 +109,13 @@ class UserRoutes {
          */
         this.router.get(
             "/:username",
-            (req: any, res: any, next: any) => this.controller.getUserByUsername(req.user, req.params.username)
+            body("username").isString().isLength({min: 1}),
+            this.errorHandler.validateRequest,
+
+            (req: any, res: any, next: any) => this.authService.isLoggedIn(req, res, () => this.controller.getUserByUsername(req.user, req.params.username)
                 .then((user: any /**User */) => res.status(200).json(user))
                 .catch((err) => next(err))
+            )
         )
 
         /**

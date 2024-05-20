@@ -49,8 +49,8 @@ class UserDAO {
 
         return new Promise<boolean>((resolve, reject) => {
 
-            const sql = "SELECT username, FROM users, WHERE username = ?"
-            
+            const sql = "SELECT username, FROM users, WHERE username = ?";
+
             db.get(sql, [username], (err: Error | null, row: any) => {
 
                 if (err) {
@@ -60,9 +60,7 @@ class UserDAO {
                 // `!!row` restituisce `true` se `row` esiste, altrimenti `false`
                 resolve(!!row); 
             });            
-
         })
-
     }
 
     /**
@@ -121,5 +119,54 @@ class UserDAO {
 
         })
     }
+
+    getUser(): Promise<User[]>{
+        return new Promise<User[]>((resolve, reject) => {
+            try{
+                const sql = "SELECT * FROM users"
+                db.get(sql, [], (err: Error | null, rows: any[]) => {
+                    if(err){
+                        reject(err);
+                        return
+                    }
+
+                    const user: User[] = rows.map(row => new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate) );
+                    resolve(user);
+
+
+                })
+
+            }catch (error){
+                reject(error);
+            }
+
+        })
+    }
+
+
+//Ritorna un array di oggetti utenti in base al ruolo scelto.
+    getUserByRole(role: string): Promise<User[]>{
+        return new Promise<User[]>((resolve, reject) => {
+            try {
+                const sql = "SELECT * FROM users WHERE role = ?"
+                db.get(sql, [role], (err: Error | null, rows: any[]) => {
+                    if (err) {
+                        reject(err);
+                        return
+                    }
+                    
+                    const user: User[] = rows.map(row => new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate) );
+                    resolve(user);
+                })
+            } catch (error) {
+                reject(error);
+            }
+
+        })
+    }
+
+
 }
+
+
 export default UserDAO

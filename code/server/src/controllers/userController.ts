@@ -1,5 +1,5 @@
-import { UserAlreadyExistsError } from "../errors/userError";
-import { User } from "../components/user"
+import {  UserNotFoundError, UserNotManagerError, UserNotCustomerError, UserAlreadyExistsError, UserNotAdminError, UserIsAdminError, UnauthorizedUserError } from "../errors/userError";
+import { Role, User } from "../components/user"
 import UserDAO from "../dao/userDAO"
 
 /**
@@ -22,16 +22,17 @@ class UserController {
      * @param role - The role of the new user. It must not be null and it can only be one of the three allowed types ("Manager", "Customer", "Admin")
      * @returns A Promise that resolves to true if the user has been created.
      */
-    async createUser(username: string, name: string, surname: string, password: string, role: string) /**:Promise<Boolean> */ {
+    async createUser(username: string, name: string, surname: string, password: string, role: string):Promise<Boolean> {
         
         //controllo sull'unicità dell'username
         const isUsernameTaken = await this.dao.usernameIsTaken(username);
 
         if (isUsernameTaken) {
+            //se isUsernameTaken è true -> il nome esiste -> lancia un errore
             throw new UserAlreadyExistsError();
         }
 
-        return this.dao.createUser(username, name, surname, password, role)
+        return this.dao.createUser(username, name, surname, password, role);
         
     }
 
@@ -39,14 +40,21 @@ class UserController {
      * Returns all users.
      * @returns A Promise that resolves to an array of users.
      */
-    async getUsers() /**:Promise<User[]> */ { }
+    async getUsers():Promise<User[]>{ 
+
+        return this.dao.getUser();
+    }
 
     /**
      * Returns all users with a specific role.
      * @param role - The role of the users to retrieve. It can only be one of the three allowed types ("Manager", "Customer", "Admin")
      * @returns A Promise that resolves to an array of users with the specified role.
      */
-    async getUsersByRole(role: string) /**:Promise<User[]> */ { }
+    async getUsersByRole(role: string): Promise<User[]>  {
+
+        return this.dao.getUserByRole(role);
+
+    }
 
     /**
      * Returns a specific user.
@@ -56,7 +64,31 @@ class UserController {
      * @param username - The username of the user to retrieve. The user must exist.
      * @returns A Promise that resolves to the user with the specified username.
      */
-    async getUserByUsername(user: User, username: string) /**:Promise<User> */ { }
+    async getUserByUsername(user: User, username: string):Promise<User>{ 
+        
+        const isUsernameExisting = await this.dao.usernameIsTaken(username);
+
+        
+        if(!isUsernameExisting){
+            //torna errore se username rappresneta un utente che non esiste.
+            throw new UserNotFoundError();
+        }
+
+
+        if(user.role !== "Admin"){
+            //se l'utente non è admin può vedere solo le sue informazioni
+
+            if(username !== user.name){
+                //se il nome è diverso da quello dell'user che ha chiamato la route ->errore
+                throw new UnauthorizedUserError();
+            }
+
+        }
+
+        return this.dao.getUserByUsername(username);
+
+    }
+    
 
     /**
      * Deletes a specific user
@@ -66,7 +98,9 @@ class UserController {
      * @param username - The username of the user to delete. The user must exist.
      * @returns A Promise that resolves to true if the user has been deleted.
      */
-    async deleteUser(user: User, username: string) /**:Promise<Boolean> */ { }
+    async deleteUser(user: User, username: string) /**:Promise<Boolean> */ { 
+        
+    }
 
     /**
      * Deletes all non-Admin users
