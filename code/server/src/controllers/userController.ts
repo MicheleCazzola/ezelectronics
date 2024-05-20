@@ -1,3 +1,4 @@
+import { UserAlreadyExistsError } from "../errors/userError";
 import { User } from "../components/user"
 import UserDAO from "../dao/userDAO"
 
@@ -22,7 +23,16 @@ class UserController {
      * @returns A Promise that resolves to true if the user has been created.
      */
     async createUser(username: string, name: string, surname: string, password: string, role: string) /**:Promise<Boolean> */ {
+        
+        //controllo sull'unicità dell'username
+        const isUsernameTaken = await this.dao.usernameIsTaken(username);
+
+        if (isUsernameTaken) {
+            throw new UserAlreadyExistsError();
+        }
+
         return this.dao.createUser(username, name, surname, password, role)
+        
     }
 
     /**
