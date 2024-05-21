@@ -1,4 +1,4 @@
-import {  UserNotFoundError, UserNotManagerError, UserNotCustomerError, UserAlreadyExistsError, UserNotAdminError, UserIsAdminError, UnauthorizedUserError } from "../errors/userError";
+import {  UserNotFoundError, UserNotManagerError, UserNotCustomerError, UserAlreadyExistsError, UserNotAdminError, UserIsAdminError, UnauthorizedUserError, InvalidDateError } from "../errors/userError";
 import { Role, User } from "../components/user"
 import UserDAO from "../dao/userDAO"
 
@@ -68,7 +68,7 @@ class UserController {
         
         const isUsernameExisting = await this.dao.usernameIsTaken(username);
 
-        
+
         if(!isUsernameExisting){
             //torna errore se username rappresneta un utente che non esiste.
             throw new UserNotFoundError();
@@ -110,7 +110,7 @@ class UserController {
         if(user.role !== "Admin"){
             //se l'utente non è admin può vedere solo le sue informazioni
 
-            if(username !== user.name){
+            if(username !== user.username){
                 //se il nome è diverso da quello dell'user che ha chiamato la route ->errore
                 throw new UnauthorizedUserError();
             }
@@ -131,7 +131,9 @@ class UserController {
      * Deletes all non-Admin users
      * @returns A Promise that resolves to true if all non-Admin users have been deleted.
      */
-    async deleteAll() { }
+    async deleteAll(): Promise<Boolean> { 
+        return this.dao.deleteAll();
+    }
 
     /**
      * Updates the personal information of one user. The user can only update their own information.
@@ -143,7 +145,45 @@ class UserController {
      * @param username The username of the user to update. It must be equal to the username of the user parameter.
      * @returns A Promise that resolves to the updated user
      */
-    async updateUserInfo(user: User, name: string, surname: string, address: string, birthdate: string, username: string) /**:Promise<User> */ { }
+    async updateUserInfo(user: User, name: string, surname: string, address: string, birthdate: string, username: string):Promise<User> {
+        
+        const isUsernameExisting = await this.dao.usernameIsTaken(username);
+
+        if(!isUsernameExisting){
+            //torna errore se username rappresneta un utente che non esiste.
+            throw new UserNotFoundError();
+        }
+
+        /*
+        //Un user può modificare solo le proprie informazioni        
+        if(username !== user.username){
+            //se il nome è diverso da quello dell'user che ha chiamato la route ->errore
+            throw new UnauthorizedUserError();
+        }
+        */
+       
+        //la data di nascita non deve essere dopo la data odierna
+        const date = new Date(birthdate);
+        const today = new Date();
+
+        if(date > today) {
+            throw new InvalidDateError();
+        }
+
+        if(user.role !== "Admin"){
+            //se l'utente non è admin 
+
+            if(username !== user.username){
+                //e se il nome è diverso da quello dell'user che ha chiamato la route ->errore
+                throw new UnauthorizedUserError();
+            }
+
+        }
+
+
+        return this.dao.updateUserInformation(name, surname, address, birthdate, username);
+
+    }
 }
 
 export default UserController

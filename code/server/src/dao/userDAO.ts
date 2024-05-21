@@ -175,11 +175,11 @@ class UserDAO {
 
                 db.run(sql, [username], (err: Error | null) => {
                     if (err) {
-                        if (err.message.includes("UNIQUE constraint failed: users.username")) reject(new UserAlreadyExistsError)
-                        reject(err)
+                        if (err.message.includes("UNIQUE constraint failed: users.username")) reject(new UserNotFoundError)
+                        reject(err);
                     }
 
-                    resolve(true)
+                    resolve(true);
 
                 });
 
@@ -190,6 +190,30 @@ class UserDAO {
            
         });
 
+    }
+
+    //elimina tutti gli utenti  
+    deleteAll(): Promise<Boolean>{
+        return new Promise<Boolean>((resolve, reject) =>{
+            try{
+
+                const sql = "DELETE FROM users";
+
+                db.run(sql, [], (err: Error | null) => {
+                    if (err) {
+                        reject(err);
+                    }
+
+                    resolve(true);
+
+                });
+
+    
+            }catch (error){
+                reject(error);
+            }
+           
+        });
     }
 
     //verifica se il ruolo di un utente è Admin
@@ -217,6 +241,39 @@ class UserDAO {
         });
 
     }
+
+    updateUserInformation(name: string, surname: string, address: string, birthdate: string, username: string):Promise<User>{
+        return new Promise<User>((resolve, reject) =>{
+            try{
+
+                const sql = "UPDATE users SET name = ?, surname = ?, address = ?, birthdate = ?, WHERE username = ?  ";
+
+                db.run(sql, [name, surname, address, birthdate, username],(err: Error | null, row: any) => {
+                   
+                    if (err) {
+                        reject(err);
+                        return;
+                    }
+                    if (!row) {
+                        reject(new UserNotFoundError())
+                        return
+                    }
+                    
+                    const user: User = new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate);
+                    resolve(user);
+
+                });
+
+
+            }catch (error) {
+                reject(error);
+
+            }
+
+        });
+
+    }
+
 
 
 }
