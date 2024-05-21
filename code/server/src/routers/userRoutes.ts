@@ -92,7 +92,7 @@ class UserRoutes {
          */
         this.router.get(
             "/roles/:role",
-            body("role").isString().isIn(["Manager", "Customer", "Admin"]),
+            param("role").isString().isIn(["Manager", "Customer", "Admin"]),
             this.errorHandler.validateRequest,
 
             (req: any, res: any, next: any) => this.authService.isAdmin(req, res, () => this.controller.getUsersByRole(req.params.role)
@@ -109,7 +109,7 @@ class UserRoutes {
          */
         this.router.get(
             "/:username",
-            body("username").isString().isLength({min: 1}),
+            param("username").isString().isLength({min: 1}),
             this.errorHandler.validateRequest,
 
             (req: any, res: any, next: any) => this.authService.isLoggedIn(req, res, () => this.controller.getUserByUsername(req.user, req.params.username)
@@ -126,9 +126,13 @@ class UserRoutes {
          */
         this.router.delete(
             "/:username",
-            (req: any, res: any, next: any) => this.controller.deleteUser(req.user, req.params.username)
+            param("username").isString().isLength({min: 1}),
+            this.errorHandler.validateRequest,            
+
+            (req: any, res: any, next: any) => this.authService.isLoggedIn(req, res, ()=> this.controller.deleteUser(req.user, req.params.username)
                 .then(() => res.status(200).end())
                 .catch((err: any) => next(err))
+            )
         )
 
         /**
@@ -138,9 +142,10 @@ class UserRoutes {
          */
         this.router.delete(
             "/",
-            (req: any, res: any, next: any) => this.controller.deleteAll()
+            (req: any, res: any, next: any) => this.authService.isAdmin(req, res, () => this.controller.deleteAll()
                 .then(() => res.status(200).end())
                 .catch((err: any) => next(err))
+            )
         )
 
         /**

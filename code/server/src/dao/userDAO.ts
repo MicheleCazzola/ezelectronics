@@ -144,7 +144,7 @@ class UserDAO {
     }
 
 
-//Ritorna un array di oggetti utenti in base al ruolo scelto.
+    //Ritorna un array di oggetti utenti in base al ruolo scelto.
     getUserByRole(role: string): Promise<User[]>{
         return new Promise<User[]>((resolve, reject) => {
             try {
@@ -163,6 +163,59 @@ class UserDAO {
             }
 
         })
+    }
+
+
+    //Elimina un utente specifico.
+    deleteUser(username: string): Promise<Boolean>{
+        return new Promise<Boolean>((resolve, reject) =>{
+            try{
+
+                const sql = "DELETE FROM users WHERE username = ?";
+
+                db.run(sql, [username], (err: Error | null) => {
+                    if (err) {
+                        if (err.message.includes("UNIQUE constraint failed: users.username")) reject(new UserAlreadyExistsError)
+                        reject(err)
+                    }
+
+                    resolve(true)
+
+                });
+
+    
+            }catch (error){
+                reject(error);
+            }
+           
+        });
+
+    }
+
+    //verifica se il ruolo di un utente è Admin
+    isAdminByUsername(username: string): Promise<Boolean>{
+        return new Promise<Boolean>((resolve, reject) =>{
+            try{
+                const sql = "SELECT username FROM users WHERE username = ? and role = ?";
+
+                db.get(sql, [username, "Admin"],(err: Error | null, row: any) => {
+
+                    if (err) {
+                       return reject(err);
+                    }
+                    // `!!row` restituisce `true` se l'user inserito è admin,
+                    // altrimenti `false`
+                    resolve(!!row); 
+
+                });
+                    
+            } catch (error) {
+                reject(error);
+            }
+
+
+        });
+
     }
 
 

@@ -88,7 +88,7 @@ class UserController {
         return this.dao.getUserByUsername(username);
 
     }
-    
+
 
     /**
      * Deletes a specific user
@@ -98,8 +98,33 @@ class UserController {
      * @param username - The username of the user to delete. The user must exist.
      * @returns A Promise that resolves to true if the user has been deleted.
      */
-    async deleteUser(user: User, username: string) /**:Promise<Boolean> */ { 
+    async deleteUser(user: User, username: string):Promise<Boolean> { 
+
+        const isUsernameExisting = await this.dao.usernameIsTaken(username);
+
+        if(!isUsernameExisting){
+            //torna errore se username rappresneta un utente che non esiste.
+            throw new UserNotFoundError();
+        }
+
+        if(user.role !== "Admin"){
+            //se l'utente non è admin può vedere solo le sue informazioni
+
+            if(username !== user.name){
+                //se il nome è diverso da quello dell'user che ha chiamato la route ->errore
+                throw new UnauthorizedUserError();
+            }
+
+        }
+
+        const userIsAdmin = await this.dao.isAdminByUsername(username);
+
+        if(user.role === "Admin" && userIsAdmin){
+            //Si evita che l'admin cancelli l'account di un altro admin
+            throw new UserIsAdminError();
+        }
         
+        return this.dao.deleteUser(username);
     }
 
     /**
