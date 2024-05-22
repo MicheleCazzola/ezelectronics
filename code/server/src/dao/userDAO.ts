@@ -124,13 +124,13 @@ class UserDAO {
         return new Promise<User[]>((resolve, reject) => {
             try{
                 const sql = "SELECT * FROM users"
-                db.get(sql, [], (err: Error | null, rows: any[]) => {
+                db.all(sql, [], (err: Error | null, rows: any[]) => {
                     if(err){
                         reject(err);
                         return
                     }
 
-                    const user: User[] = rows.map(row => new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate) );
+                    const user: User[] = rows.map((row) =>{return new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate);} );
                     resolve(user);
 
 
@@ -145,24 +145,23 @@ class UserDAO {
 
 
     //Ritorna un array di oggetti utenti in base al ruolo scelto.
-    getUserByRole(role: string): Promise<User[]>{
+    getUserByRole(role: string): Promise<User[]> {
         return new Promise<User[]>((resolve, reject) => {
             try {
-                const sql = "SELECT * FROM users WHERE role = ?"
-                db.get(sql, [role], (err: Error | null, rows: any[]) => {
+                const sql = "SELECT * FROM users WHERE role = ?";
+                db.all(sql, [role], (err: Error | null, rows: any[]) => { 
                     if (err) {
                         reject(err);
-                        return
+                        return;
                     }
-
-                    const user: User[] = rows.map(row => new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate) );
-                    resolve(user);
-                })
+    
+                    const users: User[] = rows.map(row => new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate));
+                    resolve(users);
+                });
             } catch (error) {
                 reject(error);
             }
-
-        })
+        });
     }
 
 
@@ -248,7 +247,7 @@ class UserDAO {
         return new Promise<User>((resolve, reject) =>{
             try{
 
-                const sql = "UPDATE users SET name = ?, surname = ?, address = ?, birthdate = ?, WHERE username = ?  ";
+                const sql = "UPDATE users SET name = ?, surname = ?, address = ?, birthdate = ? WHERE username = ?";
 
                 db.run(sql, [name, surname, address, birthdate, username],(err: Error | null, row: any) => {
 
