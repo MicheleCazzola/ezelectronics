@@ -49,7 +49,7 @@ class UserDAO {
 
         return new Promise<boolean>((resolve, reject) => {
 
-            const sql = "SELECT username, FROM users, WHERE username = ?";
+            const sql = "SELECT username FROM users WHERE username = ?";
 
             db.get(sql, [username], (err: Error | null, row: any) => {
 
@@ -58,8 +58,8 @@ class UserDAO {
                 }
 
                 // `!!row` restituisce `true` se `row` esiste, altrimenti `false`
-                resolve(!!row); 
-            });            
+                resolve(!!row);
+            });
         })
     }
 
@@ -154,7 +154,7 @@ class UserDAO {
                         reject(err);
                         return
                     }
-                    
+
                     const user: User[] = rows.map(row => new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate) );
                     resolve(user);
                 })
@@ -183,16 +183,16 @@ class UserDAO {
 
                 });
 
-    
+
             }catch (error){
                 reject(error);
             }
-           
+
         });
 
     }
 
-    //elimina tutti gli utenti  
+    //elimina tutti gli utenti
     deleteAll(): Promise<Boolean>{
         return new Promise<Boolean>((resolve, reject) =>{
             try{
@@ -208,11 +208,11 @@ class UserDAO {
 
                 });
 
-    
+
             }catch (error){
                 reject(error);
             }
-           
+
         });
     }
 
@@ -222,17 +222,19 @@ class UserDAO {
             try{
                 const sql = "SELECT username FROM users WHERE username = ? and role = ?";
 
-                db.get(sql, [username, "Admin"],(err: Error | null, row: any) => {
-
+                db.get(
+                  sql,
+                  [username, "Admin"],
+                  (err: Error | null, row: any) => {
                     if (err) {
-                       return reject(err);
+                      return reject(err);
                     }
                     // `!!row` restituisce `true` se l'user inserito è admin,
                     // altrimenti `false`
-                    resolve(!!row); 
+                    resolve(!!row);
+                  }
+                );
 
-                });
-                    
             } catch (error) {
                 reject(error);
             }
@@ -249,16 +251,16 @@ class UserDAO {
                 const sql = "UPDATE users SET name = ?, surname = ?, address = ?, birthdate = ?, WHERE username = ?  ";
 
                 db.run(sql, [name, surname, address, birthdate, username],(err: Error | null, row: any) => {
-                   
+
                     if (err) {
-                        reject(err);
-                        return;
+                      reject(err);
+                      return;
                     }
                     if (!row) {
-                        reject(new UserNotFoundError())
-                        return
+                      reject(new UserNotFoundError());
+                      return;
                     }
-                    
+
                     const user: User = new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate);
                     resolve(user);
 
