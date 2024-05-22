@@ -134,3 +134,5 @@ flake.lock
 flake.nix
 .direnv
 .envrc
+
+.vscode/*
