@@ -23,15 +23,7 @@ class UserController {
      * @returns A Promise that resolves to true if the user has been created.
      */
     async createUser(username: string, name: string, surname: string, password: string, role: string):Promise<Boolean> {
-        
-        //controllo sull'unicità dell'username
-        const isUsernameTaken = await this.dao.usernameIsTaken(username);
-
-        if (isUsernameTaken) {
-            //se isUsernameTaken è true -> il nome esiste -> lancia un errore
-            throw new UserAlreadyExistsError();
-        }
-
+       
         return this.dao.createUser(username, name, surname, password, role);
         
     }
@@ -65,16 +57,7 @@ class UserController {
      * @returns A Promise that resolves to the user with the specified username.
      */
     async getUserByUsername(user: User, username: string):Promise<User>{ 
-        
-        const isUsernameExisting = await this.dao.usernameIsTaken(username);
-
-
-        if(!isUsernameExisting){
-            //torna errore se username rappresneta un utente che non esiste.
-            throw new UserNotFoundError();
-        }
-
-
+    
         if(user.role !== "Admin"){
             //se l'utente non è admin può vedere solo le sue informazioni
 
@@ -100,13 +83,7 @@ class UserController {
      */
     async deleteUser(user: User, username: string):Promise<Boolean> { 
 
-        const isUsernameExisting = await this.dao.usernameIsTaken(username);
-
-        if(!isUsernameExisting){
-            //torna errore se username rappresneta un utente che non esiste.
-            throw new UserNotFoundError();
-        }
-
+    
         if(user.role !== "Admin"){
             //se l'utente non è admin può vedere solo le sue informazioni
 
@@ -147,21 +124,6 @@ class UserController {
      */
     async updateUserInfo(user: User, name: string, surname: string, address: string, birthdate: string, username: string):Promise<User> {
         
-        const isUsernameExisting = await this.dao.usernameIsTaken(username);
-
-        if(!isUsernameExisting){
-            //torna errore se username rappresneta un utente che non esiste.
-            throw new UserNotFoundError();
-        }
-
-        /*
-        //Un user può modificare solo le proprie informazioni        
-        if(username !== user.username){
-            //se il nome è diverso da quello dell'user che ha chiamato la route ->errore
-            throw new UnauthorizedUserError();
-        }
-        */
-       
         //la data di nascita non deve essere dopo la data odierna
         const date = new Date(birthdate);
         const today = new Date();

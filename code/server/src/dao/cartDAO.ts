@@ -2,6 +2,8 @@ import { User } from "../components/user";
 import { Cart, ProductInCart } from "../components/cart";
 import db from "../db/db";
 import { Category } from "../components/product";
+import { CartNotFoundError } from "../errors/cartError";
+import { ProductNotFoundError } from "../errors/productError";
 /**
  * A class that implements the interaction with the database for all cart-related operations.
  * You are free to implement any method you need here, as long as the requirements are satisfied.
@@ -9,7 +11,7 @@ import { Category } from "../components/product";
 class CartDAO {
   async getCurrentCart(user: User): Promise<Cart> {
     const sql1 =
-      "SELECT CartId, Total FROM CART WHERE Username = ? AND Paid = false";
+      "SELECT CartId, Total FROM CART WHERE Username = ? AND Paid = 0";
 
     let id: number = null;
     let total: number = null;
@@ -20,7 +22,7 @@ class CartDAO {
         if (err) {
           reject(err);
         } else if (!row) {
-          reject("User has no active cart");
+          reject(CartNotFoundError);
         } else {
           id = (row as { CartId: any; Total: number }).CartId;
           total = (row as { CartId: any; Total: number }).Total;
@@ -31,16 +33,8 @@ class CartDAO {
             if (err) {
               reject(err);
             }
-
-            products = (
-              rows as {
-                model: string;
-                quantity: number;
-                category: Category;
-                price: number;
-              }[]
-            ).map(
-              (row) =>
+            products = rows.map(
+              (row: any) =>
                 new ProductInCart(
                   row.model,
                   row.quantity,
@@ -48,9 +42,9 @@ class CartDAO {
                   row.price
                 )
             );
+            resolve(new Cart(user.username, false, null, total, products));
           });
         }
-        resolve(new Cart(user.username, false, null, total, products));
       });
     });
   }
@@ -68,7 +62,7 @@ class CartDAO {
           reject(err);
         }
         if (!row) {
-          reject("Product not found");
+          reject(ProductNotFoundError);
         }
         category = (row as { category: string; price: number })
           .category as Category;
@@ -81,10 +75,9 @@ class CartDAO {
 
   async updateCart(cart: Cart): Promise<Boolean> {
     return new Promise((resolve, reject) => {
-      const sql1 =
-        "SELECT CartId FROM CART WHERE Username = ? AND Paid = false";
+      const sql1 = "SELECT CartId FROM CART WHERE Username = ? AND Paid = 0";
       let cartid: number = undefined;
-      db.run(sql1, [cart.customer], (err: Error | null, row: any) => {
+      db.get(sql1, [cart.customer], (err: Error | null, row: any) => {
         if (err) {
           reject(err);
         }
@@ -94,22 +87,23 @@ class CartDAO {
           db.run(
             sql2,
             [cart.total, cart.paid, cart.paymentDate, cart.customer],
-            (err: Error | null, row: any) => {
+            function (err: Error | null, row: any) {
               if (err) {
                 reject(err);
               }
               if (!row) {
-                reject("Cart not created");
+                reject(CartNotFoundError);
               }
-              cartid = row.lastID;
+
+              cartid = this.lastID;
             }
           );
         } else {
           cartid = row.CartId;
           const sql3 =
-            "UPDATE CART SET (Total, Paid, PaymentDate) = (?, ?, ?) WHERE Username = ? AND Paid = false";
+            "UPDATE CART SET (Total, Paid, PaymentDate) = (?, ?, ?) WHERE Username = ? AND Paid = 0";
           db.run(
-            sql1,
+            sql3,
             [cart.total, cart.paid, cart.paymentDate, cart.customer],
             (err) => {
               if (err) {

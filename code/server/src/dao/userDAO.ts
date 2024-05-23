@@ -45,24 +45,6 @@ class UserDAO {
     }
 
 
-    usernameIsTaken(username: string): Promise<boolean> {
-
-        return new Promise<boolean>((resolve, reject) => {
-
-            const sql = "SELECT username FROM users WHERE username = ?";
-
-            db.get(sql, [username], (err: Error | null, row: any) => {
-
-                if (err) {
-                    return reject(err);
-                }
-
-                // `!!row` restituisce `true` se `row` esiste, altrimenti `false`
-                resolve(!!row);
-            });
-        })
-    }
-
     /**
      * Creates a new user and saves their information in the database
      * @param username The username of the user. It must be unique.

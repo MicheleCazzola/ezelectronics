@@ -1,7 +1,7 @@
 import { User } from "../components/user";
-import { Cart, ProductInCart } from "../components/cart";
+import { Cart } from "../components/cart";
 import CartDAO from "../dao/cartDAO";
-
+import { CartNotFoundError } from "../errors/cartError";
 /**
  * Represents a controller for managing shopping carts.
  * All methods of this class must interact with the corresponding DAO class to retrieve or store data.
@@ -36,6 +36,7 @@ class CartController {
       const full_product = await this.dao.getProduct(product);
       cart.products.push(full_product);
     }
+    cart.total = cart.products.reduce((a, b) => a + b.price, 0);
 
     return this.dao.updateCart(cart);
   }
@@ -46,7 +47,19 @@ class CartController {
    * @returns A Promise that resolves to the user's cart or an empty one if there is no current cart.
    */
   async getCart(user: User): Promise<Cart> {
-    return this.dao.getCurrentCart(user);
+    return new Promise((resolve, reject) => {
+      this.dao
+        .getCurrentCart(user)
+        .then((cart) => resolve(cart))
+        .catch((err) => {
+          if (err === CartNotFoundError) {
+            resolve(new Cart(user.username, false, null, 0, []));
+          } else {
+            console.log(err);
+            reject(err);
+          }
+        });
+    });
   }
 
   /**
@@ -61,9 +74,8 @@ class CartController {
     // Processing payment always succeeds
     cart.paid = true;
     cart.paymentDate = new Date().toISOString();
-    return new Promise((resolve, reject) => {
-      return this.dao.updateCart(cart);
-    });
+
+    return this.dao.updateCart(cart);
   }
 
   /**
