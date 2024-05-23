@@ -101,7 +101,7 @@ class CartDAO {
               if (!row) {
                 reject("Cart not created");
               }
-              cartid = row.lastID;
+              cartid = row.rowid;
             }
           );
         } else {
