@@ -16,7 +16,9 @@ class ReviewController {
      * @param comment The comment made by the user
      * @returns A Promise that resolves to nothing
      */
-    async addReview(model: string, user: User, score: number, comment: string) /**:Promise<void> */ { }
+    async addReview(model: string, user: User, score: number, comment: string) : Promise<void> { 
+        this.dao.addReview(model, user.username, score, comment);
+    }
 
     /**
      * Returns all reviews for a product
