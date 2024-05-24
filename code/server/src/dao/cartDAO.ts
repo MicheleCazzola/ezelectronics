@@ -22,7 +22,7 @@ class CartDAO {
         if (err) {
           reject(err);
         } else if (!row) {
-          reject(CartNotFoundError);
+          reject(new CartNotFoundError());
         } else {
           id = (row as { CartId: any; Total: number }).CartId;
           total = (row as { CartId: any; Total: number }).Total;
@@ -62,7 +62,7 @@ class CartDAO {
           reject(err);
         }
         if (!row) {
-          reject(ProductNotFoundError);
+          reject(new ProductNotFoundError());
         }
         category = (row as { category: string; price: number })
           .category as Category;
@@ -92,7 +92,7 @@ class CartDAO {
                 reject(err);
               }
               if (!row) {
-                reject(CartNotFoundError);
+                reject(new CartNotFoundError());
               }
 
               cartid = this.lastID;
