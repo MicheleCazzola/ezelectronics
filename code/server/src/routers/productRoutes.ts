@@ -4,6 +4,7 @@ import { body, param, query } from "express-validator"
 import ProductController from "../controllers/productController"
 import Authenticator from "./auth"
 import { Product } from "../components/product"
+import { LowProductStockError, ProductNotFoundError, ProductSoldError } from "../errors/productError"
 
 /**
  * Represents a class that defines the routes for handling proposals.
@@ -58,9 +59,16 @@ class ProductRoutes {
          */
         this.router.post(
             "/",
-            (req: any, res: any, next: any) => this.controller.registerProducts(req.body.model, req.body.category, req.body.quantity, req.body.details, req.body.sellingPrice, req.body.arrivalDate)
+            body("model").isString().isLength({min: 1}),
+            body("category").isString().isIn(["Smartphone", "Laptop", "Appliance"]),
+            body("quantity").isInt({gt: 0}),
+            body("details").isString().optional({nullable: true}),
+            body("sellingPrice").isFloat({gt: 0}),
+            body("arrivalDate").isString().isDate({format: 'YYYY-MM-DD'}).isBefore().optional({nullable: true}),
+            (req: any, res: any, next: any) => this.authenticator.isManager(req, res, () => this.controller.registerProducts(req.body.model, req.body.category, req.body.quantity, req.body.details, req.body.sellingPrice, req.body.arrivalDate)
                 .then(() => res.status(200).end())
                 .catch((err) => next(err))
+            )
         )
 
         /**
@@ -74,9 +82,18 @@ class ProductRoutes {
          */
         this.router.patch(
             "/:model",
-            (req: any, res: any, next: any) => this.controller.changeProductQuantity(req.params.model, req.body.quantity, req.body.changeDate)
+            param("model").isString().isLength({min: 1}).custom(async value => {
+                const pc = new ProductController
+                const prod: boolean = await pc.productExist(value);
+                if (!prod)
+                    throw new ProductNotFoundError
+            }),
+            body("quantity").isInt({gt: 0}),
+            body("changeDate").isString().isDate({format: 'YYYY-MM-DD'}).isBefore().optional({nullable: true}),
+            (req: any, res: any, next: any) => this.authenticator.isManager(req, res, () => this.controller.changeProductQuantity(req.params.model, req.body.quantity, req.body.changeDate)
                 .then((quantity: any /**number */) => res.status(200).json({ quantity: quantity }))
                 .catch((err) => next(err))
+            )
         )
 
         /**
@@ -90,12 +107,33 @@ class ProductRoutes {
          */
         this.router.patch(
             "/:model/sell",
-            (req: any, res: any, next: any) => this.controller.sellProduct(req.params.model, req.body.quantity, req.body.sellingDate)
+            param("model").isString().isLength({min: 1}).custom(async value => {
+                const pc = new ProductController
+                const prod: boolean = await pc.productExist(value);
+                if (!prod)
+                    throw new ProductNotFoundError
+            }),
+            body("quantity").isInt({gt: 0}).custom(async value => {
+                const pc = new ProductController
+                const prod: Product = await pc.productByModel(param("model").toString())
+                if (prod.quantity == 0)
+                    throw new ProductSoldError;
+                if (value > prod.quantity)
+                    throw new LowProductStockError
+            }),
+            body("sellingDate").isString().isDate({format: 'YYYY-MM-DD'}).isBefore().custom(async value => {
+                const pc = new ProductController
+                const prod: Product = await pc.productByModel(param("model").toString())
+                if (body(value).isBefore(prod.arrivalDate))
+                    return false
+            }).optional({nullable: true}),
+            (req: any, res: any, next: any) => this.authenticator.isManager(req, res, () => this.controller.sellProduct(req.params.model, req.body.quantity, req.body.sellingDate)
                 .then((quantity: any /**number */) => res.status(200).json({ quantity: quantity }))
                 .catch((err) => {
                     console.log(err)
                     next(err)
                 })
+            )
         )
 
         /**
@@ -109,12 +147,26 @@ class ProductRoutes {
          */
         this.router.get(
             "/",
-            (req: any, res: any, next: any) => this.controller.getProducts(req.query.grouping, req.query.category, req.query.model)
+            query("grouping").isString().isIn(["category", "model"]).optional({nullable: true}),
+            query("category").isString().custom(value => {
+                if ((query("grouping").equals("model") || query("grouping").isEmpty()) && !query(value).isEmpty())
+                    return false
+                if (query("grouping").equals("category") && !query(value).isIn(["Smartphone", "Laptop", "Appliance"]))
+                    return false
+            }).optional({nullable: true}),
+            query("model").isString().custom(value => {
+                if ((query("grouping").equals("category") || query("grouping").isEmpty()) && !query(value).isEmpty())
+                    return false
+                if (query("grouping").equals("model") && query(value).isEmpty())
+                    return false
+            }).optional({nullable: true}),
+            (req: any, res: any, next: any) => this.authenticator.isAdminOrManager(req, res, () => this.controller.getProducts(req.query.grouping, req.query.category, req.query.model)
                 .then((products: any /*Product[]*/) => res.status(200).json(products))
                 .catch((err) => {
                     console.log(err)
                     next(err)
                 })
+            )
         )
 
         /**
@@ -128,9 +180,23 @@ class ProductRoutes {
          */
         this.router.get(
             "/available",
-            (req: any, res: any, next: any) => this.controller.getAvailableProducts(req.query.grouping, req.query.category, req.query.model)
+            query("grouping").isString().isIn(["category", "model"]).optional({nullable: true}),
+            query("category").isString().custom(value => {
+                if ((query("grouping").equals("model") || query("grouping").isEmpty()) && !query(value).isEmpty())
+                    return false
+                if (query("grouping").equals("category") && !query(value).isIn(["Smartphone", "Laptop", "Appliance"]))
+                    return false
+            }).optional({nullable: true}),
+            query("model").isString().custom(value => {
+                if ((query("grouping").equals("category") || query("grouping").isEmpty()) && !query(value).isEmpty())
+                    return false
+                if (query("grouping").equals("model") && query(value).isEmpty())
+                    return false
+            }).optional({nullable: true}),
+            (req: any, res: any, next: any) => this.authenticator.isCustomer(req, res, () => this.controller.getAvailableProducts(req.query.grouping, req.query.category, req.query.model)
                 .then((products: any/*Product[]*/) => res.status(200).json(products))
                 .catch((err) => next(err))
+            )
         )
 
         /**
@@ -140,9 +206,10 @@ class ProductRoutes {
          */
         this.router.delete(
             "/",
-            (req: any, res: any, next: any) => this.controller.deleteAllProducts()
+            (req: any, res: any, next: any) => this.authenticator.isAdminOrManager(req, res, () => this.controller.deleteAllProducts()
                 .then(() => res.status(200).end())
                 .catch((err: any) => next(err))
+            )
         )
 
         /**
@@ -153,9 +220,16 @@ class ProductRoutes {
          */
         this.router.delete(
             "/:model",
-            (req: any, res: any, next: any) => this.controller.deleteProduct(req.params.model)
+            param("model").isString().isLength({min: 1}).custom(async value => {
+                const pc = new ProductController
+                const prod: boolean = await pc.productExist(value);
+                if (!prod)
+                    throw new ProductNotFoundError
+            }),
+            (req: any, res: any, next: any) => this.authenticator.isAdminOrManager(req, res, () => this.controller.deleteProduct(req.params.model)
                 .then(() => res.status(200).end())
                 .catch((err: any) => next(err))
+            )
         )
 
 

@@ -97,7 +97,7 @@ class CartRoutes {
     this.router.get("/history", (req: any, res: any, next: any) =>
       this.controller
         .getCustomerCarts(req.user)
-        .then((carts: any /**Cart[] */) => res.status(200).json(carts))
+        .then((carts: Cart[]) => res.status(200).json(carts))
         .catch((err) => next(err))
     );
 
