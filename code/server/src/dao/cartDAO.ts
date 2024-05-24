@@ -2,7 +2,11 @@ import { User } from "../components/user";
 import { Cart, ProductInCart } from "../components/cart";
 import db from "../db/db";
 import { Category } from "../components/product";
-import { CartNotFoundError } from "../errors/cartError";
+import {
+  CartNotFoundError,
+  EmptyCartError,
+  ProductNotInCartError,
+} from "../errors/cartError";
 import { ProductNotFoundError } from "../errors/productError";
 /**
  * A class that implements the interaction with the database for all cart-related operations.
@@ -133,6 +137,76 @@ class CartDAO {
 
       resolve(true);
     });
+  }
+
+  async getPaidCarts(user: User): Promise<Cart[]> {
+    const sql1 = "SELECT * FROM CART WHERE Username = ? AND Paid = 1";
+    const sql2 =
+      "SELECT PD.Model, PD.Category, PC.Quantity, PC.SellingPrice FROM PRODUCT_IN_CART PC, PRODUCT_DESCRIPTOR PD WHERE PC.Model = PD.Model AND CartId = ?";
+    let carts: Cart[] = [];
+
+    return new Promise((resolve, reject) => {
+      db.all(sql1, [user.username], (err, rows) => {
+        if (err) {
+          reject(err);
+        }
+        if (rows) {
+          rows.forEach((row: any) => {
+            let cart: Cart = new Cart(
+              user.username,
+              row.Paid,
+              row.PaymentDate,
+              row.Total,
+              []
+            );
+            db.all(sql2, [row.CartId], (err, rows2) => {
+              if (err) {
+                reject(err);
+              }
+              if (rows2) {
+                rows2.forEach((row: any) => {
+                  cart.products.push(
+                    new ProductInCart(
+                      row.Model,
+                      row.Quantity,
+                      row.Category,
+                      row.SellingPrice
+                    )
+                  );
+                });
+              }
+              carts.push(cart);
+            });
+          });
+        }
+        console.log(carts);
+        resolve(carts);
+      });
+    });
+  }
+
+  async removeProductFromCart(user: User, product: string): Promise<Boolean> {
+    let cart = await this.getCurrentCart(user);
+
+    let found = false;
+    for (let cart_product of cart.products) {
+      if (cart_product.model === product) {
+        cart_product.quantity--;
+        if (cart_product.quantity === 0) {
+          cart.products = cart.products.filter(
+            (product) => product.model !== cart_product.model
+          );
+        }
+        found = true;
+        break;
+      }
+    }
+
+    if (!found) {
+      throw new ProductNotInCartError();
+    }
+
+    return this.updateCart(cart);
   }
 }
 
