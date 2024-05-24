@@ -4,7 +4,7 @@ import { ExistingReviewError } from "../errors/reviewError";
 import { NoReviewProductError } from "../errors/reviewError";
 import { ProductReview } from "../components/review";
 import { ProductNotFoundError } from "../errors/productError";
-import { rejects } from "assert";
+import ProductDAO from "./productDAO";
 
 /**
  * A class that implements the interaction with the database for all review-related operations.
@@ -85,14 +85,18 @@ class ReviewDAO {
     deleteReview(model: string, username: string): Promise<void> {
         return new Promise((resolve, reject) => {
             try {
+                // CHECK IF MODEL IN DB (PRODUCT DESCRIPTOR)
+                if ((new ProductDAO).existsProduct(model)) {
+                    reject(new ProductNotFoundError);
+                }
+
                 let query: string = "DELETE FROM review WHERE model = ? AND username = ?";
                 db.run(query, [model, username], function(err: Error | null) {
+
                     // Should not happen
                     if (err) {
                         reject(err);
                     }
-
-                    // CHECK IF MODEL IN DB (PRODUCT DESCRIPTOR)
 
                     // Check if at least one row (max exactly one) has
                     // been affected by query: if no rows has been affected
@@ -102,6 +106,7 @@ class ReviewDAO {
                         reject(new NoReviewProductError);
                     }
                     
+                    // Nominal case: row is deleted
                     resolve();
                 })
             } catch (error) {
@@ -118,6 +123,11 @@ class ReviewDAO {
     deleteReviewsOfProduct(model: string): Promise<void> {
         return new Promise((resolve, reject) => {
             try {
+                // CHECK IF MODEL IN DB (PRODUCT DESCRIPTOR)
+                if ((new ProductDAO).existsProduct(model)) {
+                    reject(new ProductNotFoundError);
+                }
+
                 let query: string = "DELETE FROM review WHERE model = ?";
                 db.run(query, [model], function(err: Error | null) {
 
@@ -126,9 +136,7 @@ class ReviewDAO {
                         reject(err);
                     }
 
-                    // CHECK IF MODEL IN DB(PRODUCT DESCRIPTOR)
-
-                    // Standard
+                    // Standard case
                     resolve();
                 });
             } catch (error) {
