@@ -22,7 +22,14 @@ class CartController {
    * @returns A Promise that resolves to `true` if the product was successfully added.
    */
   async addToCart(user: User, product: string): Promise<Boolean> {
-    let cart: Cart = await this.dao.getCurrentCart(user);
+    let cart: Cart = undefined;
+    try {
+      cart = await this.dao.getCurrentCart(user);
+    } catch (err) {
+      if (err instanceof CartNotFoundError) {
+        cart = new Cart(user.username, false, null, 0, []);
+      }
+    }
 
     let found = false;
     for (let cart_product of cart.products) {
