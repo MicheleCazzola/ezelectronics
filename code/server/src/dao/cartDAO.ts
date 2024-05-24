@@ -208,6 +208,75 @@ class CartDAO {
 
     return this.updateCart(cart);
   }
+
+  async clearCart(user: User): Promise<Boolean> {
+    const clearCart = new Cart(user.username, false, null, 0, []);
+    return this.updateCart(clearCart);
+  }
+
+  async deleteAllCarts(): Promise<Boolean> {
+    const sql1 = "DELETE FROM PRODUCT_IN_CART";
+    const sql2 = "DELETE FROM CART";
+
+    return new Promise((resolve, reject) => {
+      db.run(sql1, (err) => {
+        if (err) {
+          reject(err);
+        }
+        db.run(sql2, (err) => {
+          if (err) {
+            reject(err);
+          }
+        });
+      });
+      resolve(true);
+    });
+  }
+
+  async getAllCarts(): Promise<Cart[]> {
+    const sql1 = "SELECT * FROM CART";
+    const sql2 =
+      "SELECT PD.Model, PD.Category, PC.Quantity, PD.SellingPrice FROM PRODUCT_IN_CART PC, PRODUCT_DESCRIPTOR PD WHERE PC.Model = PD.Model AND CartId = ?";
+
+    let carts: Cart[] = [];
+    return new Promise((resolve, reject) => {
+      db.all(sql1, (err, rows) => {
+        if (err) {
+          reject(err);
+        }
+        if (rows) {
+          rows.forEach((row: any) => {
+            let cart: Cart = new Cart(
+              row.Username,
+              row.Paid,
+              row.PaymentDate,
+              row.Total,
+              []
+            );
+            db.all(sql2, [row.CartId], (err, rows2) => {
+              if (err) {
+                reject(err);
+              }
+              if (rows2) {
+                rows2.forEach((row: any) => {
+                  cart.products.push(
+                    new ProductInCart(
+                      row.Model,
+                      row.Quantity,
+                      row.Category,
+                      row.SellingPrice
+                    )
+                  );
+                });
+              }
+              carts.push(cart);
+            });
+          });
+        }
+        resolve(carts);
+      });
+    });
+  }
 }
 
 export default CartDAO;
