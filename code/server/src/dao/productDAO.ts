@@ -68,7 +68,7 @@ class ProductDAO {
                 const sql = "SELECT * FROM product_descriptor WHERE Model = ?"
                 db.get(sql, [model], (err: Error | null, row: any) => {
                     if (err) reject(err)
-                    const prod: Product = new Product(row.SellingPrice, row.Model, row.Category, row.ArrivalDate, row.Details, row.Quantity)
+                    const prod: Product = new Product(row.SellingPrice, row.Model, row.Category, row.ArrivalDate, row.Details, row.AvailableQuantity)
                     resolve(prod)
                 })
             } catch (error) {
@@ -171,7 +171,7 @@ class ProductDAO {
                 }
                 db.all(sql, param == null ? [] : param, (err: Error | null, rows: any[]) => {
                     if(err) reject(err)
-                    const prod: Product[] = rows.map(p => new Product(p.SellingPrice, p.Model, p.Category, p.ArrivalDate, p.Details, p.Quantity))
+                    const prod: Product[] = rows.map(p => new Product(p.SellingPrice, p.Model, p.Category, p.ArrivalDate, p.Details, p.AvailableQuantity))
                     resolve(prod)
                 })
             } catch (error) {
@@ -204,7 +204,7 @@ class ProductDAO {
                 }
                 db.all(sql, param == null ? [] : param, (err: Error | null, rows: any[]) => {
                     if(err) reject(err)
-                    const prod: Product[] = rows.map(p => new Product(p.SellingPrice, p.Model, p.Category, p.ArrivalDate, p.Details, p.Quantity))
+                    const prod: Product[] = rows.map(p => new Product(p.SellingPrice, p.Model, p.Category, p.ArrivalDate, p.Details, p.AvailableQuantity))
                     resolve(prod)
                 })
             } catch (error) {
