@@ -68,7 +68,7 @@ class ProductDAO {
                 const sql = "SELECT * FROM product_descriptor WHERE Model = ?"
                 db.get(sql, [model], (err: Error | null, row: any) => {
                     if (err) reject(err)
-                    const prod: Product = new Product(row.sellingPrice, row.model, row.category, row.arrivalDate, row.details, row.quantity)
+                    const prod: Product = new Product(row.SellingPrice, row.Model, row.Category, row.ArrivalDate, row.Details, row.Quantity)
                     resolve(prod)
                 })
             } catch (error) {
@@ -171,7 +171,7 @@ class ProductDAO {
                 }
                 db.all(sql, param == null ? [] : param, (err: Error | null, rows: any[]) => {
                     if(err) reject(err)
-                    const prod: Product[] = rows.map(p => new Product(p.sellingPrice, p.model, p.category, p.arrivalDate, p.details, p.quantity))
+                    const prod: Product[] = rows.map(p => new Product(p.SellingPrice, p.Model, p.Category, p.ArrivalDate, p.Details, p.Quantity))
                     resolve(prod)
                 })
             } catch (error) {
@@ -204,7 +204,7 @@ class ProductDAO {
                 }
                 db.all(sql, param == null ? [] : param, (err: Error | null, rows: any[]) => {
                     if(err) reject(err)
-                    const prod: Product[] = rows.map(p => new Product(p.sellingPrice, p.model, p.category, p.arrivalDate, p.details, p.quantity))
+                    const prod: Product[] = rows.map(p => new Product(p.SellingPrice, p.Model, p.Category, p.ArrivalDate, p.Details, p.Quantity))
                     resolve(prod)
                 })
             } catch (error) {
@@ -221,7 +221,7 @@ class ProductDAO {
         return new Promise<boolean>((resolve, reject) => {
             try {
                 const sql = "DELETE FROM product_descriptor"
-                db.run(sql, [], (err: Error | null, row: any) => {
+                db.run(sql, [], (err: Error | null) => {
                     try {
                         if (err) reject(err)
                         resolve(true)
@@ -244,7 +244,7 @@ class ProductDAO {
         return new Promise<boolean>((resolve, reject) => {
             try {
                 const sql = "DELETE FROM product_descriptor WHERE Model = ?"
-                db.run(sql, [model], (err: Error | null, row: any) => {
+                db.run(sql, [model], (err: Error | null) => {
                     try {
                         if (err) reject(err)
                         resolve(true)
