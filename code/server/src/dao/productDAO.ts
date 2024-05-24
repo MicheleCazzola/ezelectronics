@@ -68,8 +68,7 @@ class ProductDAO {
                 const sql = "SELECT * FROM product_descriptor WHERE Model = ?"
                 db.get(sql, [model], (err: Error | null, row: any) => {
                     if (err) reject(err)
-                    const prod: Product = new Product(row.SellingPrice, row.Model, row.Category, row.ArrivalDate, row.Details, row.AvailableQuantity)
-                    resolve(prod)
+                    resolve(row)
                 })
             } catch (error) {
                 reject(error)
