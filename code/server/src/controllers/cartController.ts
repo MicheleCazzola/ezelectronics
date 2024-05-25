@@ -27,7 +27,7 @@ class CartController {
       cart = await this.dao.getCurrentCart(user);
     } catch (err) {
       if (err instanceof CartNotFoundError) {
-        cart = new Cart(user.username, false, null, 0, []);
+        cart = new Cart(user.username, false, "", 0, []);
       }
     }
 
@@ -35,6 +35,7 @@ class CartController {
     for (let cart_product of cart.products) {
       if (cart_product.model === product) {
         cart_product.quantity++;
+        cart.total += cart_product.price;
         found = true;
         break;
       }
@@ -42,9 +43,8 @@ class CartController {
     if (!found) {
       const full_product = await this.dao.getProduct(product);
       cart.products.push(full_product);
+      cart.total += full_product.price;
     }
-    cart.total = cart.products.reduce((a, b) => a + b.price, 0);
-
     return this.dao.updateCart(cart);
   }
 
@@ -62,7 +62,6 @@ class CartController {
           if (err === CartNotFoundError) {
             resolve(new Cart(user.username, false, null, 0, []));
           } else {
-            console.log(err);
             reject(err);
           }
         });

@@ -17,8 +17,6 @@ class CartDAO {
     const sql1 =
       "SELECT CartId, Total FROM CART WHERE Username = ? AND Paid = 0";
 
-    let id: number = null;
-    let total: number = null;
     let products: ProductInCart[] = [];
 
     return new Promise((resolve, reject) => {
@@ -28,8 +26,8 @@ class CartDAO {
         } else if (!row) {
           reject(new CartNotFoundError());
         } else {
-          id = (row as { CartId: any; Total: number }).CartId;
-          total = (row as { CartId: any; Total: number }).Total;
+          let id = (row as { CartId: any; Total: number }).CartId;
+          let total = (row as { CartId: any; Total: number }).Total;
 
           const sql2 =
             "SELECT PD.Model as model, PC.Quantity as quantity, PD.Category as category, PD.SellingPrice as price FROM PRODUCT_IN_CART PC,PRODUCT_DESCRIPTOR PD WHERE PC.Model = PD.Model AND PC.CartId = ?";
@@ -46,7 +44,7 @@ class CartDAO {
                   row.price
                 )
             );
-            resolve(new Cart(user.username, false, null, total, products));
+            resolve(new Cart(user.username, false, "", total, products));
           });
         }
       });
@@ -56,24 +54,19 @@ class CartDAO {
   async getProduct(model: string): Promise<ProductInCart> {
     return new Promise((resolve, reject) => {
       const sql =
-        "SELECT Category as category, SellingPrice as price FROM PRODUCT_DESCRIPTOR WHERE Model = ?";
+        "SELECT Category, SellingPrice FROM PRODUCT_DESCRIPTOR WHERE Model = ?";
 
-      let category: Category = null;
-      let price: number = null;
-
-      db.get(sql, [model], (err, row) => {
+      db.get(sql, [model], (err, row: any) => {
         if (err) {
           reject(err);
         }
         if (!row) {
           reject(new ProductNotFoundError());
         }
-        category = (row as { category: string; price: number })
-          .category as Category;
-        price = (row as { category: string; price: number }).price;
+        let category = row.Category as Category;
+        let price = row.SellingPrice;
+        resolve(new ProductInCart(model, 1, category, price));
       });
-
-      resolve(new ProductInCart(model, 1, category, price));
     });
   }
 
@@ -91,12 +84,9 @@ class CartDAO {
           db.run(
             sql2,
             [cart.total, cart.paid, cart.paymentDate, cart.customer],
-            function (err: Error | null, row: any) {
+            function (err: Error | null) {
               if (err) {
                 reject(err);
-              }
-              if (!row) {
-                reject(new CartNotFoundError());
               }
 
               cartid = this.lastID;
@@ -117,7 +107,7 @@ class CartDAO {
           );
         }
 
-        const sql4 = "DELETE FROM PRODUCT_IN_CART WHERE CART_CartId = ?";
+        const sql4 = "DELETE FROM PRODUCT_IN_CART WHERE CartId = ?";
         const sql5 =
           "INSERT INTO PRODUCT_IN_CART (CartId, Model, Quantity) VALUES (?, ?, ?)";
 
@@ -179,7 +169,6 @@ class CartDAO {
             });
           });
         }
-        console.log(carts);
         resolve(carts);
       });
     });
@@ -187,7 +176,6 @@ class CartDAO {
 
   async removeProductFromCart(user: User, product: string): Promise<Boolean> {
     let cart = await this.getCurrentCart(user);
-
     let found = false;
     for (let cart_product of cart.products) {
       if (cart_product.model === product) {
@@ -210,7 +198,7 @@ class CartDAO {
   }
 
   async clearCart(user: User): Promise<Boolean> {
-    const clearCart = new Cart(user.username, false, null, 0, []);
+    const clearCart = new Cart(user.username, false, "", 0, []);
     return this.updateCart(clearCart);
   }
 
