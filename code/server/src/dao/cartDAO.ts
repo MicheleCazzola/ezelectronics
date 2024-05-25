@@ -132,8 +132,7 @@ class CartDAO {
   async getPaidCarts(user: User): Promise<Cart[]> {
     const sql1 = "SELECT * FROM CART WHERE Username = ? AND Paid = 1";
     const sql2 =
-      "SELECT PD.Model, PD.Category, PC.Quantity, PC.SellingPrice FROM PRODUCT_IN_CART PC, PRODUCT_DESCRIPTOR PD WHERE PC.Model = PD.Model AND CartId = ?";
-    let carts: Cart[] = [];
+      "SELECT PD.Model, PD.Category, PC.Quantity, PD.SellingPrice FROM PRODUCT_IN_CART PC, PRODUCT_DESCRIPTOR PD WHERE PC.Model = PD.Model AND CartId = ?";
 
     return new Promise((resolve, reject) => {
       db.all(sql1, [user.username], (err, rows) => {
@@ -141,35 +140,37 @@ class CartDAO {
           reject(err);
         }
         if (rows) {
-          rows.forEach((row: any) => {
-            let cart: Cart = new Cart(
-              user.username,
-              row.Paid,
-              row.PaymentDate,
-              row.Total,
-              []
-            );
-            db.all(sql2, [row.CartId], (err, rows2) => {
-              if (err) {
-                reject(err);
-              }
-              if (rows2) {
-                rows2.forEach((row: any) => {
-                  cart.products.push(
-                    new ProductInCart(
+          resolve(
+            rows.map((cart_row: any) => {
+              let cart: Cart = new Cart(
+                user.username,
+                cart_row.Paid,
+                cart_row.PaymentDate,
+                cart_row.Total,
+                []
+              );
+              db.all(sql2, [cart_row.CartId], (err, prod_row) => {
+                if (err) {
+                  reject(err);
+                }
+                if (prod_row) {
+                  cart.products = prod_row.map((row: any) => {
+                    return new ProductInCart(
                       row.Model,
                       row.Quantity,
                       row.Category,
                       row.SellingPrice
-                    )
-                  );
-                });
-              }
-              carts.push(cart);
-            });
-          });
+                    );
+                  });
+                }
+              });
+              return cart;
+            })
+          );
         }
-        resolve(carts);
+        else {
+          resolve([]);
+        }
       });
     });
   }
