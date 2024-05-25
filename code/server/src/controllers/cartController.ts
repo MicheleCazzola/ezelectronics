@@ -1,16 +1,20 @@
 import { User } from "../components/user";
 import { Cart } from "../components/cart";
 import CartDAO from "../dao/cartDAO";
+import ProductDAO from "../dao/productDAO";
 import { CartNotFoundError } from "../errors/cartError";
+import { LowProductStockError } from "../errors/productError";
 /**
  * Represents a controller for managing shopping carts.
  * All methods of this class must interact with the corresponding DAO class to retrieve or store data.
  */
 class CartController {
   private dao: CartDAO;
+  private prod_dao: ProductDAO;
 
   constructor() {
     this.dao = new CartDAO();
+    this.prod_dao = new ProductDAO();
   }
 
   /**
@@ -75,13 +79,40 @@ class CartController {
    *
    */
   async checkoutCart(user: User): Promise<Boolean> {
-    const cart: Cart = await this.dao.getCurrentCart(user);
+    return new Promise(async (resolve, reject) => {
+      let cart: Cart = await this.dao.getCurrentCart(user);
+      let rejected = false;
+      for (let product of cart.products) {
+        let quantity = await this.prod_dao.getProductQuantity(product.model);
+        if (quantity < product.quantity) {
+          reject(new LowProductStockError());
+          rejected = true;
+          break;
+        }
+      }
+      if (!rejected) {
+        // Processing payment always succeeds
+        cart.paid = true;
+        cart.paymentDate = new Date().toISOString();
 
-    // Processing payment always succeeds
-    cart.paid = true;
-    cart.paymentDate = new Date().toISOString();
+        cart.products.forEach(async (product) => {
+          await this.prod_dao.decreaseQuantity(
+            product.model,
+            product.quantity,
+            new Date().toISOString()
+          );
+        });
 
-    return this.dao.updateCart(cart);
+        this.dao
+          .updateCart(cart)
+          .then((result) => {
+            resolve(result);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      }
+    });
   }
 
   /**
