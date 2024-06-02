@@ -65,7 +65,7 @@ class ProductRoutes {
             body("details").isString().optional({nullable: true}),
             body("sellingPrice").isFloat({gt: 0}),
             body("arrivalDate").isString().isDate({format: 'YYYY-MM-DD'}).isBefore().optional({nullable: true}),
-            (req: any, res: any, next: any) => this.authenticator.isManager(req, res, () => this.controller.registerProducts(req.body.model, req.body.category, req.body.quantity, req.body.details, req.body.sellingPrice, req.body.arrivalDate)
+            (req: any, res: any, next: any) => this.authenticator.isAdminOrManager(req, res, () => this.controller.registerProducts(req.body.model, req.body.category, req.body.quantity, req.body.details, req.body.sellingPrice, req.body.arrivalDate)
                 .then(() => res.status(200).end())
                 .catch((err) => next(err))
             )
@@ -90,7 +90,7 @@ class ProductRoutes {
             }),
             body("quantity").isInt({gt: 0}),
             body("changeDate").isString().isDate({format: 'YYYY-MM-DD'}).isBefore().optional({nullable: true}),
-            (req: any, res: any, next: any) => this.authenticator.isManager(req, res, () => this.controller.changeProductQuantity(req.params.model, req.body.quantity, req.body.changeDate)
+            (req: any, res: any, next: any) => this.authenticator.isAdminOrManager(req, res, () => this.controller.changeProductQuantity(req.params.model, req.body.quantity, req.body.changeDate)
                 .then((quantity: any /**number */) => res.status(200).json({ quantity: quantity }))
                 .catch((err) => next(err))
             )
@@ -127,7 +127,7 @@ class ProductRoutes {
                 if (body(value).isBefore(prod.arrivalDate))
                     return false
             }).optional({nullable: true}),
-            (req: any, res: any, next: any) => this.authenticator.isManager(req, res, () => this.controller.sellProduct(req.params.model, req.body.quantity, req.body.sellingDate)
+            (req: any, res: any, next: any) => this.authenticator.isAdminOrManager(req, res, () => this.controller.sellProduct(req.params.model, req.body.quantity, req.body.sellingDate)
                 .then((quantity: any /**number */) => res.status(200).json({ quantity: quantity }))
                 .catch((err) => {
                     console.log(err)
@@ -193,7 +193,7 @@ class ProductRoutes {
                 if (query("grouping").equals("model") && query(value).isEmpty())
                     return false
             }).optional({nullable: true}),
-            (req: any, res: any, next: any) => this.authenticator.isCustomer(req, res, () => this.controller.getAvailableProducts(req.query.grouping, req.query.category, req.query.model)
+            (req: any, res: any, next: any) => this.authenticator.isLoggedIn(req, res, () => this.controller.getAvailableProducts(req.query.grouping, req.query.category, req.query.model)
                 .then((products: any/*Product[]*/) => res.status(200).json(products))
                 .catch((err) => next(err))
             )
