@@ -2,32 +2,28 @@ import { test, expect, jest } from "@jest/globals";
 import request from "supertest";
 import { app } from "../../index";
 import ReviewController from "../../src/controllers/reviewController";
-import Authenticator from "../../src/routers/auth";
 import { ProductNotFoundError } from "../../src/errors/productError";
 import { ProductReview } from "../../src/components/review";
+import Authenticator from "../../src/routers/auth";
 
 const baseURL = "/ezelectronics/reviews";
+const mockMiddleware = jest.fn((req, res, next: any) => next());
 
-// Skipped because the middleware mocks are not working
-// Test passes if the authentication is manually commented-out from the route's code
+jest.mock("../../src/routers/auth");
 
 beforeEach(() => {
-  jest.resetAllMocks();
-  //jest.clearAllMocks();
-  //jest.resetModules();
-  //jest.clearAllTimers();
-
-  // Middleware mocks not working
-  jest
-    .spyOn(Authenticator.prototype, "isCustomer")
-    .mockImplementation((req: any, res: any, next: any) => next());
+  jest.clearAllMocks();
 
   jest
     .spyOn(Authenticator.prototype, "isLoggedIn")
-    .mockImplementation((req: any, res: any, next: any) => next());
+    .mockImplementation(mockMiddleware);
+
+  jest
+    .spyOn(Authenticator.prototype, "isCustomer")
+    .mockImplementation(mockMiddleware);
 });
 
-describe.skip("Route - Add Review", () => {
+describe("Route - Add Review", () => {
   const testReviews = [
     {
       description: "Valid",
@@ -63,8 +59,8 @@ describe.skip("Route - Add Review", () => {
           comment: testCase.comment,
         });
 
-      //expect(Authenticator.prototype.isCustomer).toHaveBeenCalledTimes(1);
-      //expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
+      expect(Authenticator.prototype.isCustomer).toHaveBeenCalledTimes(1);
+      expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
 
       expect(response.status).toBe(testCase.expectedStatus);
       expect(ReviewController.prototype.addReview).toHaveBeenCalledTimes(
@@ -94,10 +90,11 @@ describe.skip("Route - Add Review", () => {
         comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       });
 
-    //expect(Authenticator.prototype.isCustomer).toHaveBeenCalledTimes(1);
-    //expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
+    expect(Authenticator.prototype.isCustomer).toHaveBeenCalledTimes(1);
+    expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
 
     expect(response.status).toBe(404);
+    console.log(response.body);
     expect(ReviewController.prototype.addReview).toHaveBeenCalledTimes(1);
     expect(ReviewController.prototype.addReview).toHaveBeenCalledWith(
       "notAProduct",
@@ -110,7 +107,7 @@ describe.skip("Route - Add Review", () => {
   // Authentication is not tested
 });
 
-describe.skip("Route - Fetch All Product Reviews", () => {
+describe("Route - Fetch All Product Reviews", () => {
   test("Valid", async () => {
     const testCase = {
       expectedStatus: 200,
@@ -132,11 +129,9 @@ describe.skip("Route - Fetch All Product Reviews", () => {
       .get(`${baseURL}/${testCase.model}`)
       .send();
 
-    //expect(Authenticator.prototype.isCustomer).toHaveBeenCalledTimes(1);
-    //expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
+    expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
 
     expect(response.status).toBe(testCase.expectedStatus);
-    console.log(response.body);
 
     expect(ReviewController.prototype.getProductReviews).toHaveBeenCalledTimes(
       1
@@ -151,6 +146,7 @@ describe.skip("Route - Fetch All Product Reviews", () => {
       expectedStatus: 404,
       model: "test",
     };
+    //jest.spyOn(ReviewController.prototype, "getProductReviews").mockReset();
     jest
       .spyOn(ReviewController.prototype, "getProductReviews")
       .mockRejectedValueOnce(new ProductNotFoundError());
@@ -159,11 +155,11 @@ describe.skip("Route - Fetch All Product Reviews", () => {
       .get(`${baseURL}/${testCase.model}`)
       .send();
 
-    //expect(Authenticator.prototype.isCustomer).toHaveBeenCalledTimes(1);
-    //expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
+    expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
 
-    expect(response.status).toBe(testCase.expectedStatus);
     console.log(response.body);
+    console.log(response.status);
+    expect(response.status).toBe(testCase.expectedStatus);
 
     expect(ReviewController.prototype.getProductReviews).toHaveBeenCalledTimes(
       1
