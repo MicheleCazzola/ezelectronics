@@ -3,7 +3,10 @@ import { Cart } from "../components/cart";
 import CartDAO from "../dao/cartDAO";
 import ProductDAO from "../dao/productDAO";
 import { CartNotFoundError, EmptyCartError } from "../errors/cartError";
-import { LowProductStockError } from "../errors/productError";
+import {
+  EmptyProductStockError,
+  LowProductStockError,
+} from "../errors/productError";
 /**
  * Represents a controller for managing shopping carts.
  * All methods of this class must interact with the corresponding DAO class to retrieve or store data.
@@ -72,11 +75,13 @@ class CartController {
    */
   async checkoutCart(user: User): Promise<boolean> {
     let cart: Cart = await this.dao.getCurrentCart(user);
-
     // Check availability of products
     let unavailable_product = false;
+    let empty_stock: boolean;
+
     for (let product of cart.products) {
       let quantity = await this.prod_dao.getProductQuantity(product.model);
+      if (quantity === 0) empty_stock = true;
       if (quantity < product.quantity) {
         unavailable_product = true;
         break;
@@ -84,6 +89,7 @@ class CartController {
     }
 
     return new Promise((resolve, reject) => {
+      if (empty_stock) reject(new EmptyProductStockError());
       if (unavailable_product) reject(new LowProductStockError());
       if (cart.products.length === 0) {
         reject(new EmptyCartError());
