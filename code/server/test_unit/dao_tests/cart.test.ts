@@ -327,7 +327,6 @@ describe("DAO tests", () => {
     
             mockDBAllEmpty.mockImplementationOnce((sql, params, callback) => {
                 callback(null, false);
-                console.log("Mock exe");
                 return {} as Database;
             });
             const result = await cartDAO.getPaidCarts(testUser);
