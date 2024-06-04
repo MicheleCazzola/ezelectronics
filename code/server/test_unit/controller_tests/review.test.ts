@@ -59,7 +59,6 @@ describe("Controller", () => {
         .spyOn(ReviewDAO.prototype, testCase.func as keyof ReviewDAO)
         .mockResolvedValueOnce(testCase.expected as any);
       const controller = new ReviewController();
-      console.log(controller[testCase.func as keyof ReviewController]);
 
       const result = await controller[testCase.func as keyof ReviewController](
         ...testCase.args()
