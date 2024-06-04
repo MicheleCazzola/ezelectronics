@@ -18,6 +18,9 @@ class ReviewController {
      * @returns A Promise that resolves to nothing
      */
     async addReview(model: string, user: User, score: number, comment: string) : Promise<void> { 
+        
+        //console.log(`Model: ${model}, user: ${user.username}, score: ${score}, comment: ${comment}`);
+        //console.log("Calling DAO...");
         return this.dao.addReview(model, user.username, score, comment);
     }
 

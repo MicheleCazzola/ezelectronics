@@ -42,10 +42,18 @@ class ReviewRoutes {
             this.authenticator.isCustomer,
             this.errorHandler.validateRequest,
             (req: any, res: any, next: any) => this.controller.addReview(req.params.model, req.user, req.body.score, req.body.comment)
-                .then(() => res.status(200).send())
-                .catch((err: Error) => {
-                    console.log(err);
-                    next(err)
+                .then(() => {
+                    //console.log("200 OK!!!");
+                    res.status(200).send();
+                })
+                .catch((err) => {
+                    //console.log(`${err.customCode}`);
+                    if (err.customCode) {
+                        res.status(err.customCode).send();
+                    }
+                    else {
+                        res.status(503).json({error: err});
+                    }
                 })
         )
 
@@ -60,7 +68,14 @@ class ReviewRoutes {
             this.authenticator.isLoggedIn,
             (req: any, res: any, next: any) => this.controller.getProductReviews(req.params.model)
                 .then((reviews: ProductReview[]) => res.status(200).json(reviews))
-                .catch((err: Error) => next(err))
+                .catch((err) => {
+                    if (err.customCode) {
+                        res.status(err.customCode).send();
+                    }
+                    else {
+                        res.status(503).json({error: err});
+                    }
+                })
         )
 
         /**
@@ -75,9 +90,13 @@ class ReviewRoutes {
             this.authenticator.isCustomer,
             (req: any, res: any, next: any) => this.controller.deleteReview(req.params.model, req.user)
                 .then(() => res.status(200).send())
-                .catch((err: Error) => {
-                    console.log(err)
-                    next(err)
+                .catch((err) => {
+                    if (err.customCode) {
+                        res.status(err.customCode).send();
+                    }
+                    else {
+                        res.status(503).json({error: err});
+                    }
                 })
         )
 
@@ -93,7 +112,14 @@ class ReviewRoutes {
             this.authenticator.isAdminOrManager,
             (req: any, res: any, next: any) => this.controller.deleteReviewsOfProduct(req.params.model)
                 .then(() => res.status(200).send())
-                .catch((err: Error) => next(err))
+                .catch((err) => {
+                    if (err.customCode) {
+                        res.status(err.customCode).send();
+                    }
+                    else {
+                        res.status(503).json({error: err});
+                    }
+                })
         )
 
         /**
@@ -107,7 +133,14 @@ class ReviewRoutes {
             this.authenticator.isAdminOrManager,
             (req: any, res: any, next: any) => this.controller.deleteAllReviews()
                 .then(() => res.status(200).send())
-                .catch((err: Error) => next(err))
+                .catch((err) => {
+                    if (err.customCode) {
+                        res.status(err.customCode).send();
+                    }
+                    else {
+                        res.status(503).json({error: err});
+                    }
+                })
         )
     }
 }

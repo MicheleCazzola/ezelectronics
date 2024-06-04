@@ -1,4 +1,4 @@
-import { test, expect, jest } from "@jest/globals";
+import { test, expect, jest, beforeEach, afterEach, beforeAll, describe } from "@jest/globals";
 import request from "supertest";
 import { app } from "../../index";
 import ReviewController from "../../src/controllers/reviewController";
@@ -27,6 +27,7 @@ beforeEach(() => {
 });
 
 describe("Route - Add Review", () => {
+
   const testReviews = [
     {
       description: "Valid",
@@ -48,6 +49,11 @@ describe("Route - Add Review", () => {
     },
   ];
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+
   for (const testCase of testReviews) {
     test(testCase.description, async () => {
       jest
@@ -65,6 +71,7 @@ describe("Route - Add Review", () => {
       expect(Authenticator.prototype.isCustomer).toHaveBeenCalledTimes(1);
       expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
 
+      console.log(`Received: ${response.status} - Expected: ${testCase.expectedStatus}`);
       expect(response.status).toBe(testCase.expectedStatus);
       expect(ReviewController.prototype.addReview).toHaveBeenCalledTimes(
         testCase.expectedCalls
@@ -96,7 +103,7 @@ describe("Route - Add Review", () => {
     expect(Authenticator.prototype.isCustomer).toHaveBeenCalledTimes(1);
     expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
 
-    console.log(response.status);
+    console.log(`Received: ${response.status} - Expected: ${(new ProductNotFoundError()).customCode}`);
     expect(response.status).toBe(404);
 
     expect(ReviewController.prototype.addReview).toHaveBeenCalledTimes(1);

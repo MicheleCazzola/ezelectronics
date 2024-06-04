@@ -28,17 +28,21 @@ class ReviewDAO {
                 db.run(query, [username, model, today, comment, score], function(err: Error) {
                     if (err) {
                         //console.log(err);
+                        /*
                         console.log(`Name: ${err.name}`);
                         console.log(`Message: ${err.message}`);
-                        console.log(`Error: ${err.stack}`);
+                        console.log(`Error: ${err.stack}`);*/
                         
                         // Only foreign key failure is due to missing model
                         if (err.message.includes("FOREIGN KEY constraint failed")) {
-                            reject(new NoReviewProductError);
+                            reject(new ProductNotFoundError());
                         }
                         // Primary key failure means that review has already been written 
                         else if (err.name.includes("PRIMARY KEY constraint failed")) {
-                            reject(new ExistingReviewError);
+                            reject(new ExistingReviewError());
+                        }
+                        else {
+                            reject(err);
                         }
                     } 
                     else {
@@ -64,6 +68,10 @@ class ReviewDAO {
                     if(err) {
                         reject(err);
                     }
+                    // Only if rows is empty is due to missing product
+                    if (!rows) {
+                        reject(new ProductNotFoundError());
+                    }
                     let reviews = rows.map(review =>
                         new ProductReview(review.model, review.user, review.score,
                             review.date, review.comment));
@@ -85,9 +93,9 @@ class ReviewDAO {
     deleteReview(model: string, username: string): Promise<void> {
         return new Promise((resolve, reject) => {
             try {
-                // CHECK IF MODEL IN DB (PRODUCT DESCRIPTOR)
-                if ((new ProductDAO).existsProduct(model)) {
-                    reject(new ProductNotFoundError);
+                // Check if model in DB (PRODUCT DESCRIPTOR)
+                if ((new ProductDAO()).existsProduct(model)) {
+                    reject(new ProductNotFoundError());
                 }
 
                 let query: string = "DELETE FROM review WHERE model = ? AND username = ?";
@@ -103,7 +111,7 @@ class ReviewDAO {
                     // by DELETE, then there are no reviews made by the current
                     // user on products of the specified model
                     if (this.changes == 0) {
-                        reject(new NoReviewProductError);
+                        reject(new NoReviewProductError());
                     }
                     
                     // Nominal case: row is deleted
@@ -123,9 +131,9 @@ class ReviewDAO {
     deleteReviewsOfProduct(model: string): Promise<void> {
         return new Promise((resolve, reject) => {
             try {
-                // CHECK IF MODEL IN DB (PRODUCT DESCRIPTOR)
-                if ((new ProductDAO).existsProduct(model)) {
-                    reject(new ProductNotFoundError);
+                // Check if model in DB (PRODUCT DESCRIPTOR)
+                if ((new ProductDAO()).existsProduct(model)) {
+                    reject(new ProductNotFoundError());
                 }
 
                 let query: string = "DELETE FROM review WHERE model = ?";

@@ -52,7 +52,7 @@ describe("DAO - Add a Review", () => {
 
   for (const testCase of testCases) {
     test(testCase.description, async () => {
-      console.log(testCase.db_result);
+      //console.log(testCase.db_result);
       jest.spyOn(db, "run").mockImplementationOnce((query, values, cb) => {
         cb(testCase.db_result);
         return {} as Database;
