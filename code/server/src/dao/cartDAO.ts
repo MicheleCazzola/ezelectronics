@@ -3,7 +3,10 @@ import { Cart, ProductInCart } from "../components/cart";
 import db from "../db/db";
 import { Category } from "../components/product";
 import { CartNotFoundError, ProductNotInCartError } from "../errors/cartError";
-import { ProductNotFoundError } from "../errors/productError";
+import {
+  EmptyProductStockError,
+  ProductNotFoundError,
+} from "../errors/productError";
 /**
  * A class that implements the interaction with the database for all cart-related operations.
  * You are free to implement any method you need here, as long as the requirements are satisfied.
@@ -51,7 +54,7 @@ class CartDAO {
   async getProduct(model: string): Promise<ProductInCart> {
     return new Promise((resolve, reject) => {
       const sql =
-        "SELECT Category, SellingPrice FROM PRODUCT_DESCRIPTOR WHERE Model = ?";
+        "SELECT Category, SellingPrice, AvailableQuantity FROM PRODUCT_DESCRIPTOR WHERE Model = ?";
 
       db.get(sql, [model], (err, row: any) => {
         if (err) {
@@ -59,9 +62,19 @@ class CartDAO {
         } else if (!row) {
           reject(new ProductNotFoundError());
         } else {
-          let category = row.Category as Category;
-          let price = row.SellingPrice;
-          resolve(new ProductInCart(model, 1, category, price));
+          let quantity = row.AvailableQuantity;
+          if (quantity <= 0) {
+            reject(new EmptyProductStockError());
+          } else {
+            resolve(
+              new ProductInCart(
+                model,
+                1,
+                row.Category as Category,
+                row.SellingPrice
+              )
+            );
+          }
         }
       });
     });
