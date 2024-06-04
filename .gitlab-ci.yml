@@ -13,7 +13,7 @@ test_server:
     - npm run test_unit
     - npm run test_integration
   rules:
-    - if: $CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "testdelivery"
+    - if: $CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "testdelivery" || $CI_COMMIT_BRANCH == "dev"
 test_official:
   stage: test
   image: node:latest
@@ -21,4 +21,4 @@ test_official:
     - set NODE_ENV=test
     - npm run test_official
   rules:
-    - if: $CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "testdelivery"
+    - if: $CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "testdelivery" || $CI_COMMIT_BRANCH == "dev"
