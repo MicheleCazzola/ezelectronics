@@ -5,6 +5,7 @@ import ReviewController from "../../src/controllers/reviewController";
 import { ProductNotFoundError } from "../../src/errors/productError";
 import { ProductReview } from "../../src/components/review";
 import Authenticator from "../../src/routers/auth";
+import { NoReviewProductError } from "../../src/errors/reviewError";
 
 const baseURL = "/ezelectronics/reviews";
 const mockMiddleware = jest.fn((req, res, next: any) => next());
@@ -17,9 +18,11 @@ beforeEach(() => {
   jest
     .spyOn(Authenticator.prototype, "isLoggedIn")
     .mockImplementation(mockMiddleware);
-
   jest
     .spyOn(Authenticator.prototype, "isCustomer")
+    .mockImplementation(mockMiddleware);
+  jest
+    .spyOn(Authenticator.prototype, "isAdminOrManager")
     .mockImplementation(mockMiddleware);
 });
 
@@ -45,7 +48,7 @@ describe("Route - Add Review", () => {
     },
   ];
 
-  for (let testCase of testReviews) {
+  for (const testCase of testReviews) {
     test(testCase.description, async () => {
       jest
         .spyOn(ReviewController.prototype, "addReview")
@@ -93,8 +96,9 @@ describe("Route - Add Review", () => {
     expect(Authenticator.prototype.isCustomer).toHaveBeenCalledTimes(1);
     expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
 
+    console.log(response.status);
     expect(response.status).toBe(404);
-    console.log(response.body);
+
     expect(ReviewController.prototype.addReview).toHaveBeenCalledTimes(1);
     expect(ReviewController.prototype.addReview).toHaveBeenCalledWith(
       "notAProduct",
@@ -157,8 +161,6 @@ describe("Route - Fetch All Product Reviews", () => {
 
     expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
 
-    console.log(response.body);
-    console.log(response.status);
     expect(response.status).toBe(testCase.expectedStatus);
 
     expect(ReviewController.prototype.getProductReviews).toHaveBeenCalledTimes(
@@ -170,4 +172,133 @@ describe("Route - Fetch All Product Reviews", () => {
   });
 
   // Authentication is not tested
+});
+
+describe("Route - Delete a Review", () => {
+  const testCases = [
+    {
+      description: "Valid",
+      expectedStatus: 200,
+      model: "iPhone13",
+      user: "testcustomer",
+      err: null,
+      called: 1,
+    },
+    {
+      description: "Product Not Found",
+      expectedStatus: 404,
+      model: "notavalidproduct",
+      user: "testcustomer",
+      err: new ProductNotFoundError(),
+      called: 1,
+    },
+    {
+      description: "Product Not Reviewed",
+      expectedStatus: 404,
+      model: "notavalidproduct",
+      user: "testcustomer",
+      err: new NoReviewProductError(),
+      called: 1,
+    },
+  ];
+
+  for (const testCase of testCases) {
+    test(testCase.description, async () => {
+      const delete_func = jest.spyOn(
+        ReviewController.prototype,
+        "deleteReview"
+      );
+
+      if (!testCase.err) delete_func.mockResolvedValueOnce();
+      else delete_func.mockRejectedValueOnce(testCase.err);
+
+      const response = await request(app)
+        .delete(`${baseURL}/${testCase.model}`)
+        .send();
+
+      expect(Authenticator.prototype.isCustomer).toHaveBeenCalledTimes(1);
+      expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
+
+      expect(response.status).toBe(testCase.expectedStatus);
+
+      expect(ReviewController.prototype.deleteReview).toHaveBeenCalledTimes(
+        testCase.called
+      );
+      if (testCase.called > 0) {
+        expect(ReviewController.prototype.deleteReview).toHaveBeenCalledWith(
+          testCase.model,
+          undefined // not `testReview.user` because I'm mocking the authentication
+        );
+      }
+    });
+  }
+});
+
+describe("Route - Delete All Reviews of a Product", () => {
+  const testCases = [
+    {
+      description: "Valid",
+      expectedStatus: 200,
+      model: "iPhone13",
+      err: null,
+      called: 1,
+    },
+    {
+      description: "Product Not Found",
+      expectedStatus: 404,
+      model: "notavalidproduct",
+      err: new ProductNotFoundError(),
+      called: 1,
+    },
+  ];
+
+  for (const testCase of testCases) {
+    test(testCase.description, async () => {
+      const delete_func = jest.spyOn(
+        ReviewController.prototype,
+        "deleteReviewsOfProduct"
+      );
+
+      if (!testCase.err) delete_func.mockResolvedValueOnce();
+      else delete_func.mockRejectedValueOnce(testCase.err);
+
+      const response = await request(app)
+        .delete(`${baseURL}/${testCase.model}/all`)
+        .send();
+
+      expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
+      expect(Authenticator.prototype.isAdminOrManager).toHaveBeenCalledTimes(1);
+
+      expect(response.status).toBe(testCase.expectedStatus);
+
+      expect(
+        ReviewController.prototype.deleteReviewsOfProduct
+      ).toHaveBeenCalledTimes(testCase.called);
+      if (testCase.called > 0) {
+        expect(
+          ReviewController.prototype.deleteReviewsOfProduct
+        ).toHaveBeenCalledWith(testCase.model);
+      }
+    });
+  }
+});
+
+describe("Route - Delete All Reviews", () => {
+  test("Valid", async () => {
+    jest
+      .spyOn(ReviewController.prototype, "deleteAllReviews")
+      .mockResolvedValueOnce();
+
+    const response = await request(app).delete(`${baseURL}/`).send();
+
+    expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
+    expect(Authenticator.prototype.isAdminOrManager).toHaveBeenCalledTimes(1);
+
+    expect(response.status).toBe(200);
+
+    expect(ReviewController.prototype.deleteAllReviews).toHaveBeenCalledTimes(
+      1
+    );
+    expect(ReviewController.prototype.deleteAllReviews).toHaveBeenCalledWith();
+  });
 });
