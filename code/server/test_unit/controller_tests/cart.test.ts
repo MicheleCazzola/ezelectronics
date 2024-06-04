@@ -1,11 +1,11 @@
-import { test, expect, jest, describe, afterEach } from "@jest/globals"
+import { test, expect, jest, describe, afterEach, beforeAll } from "@jest/globals"
 import CartController from "../../src/controllers/cartController"
 import CartDAO from "../../src/dao/cartDAO"
 import { Cart, ProductInCart } from "../../src/components/cart"
 import { Category, Product } from "../../src/components/product"
 import { Role, User } from "../../src/components/user"
-import { CartNotFoundError, ProductInCartError, ProductNotInCartError } from "../../src/errors/cartError"
-import { ProductNotFoundError } from "../../src/errors/productError"
+import { CartNotFoundError, EmptyCartError, ProductNotInCartError } from "../../src/errors/cartError"
+import { EmptyProductStockError, LowProductStockError, ProductNotFoundError } from "../../src/errors/productError"
 import ProductDAO from "../../src/dao/productDAO"
 
 jest.mock("../../src/dao/cartDAO");
@@ -164,148 +164,90 @@ describe("Controller tests", () => {
         });
     });
     
-    // To be modified
-    describe.skip("Controller - Add product to cart", () => {
+    describe("Controller - Add product to cart", () => {
         afterEach(() => {
             jest.clearAllMocks();
         });
     
-        test("Add product to cart successful: no unpaid cart", async () => {
+        test("Add product to cart successful: unpaid cart already present", async () => {
             const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
-            const testCart = new Cart("test", false, "", 0.0, []);
+            const testCartId = 1;
             const testNewProductInCart = new ProductInCart("Test", 1, Category.APPLIANCE, 100);
-            const testCartUpdated = new Cart("test", false, "", 100, [testNewProductInCart]);
             
-            jest.spyOn(CartDAO.prototype, "getCurrentCart").mockRejectedValueOnce(new CartNotFoundError());
-            jest.spyOn(CartDAO.prototype, "getProduct").mockResolvedValue(testNewProductInCart);
-            jest.spyOn(CartDAO.prototype, "updateCart").mockResolvedValueOnce(true);
+            jest.spyOn(CartDAO.prototype, "getProduct").mockResolvedValueOnce(testNewProductInCart);
+            jest.spyOn(CartDAO.prototype, "getCurrentCartId").mockResolvedValue(testCartId);
+            jest.spyOn(CartDAO.prototype, "addProductToCart").mockResolvedValueOnce(true);
     
             const controller = new CartController();
             const response = await controller.addToCart(testUser, testNewProductInCart.model);
     
-            expect(CartDAO.prototype.getCurrentCart).toBeCalledTimes(1);
-            expect(CartDAO.prototype.getCurrentCart).toHaveBeenCalledWith(testUser);
-    
             expect(CartDAO.prototype.getProduct).toBeCalledTimes(1);
-            expect(CartDAO.prototype.getProduct).toHaveBeenCalledWith(testNewProductInCart.model);
-    
-            expect(CartDAO.prototype.updateCart).toHaveBeenCalledTimes(1);
-            expect(CartDAO.prototype.updateCart).toBeCalledWith(testCartUpdated);
+            expect(CartDAO.prototype.getProduct).toHaveBeenCalledWith(testNewProductInCart.model);            
+
+            expect(CartDAO.prototype.getCurrentCartId).toBeCalledTimes(1);
+            expect(CartDAO.prototype.getCurrentCartId).toHaveBeenCalledWith(testUser);
+
+            expect(CartDAO.prototype.addProductToCart).toHaveBeenCalledTimes(1);
+            expect(CartDAO.prototype.addProductToCart).toBeCalledWith(testCartId, testNewProductInCart);
     
             expect(response).toBe(true);
         });
     
-        test("Add product to cart successful: unpaid cart present, new product absent", async () => {
+        test("Add product to cart failed: new product absent", async () => {
             const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
-            const testProductsInCart = [
-                new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0)
-            ];
-            const testCart = new Cart("test", false, "", 1000.0, testProductsInCart);
+            const testProductModel = "Test";
+            
+            jest.spyOn(CartDAO.prototype, "getProduct").mockRejectedValueOnce(new ProductNotFoundError());
+
+            const controller = new CartController();
+            await expect(controller.addToCart(testUser, testProductModel)).rejects.toBeInstanceOf(ProductNotFoundError);
+        
+            expect(CartDAO.prototype.getProduct).toBeCalledTimes(1);
+        });
+
+        test("Add product to cart failed: new product present but not available", async () => {
+            const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
+            const testProductModel = "Test";
+            
+            jest.spyOn(CartDAO.prototype, "getProduct").mockRejectedValueOnce(new EmptyProductStockError());
+
+            const controller = new CartController();
+            await expect(controller.addToCart(testUser, testProductModel)).rejects.toBeInstanceOf(EmptyProductStockError);
+        
+            expect(CartDAO.prototype.getProduct).toBeCalledTimes(1);
+        });
+
+        test("Add product to cart successful: new product present and available, cart created on the fly", async () => {
+            const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
+            const testProductModel = "Test";
+            const testCartId = 1;
             const testNewProductInCart = new ProductInCart("Test", 1, Category.APPLIANCE, 100);
-            const testUpdatedProductsInCart = [
-                new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0),
-                new ProductInCart("Test", 1, Category.APPLIANCE, 100)
-            ];
-            const testUpdatedCart = new Cart("test", false, "", 1100.0, testUpdatedProductsInCart);
             
-            jest.spyOn(CartDAO.prototype, "getCurrentCart").mockResolvedValue(testCart);
-            jest.spyOn(CartDAO.prototype, "getProduct").mockResolvedValue(testNewProductInCart);
-            jest.spyOn(CartDAO.prototype, "updateCart").mockResolvedValueOnce(true);
-    
+            jest.spyOn(CartDAO.prototype, "getProduct").mockResolvedValueOnce(testNewProductInCart);
+            jest.spyOn(CartDAO.prototype, "getCurrentCartId").mockRejectedValueOnce(new CartNotFoundError());
+            jest.spyOn(CartDAO.prototype, "createCart").mockResolvedValueOnce(testCartId);
+            jest.spyOn(CartDAO.prototype, "addProductToCart").mockResolvedValueOnce(true);
+
             const controller = new CartController();
-            const response = await controller.addToCart(testUser, testNewProductInCart.model);
-    
-            expect(CartDAO.prototype.getCurrentCart).toBeCalledTimes(1);
-            expect(CartDAO.prototype.getCurrentCart).toHaveBeenCalledWith(testUser);
-    
+            const result = await controller.addToCart(testUser, testProductModel);
+
             expect(CartDAO.prototype.getProduct).toBeCalledTimes(1);
-            expect(CartDAO.prototype.getProduct).toHaveBeenCalledWith(testNewProductInCart.model);
-    
-            expect(CartDAO.prototype.updateCart).toHaveBeenCalledTimes(1);
-            expect(CartDAO.prototype.updateCart).toBeCalledWith(testUpdatedCart);
-    
-            expect(response).toBe(true);
-        });
-    
-        test("Add product to cart successful: unpaid cart present, new product already present", async () => {
-            const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
-            const testProductsInCart = [
-                new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0)
-            ];
-            const testCart = new Cart("test", false, "", 1000.0, testProductsInCart);
-            const testNewProductModel = "iPhone13";
-            const testUpdatedProductsInCart = [
-                new ProductInCart("iPhone13", 2, Category.SMARTPHONE, 1000.0)
-            ];
-            const testUpdatedCart = new Cart("test", false, "", 2000.0, testUpdatedProductsInCart);
-            
-            jest.spyOn(CartDAO.prototype, "getCurrentCart").mockResolvedValue(testCart);
-            jest.spyOn(CartDAO.prototype, "getProduct");
-            jest.spyOn(CartDAO.prototype, "updateCart").mockResolvedValueOnce(true);
-    
-            const controller = new CartController();
-            const response = await controller.addToCart(testUser, testNewProductModel);
-    
-            expect(CartDAO.prototype.getCurrentCart).toBeCalledTimes(1);
-            expect(CartDAO.prototype.getCurrentCart).toHaveBeenCalledWith(testUser);
-    
-            expect(CartDAO.prototype.getProduct).toBeCalledTimes(0);
-    
-            expect(CartDAO.prototype.updateCart).toHaveBeenCalledTimes(1);
-            expect(CartDAO.prototype.updateCart).toBeCalledWith(testUpdatedCart);
-    
-            expect(response).toBe(true);
-        });
-    
-        test("Add product to cart failed: generic error while trying to retrieve current user cart", async () => {
-            const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
-            const testNewProductModel = "iPhone13";
-    
-            jest.spyOn(CartDAO.prototype, "getCurrentCart").mockRejectedValueOnce(new Error());
-            const controller = new CartController();
-            await expect(controller.addToCart(testUser, testNewProductModel)).rejects.toThrow(Error);
-    
-            expect(CartDAO.prototype.getCurrentCart).toBeCalledTimes(1);
-            expect(CartDAO.prototype.getCurrentCart).toBeCalledWith(testUser);
-        });
-    
-        test("Add product to cart failed: product not found", async () => {
-            const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
-            const testNewProductModel = "iPhone13";
-            const testCart = new Cart("test", false, "", 0.0, []);
-    
-            jest.spyOn(CartDAO.prototype, "getCurrentCart").mockResolvedValueOnce(testCart);
-            jest.spyOn(CartDAO.prototype, "getProduct").mockRejectedValue(new ProductNotFoundError());
-            const controller = new CartController();
-            await expect(controller.addToCart(testUser, testNewProductModel)).rejects.toThrow(ProductNotFoundError);
-    
-            expect(CartDAO.prototype.getCurrentCart).toBeCalledTimes(1);
-            expect(CartDAO.prototype.getCurrentCart).toBeCalledWith(testUser);
-    
-            expect(CartDAO.prototype.getProduct).toBeCalledTimes(1);
-            expect(CartDAO.prototype.getProduct).toBeCalledWith(testNewProductModel);
-        });
-    
-        test("Add product to cart failed: product not found", async () => {
-            const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
-            const testNewProductModel = "iPhone13";
-            const testCart = new Cart("test", false, "", 0.0, []);
-    
-            jest.spyOn(CartDAO.prototype, "getCurrentCart").mockResolvedValueOnce(testCart);
-            jest.spyOn(CartDAO.prototype, "getProduct").mockRejectedValue(new Error());
-            const controller = new CartController();
-            await expect(controller.addToCart(testUser, testNewProductModel)).rejects.toThrow(Error);
-    
-            expect(CartDAO.prototype.getCurrentCart).toBeCalledTimes(1);
-            expect(CartDAO.prototype.getCurrentCart).toBeCalledWith(testUser);
-    
-            expect(CartDAO.prototype.getProduct).toBeCalledTimes(1);
-            expect(CartDAO.prototype.getProduct).toBeCalledWith(testNewProductModel);
+            expect(CartDAO.prototype.getCurrentCartId).toBeCalledTimes(1);
+            expect(CartDAO.prototype.createCart).toBeCalledTimes(1);
+            expect(CartDAO.prototype.addProductToCart).toBeCalledTimes(1);
+
+            expect(result).toBe(true);
         });
     });
     
-    // Not passing due to infinite loop: skipping to save time
-    describe.skip("Controller - Pay for current cart", () => {
+    describe("Controller - Checkout cart", () => {
+
+        let controller: CartController;
+
+        beforeAll(() => {
+            controller = new CartController();
+        })
+
         afterEach(() => {
             jest.clearAllMocks();
         });
@@ -316,34 +258,102 @@ describe("Controller tests", () => {
                 new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0),
                 new ProductInCart("HP", 2, Category.LAPTOP, 800.0)
             ];
-            const testCart = new Cart("test", false, "", 2600.0, testProductsInCart); 
+            const testCart = new Cart("test", false, "", 1800.0, testProductsInCart); 
     
             jest.spyOn(CartDAO.prototype, "getCurrentCart").mockResolvedValueOnce(testCart);
-            jest.spyOn(ProductDAO.prototype, "getProductQuantity")
-                .mockResolvedValueOnce(1)
-                .mockResolvedValueOnce(2)
-                ;
-            jest.spyOn(ProductDAO.prototype, "decreaseQuantity")
-                .mockResolvedValueOnce(0)
-                .mockResolvedValueOnce(0)
-                ;
+            const mockProdDAOGetProdQuantity = jest.spyOn(ProductDAO.prototype, "getProductQuantity");
+            const mockProdDAODecreaseQuantity = jest.spyOn(ProductDAO.prototype, "decreaseQuantity");
+            jest.spyOn(CartDAO.prototype, "checkoutCart").mockResolvedValueOnce(true);
+            
+            mockProdDAOGetProdQuantity.mockResolvedValueOnce(1);
+            mockProdDAOGetProdQuantity.mockResolvedValueOnce(2);
+
+            mockProdDAODecreaseQuantity.mockResolvedValueOnce(0);
+            mockProdDAODecreaseQuantity.mockResolvedValueOnce(0);
     
-            const controller = new CartController();
             const response = await controller.checkoutCart(testUser);
     
             expect(CartDAO.prototype.getCurrentCart).toBeCalledTimes(1);
             expect(CartDAO.prototype.getCurrentCart).toBeCalledWith(testUser);
     
             expect(ProductDAO.prototype.getProductQuantity).toBeCalledTimes(2);
-            expect(ProductDAO.prototype.getProductQuantity).toHaveBeenNthCalledWith(0, testProductsInCart[0].model);
-            expect(ProductDAO.prototype.getProductQuantity).toHaveBeenNthCalledWith(1, testProductsInCart[1].model);
     
             expect(ProductDAO.prototype.decreaseQuantity).toBeCalledTimes(2);
-            expect(ProductDAO.prototype.decreaseQuantity).toHaveBeenNthCalledWith(0, [testProductsInCart[0].model, testProductsInCart[0].quantity, null]);
-            expect(ProductDAO.prototype.decreaseQuantity).toHaveBeenNthCalledWith(1, [testProductsInCart[1].model, testProductsInCart[1].quantity, null]);
     
             expect(response).toBe(true);
         });
+
+        test("Checkout failed - No unpaid cart in database", async () => {
+            const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
+            jest.spyOn(CartDAO.prototype, "getCurrentCart").mockRejectedValueOnce(new CartNotFoundError());
+    
+            await expect(controller.checkoutCart(testUser)).rejects.toBeInstanceOf(CartNotFoundError);
+    
+            expect(CartDAO.prototype.getCurrentCart).toBeCalledTimes(1);
+            expect(CartDAO.prototype.getCurrentCart).toBeCalledWith(testUser);
+        });
+
+        test("Checkout failed - Unpaid cart present, but no products inside", async () => {
+            const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
+            const testProductsInCart: ProductInCart[] = [];
+            const testCart = new Cart("test", false, "", 0.0, testProductsInCart);
+    
+            jest.spyOn(CartDAO.prototype, "getCurrentCart").mockResolvedValueOnce(testCart);
+    
+            await expect(controller.checkoutCart(testUser)).rejects.toBeInstanceOf(EmptyCartError);
+    
+            expect(CartDAO.prototype.getCurrentCart).toBeCalledTimes(1);
+            expect(CartDAO.prototype.getCurrentCart).toBeCalledWith(testUser);
+        });
+
+        test.skip("Checkout failed - Unpaid cart present, all product present in stock, but at least one whose quantity is higher than available", async () => {
+            const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
+            const testProductsInCart = [
+                new ProductInCart("iPhone13", 4, Category.SMARTPHONE, 1000.0),
+                new ProductInCart("HP", 5, Category.LAPTOP, 800.0)
+            ];
+            const testCart = new Cart("test", false, "", 8000.0, testProductsInCart); 
+    
+            jest.spyOn(CartDAO.prototype, "getCurrentCart").mockResolvedValueOnce(testCart);
+            const mockProdDAOGetProdQuantity = jest.spyOn(ProductDAO.prototype, "getProductQuantity");
+            
+            mockProdDAOGetProdQuantity.mockResolvedValueOnce(1);
+    
+            await expect(controller.checkoutCart(testUser)).rejects.toBeInstanceOf(LowProductStockError);
+    
+            expect(CartDAO.prototype.getCurrentCart).toBeCalledTimes(1);
+            expect(CartDAO.prototype.getCurrentCart).toBeCalledWith(testUser);
+    
+            expect(ProductDAO.prototype.getProductQuantity).toBeCalledTimes(1);
+            expect(ProductDAO.prototype.getProductQuantity).toHaveBeenNthCalledWith(1, "iPhone13");
+            //expect(ProductDAO.prototype.getProductQuantity).toHaveBeenNthCalledWith(2, "HP");
+
+            mockProdDAOGetProdQuantity.mockClear();
+        });
+
+        test.skip("Checkout failed - Unpaid cart present, but at least a product with empty stock", async () => {
+            const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
+            const testProductsInCart = [
+                new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0),
+                new ProductInCart("HP", 2, Category.LAPTOP, 800.0)
+            ];
+            const testCart = new Cart("test", false, "", 1800.0, testProductsInCart); 
+    
+            jest.spyOn(CartDAO.prototype, "getCurrentCart").mockResolvedValueOnce(testCart);
+            const mockProdDAOGetProdQuantity = jest.spyOn(ProductDAO.prototype, "getProductQuantity");
+            
+            mockProdDAOGetProdQuantity.mockResolvedValueOnce(0);
+
+            // Use EmptyProductStockError
+            await expect(controller.checkoutCart(testUser)).rejects.toBeInstanceOf(LowProductStockError);
+    
+            expect(CartDAO.prototype.getCurrentCart).toBeCalledTimes(1);
+            expect(CartDAO.prototype.getCurrentCart).toBeCalledWith(testUser);
+    
+            expect(ProductDAO.prototype.getProductQuantity).toBeCalledTimes(1);
+        });
+
+        
     });
     
     describe("Controller - Clear current cart", () => {

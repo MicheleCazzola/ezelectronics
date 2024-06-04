@@ -7,7 +7,7 @@ import { Category } from "../../src/components/product";
 import { Cart, ProductInCart } from "../../src/components/cart";
 import { Role, User } from "../../src/components/user";
 import { CartNotFoundError, ProductNotInCartError } from "../../src/errors/cartError";
-import { ProductNotFoundError } from "../../src/errors/productError";
+import { EmptyProductStockError, ProductNotFoundError } from "../../src/errors/productError";
 
 jest.mock("../../src/db/db.ts");
 
@@ -128,6 +128,20 @@ describe("DAO tests", () => {
             const result = await cartDAO.getProduct(testProductInCart.model);
             expect(mockDBGet).toBeCalledTimes(1);
             expect(result).toEqual(testProductInCart);
+            //resetMock(mockDBGet);
+        });
+
+        test("Get product in cart failed - Product found but empty stock", async () => {
+            const testProductInCartModel = "iPhone10";
+    
+            const mockDBGet = jest.spyOn(db, "get");
+            mockDBGet.mockImplementationOnce((sql, params, callback) => {
+                callback(null, {Quantity: 0});
+                return {} as Database;
+            });
+    
+            await expect(cartDAO.getProduct(testProductInCartModel)).rejects.toBeInstanceOf(EmptyProductStockError);
+            expect(mockDBGet).toBeCalledTimes(1);
             //resetMock(mockDBGet);
         });
     

@@ -88,7 +88,7 @@ class CartController {
       if (cart.products.length === 0) {
         reject(new EmptyCartError());
       } else {
-        // Process payment - always succedes
+        // Process payment - always succeeds
 
         // decrease products quantity in stock
         cart.products.forEach(async (product) => {
