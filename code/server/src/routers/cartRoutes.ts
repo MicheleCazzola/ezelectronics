@@ -73,9 +73,10 @@ class CartRoutes {
      */
     this.router.post(
       "/",
+      body("model").isString().trim().isLength({ min: 1 }),
       this.authenticator.isLoggedIn,
       this.authenticator.isCustomer,
-      body("model").isString().trim().isLength({ min: 1 }),
+      this.errorHandler.validateRequest,
       (req: any, res: any, next: any) =>
         this.controller
           .addToCart(req.user, req.body.model)
@@ -128,9 +129,10 @@ class CartRoutes {
      */
     this.router.delete(
       "/products/:model",
+      param("model").isString().trim().isLength({ min: 1 }),
       this.authenticator.isLoggedIn,
       this.authenticator.isCustomer,
-      param("model").isString().trim().isLength({ min: 1 }),
+      this.errorHandler.validateRequest,
       (req: any, res: any, next: any) =>
         this.controller
           .removeProductFromCart(req.user, req.params.model)
