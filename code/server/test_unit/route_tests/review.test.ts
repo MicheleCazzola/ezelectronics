@@ -1,18 +1,14 @@
-import {
-  test,
-  expect,
-  jest,
-  beforeEach,
-  afterEach,
-  describe,
-} from "@jest/globals";
+import { test, expect, jest, beforeEach, describe } from "@jest/globals";
 import request from "supertest";
 import { app } from "../../index";
 import ReviewController from "../../src/controllers/reviewController";
 import { ProductNotFoundError } from "../../src/errors/productError";
 import { ProductReview } from "../../src/components/review";
 import Authenticator from "../../src/routers/auth";
-import { NoReviewProductError } from "../../src/errors/reviewError";
+import {
+  ExistingReviewError,
+  NoReviewProductError,
+} from "../../src/errors/reviewError";
 
 const baseURL = "/ezelectronics/reviews";
 const mockMiddleware = jest.fn((req, res, next: any) => next());
@@ -34,6 +30,10 @@ beforeEach(() => {
 });
 
 describe("Route - Add Review", () => {
+  beforeEach(() => {
+    jest.spyOn(ReviewController.prototype, "addReview").mockReset();
+  });
+
   const testReviews = [
     {
       description: "Valid",
@@ -45,7 +45,7 @@ describe("Route - Add Review", () => {
       comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     },
     {
-      description: "Out-of-range score",
+      description: "Too low score",
       expectedStatus: 422,
       expectedCalls: 0,
       model: "iPhone13",
@@ -53,11 +53,43 @@ describe("Route - Add Review", () => {
       score: 0,
       comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     },
+    {
+      description: "Too high score",
+      expectedStatus: 422,
+      expectedCalls: 0,
+      model: "iPhone13",
+      user: "test2",
+      score: 6,
+      comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    },
+    {
+      description: "Empty model string",
+      expectedStatus: 422, // returns 404 instead
+      expectedCalls: 0,
+      model: "",
+      user: "test2",
+      score: 2,
+      comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    },
+    {
+      description: "Empty comment",
+      expectedStatus: 200,
+      expectedCalls: 1,
+      model: "testmodel",
+      user: "test2",
+      score: 2,
+      comment: "",
+    },
+    {
+      description: "Null comment",
+      expectedStatus: 422,
+      expectedCalls: 0,
+      model: "testmodel",
+      user: "test2",
+      score: 2,
+      comment: null,
+    },
   ];
-
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
 
   for (const testCase of testReviews) {
     test(testCase.description, async () => {
@@ -73,8 +105,8 @@ describe("Route - Add Review", () => {
           comment: testCase.comment,
         });
 
-      expect(Authenticator.prototype.isCustomer).toHaveBeenCalledTimes(1);
       expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
+      expect(Authenticator.prototype.isCustomer).toHaveBeenCalledTimes(1);
 
       expect(response.status).toBe(testCase.expectedStatus);
       expect(ReviewController.prototype.addReview).toHaveBeenCalledTimes(
@@ -91,38 +123,44 @@ describe("Route - Add Review", () => {
     });
   }
 
-  test("Product Not Found", async () => {
-    jest.spyOn(ReviewController.prototype, "addReview").mockReset();
-    jest
-      .spyOn(ReviewController.prototype, "addReview")
-      .mockRejectedValueOnce(new ProductNotFoundError());
+  const testCases = [
+    {
+      description: "Product not found",
+      expectedStatus: 404,
+      err: new ProductNotFoundError(),
+    },
+    {
+      description: "Review already exists",
+      expectedStatus: 409,
+      err: new ExistingReviewError(),
+    },
+  ];
 
-    const response = await request(app)
-      .post(`${baseURL}/notAProduct`)
-      .query({ user: "test3" })
-      .send({
+  for (const testCase of testCases) {
+    test(testCase.description, async () => {
+      jest
+        .spyOn(ReviewController.prototype, "addReview")
+        .mockRejectedValueOnce(testCase.err);
+
+      const response = await request(app).post(`${baseURL}/testmodel`).send({
         score: 1,
         comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       });
 
-    expect(Authenticator.prototype.isCustomer).toHaveBeenCalledTimes(1);
-    expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
+      expect(Authenticator.prototype.isCustomer).toHaveBeenCalledTimes(1);
+      expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
 
-    console.log(
-      `Received: ${response.status} - Expected: ${
-        new ProductNotFoundError().customCode
-      }`
-    );
-    expect(response.status).toBe(404);
+      expect(response.status).toBe(testCase.expectedStatus);
 
-    expect(ReviewController.prototype.addReview).toHaveBeenCalledTimes(1);
-    expect(ReviewController.prototype.addReview).toHaveBeenCalledWith(
-      "notAProduct",
-      undefined, // not `testReview.user` because I'm mocking the authentication
-      1,
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-    );
-  });
+      expect(ReviewController.prototype.addReview).toHaveBeenCalledTimes(1);
+      expect(ReviewController.prototype.addReview).toHaveBeenCalledWith(
+        "testmodel",
+        undefined, // not `testReview.user` because I'm mocking the authentication
+        1,
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+      );
+    });
+  }
 
   // Authentication is not tested
 });
