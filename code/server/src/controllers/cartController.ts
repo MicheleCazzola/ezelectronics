@@ -81,7 +81,10 @@ class CartController {
 
     for (let product of cart.products) {
       let quantity = await this.prod_dao.getProductQuantity(product.model);
-      if (quantity === 0) empty_stock = true;
+      if (quantity === 0) {
+        empty_stock = true;
+        break;
+      }
       if (quantity < product.quantity) {
         unavailable_product = true;
         break;
@@ -90,8 +93,8 @@ class CartController {
 
     return new Promise((resolve, reject) => {
       if (empty_stock) reject(new EmptyProductStockError());
-      if (unavailable_product) reject(new LowProductStockError());
-      if (cart.products.length === 0) {
+      else if (unavailable_product) reject(new LowProductStockError());
+      else if (cart.products.length === 0) {
         reject(new EmptyCartError());
       } else {
         // Process payment - always succeeds
