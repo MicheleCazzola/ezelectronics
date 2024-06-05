@@ -136,7 +136,7 @@ describe("DAO tests", () => {
     
             const mockDBGet = jest.spyOn(db, "get");
             mockDBGet.mockImplementationOnce((sql, params, callback) => {
-                callback(null, {Quantity: 0});
+                callback(null, {AvailableQuantity: 0});
                 return {} as Database;
             });
     

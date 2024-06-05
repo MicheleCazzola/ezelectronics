@@ -127,6 +127,7 @@ class ProductDAO {
           });
         });
       } catch (error) {
+        //console.log("ERROR IN INCREASE QUANTITY");
         reject(error);
       }
     });
@@ -169,6 +170,7 @@ class ProductDAO {
           });
         });
       } catch (error) {
+        //console.log("ERROR IN GET DECREASE QUANTITY");
         reject(error);
       }
     });
@@ -330,6 +332,7 @@ class ProductDAO {
           "SELECT AvailableQuantity FROM product_descriptor WHERE Model = ?";
         db.get(sql, [model], (err: Error | null, row: any) => {
           if (err) reject(err);
+          //if(!row) resolve(-1);
           resolve(row.AvailableQuantity);
         });
       } catch (error) {

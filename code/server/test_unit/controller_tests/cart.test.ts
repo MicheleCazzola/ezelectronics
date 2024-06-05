@@ -345,15 +345,13 @@ describe("Controller tests", () => {
             mockProdDAOGetProdQuantity.mockResolvedValueOnce(0);
 
             // Use EmptyProductStockError
-            await expect(controller.checkoutCart(testUser)).rejects.toBeInstanceOf(LowProductStockError);
+            await expect(controller.checkoutCart(testUser)).rejects.toBeInstanceOf(EmptyProductStockError);
     
             expect(CartDAO.prototype.getCurrentCart).toBeCalledTimes(1);
             expect(CartDAO.prototype.getCurrentCart).toBeCalledWith(testUser);
     
             expect(ProductDAO.prototype.getProductQuantity).toBeCalledTimes(1);
         });
-
-        
     });
     
     describe("Controller - Clear current cart", () => {
@@ -372,6 +370,17 @@ describe("Controller tests", () => {
             expect(CartDAO.prototype.clearCart).toBeCalledWith(testUser);
     
             expect(response).toBe(true);
+        });
+
+        test("Cart clear failed - No unpaid cart", async () => {
+            const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
+    
+            jest.spyOn(CartDAO.prototype, "clearCart").mockRejectedValueOnce(new CartNotFoundError());
+            const controller = new CartController();
+            await expect(controller.clearCart(testUser)).rejects.toBeInstanceOf(CartNotFoundError);
+    
+            expect(CartDAO.prototype.clearCart).toBeCalledTimes(1);
+            expect(CartDAO.prototype.clearCart).toBeCalledWith(testUser);
         });
     
         // Error test is skipped since it is generic

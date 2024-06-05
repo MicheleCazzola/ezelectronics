@@ -23,9 +23,8 @@ class UserController {
      * @returns A Promise that resolves to true if the user has been created.
      */
     async createUser(username: string, name: string, surname: string, password: string, role: string):Promise<Boolean> {
-       
+        //console.log("Creating user");
         return this.dao.createUser(username, name, surname, password, role);
-        
     }
 
     /**

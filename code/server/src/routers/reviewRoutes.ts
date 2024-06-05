@@ -47,13 +47,7 @@ class ReviewRoutes {
                     res.status(200).send();
                 })
                 .catch((err) => {
-                    //console.log(`${err.customCode}`);
-                    if (err.customCode) {
-                        res.status(err.customCode).send();
-                    }
-                    else {
-                        res.status(503).json({error: err});
-                    }
+                    next(err)
                 })
         )
 
@@ -69,12 +63,7 @@ class ReviewRoutes {
             (req: any, res: any, next: any) => this.controller.getProductReviews(req.params.model)
                 .then((reviews: ProductReview[]) => res.status(200).json(reviews))
                 .catch((err) => {
-                    if (err.customCode) {
-                        res.status(err.customCode).send();
-                    }
-                    else {
-                        res.status(503).json({error: err});
-                    }
+                    next(err)
                 })
         )
 
@@ -91,12 +80,7 @@ class ReviewRoutes {
             (req: any, res: any, next: any) => this.controller.deleteReview(req.params.model, req.user)
                 .then(() => res.status(200).send())
                 .catch((err) => {
-                    if (err.customCode) {
-                        res.status(err.customCode).send();
-                    }
-                    else {
-                        res.status(503).json({error: err});
-                    }
+                    next(err)
                 })
         )
 
@@ -113,12 +97,7 @@ class ReviewRoutes {
             (req: any, res: any, next: any) => this.controller.deleteReviewsOfProduct(req.params.model)
                 .then(() => res.status(200).send())
                 .catch((err) => {
-                    if (err.customCode) {
-                        res.status(err.customCode).send();
-                    }
-                    else {
-                        res.status(503).json({error: err});
-                    }
+                    next(err)
                 })
         )
 
@@ -134,12 +113,7 @@ class ReviewRoutes {
             (req: any, res: any, next: any) => this.controller.deleteAllReviews()
                 .then(() => res.status(200).send())
                 .catch((err) => {
-                    if (err.customCode) {
-                        res.status(err.customCode).send();
-                    }
-                    else {
-                        res.status(503).json({error: err});
-                    }
+                    next(err)
                 })
         )
     }
