@@ -2,8 +2,11 @@ import { User } from "../components/user";
 import { Cart } from "../components/cart";
 import CartDAO from "../dao/cartDAO";
 import ProductDAO from "../dao/productDAO";
-import { CartNotFoundError } from "../errors/cartError";
-import { LowProductStockError } from "../errors/productError";
+import { CartNotFoundError, EmptyCartError } from "../errors/cartError";
+import {
+  EmptyProductStockError,
+  LowProductStockError,
+} from "../errors/productError";
 /**
  * Represents a controller for managing shopping carts.
  * All methods of this class must interact with the corresponding DAO class to retrieve or store data.
@@ -25,31 +28,22 @@ class CartController {
    * @param productId - The model of the product to add.
    * @returns A Promise that resolves to `true` if the product was successfully added.
    */
-  async addToCart(user: User, product: string): Promise<Boolean> {
-    let cart: Cart = undefined;
+  async addToCart(user: User, product: string): Promise<boolean> {
+    const full_product = await this.dao.getProduct(product);
+    let cartid: number = undefined;
     try {
-      cart = await this.dao.getCurrentCart(user);
+      cartid = await this.dao.getCurrentCartId(user);
     } catch (err) {
       if (err instanceof CartNotFoundError) {
-        cart = new Cart(user.username, false, "", 0, []);
+        try {
+          cartid = await this.dao.createCart(user);
+        } catch (err) {
+          console.log(err);
+        }
       }
     }
 
-    let found = false;
-    for (let cart_product of cart.products) {
-      if (cart_product.model === product) {
-        cart_product.quantity++;
-        cart.total += cart_product.price;
-        found = true;
-        break;
-      }
-    }
-    if (!found) {
-      const full_product = await this.dao.getProduct(product);
-      cart.products.push(full_product);
-      cart.total += full_product.price;
-    }
-    return this.dao.updateCart(cart);
+    return this.dao.addProductToCart(cartid, full_product);
   }
 
   /**
@@ -64,7 +58,7 @@ class CartController {
         .then((cart) => resolve(cart))
         .catch((err) => {
           if (err === CartNotFoundError) {
-            resolve(new Cart(user.username, false, null, 0, []));
+            resolve(new Cart(user.username, false, "", 0, []));
           } else {
             reject(err);
           }
@@ -78,23 +72,33 @@ class CartController {
    * @returns A Promise that resolves to `true` if the cart was successfully checked out.
    *
    */
-  async checkoutCart(user: User): Promise<Boolean> {
-    return new Promise(async (resolve, reject) => {
-      let cart: Cart = await this.dao.getCurrentCart(user);
-      let rejected = false;
-      for (let product of cart.products) {
-        let quantity = await this.prod_dao.getProductQuantity(product.model);
-        if (quantity < product.quantity) {
-          reject(new LowProductStockError());
-          rejected = true;
-          break;
-        }
-      }
-      if (!rejected) {
-        // Processing payment always succeeds
-        cart.paid = true;
-        cart.paymentDate = new Date().toISOString();
+  async checkoutCart(user: User): Promise<boolean> {
+    let cart: Cart = await this.dao.getCurrentCart(user);
+    // Check availability of products
+    let unavailable_product = false;
+    let empty_stock: boolean;
 
+    for (let product of cart.products) {
+      let quantity = await this.prod_dao.getProductQuantity(product.model);
+      if (quantity === 0) {
+        empty_stock = true;
+        break;
+      }
+      if (quantity < product.quantity) {
+        unavailable_product = true;
+        break;
+      }
+    }
+
+    return new Promise((resolve, reject) => {
+      if (empty_stock) reject(new EmptyProductStockError());
+      else if (unavailable_product) reject(new LowProductStockError());
+      else if (cart.products.length === 0) {
+        reject(new EmptyCartError());
+      } else {
+        // Process payment - always succeeds
+
+        // decrease products quantity in stock
         cart.products.forEach(async (product) => {
           await this.prod_dao.decreaseQuantity(
             product.model,
@@ -104,7 +108,7 @@ class CartController {
         });
 
         this.dao
-          .updateCart(cart)
+          .checkoutCart(user.username)
           .then((result) => {
             resolve(result);
           })
@@ -131,7 +135,7 @@ class CartController {
    * @param product The model of the product to remove.
    * @returns A Promise that resolves to `true` if the product was successfully removed.
    */
-  async removeProductFromCart(user: User, product: string): Promise<Boolean> {
+  async removeProductFromCart(user: User, product: string): Promise<boolean> {
     return this.dao.removeProductFromCart(user, product);
   }
 
@@ -140,7 +144,7 @@ class CartController {
    * @param user - The user who owns the cart.
    * @returns A Promise that resolves to `true` if the cart was successfully cleared.
    */
-  async clearCart(user: User): Promise<Boolean> {
+  async clearCart(user: User): Promise<boolean> {
     return this.dao.clearCart(user);
   }
 
@@ -148,7 +152,7 @@ class CartController {
    * Deletes all carts of all users.
    * @returns A Promise that resolves to `true` if all carts were successfully deleted.
    */
-  async deleteAllCarts(): Promise<Boolean> {
+  async deleteAllCarts(): Promise<boolean> {
     return this.dao.deleteAllCarts();
   }
 
