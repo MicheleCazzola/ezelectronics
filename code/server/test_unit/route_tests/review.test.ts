@@ -11,7 +11,10 @@ import {
 } from "../../src/errors/reviewError";
 
 const baseURL = "/ezelectronics/reviews";
-const mockMiddleware = jest.fn((req, res, next: any) => next());
+const mockMiddleware = jest.fn((req: any, res, next: any) => {
+  req.user = "testuser";
+  return next();
+});
 
 jest.mock("../../src/routers/auth");
 
@@ -115,7 +118,7 @@ describe("Route - Add Review", () => {
       if (testCase.expectedCalls > 0) {
         expect(ReviewController.prototype.addReview).toHaveBeenCalledWith(
           testCase.model,
-          undefined, // not `testReview.user` because I'm mocking the authentication
+          "testuser", // set in the middleware mock
           testCase.score,
           testCase.comment
         );
@@ -155,7 +158,7 @@ describe("Route - Add Review", () => {
       expect(ReviewController.prototype.addReview).toHaveBeenCalledTimes(1);
       expect(ReviewController.prototype.addReview).toHaveBeenCalledWith(
         "testmodel",
-        undefined, // not `testReview.user` because I'm mocking the authentication
+        "testuser", // set in the middleware mock
         1,
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
       );
@@ -171,17 +174,12 @@ describe("Route - Fetch All Product Reviews", () => {
       expectedStatus: 200,
       model: "iPhone13",
     };
+    const reviews = [
+      new ProductReview(testCase.model, "test", 5, "2024-05-12", "Lorem Ipsum"),
+    ];
     jest
       .spyOn(ReviewController.prototype, "getProductReviews")
-      .mockResolvedValueOnce([
-        new ProductReview(
-          testCase.model,
-          "test",
-          5,
-          "2024-05-12",
-          "Lorem Ipsum"
-        ),
-      ]);
+      .mockResolvedValueOnce(reviews);
 
     const response = await request(app)
       .get(`${baseURL}/${testCase.model}`)
@@ -197,6 +195,7 @@ describe("Route - Fetch All Product Reviews", () => {
     expect(ReviewController.prototype.getProductReviews).toHaveBeenCalledWith(
       testCase.model
     );
+    expect(response.body).toEqual(reviews);
   });
 
   test("Product Not Found", async () => {
@@ -225,6 +224,31 @@ describe("Route - Fetch All Product Reviews", () => {
     );
   });
 
+  test("Review Already Exists", async () => {
+    const testCase = {
+      expectedStatus: 409,
+      model: "testmodel",
+    };
+
+    jest
+      .spyOn(ReviewController.prototype, "getProductReviews")
+      .mockRejectedValueOnce(new ExistingReviewError());
+
+    const response = await request(app)
+      .get(`${baseURL}/${testCase.model}`)
+      .send();
+
+    expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
+
+    expect(response.status).toBe(testCase.expectedStatus);
+
+    expect(ReviewController.prototype.getProductReviews).toHaveBeenCalledTimes(
+      1
+    );
+    expect(ReviewController.prototype.getProductReviews).toHaveBeenCalledWith(
+      testCase.model
+    );
+  });
   // Authentication is not tested
 });
 
@@ -281,7 +305,7 @@ describe("Route - Delete a Review", () => {
       if (testCase.called > 0) {
         expect(ReviewController.prototype.deleteReview).toHaveBeenCalledWith(
           testCase.model,
-          undefined // not `testReview.user` because I'm mocking the authentication
+          "testuser" // set in the middleware mock
         );
       }
     });
