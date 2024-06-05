@@ -1,4 +1,11 @@
-import { test, expect, jest, beforeEach, afterEach, beforeAll, describe } from "@jest/globals";
+import {
+  test,
+  expect,
+  jest,
+  beforeEach,
+  afterEach,
+  describe,
+} from "@jest/globals";
 import request from "supertest";
 import { app } from "../../index";
 import ReviewController from "../../src/controllers/reviewController";
@@ -83,8 +90,9 @@ describe("Route - Add Review", () => {
       }
     });
   }
-  // Works fine on its own, fails when ran with the other tests
-  test.skip("Product Not Found", async () => {
+
+  test("Product Not Found", async () => {
+    jest.spyOn(ReviewController.prototype, "addReview").mockReset();
     jest
       .spyOn(ReviewController.prototype, "addReview")
       .mockRejectedValueOnce(new ProductNotFoundError());
