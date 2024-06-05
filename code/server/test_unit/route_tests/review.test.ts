@@ -69,9 +69,6 @@ describe("Route - Add Review", () => {
       expect(Authenticator.prototype.isCustomer).toHaveBeenCalledTimes(1);
       expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
 
-      console.log(
-        `Received: ${response.status} - Expected: ${testCase.expectedStatus}`
-      );
       expect(response.status).toBe(testCase.expectedStatus);
       expect(ReviewController.prototype.addReview).toHaveBeenCalledTimes(
         testCase.expectedCalls
