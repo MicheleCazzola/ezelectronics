@@ -75,7 +75,7 @@ class CartRoutes {
       "/",
       this.authenticator.isLoggedIn,
       this.authenticator.isCustomer,
-      body("model").isString().notEmpty(),
+      body("model").isString().trim().isLength({ min: 1 }),
       (req: any, res: any, next: any) =>
         this.controller
           .addToCart(req.user, req.body.model)
@@ -130,7 +130,7 @@ class CartRoutes {
       "/products/:model",
       this.authenticator.isLoggedIn,
       this.authenticator.isCustomer,
-      param("model").isString().notEmpty(),
+      param("model").isString().trim().isLength({ min: 1 }),
       (req: any, res: any, next: any) =>
         this.controller
           .removeProductFromCart(req.user, req.params.model)

@@ -30,7 +30,6 @@ class CartController {
    */
   async addToCart(user: User, product: string): Promise<boolean> {
     const full_product = await this.dao.getProduct(product);
-
     let cartid: number = undefined;
     try {
       cartid = await this.dao.getCurrentCartId(user);
