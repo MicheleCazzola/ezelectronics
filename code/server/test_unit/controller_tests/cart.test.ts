@@ -574,7 +574,6 @@ describe("Controller tests", () => {
 
         mockProdDAOGetProdQuantity.mockResolvedValueOnce(0);
 
-        // Use EmptyProductStockError
         await expect(controller.checkoutCart(testUser)).rejects.toBeInstanceOf(
           EmptyProductStockError
         );

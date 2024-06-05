@@ -177,7 +177,7 @@ describe("Carts router tests", () => {
         expect(response.text).toContain(testErr.customMessage);
       });
 
-      test.skip("Add product to cart failed - Model is an empty string", async () => {
+      test("Add product to cart failed - Model is an empty string", async () => {
         const testModel = "";
         const response = await request(app)
           .post(baseURL + customURL)
@@ -359,11 +359,13 @@ describe("Carts router tests", () => {
         let customURL: string;
         let ok: number;
         let invalid: number;
+        let notFound: number;
 
         beforeAll(() => {
             customURL = "/products";
             ok = 200;
             invalid = 422;
+            notFound = 404;
         });
 
         beforeEach(() => {
@@ -381,51 +383,51 @@ describe("Carts router tests", () => {
         });
 
         test("Remove product from cart successful", async () => {
-          const testModel = "iPhone13";
-          const mockControllerRemoveProductFromCart = jest.spyOn(
+            const testModel = "iPhone13";
+            const mockControllerRemoveProductFromCart = jest.spyOn(
             CartController.prototype,
             "removeProductFromCart"
-          );
+            );
 
-          mockControllerRemoveProductFromCart.mockResolvedValueOnce(true);
-          const response = await request(app).delete(
+            mockControllerRemoveProductFromCart.mockResolvedValueOnce(true);
+            const response = await request(app).delete(
             baseURL + customURL + `/${testModel}`
-          );
+            );
 
-          expect(Authenticator.prototype.isCustomer).toBeCalledTimes(1);
+            expect(Authenticator.prototype.isCustomer).toBeCalledTimes(1);
 
-          expect(mockControllerRemoveProductFromCart).toBeCalledTimes(1);
-          expect(mockControllerRemoveProductFromCart).toBeCalledWith(
-            undefined,
-            testModel
-          );
+            expect(mockControllerRemoveProductFromCart).toBeCalledTimes(1);
+            expect(mockControllerRemoveProductFromCart).toBeCalledWith(
+                undefined,
+                testModel
+            );
 
-          expect(response.status).toBe(ok);
+            expect(response.status).toBe(ok);
         });
 
         test("Remove product from cart failed - Product not in cart", async () => {
-          const testModel = "iPhone13";
-          const testErr = new ProductNotInCartError();
-          const mockControllerRemoveProductFromCart = jest.spyOn(
-            CartController.prototype,
-            "removeProductFromCart"
-          );
+            const testModel = "iPhone13";
+            const testErr = new ProductNotInCartError();
+            const mockControllerRemoveProductFromCart = jest.spyOn(
+                CartController.prototype,
+                "removeProductFromCart"
+            );
 
-          mockControllerRemoveProductFromCart.mockRejectedValueOnce(testErr);
-          const response = await request(app).delete(
-            baseURL + customURL + `/${testModel}`
-          );
+            mockControllerRemoveProductFromCart.mockRejectedValueOnce(testErr);
+            const response = await request(app).delete(
+                baseURL + customURL + `/${testModel}`
+            );
 
-          expect(Authenticator.prototype.isCustomer).toBeCalledTimes(1);
+            expect(Authenticator.prototype.isCustomer).toBeCalledTimes(1);
 
-          expect(mockControllerRemoveProductFromCart).toBeCalledTimes(1);
-          expect(mockControllerRemoveProductFromCart).toBeCalledWith(
-            undefined,
-            testModel
-          );
+            expect(mockControllerRemoveProductFromCart).toBeCalledTimes(1);
+            expect(mockControllerRemoveProductFromCart).toBeCalledWith(
+                undefined,
+                testModel
+            );
 
-          expect(response.status).toBe(testErr.customCode);
-          expect(response.text).toContain(testErr.customMessage);
+            expect(response.status).toBe(testErr.customCode);
+            expect(response.text).toContain(testErr.customMessage);
         });
 
         test("Remove product from cart failed - No unpaid cart", async () => {
@@ -504,13 +506,21 @@ describe("Carts router tests", () => {
           expect(response.text).toContain(testErr.customMessage);
         });
 
-        test.skip("Remove product from cart failed - Model string empty", async () => {
+        test("Remove product from cart failed - Model string empty", async () => {
           const testModel = "";
+          const mockControllerRemoveProductFromCart = jest.spyOn(
+            CartController.prototype,
+            "removeProductFromCart"
+          ); 
+
+          mockControllerRemoveProductFromCart.mockRejectedValueOnce(ProductNotFoundError);
           const response = await request(app).delete(
             baseURL + customURL + `/${testModel}`
           );
 
-          expect(response.status).toBe(invalid);
+          expect(mockControllerRemoveProductFromCart).toBeCalledTimes(0);
+
+          expect(response.status).toBe(notFound);
         });
     });
 
