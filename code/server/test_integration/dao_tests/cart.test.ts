@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeAll, beforeEach, afterEach, jest } from "@jest/globals"
+import { describe, test, expect, beforeAll, afterEach, jest } from "@jest/globals"
 
 import CartDAO from "../../src/dao/cartDAO"
 import db from "../../src/db/db"
@@ -11,20 +11,75 @@ import { CartNotFoundError, ProductNotInCartError } from "../../src/errors/cartE
 import { EmptyProductStockError, ProductNotFoundError } from "../../src/errors/productError";
 import UserDAO from "../../src/dao/userDAO";
 
-// Cleans up database
-function cleanup_custom() {
-    const tables = ["PRODUCT_DESCRIPTOR", "USERS", "REVIEW", "PRODUCT_IN_CART", "CART", "SQLITE_SEQUENCE"];
-    tables.forEach(tableName => {
-        return new Promise<void>((resolve, reject) => {
-            db.run(`DELETE FROM ${tableName}`, function(err) {
-                if (err) reject(err);
+/* OLD FUNCTIONS USED TO TRY CLEANUP
+function deleteTable(tableName: string): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+        db.run(`DELETE FROM ${tableName}`, function(err) {
+            if (err) reject(err);
+            else {
+                console.log(`Delete from ${tableName} involved ${this.changes} rows`);
                 resolve();
-            });
+            }
         });
     });
 }
 
+function cleanup_custom() {
+    const tables = ["PRODUCT_IN_CART", "REVIEW", "CART", "USERS", "PRODUCT_DESCRIPTOR", "SQLITE_SEQUENCE"];
+    Promise
+    console.log("CLEANUP DONE");
+}
+
+async function cleanup_cart_users() {
+    const tables = ["PRODUCT_IN_CART", "REVIEW", "CART", "USERS", "PRODUCT_DESCRIPTOR", "SQLITE_SEQUENCE"];
+    deleteTable(tables[0])
+        .then(() => deleteTable(tables[1])
+            .then(() => deleteTable(tables[2])
+                .then(() => deleteTable(tables[3]))
+                    .then(() => deleteTable(tables[4])
+                        .then(() => deleteTable(tables[5])))))
+        .catch(err => console.log(err))
+}
+*/
+
+
 describe("DAO tests", () => {
+
+    describe("DAO - Create cart", () => {
+        let cartDAO: CartDAO;
+        let userDAO: UserDAO;
+
+        beforeAll(async () => {
+            cartDAO = new CartDAO();
+            userDAO = new UserDAO();
+
+            const beforeCleanupResult = await cleanup();
+            console.log(`BEFORE\n${beforeCleanupResult}`);
+        });
+
+        afterEach(async () => {
+            const afterCleanupResult = await cleanup();
+            console.log(`AFTER\n${afterCleanupResult}`);
+        });
+        
+        for (let i =0; i < 100; i++){
+            test("Create cart successful", async () => {
+                const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
+                const testCardId = 1;
+                
+                await userDAO.createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
+                const result = await cartDAO.createCart(testUser);
+                expect(result).toBe(testCardId);
+            });
+        }
+        test.skip("Create cart failed - No cart found (could fail only due to DB issues between the 2 transactions", async () => {
+            const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
+            
+            await userDAO.createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
+            //expect(1).toBe(false);
+            await expect(cartDAO.createCart(testUser)).rejects.toBeInstanceOf(CartNotFoundError);
+        });
+    });
 
     describe.skip("DAO - Get current cart", () => {
 
@@ -167,96 +222,6 @@ describe("DAO tests", () => {
             expect(mockDBGet).toBeCalledTimes(1);
             //resetMock(mockDBGet);
         });
-    });
-
-    describe("DAO - Create cart", () => {
-        //let cartDAO: CartDAO;
-        //let userDAO: UserDAO;
-
-        beforeAll(() => {
-            //cartDAO = new CartDAO();
-            //userDAO = new UserDAO();
-        });
-
-        beforeEach(() => {
-            cleanup();
-        })
-
-        afterEach(() => {
-            cleanup();
-        });
-
-        test("Create cart successful", async () => {
-            const testUser = new User("test2", "test", "test", Role.CUSTOMER, "", "");
-            const testCardId = 1;
-/*
-            const p = new Promise((resolve, reject) => {
-                db.get("SELECT username FROM users", function(err, row: any) {
-                    if (err) reject(err);
-                    else if(!row) reject(undefined)
-                    else resolve(row.username);
-                });
-            });*/
-            
-            await (new UserDAO).createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
-                /*.then(() => {
-                    p.then((user) => console.log(`Resolved: ${user}`))
-                    .catch((err) => console.log(err))
-                    .finally(() => expect(1).toBe(1));
-                })
-                .catch(err => console.log(`Rejected: ${err}`));
-                .then(() => {
-                    cartDAO.createCart(testUser)
-                        .then(resultId => expect(resultId).toBe(testCardId))
-                        .catch((err) => {
-                            console.log(err);
-                            expect(1).toBe(0);
-                        })
-                })
-                .catch((err) => console.log(err));*/
-            const result = await (new CartDAO).createCart(testUser);
-            expect(result).toBe(testCardId);
-        });
-
-        test("Create cart successful", async () => {
-            const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
-            const testCardId = 1;
-/*
-            const p = new Promise((resolve, reject) => {
-                db.get("SELECT username FROM users", function(err, row: any) {
-                    if (err) reject(err);
-                    else if(!row) reject(undefined)
-                    else resolve(row.username);
-                });
-            });*/
-            
-            await (new UserDAO).createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
-                /*.then(() => {
-                    p.then((user) => console.log(`Resolved: ${user}`))
-                    .catch((err) => console.log(err))
-                    .finally(() => expect(1).toBe(1));
-                })
-                .catch(err => console.log(`Rejected: ${err}`));
-                .then(() => {
-                    cartDAO.createCart(testUser)
-                        .then(resultId => expect(resultId).toBe(testCardId))
-                        .catch((err) => {
-                            console.log(err);
-                            expect(1).toBe(0);
-                        })
-                })
-                .catch((err) => console.log(err));*/
-            const result = await (new CartDAO).createCart(testUser);
-            expect(result).toBe(testCardId);
-        });
-/*
-        test.skip("Create cart failed - No cart found", async () => {
-            const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
-            
-            await userDAO.createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
-            //expect(1).toBe(false);
-            await expect(cartDAO.createCart(testUser)).rejects.toBeInstanceOf(CartNotFoundError);
-        });*/
     });
 
     describe.skip("DAO - Checkout cart", () => {

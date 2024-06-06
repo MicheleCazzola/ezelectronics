@@ -83,16 +83,12 @@ class CartDAO {
   async createCart(user: User): Promise<number> {
     const sql1 =
       "INSERT INTO CART (Total, Paid, PaymentDate, Username) VALUES (?, ?, ?, ?)";
-      console.log(`Username: ${user.username}, ${typeof user.username}`);
     return new Promise((resolve, reject) => {
       db.run(sql1, [0, false, "", user.username], function (err) {
-        console.log(`Err: ${err}`);
         if (err) reject(err);
         let rowid = this.lastID;
-        console.log(this);
         const sql2 = "SELECT CartId FROM CART WHERE rowid = ?";
         db.get(sql2, [rowid], (err, row: any) => {
-          //console.log(`Err: ${row}`);
           if (err) reject(err);
           else if (!row) reject(new CartNotFoundError());
           else resolve(row.CartId);
