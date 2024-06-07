@@ -19,8 +19,8 @@ function cleanup_intern() {
         //Add delete statements for other tables here
     });
 }
-/*
-function cleanup_cart_users(): Promise<string> {
+
+function cleanup_custom(): Promise<string> {
     return new Promise((resolve, reject) => {
         db.run("DELETE FROM PRODUCT_IN_CART", function(err: Error)  {
             const productInCartChanges = this.changes;
@@ -78,8 +78,8 @@ function cleanup_cart_users(): Promise<string> {
             }
         });
     });
-}*/
+}
 
 export async function cleanup() {
-    return cleanup_intern();
+    return cleanup_custom();
 }
