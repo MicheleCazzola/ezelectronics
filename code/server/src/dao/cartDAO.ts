@@ -116,26 +116,31 @@ class CartDAO {
       const sql1 =
         "SELECT Quantity FROM PRODUCT_IN_CART WHERE CartId = ? AND Model = ?";
       db.get(sql1, [cartid, product.model], (err, row: any) => {
+        //console.log(err);
         if (err) reject(err);
 
         if (!row) {
+          //console.log(`Cart id: ${cartid} ${product.model}`);
           const sql2 =
             "INSERT INTO PRODUCT_IN_CART (CartId, Model, Quantity) VALUES (?, ?, ?)";
           db.run(sql2, [cartid, product.model, 1], (err) => {
+            console.log(err);
             if (err) reject(err);
           });
         } else {
           const sql3 =
             "UPDATE PRODUCT_IN_CART SET Quantity = ? WHERE CartId = ? AND Model = ?";
           db.run(sql3, [row.Quantity + 1, cartid, product.model], (err) => {
+            //console.log(err);
             if (err) reject(err);
           });
         }
-
+        //console.log("PIPPO", cartid);
         const sql4 = "UPDATE CART SET Total = Total + ? WHERE CartId = ?";
         db.run(sql4, [product.price, cartid], (err) => {
+          //console.log(err.message);
           if (err) reject(err);
-          else resolve(true);
+          else {/*console.log(err)*/ resolve(true)};
         });
       });
     });

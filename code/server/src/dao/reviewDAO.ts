@@ -19,7 +19,7 @@ class ReviewDAO {
      * @param comment The comment made by the user
      * @returns A Promise that resolves to nothing
      */
-    addReview(model: string, username: string, score: number, comment: string) : Promise<void> {
+    async addReview(model: string, username: string, score: number, comment: string) : Promise<void> {
         return new Promise((resolve, reject) => {
             try {
                 let today: string = dayjs().format("YYYY-MM-DD");
@@ -38,7 +38,7 @@ class ReviewDAO {
                             reject(new ProductNotFoundError());
                         }
                         // Primary key failure means that review has already been written 
-                        else if (err.name.includes("PRIMARY KEY constraint failed")) {
+                        else if (err.message.includes("PRIMARY KEY constraint failed")) {
                             reject(new ExistingReviewError());
                         }
                         else {
@@ -60,7 +60,7 @@ class ReviewDAO {
      * Queries the database for a select operation on reviews table
      * @param model The model of the product to get reviews from
      */
-    getProductReviews(model: string) : Promise<ProductReview[]> {
+    async getProductReviews(model: string) : Promise<ProductReview[]> {
         return new Promise((resolve, reject) => {
             try {
                 let query: string = "SELECT * FROM review WHERE model = ?";
@@ -69,13 +69,15 @@ class ReviewDAO {
                         reject(err);
                     }
                     // Only if rows is empty is due to missing product
-                    if (!rows) {
+                    else if (!rows) {
                         reject(new ProductNotFoundError());
                     }
-                    let reviews = rows.map(review =>
-                        new ProductReview(review.model, review.user, review.score,
-                            review.date, review.comment));
-                    resolve(reviews);
+                    else {
+                        let reviews = rows.map(review =>
+                            new ProductReview(review.model, review.user, review.score,
+                                review.date, review.comment));
+                        resolve(reviews);
+                    }
                 });
             } catch (error) {
                 reject(error);
@@ -87,17 +89,13 @@ class ReviewDAO {
      * Queries the database for a delete operation on reviews table,
      * focused only on that made by the current user on products of
      * the specified model
+     * Constraint: model must exist in the database
      * @param model The model of the product to delete review from
      * @param username The username of the user who made the review to delete
      */
-    deleteReview(model: string, username: string): Promise<void> {
+    async deleteReview(model: string, username: string): Promise<void> {
         return new Promise((resolve, reject) => {
             try {
-                // Check if model in DB (PRODUCT DESCRIPTOR)
-                if ((new ProductDAO()).existsProduct(model)) {
-                    reject(new ProductNotFoundError());
-                }
-
                 let query: string = "DELETE FROM review WHERE model = ? AND username = ?";
                 db.run(query, [model, username], function(err: Error | null) {
 
@@ -110,12 +108,14 @@ class ReviewDAO {
                     // been affected by query: if no rows has been affected
                     // by DELETE, then there are no reviews made by the current
                     // user on products of the specified model
-                    if (this.changes == 0) {
+                    else if (this.changes == 0) {
                         reject(new NoReviewProductError());
                     }
                     
                     // Nominal case: row is deleted
-                    resolve();
+                    else {
+                        resolve()
+                    };
                 })
             } catch (error) {
                 reject(error);
@@ -126,16 +126,12 @@ class ReviewDAO {
     /**
      * Queries the database for a delete operation on reviews table,
      * focused only of those made on products of the specified model
+     * Constraint: model must exist in the database
      * @param model The model of the products to delete reviews from 
      */
-    deleteReviewsOfProduct(model: string): Promise<void> {
+    async deleteReviewsOfProduct(model: string): Promise<void> {
         return new Promise((resolve, reject) => {
             try {
-                // Check if model in DB (PRODUCT DESCRIPTOR)
-                if ((new ProductDAO()).existsProduct(model)) {
-                    reject(new ProductNotFoundError());
-                }
-
                 let query: string = "DELETE FROM review WHERE model = ?";
                 db.run(query, [model], function(err: Error | null) {
 
@@ -143,9 +139,10 @@ class ReviewDAO {
                     if(err) {
                         reject(err);
                     }
-
-                    // Standard case
-                    resolve();
+                    else {
+                        // Standard case
+                        resolve();
+                    }
                 });
             } catch (error) {
                 reject(error);
@@ -157,7 +154,7 @@ class ReviewDAO {
      * Queries the database for a delete operation on reviews table,
      * focused on all of them, independently by user or product model
      */
-    deleteAllReviews(): Promise<void> {
+    async deleteAllReviews(): Promise<void> {
         return new Promise((resolve, reject) => {
             try {
                 let query = "DELETE FROM review";
@@ -166,7 +163,9 @@ class ReviewDAO {
                     if(err) {
                         reject(err);
                     }
-                    resolve();
+                    else {
+                        resolve();
+                    }
                 });
             } catch (error) {
                 reject(error);
