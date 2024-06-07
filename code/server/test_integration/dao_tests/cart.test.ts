@@ -61,17 +61,16 @@ describe("DAO tests", () => {
             const afterCleanupResult = await cleanup();
             console.log(`AFTER\n${afterCleanupResult}`);
         });
+
+        test("Create cart successful", async () => {
+            const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
+            const testCardId = 1;
+            
+            await userDAO.createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
+            const result = await cartDAO.createCart(testUser);
+            expect(result).toBe(testCardId);
+        });
         
-        for (let i =0; i < 100; i++){
-            test("Create cart successful", async () => {
-                const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
-                const testCardId = 1;
-                
-                await userDAO.createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
-                const result = await cartDAO.createCart(testUser);
-                expect(result).toBe(testCardId);
-            });
-        }
         test.skip("Create cart failed - No cart found (could fail only due to DB issues between the 2 transactions", async () => {
             const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
             

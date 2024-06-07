@@ -6,22 +6,20 @@ import db from "../db/db";
  * Deletes all data from the database.
  * This function must be called before any integration test, to ensure a clean database state for each test run.
  */
-/*
-export async function cleanup() {
+
+function cleanup_intern() {
     db.serialize(() => {
         // Delete all data from the database.
-        db.run("PRAGMA foreign_keys = OFF");
         db.run("DELETE FROM users");
         db.run("DELETE FROM cart");
         db.run("DELETE FROM product_descriptor");
         db.run("DELETE FROM product_in_cart");
         db.run("DELETE FROM review");
         db.run("DELETE FROM sqlite_sequence");
-        db.run("PRAGMA foreign_keys = ON")
         //Add delete statements for other tables here
-    })
-}*/
-
+    });
+}
+/*
 function cleanup_cart_users(): Promise<string> {
     return new Promise((resolve, reject) => {
         db.run("DELETE FROM PRODUCT_IN_CART", function(err: Error)  {
@@ -80,8 +78,8 @@ function cleanup_cart_users(): Promise<string> {
             }
         });
     });
-}
+}*/
 
-export async function cleanup(): Promise<string> {
-    return cleanup_cart_users();
+export async function cleanup() {
+    return cleanup_intern();
 }
