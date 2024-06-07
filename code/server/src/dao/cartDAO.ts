@@ -124,7 +124,7 @@ class CartDAO {
           const sql2 =
             "INSERT INTO PRODUCT_IN_CART (CartId, Model, Quantity) VALUES (?, ?, ?)";
           db.run(sql2, [cartid, product.model, 1], (err) => {
-            console.log(err);
+            //console.log(err);
             if (err) reject(err);
           });
         } else {

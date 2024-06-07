@@ -92,13 +92,23 @@ describe("DAO tests", () => {
 
         test("Add to cart successful - Product not yet in cart", async() => {
             const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
-            const testProductInCart = new ProductInCart("iPhone13", 2, Category.SMARTPHONE, 1000.0);
-            const testCart = new Cart("test", false, "", 2000.0, [testProductInCart]);
+            const testProductsInCart = [
+                new ProductInCart("iPhone13", 2, Category.SMARTPHONE, 1000.0),
+                new ProductInCart("iPhone15", 3, Category.SMARTPHONE, 1200.0)
+            ];
+            const testCart = new Cart("test", false, "", 5600.0, testProductsInCart);
             
-            const product = await prodDAO.createProduct("iPhone13", Category.SMARTPHONE, 4, "", 1000.0, null);
+            // Setup
+            const product1 = await prodDAO.createProduct("iPhone13", Category.SMARTPHONE, 4, "", 1000.0, null);
+            const product2 = await prodDAO.createProduct("iPhone15", Category.SMARTPHONE, 4, "", 1200.0, null);
             const user = await userDAO.createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
             const cartId = await cartDAO.createCart(testUser);
-            const added = await cartDAO.addProductToCart(cartId, testProductInCart);
+
+            // Test
+            const added = await cartDAO.addProductToCart(cartId, testProductsInCart[0]);
+            await cartDAO.addProductToCart(cartId, testProductsInCart[1]);
+
+            // Check
             const result = await cartDAO.getCurrentCart(testUser);
             
             expect(result).toBe(testCart);
@@ -111,18 +121,23 @@ describe("DAO tests", () => {
             const testProductInCart = new ProductInCart("iPhone13", 2, Category.SMARTPHONE, 1000.0);
             const testCart = new Cart("test", false, "", 4000.0, [testProductInCart]);
             
+            // Setup
             const product = await prodDAO.createProduct("iPhone13", Category.SMARTPHONE, 4, "", 1000.0, null);
             const user = await userDAO.createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
             const cartId = await cartDAO.createCart(testUser);
+            
+            // Test
             const added = await cartDAO.addProductToCart(cartId, testProductInCart);
             await cartDAO.addProductToCart(cartId, testProductInCart);
+
+            // Check
             const result = await cartDAO.getCurrentCart(testUser);
             
             expect(result).toBe(testCart);
         });
     });
 
-    describe.skip("DAO - Get current cart", () => {
+    describe("DAO - Get current cart", () => {
 
         let cartDAO: CartDAO;
         let userDAO: UserDAO;
@@ -146,18 +161,19 @@ describe("DAO tests", () => {
                 new ProductInCart("iPhone13", 2, Category.SMARTPHONE, 1000.0),
                 new ProductInCart("iPhone15", 4, Category.SMARTPHONE, 1200.0)
             ];
-            const testCart = new Cart(testUser.username, false, "", 2200.0, testProductsInCart);
+            const testCart = new Cart(testUser.username, false, "", 4800.0, testProductsInCart);
             const testCartId = 1;
             
-            
+            // Setup
             await userDAO.createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
             await cartDAO.createCart(testUser);
 
             for (let prod of testProductsInCart) {
-                await prodDAO.createProduct(prod.model, prod.category, prod.quantity + 1, null, prod.price, null);
+                await prodDAO.createProduct(prod.model, prod.category, prod.quantity, null, prod.price, null);
                 await cartDAO.addProductToCart(testCartId, prod);
             }
-
+            
+            // Test
             const result = await cartDAO.getCurrentCart(testUser);
 
             expect(result).toEqual(testCart);
@@ -165,89 +181,116 @@ describe("DAO tests", () => {
 
         test("Get current cart successful - Empty cart retrieved", async () => {
             const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
-            const testCart = new Cart(testUser.username, false, "", 0, []);
+            const testCart = new Cart(testUser.username, false, "", 0.0, []);
             const testCartId = 1;
             
+            // Setup
             await userDAO.createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
             await cartDAO.createCart(testUser);
-
+            
+            // Test
             const result = await cartDAO.getCurrentCart(testUser);
 
             expect(result).toEqual(testCart);
         });
 
-        test.skip("Get current cart failed - No cart for specific user", async () => {
-            const cartDAO = new CartDAO();
-
+        test("Get current cart failed - No cart for specific user", async () => {
             const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
 
-            const mockDBGet = jest.spyOn(db, "get");
+            // Setup
+            await userDAO.createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
 
-            mockDBGet.mockImplementation((sql, params, callback) => {
-                callback(null, false);
-                return {} as Database;
-            });
-
+            // Test
             await expect(cartDAO.getCurrentCart(testUser)).rejects.toBeInstanceOf(CartNotFoundError);
-            expect(mockDBGet).toBeCalledTimes(1);
-            //resetMock(mockDBGet);
         });
     });
 
-    describe.skip("DAO - Get product", () => {
+    describe("DAO - Get product", () => {
 
         let cartDAO: CartDAO;
+        let productDAO: ProductDAO;
 
-        beforeAll(() => {
+        beforeAll(async () => {
             cartDAO = new CartDAO();
+            productDAO = new ProductDAO();
+
+            await cleanup();
         });
 
-        afterEach(() => {
-            jest.restoreAllMocks();
-            jest.clearAllMocks();
+        afterEach(async () => {
+            await cleanup();
         });
 
-        test("Get product in cart successful", async () => {
-            const testProductInCart = new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0);
+        test("Get product successful", async () => {
+            const testProductInCart1 = new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0);
 
-            const mockDBGet = jest.spyOn(db, "get");
-            mockDBGet.mockImplementationOnce((sql, params, callback) => {
-                callback(null, {Category: testProductInCart.category, SellingPrice: testProductInCart.price});
-                return {} as Database;
-            });
+            // Setup
+            const product1 = await productDAO.createProduct("iPhone13", Category.SMARTPHONE, 4, "", 1000.0, null);
+            const product2 = await productDAO.createProduct("iPhone11", Category.SMARTPHONE, 4, "", 400.0, null);
 
-            const result = await cartDAO.getProduct(testProductInCart.model);
-            expect(mockDBGet).toBeCalledTimes(1);
-            expect(result).toEqual(testProductInCart);
-            //resetMock(mockDBGet);
+            // Test
+            const result = await cartDAO.getProduct(testProductInCart1.model);
+
+            expect(result).toStrictEqual(testProductInCart1);
         });
 
-        test("Get product in cart failed - Product found but empty stock", async () => {
-            const testProductInCartModel = "iPhone10";
+        test("Get product failed - Product found but empty stock", async () => {
+            // Setup
+            const product1 = await productDAO.createProduct("iPhone13", Category.SMARTPHONE, 0, "", 1000.0, null);
+            const product2 = await productDAO.createProduct("iPhone11", Category.SMARTPHONE, 1, "", 400.0, null);
 
-            const mockDBGet = jest.spyOn(db, "get");
-            mockDBGet.mockImplementationOnce((sql, params, callback) => {
-                callback(null, {AvailableQuantity: 0});
-                return {} as Database;
-            });
-
-            await expect(cartDAO.getProduct(testProductInCartModel)).rejects.toBeInstanceOf(EmptyProductStockError);
-            expect(mockDBGet).toBeCalledTimes(1);
-            //resetMock(mockDBGet);
+            // Test
+            await expect(cartDAO.getProduct("iPhone13")).rejects.toBeInstanceOf(EmptyProductStockError);
         });
 
-        test("Get product in cart failed - Product not found", async () => {
-            const testProductInCart = new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0);
+        test("Get product failed - Product not found", async () => {
+            // Setup
+            const product2 = await productDAO.createProduct("iPhone11", Category.SMARTPHONE, 1, "", 400.0, null);
+    
+            // Test
+            await expect(cartDAO.getProduct("iPhone13")).rejects.toBeInstanceOf(ProductNotFoundError);
+        });
+    });
 
-            const mockDBGet = jest.spyOn(db, "get");
-            mockDBGet.mockImplementationOnce((sql, params, callback) => {
-                callback(null, false);
-                return {} as Database;
-            });
+    describe("DAO - Get current cart id", () => {
 
-            await expect(cartDAO.getProduct(testProductInCart.model)).rejects.toBeInstanceOf(ProductNotFoundError);
-            expect(mockDBGet).toBeCalledTimes(1);
-            //resetMock(mockDBGet);
+        let cartDAO: CartDAO;
+        let userDAO: UserDAO;
+
+        beforeAll(async () => {
+            cartDAO = new CartDAO();
+            userDAO = new UserDAO();
+
+            await cleanup();
+        });
+
+        afterEach(async () => {
+            await cleanup();
+        });
+
+        test("Get id successful", async () => {
+            const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
+            const testCardId = 1;
+
+            // Setup
+            const user = await userDAO.createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
+            await cartDAO.createCart(testUser);
+
+            // Test
+            const result = await cartDAO.getCurrentCartId(testUser);
+
+            expect(result).toBe(testCardId);
+        });
+
+        test("Get id failed - No cart", async () => {
+            const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
+            const testCardId = 1;
+
+            // Setup
+            const user = await userDAO.createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
+
+            // Test
+            await expect(cartDAO.getCurrentCartId(testUser)).rejects.toBeInstanceOf(CartNotFoundError);
         });
     });
 
@@ -277,8 +320,6 @@ describe("DAO tests", () => {
             expect(result).toBe(true);
         });
     });
-
-    
 
     describe.skip("DAO - Update cart", () => {
         let cartDAO: CartDAO;
@@ -470,48 +511,6 @@ describe("DAO tests", () => {
         });
 
     });
-
-    describe.skip("DAO - Get current cart id", () => {
-
-        let cartDAO: CartDAO;
-
-        beforeAll(() => {
-            cartDAO = new CartDAO();
-        });
-
-        afterEach(() => {
-            jest.restoreAllMocks();
-            jest.clearAllMocks();
-        });
-
-        test("Get id successful", async () => {
-            const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
-            const testCardId = 1;
-
-            const mockDBGet = jest.spyOn(db, "get");
-            mockDBGet.mockImplementationOnce((sql, params, callback) => {
-                callback(null, {CartId: testCardId});
-                return {} as Database;
-            });
-
-            const result = await cartDAO.getCurrentCartId(testUser);
-            expect(mockDBGet).toBeCalledTimes(1);
-            expect(result).toBe(testCardId);
-        });
-
-        test("Get id failed - No cart", async () => {
-            const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
-
-            const mockDBGet = jest.spyOn(db, "get");
-            mockDBGet.mockImplementationOnce((sql, params, callback) => {
-                callback(null, false);
-                return {} as Database;
-            });
-
-            await expect(cartDAO.getCurrentCartId(testUser)).rejects.toBeInstanceOf(CartNotFoundError);
-            expect(mockDBGet).toBeCalledTimes(1);
-        });
-    })
 
     describe.skip("DAO - Remove product from cart", () => {
         let cartDAO: CartDAO;
