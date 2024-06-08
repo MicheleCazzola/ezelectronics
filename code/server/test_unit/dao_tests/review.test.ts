@@ -308,3 +308,32 @@ describe("DAO - Delete All Reviews of a Product", () => {
     );
   });
 });
+
+describe("DAO - Delete All Reviews", () => {
+  test("Valid", async () => {
+    jest.spyOn(db, "run").mockImplementationOnce((query, cb) => {
+      cb(null);
+      return {} as Database;
+    });
+
+    const result = await dao.deleteAllReviews();
+    expect(result).toBe(undefined);
+
+    expect(db.run).toBeCalledTimes(1);
+    expect(db.run).toBeCalledWith(
+      expect.any(String), // sql query
+      expect.any(Function) // callback
+    );
+  });
+
+  test("Generic DB Error", async () => {
+    jest.spyOn(db, "run").mockImplementationOnce((query, cb) => {
+      cb(new Error("generic error"));
+      return {} as Database;
+    });
+
+    await expect(dao.deleteAllReviews()).rejects.toThrow();
+
+    expect(db.run).toBeCalledTimes(1);
+  });
+});
