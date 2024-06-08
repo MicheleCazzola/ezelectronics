@@ -9,6 +9,7 @@ import {
 } from "../../src/errors/reviewError";
 import { ProductReview } from "../../src/components/review";
 import ProductDAO from "../../src/dao/productDAO";
+import assert from "assert";
 
 jest.mock("../../src/dao/productDAO");
 
@@ -19,16 +20,42 @@ beforeEach(() => {
 const dao = new ReviewDAO();
 
 describe("DAO - Add a Review", () => {
+  const testCase = {
+    model: "testmodel",
+    username: "testuser",
+    score: 5,
+    comment: "lorem ipsum",
+  };
+  test("Valid", async () => {
+    jest.spyOn(db, "run").mockImplementationOnce((query, values, cb) => {
+      cb(null);
+      return {} as Database;
+    });
+
+    const result = await dao.addReview(
+      testCase.model,
+      testCase.username,
+      testCase.score,
+      testCase.comment
+    );
+
+    expect(result).toBe(undefined);
+
+    expect(db.run).toBeCalledTimes(1);
+    expect(db.run).toBeCalledWith(
+      expect.any(String), // sql query
+      expect.arrayContaining([
+        testCase.username,
+        testCase.model,
+        expect.any(String), // date
+        testCase.comment,
+        testCase.score,
+      ]),
+      expect.any(Function)
+    );
+  });
+
   const testCases = [
-    {
-      description: "Valid",
-      db_result: null as Error | null,
-      expected: undefined as void,
-      model: "testmodel",
-      username: "testuser",
-      score: 5,
-      comment: "lorem ipsum",
-    },
     {
       description: "Product Not Found",
       db_result: {
@@ -64,18 +91,15 @@ describe("DAO - Add a Review", () => {
         return {} as Database;
       });
 
-      try {
-        const result = await dao.addReview(
+      await expect(
+        dao.addReview(
           testCase.model,
           testCase.username,
           testCase.score,
           testCase.comment
-        );
+        )
+      ).rejects.toThrow(testCase.expected);
 
-        expect(result).toBe(testCase.expected);
-      } catch (err) {
-        expect(err).toBeInstanceOf(testCase.expected);
-      }
       expect(db.run).toBeCalledTimes(1);
       expect(db.run).toBeCalledWith(
         expect.any(String), // sql query
@@ -94,7 +118,6 @@ describe("DAO - Add a Review", () => {
 
 describe("DAO - Get Product's Reviews", () => {
   const testCase = {
-    description: "Valid",
     db_result: {
       err: null as Error | null,
       rows: [
@@ -133,7 +156,7 @@ describe("DAO - Get Product's Reviews", () => {
     ],
   };
 
-  test(testCase.description, async () => {
+  test("Valid", async () => {
     jest.spyOn(db, "all").mockImplementationOnce((query, values, cb) => {
       cb(testCase.db_result.err, testCase.db_result.rows);
       return {} as Database;
@@ -151,7 +174,6 @@ describe("DAO - Get Product's Reviews", () => {
   });
 
   const testCase2 = {
-    description: "Product Not Found",
     db_result: {
       err: null as Error | null,
       rows: [] as any[],
@@ -159,7 +181,7 @@ describe("DAO - Get Product's Reviews", () => {
     model: "notamodel",
     expected: ProductNotFoundError,
   };
-  test(testCase2.description, async () => {
+  test("Product Not Found", async () => {
     jest.spyOn(db, "all").mockImplementationOnce((query, values, cb) => {
       cb(testCase2.db_result.err, testCase2.db_result.rows);
       return {} as Database;
@@ -208,49 +230,80 @@ describe("DAO - Delete a Review", () => {
     );
   });
 
-  const testCase2 = {
-    model: "testmodel",
-    user: "testuser",
-    expected: ProductNotFoundError,
-  };
-  test.skip("Product Not Found", async () => {
-    jest
-      .spyOn(ProductDAO.prototype, "existsProduct")
-      .mockResolvedValueOnce(false);
-
-    jest.spyOn(db, "run");
-
-    expect(dao.deleteReview(testCase2.model, testCase2.user)).rejects.toThrow(
-      testCase2.expected
-    );
-
-    expect(db.run).toBeCalledTimes(0);
-  });
-
-  const testCase3 = {
-    model: "testmodel",
-    user: "testuser",
-    expected: NoReviewProductError,
-  };
-  test("Review Not Found", async () => {
-    jest.spyOn(ProductDAO.prototype, "existsProduct").mockReset();
-    jest
-      .spyOn(ProductDAO.prototype, "existsProduct")
-      .mockResolvedValueOnce(true);
-
+  test("Generic DB Error", async () => {
     jest.spyOn(db, "run").mockImplementationOnce((query, values, cb) => {
-      cb.call({ changes: 0 }, new testCase3.expected());
+      cb.call({ changes: 0 }, new Error());
       return {} as Database;
     });
 
-    expect(dao.deleteReview(testCase3.model, testCase3.user)).rejects.toThrow(
-      testCase3.expected
-    );
-    // Why does this fail?
+    await expect(
+      dao.deleteReview(testCase.model, testCase.user)
+    ).rejects.toThrow();
+
+    expect(db.run).toBeCalledTimes(1);
+  });
+
+  test("Review Not Found", async () => {
+    jest.spyOn(db, "run").mockImplementationOnce((query, values, cb) => {
+      cb.call({ changes: 0 }, new NoReviewProductError());
+      return {} as Database;
+    });
+
+    await expect(
+      dao.deleteReview(testCase.model, testCase.user)
+    ).rejects.toThrow(NoReviewProductError);
+
     expect(db.run).toBeCalledTimes(1);
     expect(db.run).toBeCalledWith(
       expect.any(String), // sql query
-      expect.arrayContaining([testCase3.model]),
+      expect.arrayContaining([testCase.model]),
+      expect.any(Function)
+    );
+  });
+});
+
+describe("DAO - Delete All Reviews of a Product", () => {
+  test("Valid", async () => {
+    jest.spyOn(db, "run").mockImplementationOnce(function (query, values, cb) {
+      cb(null);
+      return {} as Database;
+    });
+
+    const result = await dao.deleteReviewsOfProduct("testmodel");
+    expect(result).toBe(undefined);
+
+    expect(db.run).toBeCalledTimes(1);
+    expect(db.run).toBeCalledWith(
+      expect.any(String), // sql query
+      expect.arrayContaining(["testmodel"]),
+      expect.any(Function)
+    );
+  });
+
+  test("Generic DB Error", async () => {
+    jest.spyOn(db, "run").mockImplementationOnce((query, values, cb) => {
+      cb(new Error("generic error"));
+      return {} as Database;
+    });
+
+    await expect(dao.deleteReviewsOfProduct("testmodel")).rejects.toThrow();
+
+    expect(db.run).toBeCalledTimes(1);
+  });
+
+  test("Review Not Found", async () => {
+    jest.spyOn(db, "run").mockImplementationOnce((query, values, cb) => {
+      cb(new NoReviewProductError());
+      return {} as Database;
+    });
+
+    await expect(dao.deleteReviewsOfProduct("testmodel")).rejects.toThrowError(
+      NoReviewProductError
+    );
+    expect(db.run).toBeCalledTimes(1);
+    expect(db.run).toBeCalledWith(
+      expect.any(String), // sql query
+      expect.arrayContaining(["testmodel"]),
       expect.any(Function)
     );
   });
