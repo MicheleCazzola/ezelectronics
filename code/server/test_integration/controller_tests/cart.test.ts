@@ -10,10 +10,10 @@ import { CartNotFoundError, EmptyCartError, ProductNotInCartError } from "../../
 import { EmptyProductStockError, LowProductStockError, ProductNotFoundError } from "../../src/errors/productError"
 import ProductDAO from "../../src/dao/productDAO"
 import {cleanup} from "../../src/db/cleanup"
-import dayjs from "dayjs"
+import { Time } from "../../src/utilities"
 
 describe("Controller tests", () => {
-  	describe("Controller - Add product to cart", () => {
+  	describe.only("Controller - Add product to cart", () => {
 		let cartController: CartController;
 		let userController: UserController;
 		let productController: ProductController;
@@ -32,8 +32,8 @@ describe("Controller tests", () => {
 
 		test("Add single product to cart successful", async () => {
 			const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
-			const testNewProductInCart = new ProductInCart("Test",3,Category.APPLIANCE,100.0);
-			const testCart = new Cart(testUser.username, false, "", 300, [testNewProductInCart]);
+			const testNewProductInCart = new ProductInCart("Test",1,Category.APPLIANCE,100.0);
+			const testCart = new Cart(testUser.username, false, "", 100, [testNewProductInCart]);
 
 			// Setup
 			await userController.createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
@@ -51,9 +51,9 @@ describe("Controller tests", () => {
 
 		test("Add multiple products to cart successful", async () => {
 			const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
-			const testNewProductInCart1 = new ProductInCart("Test",3,Category.APPLIANCE,100.0);
-			const testNewProductInCart2 = new ProductInCart("Test2",4,Category.APPLIANCE,200.0);
-			const testCart = new Cart(testUser.username, false, "", 1100, [testNewProductInCart1, testNewProductInCart2]);
+			const testNewProductInCart1 = new ProductInCart("Test",1,Category.APPLIANCE,100.0);
+			const testNewProductInCart2 = new ProductInCart("Test2",1,Category.APPLIANCE,200.0);
+			const testCart = new Cart(testUser.username, false, "", 300.0, [testNewProductInCart1, testNewProductInCart2]);
 			
 			// Setup
 			await userController.createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
@@ -73,9 +73,9 @@ describe("Controller tests", () => {
 
 		test("Add multiple products multiple times to cart successful", async () => {
 			const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
-			const testNewProductInCart1 = new ProductInCart("Test",3,Category.APPLIANCE,100.0);
-			const testNewProductInCart2 = new ProductInCart("Test2",4,Category.APPLIANCE,200.0);
-			const testCart = new Cart(testUser.username, false, "", 1100, [testNewProductInCart1, {...testNewProductInCart2, quantity: testNewProductInCart2.quantity * 2}]);
+			const testNewProductInCart1 = new ProductInCart("Test",1,Category.APPLIANCE,100.0);
+			const testNewProductInCart2 = new ProductInCart("Test2",2,Category.APPLIANCE,200.0);
+			const testCart = new Cart(testUser.username, false, "", 500, [testNewProductInCart1, testNewProductInCart2]);
 
 			// Setup
 			await userController.createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
@@ -118,7 +118,7 @@ describe("Controller tests", () => {
 		});
   	});
 
-    describe("Controller - Get cart", () => {
+    describe.only("Controller - Get cart", () => {
 		let cartController: CartController;
 		let userController: UserController;
 		let productController: ProductController;
@@ -137,8 +137,8 @@ describe("Controller tests", () => {
 
 		test("Get current cart successful", async () => {
 			const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
-			const testNewProductInCart = new ProductInCart("Test",3,Category.APPLIANCE,100.0);
-			const testCart = new Cart(testUser.username, false, "", 300, [testNewProductInCart]);
+			const testNewProductInCart = new ProductInCart("Test",1,Category.APPLIANCE,100.0);
+			const testCart = new Cart(testUser.username, false, "", 100, [testNewProductInCart]);
 
 			// Setup
 			await userController.createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
@@ -153,12 +153,7 @@ describe("Controller tests", () => {
 
 		test("Get current cart, if empty", async () => {
 			const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
-			const testNewProductInCart = new ProductInCart("Test",3,Category.APPLIANCE,100.0);
 			const testCart = new Cart(testUser.username, false, "", 0, []);
-
-			// Setup
-			await userController.createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
-			await productController.registerProducts(testNewProductInCart.model, testNewProductInCart.category,testNewProductInCart.quantity + 1, "", testNewProductInCart.price, null);
 
 			// Test
 			const currentCart = await cartController.getCart(testUser);
@@ -168,7 +163,7 @@ describe("Controller tests", () => {
 		});
     });
 
-    describe("Controller - Checkout cart", () => {
+    describe.only("Controller - Checkout cart", () => {
 		let cartController: CartController;
 		let userController: UserController;
 		let productController: ProductController;
@@ -187,9 +182,9 @@ describe("Controller tests", () => {
 
 		test("Checkout successful", async () => {
 			const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
-			const testNewProductInCart1 = new ProductInCart("Test1",3,Category.APPLIANCE,100.0);
-			const testNewProductInCart2 = new ProductInCart("Test2",4,Category.APPLIANCE,200.0);
-			const testCart = new Cart(testUser.username, true, dayjs().format("YYYY-MM-DD"), 1100, [
+			const testNewProductInCart1 = new ProductInCart("Test1",1,Category.APPLIANCE,100.0);
+			const testNewProductInCart2 = new ProductInCart("Test2",1,Category.APPLIANCE,200.0);
+			const testCart = new Cart(testUser.username, true, Time.now(), 200, [
 				testNewProductInCart1,
 				testNewProductInCart2
 			]);
@@ -227,13 +222,14 @@ describe("Controller tests", () => {
 
 		test("Checkout failed - Unpaid cart present, all product present in stock, but at least one whose quantity is higher than available", async () => {
 			const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
-			const testNewProductInCart1 = new ProductInCart("Test1",3,Category.APPLIANCE,100.0);
-			const testNewProductInCart2 = new ProductInCart("Test2",4,Category.APPLIANCE,200.0);
+			const testNewProductInCart1 = new ProductInCart("Test1",2,Category.APPLIANCE,100.0);
+			const testNewProductInCart2 = new ProductInCart("Test2",1,Category.APPLIANCE,200.0);
 
 			// Setup
 			await userController.createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
 			await productController.registerProducts(testNewProductInCart1.model, testNewProductInCart1.category,testNewProductInCart1.quantity - 1, "", testNewProductInCart1.price, null);
 			await productController.registerProducts(testNewProductInCart2.model, testNewProductInCart2.category,testNewProductInCart2.quantity + 1, "", testNewProductInCart2.price, null);
+			await cartController.addToCart(testUser, testNewProductInCart1.model);
 			await cartController.addToCart(testUser, testNewProductInCart1.model);
 			await cartController.addToCart(testUser, testNewProductInCart2.model);
 
@@ -241,40 +237,41 @@ describe("Controller tests", () => {
 			await expect(cartController.checkoutCart(testUser)).rejects.toBeInstanceOf(LowProductStockError);
 
 			// Check
-			const quantity1 = await productController.productByModel(testNewProductInCart1.model);
-			const quantity2 = await productController.productByModel(testNewProductInCart2.model);
-			expect(quantity1).toBe(testNewProductInCart1.quantity-1);
-			expect(quantity2).toBe(testNewProductInCart2.quantity+1);
+			const product1 = await productController.productByModel(testNewProductInCart1.model);
+			const product2 = await productController.productByModel(testNewProductInCart2.model);
+			expect(product1.quantity).toBe(testNewProductInCart1.quantity-1);
+			expect(product2.quantity).toBe(testNewProductInCart2.quantity+1);
 		});
 
 		test("Checkout failed - Unpaid cart present, but at least a product with empty stock", async () => {
 			const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
-			const testNewProductInCart1 = new ProductInCart("Test",3,Category.APPLIANCE,100.0);
-			const testNewProductInCart2 = new ProductInCart("Test2",4,Category.APPLIANCE,200.0);
-			const testCart = new Cart(testUser.username, true, dayjs().format("YYYY-MM-DD"), 1100, [
+			const testNewProductInCart1 = new ProductInCart("Test",1,Category.APPLIANCE,100.0);
+			const testNewProductInCart2 = new ProductInCart("Test2",1,Category.APPLIANCE,200.0);
+			const testCart = new Cart(testUser.username, true, Time.now(), 1100, [
 				testNewProductInCart1,
 				testNewProductInCart2
 			]);
 
 			// Setup
 			await userController.createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
-			await productController.registerProducts(testNewProductInCart1.model, testNewProductInCart1.category,0, "", testNewProductInCart1.price, null);
+			await productController.registerProducts(testNewProductInCart1.model, testNewProductInCart1.category,testNewProductInCart1.quantity, "", testNewProductInCart1.price, null);
 			await productController.registerProducts(testNewProductInCart2.model, testNewProductInCart2.category,testNewProductInCart2.quantity + 1, "", testNewProductInCart2.price, null);
 			await cartController.addToCart(testUser, testNewProductInCart1.model);
 			await cartController.addToCart(testUser, testNewProductInCart2.model);
+			await productController.changeProductQuantity(testNewProductInCart1.model, 0, "");
 
 			// Test
 			await expect(cartController.checkoutCart(testUser)).rejects.toBeInstanceOf(EmptyProductStockError);
 
 			// Check
-			const quantity1 = await productController.productByModel(testNewProductInCart1.model);
-			const quantity2 = await productController.productByModel(testNewProductInCart2.model);
-			expect(quantity1).toBe(0);
-			expect(quantity2).toBe(testNewProductInCart2.quantity+1);
+			const prod1 = await productController.productByModel(testNewProductInCart1.model);
+			const prod2 = await productController.productByModel(testNewProductInCart2.model);
+			expect(prod1.quantity).toBe(0);
+			expect(prod2.quantity).toBe(testNewProductInCart2.quantity+1);
 		});
     });
 
-    describe("Controller - Clear current cart", () => {
+    describe.only("Controller - Clear current cart", () => {
 		let cartController: CartController;
 		let userController: UserController;
 		let productController: ProductController;
@@ -293,8 +290,8 @@ describe("Controller tests", () => {
 
 		test("Cart cleared successfully", async () => {
 			const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
-			const testNewProductInCart1 = new ProductInCart("Test",3,Category.APPLIANCE,100.0);
-			const testNewProductInCart2 = new ProductInCart("Test2",4,Category.APPLIANCE,200.0);
+			const testNewProductInCart1 = new ProductInCart("Test",1,Category.APPLIANCE,100.0);
+			const testNewProductInCart2 = new ProductInCart("Test2",2,Category.APPLIANCE,200.0);
 			const testCart = new Cart(testUser.username, false, "", 0, []);
 
 			// Setup
@@ -333,8 +330,8 @@ describe("Controller tests", () => {
 
 		test("Cart cleared successfully - No unpaid cart", async () => {
 			const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
-			const testNewProductInCart1 = new ProductInCart("Test",3,Category.APPLIANCE,100.0);
-			const testNewProductInCart2 = new ProductInCart("Test2",4,Category.APPLIANCE,200.0);
+			const testNewProductInCart1 = new ProductInCart("Test",1,Category.APPLIANCE,100.0);
+			const testNewProductInCart2 = new ProductInCart("Test2",2,Category.APPLIANCE,200.0);
 			const testCart = new Cart(testUser.username, false, "", 0, []);
 
 			// Setup
@@ -357,7 +354,7 @@ describe("Controller tests", () => {
 		});
     });
 
-    describe("Controller - Remove product from cart", () => {
+    describe.only("Controller - Remove product from cart", () => {
 		let cartController: CartController;
 		let userController: UserController;
 		let productController: ProductController;
@@ -376,11 +373,10 @@ describe("Controller tests", () => {
 
 		test("Product removed successfully", async () => {
 			const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
-			const testNewProductInCart1 = new ProductInCart("Test",3,Category.APPLIANCE,100.0);
-			const testNewProductInCart2 = new ProductInCart("Test2",4,Category.APPLIANCE,200.0);
-			const testCart = new Cart(testUser.username, true, dayjs().format("YYYY-MM-DD"), 1100, [
-				testNewProductInCart1,
-				{...testNewProductInCart2, quantity: testNewProductInCart2.quantity-1}
+			const testNewProductInCart1 = new ProductInCart("Test",1,Category.APPLIANCE,100.0);
+			const testNewProductInCart2 = new ProductInCart("Test2",1,Category.APPLIANCE,200.0);
+			const testCart = new Cart(testUser.username, true, Time.now(), 100, [
+				testNewProductInCart1
 			]);
 
 			// Setup
@@ -400,13 +396,13 @@ describe("Controller tests", () => {
 			expect(currentCart).toStrictEqual(testCart);
 		});
 
-		test("Product delete failure: product not found in cart", async () => {
+		test("Product removed successfully - Quantity decreased", async () => {
 			const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
-			const testNewProductInCart1 = new ProductInCart("Test",3,Category.APPLIANCE,100.0);
-			const testNewProductInCart2 = new ProductInCart("Test2",4,Category.APPLIANCE,200.0);
-			const testCart = new Cart(testUser.username, true, dayjs().format("YYYY-MM-DD"), 1100, [
+			const testNewProductInCart1 = new ProductInCart("Test",1,Category.APPLIANCE,100.0);
+			const testNewProductInCart2 = new ProductInCart("Test2",2,Category.APPLIANCE,200.0);
+			const testCart = new Cart(testUser.username, true, Time.now(), 200, [
 				testNewProductInCart1,
-				{...testNewProductInCart2, quantity: testNewProductInCart2.quantity-1}
+				new ProductInCart(testNewProductInCart2.model, testNewProductInCart2.quantity-1, testNewProductInCart2.category, testNewProductInCart2.price)
 			]);
 
 			// Setup
@@ -414,13 +410,34 @@ describe("Controller tests", () => {
 			await productController.registerProducts(testNewProductInCart1.model, testNewProductInCart1.category,testNewProductInCart1.quantity + 1, "", testNewProductInCart1.price, null);
 			await productController.registerProducts(testNewProductInCart2.model, testNewProductInCart2.category,testNewProductInCart2.quantity + 1, "", testNewProductInCart2.price, null);
 			await cartController.addToCart(testUser, testNewProductInCart1.model);
+			await cartController.addToCart(testUser, testNewProductInCart2.model);
+			await cartController.addToCart(testUser, testNewProductInCart2.model);
 
 			// Test
-			await expect(cartController.removeProductFromCart(testUser, testNewProductInCart2.model)).rejects.toBeInstanceOf(ProductNotInCartError);
+			const result = await cartController.removeProductFromCart(testUser, testNewProductInCart2.model);
+
+			// Check
+			const currentCart = await cartController.getCart(testUser);
+
+			expect(result).toBe(true);
+			expect(currentCart).toStrictEqual(testCart);
+		});
+
+		test("Product delete failure: product not found in cart", async () => {
+			const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
+			const testNewProductInCart1 = new ProductInCart("Test",1,Category.APPLIANCE,100.0);
+
+			// Setup
+			await userController.createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
+			await productController.registerProducts(testNewProductInCart1.model, testNewProductInCart1.category,testNewProductInCart1.quantity + 1, "", testNewProductInCart1.price, null);
+			await cartController.addToCart(testUser, testNewProductInCart1.model);
+
+			// Test
+			await expect(cartController.removeProductFromCart(testUser, "Test2")).rejects.toBeInstanceOf(ProductNotInCartError);
 		});
     });
 
-	describe("Controller - Get all customer carts", () => {
+	describe.only("Controller - Get all customer carts", () => {
         let cartController: CartController;
 		let userController: UserController;
 		let productController: ProductController;
@@ -440,20 +457,20 @@ describe("Controller tests", () => {
 		test("Get customer carts successful", async () => {
 			const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
 			const testProductsInCart1 = [
-				new ProductInCart("Test1C1",3,Category.APPLIANCE,100.0),
-				new ProductInCart("Test2C1",4,Category.APPLIANCE,200.0)
+				new ProductInCart("Test1C1",1,Category.APPLIANCE,100.0),
+				new ProductInCart("Test2C1",1,Category.APPLIANCE,200.0)
 			];
 			const testProductsInCart2 = [
 				new ProductInCart("Test1C2",2,Category.LAPTOP,50.0),
-				new ProductInCart("Test2C2",5,Category.APPLIANCE,300.0)
+				new ProductInCart("Test2C2",2,Category.APPLIANCE,300.0)
 			];
 			const testProductsInCart3 = [
-				new ProductInCart("Test1C3",3,Category.APPLIANCE,500.0),
-				new ProductInCart("Test2C3",7,Category.SMARTPHONE,100.0)
+				new ProductInCart("Test1C3",1,Category.APPLIANCE,500.0),
+				new ProductInCart("Test2C3",1,Category.SMARTPHONE,100.0)
 			];
 			const testCarts = [
-				new Cart(testUser.username, true, dayjs().format("YYYY-MM-DD"), 1100, testProductsInCart1),
-				new Cart(testUser.username, true, dayjs().format("YYYY-MM-DD"), 1600, testProductsInCart2)
+				new Cart(testUser.username, true, Time.now(), 300, testProductsInCart1),
+				new Cart(testUser.username, true, Time.now(), 700, testProductsInCart2)
 			];
 
 			// Setup
@@ -461,7 +478,6 @@ describe("Controller tests", () => {
 
 			for (let prod of testProductsInCart1) {
 				await productController.registerProducts(prod.model, prod.category,prod.quantity + 1, "", prod.price, null);
-				await cartController.addToCart(testUser, prod.model);
 				await cartController.addToCart(testUser, prod.model);
 			}
 			await cartController.checkoutCart(testUser);
@@ -476,7 +492,6 @@ describe("Controller tests", () => {
 			for (let prod of testProductsInCart3) {
 				await productController.registerProducts(prod.model, prod.category,prod.quantity + 1, "", prod.price, null);
 				await cartController.addToCart(testUser, prod.model);
-				await cartController.addToCart(testUser, prod.model);
 			}
 
 			// Test
@@ -489,8 +504,8 @@ describe("Controller tests", () => {
         test("Get customer carts successful, still no carts paid", async () => {
 			const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
 			const testProductsInCart1 = [
-				new ProductInCart("Test1C1",3,Category.APPLIANCE,100.0),
-				new ProductInCart("Test2C1",4,Category.APPLIANCE,200.0)
+				new ProductInCart("Test1C1",2,Category.APPLIANCE,100.0),
+				new ProductInCart("Test2C1",2,Category.APPLIANCE,200.0)
 			];
 			const testCarts: Cart[] = [];
 
@@ -511,7 +526,7 @@ describe("Controller tests", () => {
         });
     });
 
-    describe("Controller - Get all carts", () => {
+    describe.only("Controller - Get all carts", () => {
 		let cartController: CartController;
 		let userController: UserController;
 		let productController: ProductController;
@@ -532,21 +547,21 @@ describe("Controller tests", () => {
 			const testUser1 = new User("test1", "test", "test", Role.CUSTOMER, "test", "test");
 			const testUser2 = new User("test2", "test", "test", Role.CUSTOMER, "test", "test")
 			const testProductsInCart1 = [
-				new ProductInCart("Test1C1",3,Category.APPLIANCE,100.0),
-				new ProductInCart("Test2C1",4,Category.APPLIANCE,200.0)
+				new ProductInCart("Test1C1",1,Category.APPLIANCE,100.0),
+				new ProductInCart("Test2C1",1,Category.APPLIANCE,200.0)
 			];
 			const testProductsInCart2 = [
 				new ProductInCart("Test1C2",2,Category.LAPTOP,50.0),
-				new ProductInCart("Test2C2",5,Category.APPLIANCE,300.0)
+				new ProductInCart("Test2C2",2,Category.APPLIANCE,300.0)
 			];
 			const testProductsInCart3 = [
-				new ProductInCart("Test1C3",3,Category.APPLIANCE,500.0),
-				new ProductInCart("Test2C3",7,Category.SMARTPHONE,100.0)
+				new ProductInCart("Test1C3",1,Category.APPLIANCE,500.0),
+				new ProductInCart("Test2C3",1,Category.SMARTPHONE,100.0)
 			];
 			const testCarts = [
-				new Cart(testUser1.username, true, dayjs().format("YYYY-MM-DD"), 1100, testProductsInCart1),
-				new Cart(testUser1.username, false, "", 1600, testProductsInCart2),
-				new Cart(testUser2.username, true, dayjs().format("YYYY-MM-DD"), 2200, testProductsInCart3)
+				new Cart(testUser1.username, true, Time.now(), 300, testProductsInCart1),
+				new Cart(testUser1.username, false, "", 700, testProductsInCart2),
+				new Cart(testUser2.username, true, Time.now(), 600, testProductsInCart3)
 			];
 
 			// Setup
@@ -555,7 +570,6 @@ describe("Controller tests", () => {
 
 			for (let prod of testProductsInCart1) {
 				await productController.registerProducts(prod.model, prod.category,prod.quantity + 1, "", prod.price, null);
-				await cartController.addToCart(testUser1, prod.model);
 				await cartController.addToCart(testUser1, prod.model);
 			}
 			await cartController.checkoutCart(testUser1);
@@ -568,7 +582,6 @@ describe("Controller tests", () => {
 
 			for (let prod of testProductsInCart3) {
 				await productController.registerProducts(prod.model, prod.category,prod.quantity + 1, "", prod.price, null);
-				await cartController.addToCart(testUser2, prod.model);
 				await cartController.addToCart(testUser2, prod.model);
 			}
 			await cartController.checkoutCart(testUser2);
@@ -591,7 +604,7 @@ describe("Controller tests", () => {
 		});
     });
 
-    describe("Controller - Delete all carts", () => {
+    describe.only("Controller - Delete all carts", () => {
 		let cartController: CartController;
 		let userController: UserController;
 		let productController: ProductController;
@@ -612,16 +625,16 @@ describe("Controller tests", () => {
 			const testUser1 = new User("test1", "test", "test", Role.CUSTOMER, "test", "test");
 			const testUser2 = new User("test2", "test", "test", Role.CUSTOMER, "test", "test")
 			const testProductsInCart1 = [
-				new ProductInCart("Test1C1",3,Category.APPLIANCE,100.0),
-				new ProductInCart("Test2C1",4,Category.APPLIANCE,200.0)
+				new ProductInCart("Test1C1",1,Category.APPLIANCE,100.0),
+				new ProductInCart("Test2C1",1,Category.APPLIANCE,200.0)
 			];
 			const testProductsInCart2 = [
 				new ProductInCart("Test1C2",2,Category.LAPTOP,50.0),
-				new ProductInCart("Test2C2",5,Category.APPLIANCE,300.0)
+				new ProductInCart("Test2C2",2,Category.APPLIANCE,300.0)
 			];
 			const testProductsInCart3 = [
-				new ProductInCart("Test1C3",3,Category.APPLIANCE,500.0),
-				new ProductInCart("Test2C3",7,Category.SMARTPHONE,100.0)
+				new ProductInCart("Test1C3",1,Category.APPLIANCE,500.0),
+				new ProductInCart("Test2C3",1,Category.SMARTPHONE,100.0)
 			];
 			const testCarts: Cart[] = [];
 
@@ -631,7 +644,6 @@ describe("Controller tests", () => {
 
 			for (let prod of testProductsInCart1) {
 				await productController.registerProducts(prod.model, prod.category,prod.quantity + 1, "", prod.price, null);
-				await cartController.addToCart(testUser1, prod.model);
 				await cartController.addToCart(testUser1, prod.model);
 			}
 			await cartController.checkoutCart(testUser1);
@@ -644,7 +656,6 @@ describe("Controller tests", () => {
 
 			for (let prod of testProductsInCart3) {
 				await productController.registerProducts(prod.model, prod.category,prod.quantity + 1, "", prod.price, null);
-				await cartController.addToCart(testUser2, prod.model);
 				await cartController.addToCart(testUser2, prod.model);
 			}
 			await cartController.checkoutCart(testUser2);
