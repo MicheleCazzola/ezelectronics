@@ -37,8 +37,8 @@ class ReviewDAO {
 						if (err) {
 							//console.log(err);
 
-							//console.log(`Name: ${err.name}`);
-							//console.log(`Message: ${err.message}`);
+							console.log(`Name: ${err.name}`);
+							console.log(`Message: ${err.message}`);
 
 							// console.log(`Error: ${err.stack}`);
 
@@ -52,9 +52,7 @@ class ReviewDAO {
 							}
 							// Primary key failure means that review has already been written
 							else if (
-								err.name.includes(
-									"PRIMARY KEY constraint failed"
-								)
+								err.message.includes("UNIQUE constraint failed")
 							) {
 								reject(new ExistingReviewError());
 							} else {
@@ -91,7 +89,7 @@ class ReviewDAO {
 						else if (!rows || rows.length === 0) {
 							reject(new ProductNotFoundError());
 						} else {
-							let reviews = rows.map(
+							let reviews: ProductReview[] = rows.map(
 								(review) =>
 									new ProductReview(
 										review.Model,

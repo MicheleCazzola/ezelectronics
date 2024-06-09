@@ -56,32 +56,33 @@ describe("DAO - Add a Review", () => {
   });
 
   const testCases = [
-    {
-      description: "Product Not Found",
-      db_result: {
-        message: "FOREIGN KEY constraint failed",
-        name: "",
-        stack: undefined,
-      } as Error,
-      expected: ProductNotFoundError,
-      model: "notavalidmodel",
-      username: "testuser",
-      score: 5,
-      comment: "lorem ipsum",
-    },
-    {
-      description: "Review Already Exists",
-      db_result: {
-        message: "",
-        name: "PRIMARY KEY constraint failed",
-        stack: undefined,
-      } as Error,
-      expected: ExistingReviewError,
-      model: "testmodel",
-      username: "testuser",
-      score: 5,
-      comment: "lorem ipsum",
-    },
+		{
+			description: "Product Not Found",
+			db_result: {
+				message: "FOREIGN KEY constraint failed",
+				name: "",
+				stack: undefined,
+			} as Error,
+			expected: ProductNotFoundError,
+			model: "notavalidmodel",
+			username: "testuser",
+			score: 5,
+			comment: "lorem ipsum",
+		},
+		{
+			description: "Review Already Exists",
+			db_result: {
+				message:
+					"SQLITE_CONSTRAINT: UNIQUE constraint failed: review.Username, review.Model",
+				name: "Error",
+				stack: undefined,
+			} as Error,
+			expected: ExistingReviewError,
+			model: "testmodel",
+			username: "testuser",
+			score: 5,
+			comment: "lorem ipsum",
+		},
   ];
 
   for (const testCase of testCases) {
