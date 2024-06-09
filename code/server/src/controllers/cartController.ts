@@ -30,13 +30,19 @@ class CartController {
    */
   async addToCart(user: User, product: string): Promise<boolean> {
     const full_product = await this.dao.getProduct(product);
+    //console.log(full_product);
     let cartid: number = undefined;
     try {
       cartid = await this.dao.getCurrentCartId(user);
+      //console.log("Cart exists: ", cartid);
     } catch (err) {
+      //console.log(err);
       if (err instanceof CartNotFoundError) {
+        
         try {
+          //console.log("Right error");
           cartid = await this.dao.createCart(user);
+          //console.log("Cart created: ", cartid);
         } catch (err) {
           console.log(err);
         }
@@ -57,7 +63,9 @@ class CartController {
         .getCurrentCart(user)
         .then((cart) => resolve(cart))
         .catch((err) => {
+          //console.log("Get: ", err);
           if (err === CartNotFoundError) {
+            //console.log("Right error");
             resolve(new Cart(user.username, false, "", 0, []));
           } else {
             reject(err);
@@ -77,6 +85,8 @@ class CartController {
     // Check availability of products
     let unavailable_product = false;
     let empty_stock: boolean;
+
+    console.log(cart);
 
     for (let product of cart.products) {
       let quantity = await this.prod_dao.getProductQuantity(product.model);
