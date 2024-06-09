@@ -24,7 +24,6 @@ import {
 } from "../../src/errors/productError";
 import UserDAO from "../../src/dao/userDAO";
 import ProductDAO from "../../src/dao/productDAO";
-import dayjs from "dayjs";
 import {Time} from "../../src/utilities"
 
 /* OLD FUNCTIONS USED TO TRY CLEANUP
