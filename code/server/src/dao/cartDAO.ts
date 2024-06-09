@@ -248,7 +248,33 @@ class CartDAO {
 		});
 	}
 
-	async getPaidCarts(user: User): Promise<Cart[]> {
+	async fetchPaidCarts(
+		username: string
+	): Promise<{ id: number; cart: Cart }[]> {
+		return new Promise((resolve, reject) => {
+			const sql = "SELECT * FROM CART WHERE Username = ? AND Paid = 1";
+			let carts: { id: number; cart: Cart }[] = [];
+			db.all(sql, [username], (err, rows) => {
+				if (err) {
+					reject(err);
+				}
+				if (rows) {
+					rows.forEach((row: any) => {
+						let cart: Cart = new Cart(
+							row.Username,
+							row.Paid,
+							row.PaymentDate,
+							row.Total,
+							[]
+						);
+						carts.push({ id: row.cartId, cart: cart });
+					});
+				}
+				resolve(carts);
+			});
+		});
+	}
+	/* async getPaidCarts(user: User): Promise<Cart[]> {
 		const sql1 = "SELECT * FROM CART WHERE Username = ? AND Paid = 1";
 		const sql2 =
 			"SELECT PD.Model, PD.Category, PC.Quantity, PD.SellingPrice FROM PRODUCT_IN_CART PC, PRODUCT_DESCRIPTOR PD WHERE PC.Model = PD.Model AND CartId = ?";
@@ -290,7 +316,7 @@ class CartDAO {
 				}
 			});
 		});
-	}
+	} */
 
 	async removeProductFromCart(user: User, product: string): Promise<boolean> {
 		let cart = await this.getCurrentCart(user);
