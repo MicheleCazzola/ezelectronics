@@ -1,10 +1,10 @@
-import dayjs from "dayjs";
 import db from "../db/db";
 import { ExistingReviewError } from "../errors/reviewError";
 import { NoReviewProductError } from "../errors/reviewError";
 import { ProductReview } from "../components/review";
 import { ProductNotFoundError } from "../errors/productError";
 import ProductDAO from "./productDAO";
+import { Time } from "../../src/utilities";
 
 /**
  * A class that implements the interaction with the database for all review-related operations.
@@ -27,7 +27,7 @@ class ReviewDAO {
 	): Promise<void> {
 		return new Promise((resolve, reject) => {
 			try {
-				let today: string = dayjs().format("YYYY-MM-DD");
+				let today: string = Time.now();
 				let query: string = `INSERT INTO REVIEW (Username, Model, Date, Comment, Score)
                                         VALUES (?, ?, ?, ?, ?)`;
 				db.run(

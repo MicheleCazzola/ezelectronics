@@ -25,9 +25,6 @@ class ReviewController {
         
         //console.log(`Model: ${model}, user: ${user.username}, score: ${score}, comment: ${comment}`);
         //console.log("Calling DAO...");
-
-        
-
         return this.dao.addReview(model, user.username, score, comment);
     }
 
