@@ -267,7 +267,7 @@ class CartDAO {
 							row.Total,
 							[]
 						);
-						carts.push({ id: row.cartId, cart: cart });
+						carts.push({ id: row.CartId, cart: cart });
 					});
 				}
 				resolve(carts);
@@ -429,7 +429,7 @@ class CartDAO {
 							row.Total,
 							[]
 						);
-						carts.push({ id: row.cartId, cart: cart });
+						carts.push({ id: row.CartId, cart: cart });
 					});
 				}
 				resolve(carts);
@@ -441,7 +441,7 @@ class CartDAO {
 		return new Promise((resolve, reject) => {
 			const sql =
 				"SELECT PD.Model, PD.Category, PC.Quantity, PD.SellingPrice FROM PRODUCT_IN_CART PC, PRODUCT_DESCRIPTOR PD WHERE PC.Model = PD.Model AND CartId = ?";
-			let products: ProductInCart[];
+			let products: ProductInCart[] = [];
 			db.all(sql, [cartId], (err, rows) => {
 				if (err) {
 					reject(err);
