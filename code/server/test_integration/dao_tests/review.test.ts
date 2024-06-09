@@ -142,14 +142,14 @@ describe("DAO - Get Product's Reviews", () => {
 			"testmodel",
 			"testuser",
 			5,
-			new Date().toISOString(),
+			new Date().toISOString().split("T")[0],
 			"lorem ipsum"
 		),
 		new ProductReview(
 			"testmodel",
 			"testuser2",
 			5,
-			new Date().toISOString(),
+			new Date().toISOString().split("T")[0],
 			"lorem ipsum dolor sit amet"
 		),
 	];
