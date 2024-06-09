@@ -88,17 +88,17 @@ class ReviewDAO {
 							reject(err);
 						}
 						// Only if rows is empty is due to missing product
-						else if (!rows) {
+						else if (!rows || rows.length === 0) {
 							reject(new ProductNotFoundError());
 						} else {
 							let reviews = rows.map(
 								(review) =>
 									new ProductReview(
-										review.model,
-										review.user,
-										review.score,
-										review.date,
-										review.comment
+										review.Model,
+										review.Username,
+										review.Score,
+										review.Date,
+										review.Comment
 									)
 							);
 							resolve(reviews);
