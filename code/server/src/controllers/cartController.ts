@@ -109,7 +109,7 @@ class CartController {
 					await this.prod_dao.decreaseQuantity(
 						product.model,
 						product.quantity,
-						new Date().toISOString()
+						new Date().toISOString().split("T")[0]
 					);
 				});
 

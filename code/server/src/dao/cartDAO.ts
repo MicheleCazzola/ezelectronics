@@ -172,10 +172,14 @@ class CartDAO {
 		return new Promise((resolve, reject) => {
 			const sql1 =
 				"UPDATE CART SET Paid = 1, PaymentDate = ? WHERE Username = ?";
-			db.run(sql1, [new Date().toISOString(), username], (err) => {
-				if (err) reject(err);
-				else resolve(true);
-			});
+			db.run(
+				sql1,
+				[new Date().toISOString().split("T")[0], username],
+				(err) => {
+					if (err) reject(err);
+					else resolve(true);
+				}
+			);
 		});
 	}
 
