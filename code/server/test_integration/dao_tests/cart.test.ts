@@ -25,6 +25,7 @@ import {
 import UserDAO from "../../src/dao/userDAO";
 import ProductDAO from "../../src/dao/productDAO";
 import dayjs from "dayjs";
+import {Time} from "../../src/utilities"
 
 /* OLD FUNCTIONS USED TO TRY CLEANUP
 function deleteTable(tableName: string): Promise<void> {
@@ -57,7 +58,7 @@ async function cleanup_cart_users() {
 }
 */
 
-describe.only("DAO tests", () => {
+describe("DAO tests", () => {
 	describe("DAO - Create cart", () => {
 		let cartDAO: CartDAO;
 		let userDAO: UserDAO;
@@ -540,7 +541,7 @@ describe.only("DAO tests", () => {
 			const testCart = new Cart(
 				testUser.username,
 				true,
-				dayjs().format("YYYY-MM-DD"),
+				Time.now(),
 				6800.0,
 				testProductsInCart
 			);
@@ -580,14 +581,17 @@ describe.only("DAO tests", () => {
 			const result = await cartDAO.checkoutCart(testUser.username);
 
 			// Check: getAllCarts needed
-			const checkedOutCart = (await cartDAO.getAllCarts()).filter(
-				(cart) =>
+			const checkedOutCartObj = (await cartDAO.fetchAllCarts());
+			//console.log(checkedOutCartObj, testCart);
+			const checkedOutCart = checkedOutCartObj.filter(
+				({id, cart}) =>
+					id == 1 &&
 					cart.paymentDate === testCart.paymentDate &&
 					cart.customer === testCart.customer &&
 					cart.paid === testCart.paid &&
-					cart.paid === true /*&&
-                    cart.total === testCart.total*/
-			);
+					cart.paid === true &&
+                    cart.total === testCart.total
+			).map(cartObj => cartObj.cart);
 			expect(checkedOutCart.length).toBe(1);
 			expect(checkedOutCart[0].products).toStrictEqual(
 				testProductsInCart
@@ -904,17 +908,19 @@ describe.only("DAO tests", () => {
 			await cartDAO.checkoutCart(testUser2.username);
 
 			// Test
-			const result = await cartDAO.getPaidCarts(testUser1);
+			const result1 = await cartDAO.fetchPaidCarts(testUser1.username);
+			const result2 = await cartDAO.fetchPaidCarts(testUser2.username);
 
 			// Check
-			expect(result).toEqual([testCarts[1]]);
+			expect(result1).toStrictEqual([{id: 1, cart: testCarts[1]}]);
+			expect(result2).toStrictEqual([{id: 3, cart: testCarts[2]}]);
 		});
 
 		test("Get paid carts successful - No carts to retrieve", async () => {
-			const testCarts: Cart[] = [];
+			const testCarts: {id: number, cart: Cart}[] = [];
 
 			// Test
-			const result = await cartDAO.getAllCarts();
+			const result = await cartDAO.fetchAllCarts();
 
 			expect(result).toEqual(testCarts);
 		});
@@ -1218,7 +1224,7 @@ describe.only("DAO tests", () => {
 					testProductsInCart2
 				),
 			];
-			const noCarts: Cart[] = [];
+			const noCarts: {id: number, cart: Cart}[] = [];
 
 			// Setup
 			await userDAO.createUser(
@@ -1284,27 +1290,27 @@ describe.only("DAO tests", () => {
 			const result = await cartDAO.deleteAllCarts();
 
 			// Check
-			const noCartsRetrieved = await cartDAO.getAllCarts();
+			const noCartsRetrieved = await cartDAO.fetchAllCarts();
 
 			expect(result).toBe(true);
 			expect(noCartsRetrieved).toStrictEqual(noCarts);
 		});
 
 		test("Delete all carts successful - No carts to delete", async () => {
-			const noCarts: Cart[] = [];
+			const noCarts: {id: number, cart: Cart}[] = [];
 
 			// Test
 			const result = await cartDAO.deleteAllCarts();
 
 			// Check
-			const noCartsRetrieved = await cartDAO.getAllCarts();
+			const noCartsRetrieved = await cartDAO.fetchAllCarts();
 
 			expect(result).toBe(true);
 			expect(noCartsRetrieved).toStrictEqual(noCarts);
 		});
 	});
 
-	describe.skip("DAO - Get all carts", () => {
+	describe("DAO - Get all carts", () => {
 		let cartDAO: CartDAO;
 		let userDAO: UserDAO;
 		let productDAO: ProductDAO;
@@ -1347,20 +1353,26 @@ describe.only("DAO tests", () => {
 				new ProductInCart("iPhone8", 3, Category.SMARTPHONE, 1200.0),
 			];
 			const testCarts = [
-				new Cart(
-					testUser1.username,
-					false,
-					"",
-					5600.0,
-					testProductsInCart1
-				),
-				new Cart(
-					testUser2.username,
-					true,
-					dayjs().format("YYYY-MM-DD"),
-					5200.0,
-					testProductsInCart2
-				),
+				{
+					id: 1,
+					cart: new Cart(
+						testUser1.username,
+						false,
+						"",
+						5600.0,
+						testProductsInCart1
+					)
+				},
+				{
+					id: 2,
+					cart: new Cart(
+						testUser2.username,
+						true,
+						Time.now(),
+						5200.0,
+						testProductsInCart2
+					)
+				},
 			];
 
 			// Setup
@@ -1424,18 +1436,18 @@ describe.only("DAO tests", () => {
 			}
 
 			// Test
-			const result = await cartDAO.getAllCarts();
-			console.log(result);
-			expect(result).toEqual(testCarts);
+			const result = await cartDAO.fetchAllCarts();
+			
+			expect(result).toStrictEqual(testCarts);
 		});
 
 		test("Get all carts successful - No carts to retrieve", async () => {
-			const testCarts: Cart[] = [];
+			const testCarts: {id: number, cart: Cart}[] = [];
 
 			// Test
-			const result = await cartDAO.getAllCarts();
+			const result = await cartDAO.fetchAllCarts();
 
-			expect(result).toEqual(testCarts);
+			expect(result).toStrictEqual(testCarts);
 		});
 	});
 });
