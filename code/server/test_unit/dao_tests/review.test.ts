@@ -119,42 +119,42 @@ describe("DAO - Add a Review", () => {
 
 describe("DAO - Get Product's Reviews", () => {
   const testCase = {
-    db_result: {
-      err: null as Error | null,
-      rows: [
-        {
-          model: "testmodel",
-          user: "testuser",
-          score: 5,
-          date: "2021-01-01",
-          comment: "lorem ipsum",
-        },
-        {
-          model: "testmodel",
-          user: "testuser2",
-          score: 5,
-          date: "2021-01-01",
-          comment: "lorem ipsum",
-        },
-      ],
-    },
-    model: "testmodel",
-    expected: [
-      new ProductReview(
-        "testmodel",
-        "testuser",
-        5,
-        "2021-01-01",
-        "lorem ipsum"
-      ),
-      new ProductReview(
-        "testmodel",
-        "testuser2",
-        5,
-        "2021-01-01",
-        "lorem ipsum"
-      ),
-    ],
+		db_result: {
+			err: null as Error | null,
+			rows: [
+				{
+					Model: "testmodel",
+					Username: "testuser",
+					Score: 5,
+					Date: "2021-01-01",
+					Comment: "lorem ipsum",
+				},
+				{
+					Model: "testmodel",
+					Username: "testuser2",
+					Score: 5,
+					Date: "2021-01-01",
+					Comment: "lorem ipsum",
+				},
+			],
+		},
+		model: "testmodel",
+		expected: [
+			new ProductReview(
+				"testmodel",
+				"testuser",
+				5,
+				"2021-01-01",
+				"lorem ipsum"
+			),
+			new ProductReview(
+				"testmodel",
+				"testuser2",
+				5,
+				"2021-01-01",
+				"lorem ipsum"
+			),
+		],
   };
 
   test("Valid", async () => {
