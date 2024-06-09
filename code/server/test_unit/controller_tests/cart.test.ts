@@ -85,7 +85,7 @@ describe("Controller tests", () => {
         expect(CartDAO.prototype.getCurrentCart).toHaveBeenCalledWith(testUser);
       });
     });
-
+    
     describe("Controller - Get all customer carts", () => {
         afterEach(() => {
             jest.clearAllMocks();
@@ -104,48 +104,32 @@ describe("Controller tests", () => {
             new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0),
           ];
           const testCarts = [
-            new Cart("test", true, "", 1000.0, testProductsInCart),
-            new Cart("test", true, "", 1000.0, testProductsInCart),
+            {id: 1, cart: new Cart("test", true, "", 1000.0, testProductsInCart)},
+            {id: 2, cart: new Cart("test", true, "", 1000.0, testProductsInCart)}
           ];
           jest
-            .spyOn(CartDAO.prototype, "getPaidCarts")
+            .spyOn(CartDAO.prototype, "fetchPaidCarts")
             .mockResolvedValueOnce(testCarts);
+
+          const mockDAOFetchProducts = jest.spyOn(CartDAO.prototype, "fetchProducts");
+          testCarts.forEach(testCart => {
+            mockDAOFetchProducts.mockResolvedValueOnce(testCart.cart.products);
+          });
+
           const controller = new CartController();
           const response = await controller.getCustomerCarts(testUser);
 
-          expect(CartDAO.prototype.getPaidCarts).toHaveBeenCalledTimes(1);
-          expect(CartDAO.prototype.getPaidCarts).toHaveBeenCalledWith(testUser);
-          expect(response).toBe(testCarts);
+          expect(CartDAO.prototype.fetchPaidCarts).toHaveBeenCalledTimes(1);
+          expect(CartDAO.prototype.fetchPaidCarts).toHaveBeenCalledWith(testUser.username);
+
+          expect(CartDAO.prototype.fetchProducts).toHaveBeenCalledTimes(testCarts.length);
+          expect(CartDAO.prototype.fetchProducts).toHaveBeenNthCalledWith(1, testCarts[0].id);
+          expect(CartDAO.prototype.fetchProducts).toHaveBeenNthCalledWith(2, testCarts[1].id);
+
+          expect(response).toStrictEqual(testCarts.map(testCart => testCart.cart));
         });
-
-        test("Get carts successful, at least one cart paid and one current unpaid", async () => {
-          const testUser = new User(
-            "test",
-            "test",
-            "test",
-            Role.CUSTOMER,
-            "test",
-            "test"
-          );
-          const testProductsInCart = [
-            new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0),
-          ];
-          const testCarts = [
-            new Cart("test", true, "", 1000.0, testProductsInCart),
-            new Cart("test", true, "", 1000.0, testProductsInCart),
-            new Cart("test", false, "", 1000.0, testProductsInCart),
-          ];
-          jest
-            .spyOn(CartDAO.prototype, "getPaidCarts")
-            .mockResolvedValueOnce(testCarts);
-          const controller = new CartController();
-          const response = await controller.getCustomerCarts(testUser);
-
-          expect(CartDAO.prototype.getPaidCarts).toHaveBeenCalledTimes(1);
-          expect(CartDAO.prototype.getPaidCarts).toHaveBeenCalledWith(testUser);
-          expect(response).toBe(testCarts);
-        });
-
+        
+        
         test("Get carts successful, still no carts paid", async () => {
           const testUser = new User(
             "test",
@@ -155,16 +139,20 @@ describe("Controller tests", () => {
             "test",
             "test"
           );
-          const testCarts: Cart[] = [];
+          const testCarts: {id: number, cart: Cart}[] = [];
           jest
-            .spyOn(CartDAO.prototype, "getPaidCarts")
+            .spyOn(CartDAO.prototype, "fetchPaidCarts")
             .mockResolvedValueOnce(testCarts);
+
           const controller = new CartController();
           const response = await controller.getCustomerCarts(testUser);
 
-          expect(CartDAO.prototype.getPaidCarts).toHaveBeenCalledTimes(1);
-          expect(CartDAO.prototype.getPaidCarts).toHaveBeenCalledWith(testUser);
-          expect(response).toBe(testCarts);
+          expect(CartDAO.prototype.fetchPaidCarts).toHaveBeenCalledTimes(1);
+          expect(CartDAO.prototype.fetchPaidCarts).toHaveBeenCalledWith(testUser.username);
+
+          expect(CartDAO.prototype.fetchProducts).toHaveBeenCalledTimes(testCarts.length);
+
+          expect(response).toStrictEqual(testCarts);
         });
 
         test("Get carts failed", async () => {
@@ -177,18 +165,18 @@ describe("Controller tests", () => {
             "test"
           );
           jest
-            .spyOn(CartDAO.prototype, "getPaidCarts")
+            .spyOn(CartDAO.prototype, "fetchPaidCarts")
             .mockRejectedValueOnce(Error);
           const controller = new CartController();
           await expect(controller.getCustomerCarts(testUser)).rejects.toBe(
             Error
           );
 
-          expect(CartDAO.prototype.getPaidCarts).toHaveBeenCalledTimes(1);
-          expect(CartDAO.prototype.getPaidCarts).toHaveBeenCalledWith(testUser);
+          expect(CartDAO.prototype.fetchPaidCarts).toHaveBeenCalledTimes(1);
+          expect(CartDAO.prototype.fetchPaidCarts).toHaveBeenCalledWith(testUser.username);
         });
     });
-
+    
     describe("Controller - Get all carts", () => {
       afterEach(() => {
         jest.clearAllMocks();
@@ -199,46 +187,60 @@ describe("Controller tests", () => {
           new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0),
         ];
         const testCarts = [
-          new Cart("test", true, "", 1000.0, testProductsInCart),
-          new Cart("test", true, "", 1000.0, testProductsInCart),
-          new Cart("test", false, "", 1000.0, testProductsInCart),
+          {id: 1, cart: new Cart("test", true, "", 1000.0, testProductsInCart)},
+          {id: 2, cart: new Cart("test2", true, "", 1000.0, testProductsInCart)},
+          {id: 3, cart: new Cart("test2", false, "", 1000.0, testProductsInCart)}
         ];
         jest
-          .spyOn(CartDAO.prototype, "getAllCarts")
+          .spyOn(CartDAO.prototype, "fetchAllCarts")
           .mockResolvedValueOnce(testCarts);
+
+        const mockDAOFetchProducts = jest.spyOn(CartDAO.prototype, "fetchProducts");
+        testCarts.forEach(testCart => {
+          mockDAOFetchProducts.mockResolvedValueOnce(testCart.cart.products);
+        });
+
         const controller = new CartController();
         const response = await controller.getAllCarts();
 
-        expect(CartDAO.prototype.getAllCarts).toHaveBeenCalledTimes(1);
-        expect(CartDAO.prototype.getAllCarts).toHaveBeenCalledWith();
-        expect(response).toBe(testCarts);
+        expect(CartDAO.prototype.fetchAllCarts).toHaveBeenCalledTimes(1);
+        expect(CartDAO.prototype.fetchAllCarts).toHaveBeenCalledWith();
+
+        expect(mockDAOFetchProducts).toHaveBeenCalledTimes(testCarts.length);
+        testCarts.forEach((testCart, index) => {
+          expect(mockDAOFetchProducts).toHaveBeenNthCalledWith(index+1, testCart.id);
+        });
+
+        expect(response).toStrictEqual(testCarts.map(testCart => testCart.cart));
       });
 
       test("Get all carts successful: no carts", async () => {
-        const testCarts: Cart[] = [];
+        const testCarts: {id: number, cart: Cart}[] = [];
         jest
-          .spyOn(CartDAO.prototype, "getAllCarts")
+          .spyOn(CartDAO.prototype, "fetchAllCarts")
           .mockResolvedValueOnce(testCarts);
+
         const controller = new CartController();
         const response = await controller.getAllCarts();
 
-        expect(CartDAO.prototype.getAllCarts).toHaveBeenCalledTimes(1);
-        expect(CartDAO.prototype.getAllCarts).toHaveBeenCalledWith();
-        expect(response).toBe(testCarts);
+        expect(CartDAO.prototype.fetchAllCarts).toHaveBeenCalledTimes(1);
+        expect(CartDAO.prototype.fetchAllCarts).toHaveBeenCalledWith();
+
+        expect(response).toStrictEqual([]);
       });
 
       test("Get all carts failed", async () => {
         jest
-          .spyOn(CartDAO.prototype, "getAllCarts")
+          .spyOn(CartDAO.prototype, "fetchAllCarts")
           .mockRejectedValueOnce(Error);
         const controller = new CartController();
         await expect(controller.getAllCarts()).rejects.toBe(Error);
 
-        expect(CartDAO.prototype.getAllCarts).toHaveBeenCalledTimes(1);
-        expect(CartDAO.prototype.getAllCarts).toHaveBeenCalledWith();
+        expect(CartDAO.prototype.fetchAllCarts).toHaveBeenCalledTimes(1);
+        expect(CartDAO.prototype.fetchAllCarts).toHaveBeenCalledWith();
       });
     });
-
+    
     describe("Controller - Add product to cart", () => {
       afterEach(() => {
         jest.clearAllMocks();
