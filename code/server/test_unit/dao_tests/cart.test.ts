@@ -535,21 +535,24 @@ describe("DAO tests", () => {
 				"",
 				""
 			);
-			const testCart = new Cart(
-				testUser.username,
-				true,
-				"2024-03-20",
-				2000.0,
-				[]
-			);
+			const testCarts = [{
+				id: 2,
+				cart: new Cart(
+					testUser.username,
+					true,
+					"2024-03-20",
+					2000.0,
+					[]
+					)
+			}];
 			const testCartsDB = [
 				{
 					CartId: 2,
 					Paid: true,
 					PaymentDate: "2024-03-20",
 					Total: 2000.0,
-					Username: testUser.username,
-				},
+					Username: testUser.username
+				}
 			];
 
 			const mockDBAll = jest.spyOn(db, "all");
@@ -561,7 +564,7 @@ describe("DAO tests", () => {
 
 			const result = await cartDAO.fetchPaidCarts(testUser.username);
 			expect(mockDBAll).toBeCalledTimes(1);
-			expect(result).toEqual([{ id: 2, cart: testCart }]);
+			expect(result).toStrictEqual(testCarts);
 		});
 	});
 
@@ -621,7 +624,7 @@ describe("DAO tests", () => {
 			expect(mockDBGet).toBeCalledTimes(1);
 		});
 	});
-
+/*
 	describe.skip("DAO - Remove product from cart", () => {
 		let cartDAO: CartDAO;
 
@@ -735,7 +738,7 @@ describe("DAO tests", () => {
 			expect(result).toBe(true);
 		});
 	});
-
+*/
 	describe("DAO - Delete all carts", () => {
 		afterEach(() => {
 			jest.restoreAllMocks();
