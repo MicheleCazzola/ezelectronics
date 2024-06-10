@@ -180,7 +180,7 @@ class CartDAO {
 		});
 	}
 
-	async updateCart(cart: Cart): Promise<boolean> {
+	/*async updateCart(cart: Cart): Promise<boolean> {
 		return new Promise((resolve, reject) => {
 			const sql1 =
 				"SELECT CartId FROM CART WHERE Username = ? AND Paid = 0";
@@ -247,7 +247,7 @@ class CartDAO {
 
 			resolve(true);
 		});
-	}
+	}*/
 
 	async fetchPaidCarts(
 		username: string
@@ -263,7 +263,7 @@ class CartDAO {
 					rows.forEach((row: any) => {
 						let cart: Cart = new Cart(
 							row.Username,
-							row.Paid,
+							row.Paid as boolean,
 							row.PaymentDate,
 							row.Total,
 							[]
@@ -320,11 +320,13 @@ class CartDAO {
 	} */
 
 	async removeProductFromCart(user: User, product: string): Promise<boolean> {
+		const cartid = await this.getCurrentCartId(user);
 		let cart = await this.getCurrentCart(user);
 		let found = false;
+		let new_quantity = undefined;
 		for (let cart_product of cart.products) {
 			if (cart_product.model === product) {
-				cart_product.quantity--;
+				new_quantity = cart_product.quantity--;
 				if (cart_product.quantity === 0) {
 					cart.products = cart.products.filter(
 						(product) => product.model !== cart_product.model
@@ -335,16 +337,57 @@ class CartDAO {
 			}
 		}
 
-		if (!found) {
-			throw new ProductNotInCartError();
-		}
+		return new Promise((resolve, reject) => {
+			if (!found) {
+				reject(new ProductNotInCartError());
+			}
 
-		return this.updateCart(cart);
+			const sql =
+				"UPDATE CART SET (Total, Paid, PaymentDate) = (?, ?, ?) WHERE Username = ? AND Paid = 0";
+			db.run(
+				sql,
+				[cart.total, cart.paid, cart.paymentDate, cart.customer],
+				(err) => {
+					if (err) reject(err);
+					else if (new_quantity === 0) {
+						const sql2 =
+							"DELETE FROM PRODUCT_IN_CART WHERE CartId = ? AND Model = ?";
+
+						db.run(sql2, [cartid, product], (err) => {
+							if (err) reject(err);
+							else resolve(true);
+						});
+					} else {
+						const sql2 =
+							"UPDATE PRODUCT_IN_CART SET Quantity = ? WHERE CartId = ? AND Model = ?";
+						db.run(sql2, [new_quantity, cartid, product], (err) => {
+							if (err) reject(err);
+							else resolve(true);
+						});
+					}
+				}
+			);
+		});
 	}
 
 	async clearCart(user: User): Promise<boolean> {
 		const clearCart = new Cart(user.username, false, "", 0, []);
-		return this.updateCart(clearCart);
+		const cartid = await this.getCurrentCartId(user);
+
+		return new Promise((resolve, reject) => {
+			const sql1 =
+				"UPDATE CART SET (Total) = (?) WHERE Username = ? AND Paid = 0";
+			db.run(sql1, [clearCart.total, user.username], (err) => {
+				if (err) reject(err);
+				else {
+					const sql2 = "DELETE FROM PRODUCT_IN_CART WHERE CartId = ?";
+					db.run(sql2, [cartid], (err) => {
+						if (err) reject(err);
+						else resolve(true);
+					});
+				}
+			});
+		});
 	}
 
 	async deleteAllCarts(): Promise<boolean> {
@@ -425,7 +468,7 @@ class CartDAO {
 					rows.forEach((row: any) => {
 						let cart: Cart = new Cart(
 							row.Username,
-							row.Paid,
+							true ? row.Paid === 1 : false,
 							row.PaymentDate,
 							row.Total,
 							[]

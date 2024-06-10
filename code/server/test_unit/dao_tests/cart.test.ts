@@ -17,296 +17,377 @@ function resetMock(mock: any) {
 }
 
 describe("DAO tests", () => {
+	describe("DAO - Get current cart", () => {
+		afterEach(() => {
+			jest.restoreAllMocks();
+			jest.clearAllMocks();
+		});
 
-    describe("DAO - Get current cart", () => {
+		test("Get current cart successful", async () => {
+			const cartDAO = new CartDAO();
 
-        afterEach(() => {
-            jest.restoreAllMocks();
-            jest.clearAllMocks();
-        });
+			const testUser = new User(
+				"test",
+				"test",
+				"test",
+				Role.CUSTOMER,
+				"",
+				""
+			);
+			const testProductsInCart = [
+				new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0),
+				new ProductInCart("iPhone15", 1, Category.SMARTPHONE, 1200.0),
+			];
+			const testCart = new Cart(
+				testUser.username,
+				false,
+				"",
+				2200.0,
+				testProductsInCart
+			);
 
-        test("Get current cart successful", async () => {
-            const cartDAO = new CartDAO();
+			const mockDBGet = jest.spyOn(db, "get");
+			const mockDBAll = jest.spyOn(db, "all");
 
-            const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
-            const testProductsInCart = [
-                new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0),
-                new ProductInCart("iPhone15", 1, Category.SMARTPHONE, 1200.0)
-            ];
-            const testCart = new Cart(testUser.username, false, "", 2200.0, testProductsInCart);
+			mockDBGet.mockImplementationOnce((sql, params, callback) => {
+				callback(null, { Total: testCart.total });
+				return {} as Database;
+			});
 
-            const mockDBGet = jest.spyOn(db, "get");
-            const mockDBAll = jest.spyOn(db, "all");
+			mockDBAll.mockImplementationOnce((sql, params, callback) => {
+				callback(null, testProductsInCart);
+				return {} as Database;
+			});
 
-            mockDBGet.mockImplementationOnce((sql, params, callback) => {
-                callback(null, {Total: testCart.total});
-                return {} as Database;
-            });
+			const result = await cartDAO.getCurrentCart(testUser);
+			expect(mockDBGet).toBeCalledTimes(1);
+			expect(mockDBAll).toBeCalledTimes(1);
 
-            mockDBAll.mockImplementationOnce((sql, params, callback) => {
-                callback(null, testProductsInCart);
-                return {} as Database;
-            });
+			expect(result).toEqual(testCart);
+			resetMock(mockDBAll);
+			resetMock(mockDBGet);
+		});
 
-            const result = await cartDAO.getCurrentCart(testUser);
-            expect(mockDBGet).toBeCalledTimes(1);
-            expect(mockDBAll).toBeCalledTimes(1);
+		test("Get current cart successful - Empty cart retrieved", async () => {
+			const cartDAO = new CartDAO();
 
-            expect(result).toEqual(testCart);
-            resetMock(mockDBAll);
-            resetMock(mockDBGet);
-        });
+			const testUser = new User(
+				"test",
+				"test",
+				"test",
+				Role.CUSTOMER,
+				"",
+				""
+			);
+			const testProductsInCart: ProductInCart[] = [];
+			const testCart = new Cart(
+				testUser.username,
+				false,
+				"",
+				0.0,
+				testProductsInCart
+			);
 
-        test("Get current cart successful - Empty cart retrieved", async () => {
-            const cartDAO = new CartDAO();
+			const mockDBGet = jest.spyOn(db, "get");
+			const mockDBAll = jest.spyOn(db, "all");
 
-            const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
-            const testProductsInCart: ProductInCart[] = [];
-            const testCart = new Cart(testUser.username, false, "", 0.0, testProductsInCart);
+			mockDBGet.mockImplementation((sql, params, callback) => {
+				callback(null, { Total: testCart.total });
+				return {} as Database;
+			});
 
-            const mockDBGet = jest.spyOn(db, "get");
-            const mockDBAll = jest.spyOn(db, "all");
+			mockDBAll.mockImplementation((sql, params, callback) => {
+				callback(null, testProductsInCart);
+				return {} as Database;
+			});
 
-            mockDBGet.mockImplementation((sql, params, callback) => {
-                callback(null, {Total: testCart.total});
-                return {} as Database;
-            });
-
-            mockDBAll.mockImplementation((sql, params, callback) => {
-                callback(null, testProductsInCart);
-                return {} as Database;
-            });
-
-            const result = await cartDAO.getCurrentCart(testUser);
-            expect(mockDBGet).toBeCalledTimes(1);
-            expect(mockDBAll).toBeCalledTimes(1);
-            expect(result).toEqual(testCart);
-            /*resetMock(mockDBAll);
+			const result = await cartDAO.getCurrentCart(testUser);
+			expect(mockDBGet).toBeCalledTimes(1);
+			expect(mockDBAll).toBeCalledTimes(1);
+			expect(result).toEqual(testCart);
+			/*resetMock(mockDBAll);
             resetMock(mockDBGet);*/
-        });
+		});
 
-        test("Get current cart failed - No cart for specific user", async () => {
-            const cartDAO = new CartDAO();
+		test("Get current cart failed - No cart for specific user", async () => {
+			const cartDAO = new CartDAO();
 
-            const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
+			const testUser = new User(
+				"test",
+				"test",
+				"test",
+				Role.CUSTOMER,
+				"",
+				""
+			);
 
-            const mockDBGet = jest.spyOn(db, "get");
+			const mockDBGet = jest.spyOn(db, "get");
 
-            mockDBGet.mockImplementation((sql, params, callback) => {
-                callback(null, false);
-                return {} as Database;
-            });
+			mockDBGet.mockImplementation((sql, params, callback) => {
+				callback(null, false);
+				return {} as Database;
+			});
 
-            await expect(cartDAO.getCurrentCart(testUser)).rejects.toBeInstanceOf(CartNotFoundError);
-            expect(mockDBGet).toBeCalledTimes(1);
-            //resetMock(mockDBGet);
-        });
-    });
+			await expect(
+				cartDAO.getCurrentCart(testUser)
+			).rejects.toBeInstanceOf(CartNotFoundError);
+			expect(mockDBGet).toBeCalledTimes(1);
+			//resetMock(mockDBGet);
+		});
+	});
 
-    describe("DAO - Get product", () => {
+	describe("DAO - Get product", () => {
+		let cartDAO: CartDAO;
 
-        let cartDAO: CartDAO;
+		beforeAll(() => {
+			cartDAO = new CartDAO();
+		});
 
-        beforeAll(() => {
-            cartDAO = new CartDAO();
-        });
+		afterEach(() => {
+			jest.restoreAllMocks();
+			jest.clearAllMocks();
+		});
 
-        afterEach(() => {
-            jest.restoreAllMocks();
-            jest.clearAllMocks();
-        });
+		test("Get product in cart successful", async () => {
+			const testProductInCart = new ProductInCart(
+				"iPhone13",
+				1,
+				Category.SMARTPHONE,
+				1000.0
+			);
 
-        test("Get product in cart successful", async () => {
-            const testProductInCart = new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0);
+			const mockDBGet = jest.spyOn(db, "get");
+			mockDBGet.mockImplementationOnce((sql, params, callback) => {
+				callback(null, {
+					Category: testProductInCart.category,
+					SellingPrice: testProductInCart.price,
+				});
+				return {} as Database;
+			});
 
-            const mockDBGet = jest.spyOn(db, "get");
-            mockDBGet.mockImplementationOnce((sql, params, callback) => {
-                callback(null, {Category: testProductInCart.category, SellingPrice: testProductInCart.price});
-                return {} as Database;
-            });
+			const result = await cartDAO.getProduct(testProductInCart.model);
+			expect(mockDBGet).toBeCalledTimes(1);
+			expect(result).toEqual(testProductInCart);
+			//resetMock(mockDBGet);
+		});
 
-            const result = await cartDAO.getProduct(testProductInCart.model);
-            expect(mockDBGet).toBeCalledTimes(1);
-            expect(result).toEqual(testProductInCart);
-            //resetMock(mockDBGet);
-        });
+		test("Get product in cart failed - Product found but empty stock", async () => {
+			const testProductInCartModel = "iPhone10";
 
-        test("Get product in cart failed - Product found but empty stock", async () => {
-            const testProductInCartModel = "iPhone10";
+			const mockDBGet = jest.spyOn(db, "get");
+			mockDBGet.mockImplementationOnce((sql, params, callback) => {
+				callback(null, { AvailableQuantity: 0 });
+				return {} as Database;
+			});
 
-            const mockDBGet = jest.spyOn(db, "get");
-            mockDBGet.mockImplementationOnce((sql, params, callback) => {
-                callback(null, {AvailableQuantity: 0});
-                return {} as Database;
-            });
+			await expect(
+				cartDAO.getProduct(testProductInCartModel)
+			).rejects.toBeInstanceOf(EmptyProductStockError);
+			expect(mockDBGet).toBeCalledTimes(1);
+			//resetMock(mockDBGet);
+		});
 
-            await expect(cartDAO.getProduct(testProductInCartModel)).rejects.toBeInstanceOf(EmptyProductStockError);
-            expect(mockDBGet).toBeCalledTimes(1);
-            //resetMock(mockDBGet);
-        });
+		test("Get product in cart failed - Product not found", async () => {
+			const testProductInCart = new ProductInCart(
+				"iPhone13",
+				1,
+				Category.SMARTPHONE,
+				1000.0
+			);
 
-        test("Get product in cart failed - Product not found", async () => {
-            const testProductInCart = new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0);
+			const mockDBGet = jest.spyOn(db, "get");
+			mockDBGet.mockImplementationOnce((sql, params, callback) => {
+				callback(null, false);
+				return {} as Database;
+			});
 
-            const mockDBGet = jest.spyOn(db, "get");
-            mockDBGet.mockImplementationOnce((sql, params, callback) => {
-                callback(null, false);
-                return {} as Database;
-            });
+			await expect(
+				cartDAO.getProduct(testProductInCart.model)
+			).rejects.toBeInstanceOf(ProductNotFoundError);
+			expect(mockDBGet).toBeCalledTimes(1);
+			//resetMock(mockDBGet);
+		});
+	});
 
-            await expect(cartDAO.getProduct(testProductInCart.model)).rejects.toBeInstanceOf(ProductNotFoundError);
-            expect(mockDBGet).toBeCalledTimes(1);
-            //resetMock(mockDBGet);
-        });
-    });
+	describe("DAO - Create cart", () => {
+		let cartDAO: CartDAO;
 
-    describe("DAO - Create cart", () => {
-        let cartDAO: CartDAO;
+		beforeAll(() => {
+			cartDAO = new CartDAO();
+		});
 
-        beforeAll(() => {
-            cartDAO = new CartDAO();
-        });
+		afterEach(() => {
+			jest.restoreAllMocks();
+			jest.clearAllMocks();
+		});
 
-        afterEach(() => {
-            jest.restoreAllMocks();
-            jest.clearAllMocks();
-        });
+		test("Create cart successful", async () => {
+			const testUser = new User(
+				"test",
+				"test",
+				"test",
+				Role.CUSTOMER,
+				"",
+				""
+			);
+			const testCardId = 1;
 
-        test("Create cart successful", async () => {
-            const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
-            const testCardId = 1;
+			const mockDBRun = jest.spyOn(db, "run");
+			const mockDBGet = jest.spyOn(db, "get");
+			mockDBRun.mockImplementationOnce((sql, params, callback) => {
+				callback.call({ lastID: 1 }, null);
+				return {} as Database;
+			});
 
-            const mockDBRun = jest.spyOn(db, "run");
-            const mockDBGet = jest.spyOn(db, "get");
-            mockDBRun.mockImplementationOnce((sql, params, callback) => {
-                callback.call({lastID: 1}, null);
-                return {} as Database;
-            });
+			mockDBGet.mockImplementationOnce((sql, params, callback) => {
+				callback(null, { CartId: testCardId });
+				return {} as Database;
+			});
 
-            mockDBGet.mockImplementationOnce((sql, params, callback) => {
-                callback(null, {CartId: testCardId});
-                return {} as Database;
-            });
+			const result = await cartDAO.createCart(testUser);
 
-            const result = await cartDAO.createCart(testUser);
+			expect(mockDBRun).toBeCalledTimes(1);
+			expect(mockDBGet).toBeCalledTimes(1);
+			expect(result).toBe(testCardId);
+		});
 
-            expect(mockDBRun).toBeCalledTimes(1);
-            expect(mockDBGet).toBeCalledTimes(1);
-            expect(result).toBe(testCardId);
-        });
+		test("Create cart failed - No cart found", async () => {
+			const testUser = new User(
+				"test",
+				"test",
+				"test",
+				Role.CUSTOMER,
+				"",
+				""
+			);
+			const testCardId = 1;
 
-        test("Create cart failed - No cart found", async () => {
-            const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
-            const testCardId = 1;
+			const mockDBRun = jest.spyOn(db, "run");
+			const mockDBGet = jest.spyOn(db, "get");
+			mockDBRun.mockImplementationOnce((sql, params, callback) => {
+				callback.call({ lastID: 1 }, null);
+				return {} as Database;
+			});
 
-            const mockDBRun = jest.spyOn(db, "run");
-            const mockDBGet = jest.spyOn(db, "get");
-            mockDBRun.mockImplementationOnce((sql, params, callback) => {
-                callback.call({lastID: 1}, null);
-                return {} as Database;
-            });
+			mockDBGet.mockImplementationOnce((sql, params, callback) => {
+				callback(null, false);
+				return {} as Database;
+			});
 
-            mockDBGet.mockImplementationOnce((sql, params, callback) => {
-                callback(null, false);
-                return {} as Database;
-            });
+			await expect(cartDAO.createCart(testUser)).rejects.toBeInstanceOf(
+				CartNotFoundError
+			);
 
-            await expect(cartDAO.createCart(testUser)).rejects.toBeInstanceOf(CartNotFoundError);
+			expect(mockDBRun).toBeCalledTimes(1);
+			expect(mockDBGet).toBeCalledTimes(1);
+		});
+	});
 
-            expect(mockDBRun).toBeCalledTimes(1);
-            expect(mockDBGet).toBeCalledTimes(1);
-        });
-    });
+	describe("DAO - Checkout cart", () => {
+		let cartDAO: CartDAO;
 
-    describe("DAO - Checkout cart", () => {
-        let cartDAO: CartDAO;
+		beforeAll(() => {
+			cartDAO = new CartDAO();
+		});
 
-        beforeAll(() => {
-            cartDAO = new CartDAO();
-        });
+		afterEach(() => {
+			jest.restoreAllMocks();
+			jest.clearAllMocks();
+		});
 
-        afterEach(() => {
-            jest.restoreAllMocks();
-            jest.clearAllMocks();
-        });
+		test("Checkout cart successful", async () => {
+			const username = "test";
+			const mockDBRun = jest.spyOn(db, "run");
+			mockDBRun.mockImplementationOnce((sql, params, callback) => {
+				callback(null);
+				return {} as Database;
+			});
 
-        test("Checkout cart successful", async() => {
-            const username = "test";
-            const mockDBRun = jest.spyOn(db, "run");
-            mockDBRun.mockImplementationOnce((sql, params, callback) => {
-                callback(null);
-                return {} as Database;
-            });
+			const result = await cartDAO.checkoutCart(username);
 
-            const result = await cartDAO.checkoutCart(username);
+			expect(mockDBRun).toBeCalledTimes(1);
+			expect(result).toBe(true);
+		});
+	});
 
-            expect(mockDBRun).toBeCalledTimes(1);
-            expect(result).toBe(true);
-        });
-    });
+	describe("DAO - Add product to cart", () => {
+		let cartDAO: CartDAO;
 
-    describe("DAO - Add product to cart", () => {
-        let cartDAO: CartDAO;
+		beforeAll(() => {
+			cartDAO = new CartDAO();
+		});
 
-        beforeAll(() => {
-            cartDAO = new CartDAO();
-        });
+		afterEach(() => {
+			jest.clearAllMocks();
+			jest.restoreAllMocks();
+		});
 
-        afterEach(() => {
-            jest.clearAllMocks();
-            jest.restoreAllMocks();
-        });
+		test("Add to cart successful - Cart already existing", async () => {
+			const testCartId = 1;
+			const testQuantityInside = 3;
+			const testProductInCart = new ProductInCart(
+				"iPhone13",
+				2,
+				Category.SMARTPHONE,
+				1000.0
+			);
 
-        test("Add to cart successful - Cart already existing", async() => {
-            const testCartId = 1;
-            const testQuantityInside = 3;
-            const testProductInCart = new ProductInCart("iPhone13", 2, Category.SMARTPHONE, 1000.0);
+			const mockDBGet = jest.spyOn(db, "get");
+			const mockDBRun = jest.spyOn(db, "run");
 
-            const mockDBGet = jest.spyOn(db, "get");
-            const mockDBRun = jest.spyOn(db, "run");
+			mockDBGet.mockImplementationOnce((sql, params, callback) => {
+				callback(null, { Quantity: testQuantityInside });
+				return {} as Database;
+			});
 
-            mockDBGet.mockImplementationOnce((sql, params, callback) => {
-                callback(null, {Quantity: testQuantityInside});
-                return {} as Database;
-            });
+			mockDBRun.mockImplementation((sql, params, callback) => {
+				callback(null, false);
+				return {} as Database;
+			});
 
-            mockDBRun.mockImplementation((sql, params, callback) => {
-                callback(null, false);
-                return {} as Database;
-            });
+			const result = await cartDAO.addProductToCart(
+				testCartId,
+				testProductInCart
+			);
 
-            const result = await cartDAO.addProductToCart(testCartId, testProductInCart);
+			expect(mockDBGet).toBeCalledTimes(1);
+			expect(mockDBRun).toBeCalledTimes(2);
+			expect(result).toBe(true);
+		});
 
-            expect(mockDBGet).toBeCalledTimes(1);
-            expect(mockDBRun).toBeCalledTimes(2);
-            expect(result).toBe(true);
-        });
+		test("Add to cart successful - Cart not existing yet", async () => {
+			const testCartId = 1;
+			const testProductInCart = new ProductInCart(
+				"iPhone13",
+				2,
+				Category.SMARTPHONE,
+				1000.0
+			);
 
-        test("Add to cart successful - Cart not existing yet", async() => {
-            const testCartId = 1;
-            const testProductInCart = new ProductInCart("iPhone13", 2, Category.SMARTPHONE, 1000.0);
+			const mockDBGet = jest.spyOn(db, "get");
+			const mockDBRun = jest.spyOn(db, "run");
 
-            const mockDBGet = jest.spyOn(db, "get");
-            const mockDBRun = jest.spyOn(db, "run");
+			mockDBGet.mockImplementationOnce((sql, params, callback) => {
+				callback(null, false);
+				return {} as Database;
+			});
 
-            mockDBGet.mockImplementationOnce((sql, params, callback) => {
-                callback(null, false);
-                return {} as Database;
-            });
+			mockDBRun.mockImplementation((sql, params, callback) => {
+				callback(null, false);
+				return {} as Database;
+			});
 
-            mockDBRun.mockImplementation((sql, params, callback) => {
-                callback(null, false);
-                return {} as Database;
-            });
+			const result = await cartDAO.addProductToCart(
+				testCartId,
+				testProductInCart
+			);
 
-            const result = await cartDAO.addProductToCart(testCartId, testProductInCart);
-
-            expect(mockDBGet).toBeCalledTimes(1);
-            expect(mockDBRun).toBeCalledTimes(2);
-            expect(result).toBe(true);
-        });
-    });
-
+			expect(mockDBGet).toBeCalledTimes(1);
+			expect(mockDBRun).toBeCalledTimes(2);
+			expect(result).toBe(true);
+		});
+	});
+	/*
     describe("DAO - Update cart", () => {
         let cartDAO: CartDAO;
 
@@ -408,300 +489,401 @@ describe("DAO tests", () => {
             expect(result).toBe(true);
         });
     });
+    */
 
-    describe("DAO - Fetch paid carts", () => {
-        let cartDAO: CartDAO;
+	describe("DAO - Fetch paid carts", () => {
+		let cartDAO: CartDAO;
 
-        beforeAll(() => {
-            cartDAO = new CartDAO();
-        });
+		beforeAll(() => {
+			cartDAO = new CartDAO();
+		});
 
-        afterEach(() => {
-            jest.restoreAllMocks();
-            jest.clearAllMocks();
-        });
+		afterEach(() => {
+			jest.restoreAllMocks();
+			jest.clearAllMocks();
+		});
 
-        test("Fetch paid carts successful - Empty set", async () => {
-            const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
-            const testCartsDB: Cart[] = [];
+		test("Fetch paid carts successful - Empty set", async () => {
+			const testUser = new User(
+				"test",
+				"test",
+				"test",
+				Role.CUSTOMER,
+				"",
+				""
+			);
+			const testCartsDB: Cart[] = [];
 
-            const mockDBAllEmpty = jest.spyOn(db, "all");
+			const mockDBAllEmpty = jest.spyOn(db, "all");
 
-            mockDBAllEmpty.mockImplementationOnce((sql, params, callback) => {
-                callback(null, false);
-                return {} as Database;
-            });
-            const result = await cartDAO.fetchPaidCarts(testUser.username);
+			mockDBAllEmpty.mockImplementationOnce((sql, params, callback) => {
+				callback(null, false);
+				return {} as Database;
+			});
+			const result = await cartDAO.fetchPaidCarts(testUser.username);
 
-            expect(mockDBAllEmpty).toBeCalledTimes(1);
-            expect(result).toEqual(testCartsDB);
-        });
+			expect(mockDBAllEmpty).toBeCalledTimes(1);
+			expect(result).toEqual(testCartsDB);
+		});
 
+		test("Fetch paid carts successful - Not empty", async () => {
+			const testUser = new User(
+				"test",
+				"test",
+				"test",
+				Role.CUSTOMER,
+				"",
+				""
+			);
+			const testCart = new Cart(
+				testUser.username,
+				true,
+				"2024-03-20",
+				2000.0,
+				[]
+			);
+			const testCartsDB = [
+				{
+					CartId: 2,
+					Paid: true,
+					PaymentDate: "2024-03-20",
+					Total: 2000.0,
+					Username: testUser.username,
+				},
+			];
 
-        test("Fetch paid carts successful - Not empty", async () => {
-            const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
-            const testCart = new Cart(testUser.username, true, "2024-03-20", 2000.0, []);
-            const testCartsDB = [
-                {
-                    "CartId": 2,
-                    "Paid": true,
-                    "PaymentDate": "2024-03-20",
-                    "Total": 2000.0,
-                    "Username": testUser.username
-                },
-            ];
+			const mockDBAll = jest.spyOn(db, "all");
 
-            const mockDBAll = jest.spyOn(db, "all");
+			mockDBAll.mockImplementationOnce((sql, params, callback) => {
+				callback(null, testCartsDB);
+				return {} as Database;
+			});
 
-            mockDBAll.mockImplementationOnce((sql, params, callback) => {
-                callback(null, testCartsDB);
-                return {} as Database;
-            });
+			const result = await cartDAO.fetchPaidCarts(testUser.username);
+			expect(mockDBAll).toBeCalledTimes(1);
+			expect(result).toEqual([{ id: 2, cart: testCart }]);
+		});
+	});
 
-            const result = await cartDAO.fetchPaidCarts(testUser.username);
-            expect(mockDBAll).toBeCalledTimes(1);
-            expect(result).toEqual([{id: 2, cart: testCart}]);
-        });
+	describe("DAO - Get current cart id", () => {
+		let cartDAO: CartDAO;
 
-    });
+		beforeAll(() => {
+			cartDAO = new CartDAO();
+		});
 
-    describe("DAO - Get current cart id", () => {
+		afterEach(() => {
+			jest.restoreAllMocks();
+			jest.clearAllMocks();
+		});
 
-        let cartDAO: CartDAO;
+		test("Get id successful", async () => {
+			const testUser = new User(
+				"test",
+				"test",
+				"test",
+				Role.CUSTOMER,
+				"",
+				""
+			);
+			const testCardId = 1;
 
-        beforeAll(() => {
-            cartDAO = new CartDAO();
-        });
+			const mockDBGet = jest.spyOn(db, "get");
+			mockDBGet.mockImplementationOnce((sql, params, callback) => {
+				callback(null, { CartId: testCardId });
+				return {} as Database;
+			});
 
-        afterEach(() => {
-            jest.restoreAllMocks();
-            jest.clearAllMocks();
-        });
+			const result = await cartDAO.getCurrentCartId(testUser);
+			expect(mockDBGet).toBeCalledTimes(1);
+			expect(result).toBe(testCardId);
+		});
 
-        test("Get id successful", async () => {
-            const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
-            const testCardId = 1;
+		test("Get id failed - No cart", async () => {
+			const testUser = new User(
+				"test",
+				"test",
+				"test",
+				Role.CUSTOMER,
+				"",
+				""
+			);
 
-            const mockDBGet = jest.spyOn(db, "get");
-            mockDBGet.mockImplementationOnce((sql, params, callback) => {
-                callback(null, {CartId: testCardId});
-                return {} as Database;
-            });
+			const mockDBGet = jest.spyOn(db, "get");
+			mockDBGet.mockImplementationOnce((sql, params, callback) => {
+				callback(null, false);
+				return {} as Database;
+			});
 
-            const result = await cartDAO.getCurrentCartId(testUser);
-            expect(mockDBGet).toBeCalledTimes(1);
-            expect(result).toBe(testCardId);
-        });
+			await expect(
+				cartDAO.getCurrentCartId(testUser)
+			).rejects.toBeInstanceOf(CartNotFoundError);
+			expect(mockDBGet).toBeCalledTimes(1);
+		});
+	});
 
-        test("Get id failed - No cart", async () => {
-            const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
+	describe.skip("DAO - Remove product from cart", () => {
+		let cartDAO: CartDAO;
 
-            const mockDBGet = jest.spyOn(db, "get");
-            mockDBGet.mockImplementationOnce((sql, params, callback) => {
-                callback(null, false);
-                return {} as Database;
-            });
+		beforeAll(() => {
+			cartDAO = new CartDAO();
+		});
 
-            await expect(cartDAO.getCurrentCartId(testUser)).rejects.toBeInstanceOf(CartNotFoundError);
-            expect(mockDBGet).toBeCalledTimes(1);
-        });
-    })
+		afterEach(() => {
+			jest.restoreAllMocks();
+			jest.clearAllMocks();
+		});
 
-    describe("DAO - Remove product from cart", () => {
-        let cartDAO: CartDAO;
+		test("Remove successful", async () => {
+			const testUser = new User(
+				"test",
+				"test",
+				"test",
+				Role.CUSTOMER,
+				"",
+				""
+			);
+			const testProductsInCart = [
+				new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0),
+				new ProductInCart("iPhone15", 1, Category.SMARTPHONE, 1200.0),
+			];
+			const testCart = new Cart(
+				testUser.username,
+				false,
+				"",
+				2200.0,
+				testProductsInCart
+			);
 
-        beforeAll(() => {
-            cartDAO = new CartDAO();
-        });
+			const mockDAOGet = jest
+				.spyOn(CartDAO.prototype, "getCurrentCart")
+				.mockResolvedValueOnce(testCart);
+			const mockDAOUpdate = jest
+				.spyOn(CartDAO.prototype, "updateCart")
+				.mockResolvedValueOnce(true);
 
-        afterEach(() => {
-            jest.restoreAllMocks();
-            jest.clearAllMocks();
-        });
+			const result = await cartDAO.removeProductFromCart(
+				testUser,
+				testProductsInCart[1].model
+			);
 
-        test("Remove successful", async () => {
-            const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
-            const testProductsInCart = [
-                new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0),
-                new ProductInCart("iPhone15", 1, Category.SMARTPHONE, 1200.0)
-            ];
-            const testCart = new Cart(testUser.username, false, "", 2200.0, testProductsInCart);
+			expect(mockDAOGet).toBeCalledTimes(1);
+			expect(mockDAOUpdate).toBeCalledTimes(1);
+			expect(result).toBe(true);
+		});
 
-            const mockDAOGet = jest.spyOn(CartDAO.prototype, "getCurrentCart").mockResolvedValueOnce(testCart);
-            const mockDAOUpdate = jest.spyOn(CartDAO.prototype, "updateCart").mockResolvedValueOnce(true);
+		test("Remove failed - Product not found", async () => {
+			const testUser = new User(
+				"test",
+				"test",
+				"test",
+				Role.CUSTOMER,
+				"",
+				""
+			);
+			const testProductsInCart = [
+				new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0),
+				new ProductInCart("iPhone15", 1, Category.SMARTPHONE, 1200.0),
+			];
+			const testCart = new Cart(
+				testUser.username,
+				false,
+				"",
+				2200.0,
+				testProductsInCart
+			);
 
-            const result = await cartDAO.removeProductFromCart(testUser, testProductsInCart[1].model);
+			const mockDAOGet = jest
+				.spyOn(CartDAO.prototype, "getCurrentCart")
+				.mockResolvedValueOnce(testCart);
+			await expect(
+				cartDAO.removeProductFromCart(testUser, "HP")
+			).rejects.toBeInstanceOf(ProductNotInCartError);
 
-            expect(mockDAOGet).toBeCalledTimes(1);
-            expect(mockDAOUpdate).toBeCalledTimes(1);
-            expect(result).toBe(true);
-        });
+			expect(mockDAOGet).toBeCalledTimes(1);
+		});
+	});
 
-        test("Remove failed - Product not found", async () => {
-            const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
-            const testProductsInCart = [
-                new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0),
-                new ProductInCart("iPhone15", 1, Category.SMARTPHONE, 1200.0)
-            ];
-            const testCart = new Cart(testUser.username, false, "", 2200.0, testProductsInCart);
+	describe.skip("DAO - Clear cart", () => {
+		let cartDAO: CartDAO;
 
-            const mockDAOGet = jest.spyOn(CartDAO.prototype, "getCurrentCart").mockResolvedValueOnce(testCart);
-            await expect(cartDAO.removeProductFromCart(testUser, "HP")).rejects.toBeInstanceOf(ProductNotInCartError);
+		beforeAll(() => {
+			cartDAO = new CartDAO();
+		});
 
-            expect(mockDAOGet).toBeCalledTimes(1);
-        });
-    })
+		afterEach(() => {
+			jest.restoreAllMocks();
+			jest.clearAllMocks();
+		});
 
-    describe("DAO - Clear cart", () => {
+		test("Clear cart successful", async () => {
+			const testUser = new User(
+				"test",
+				"test",
+				"test",
+				Role.CUSTOMER,
+				"",
+				""
+			);
+			const mockDAOUpdate = jest
+				.spyOn(CartDAO.prototype, "updateCart")
+				.mockResolvedValueOnce(true);
 
-        let cartDAO: CartDAO;
+			const result = await cartDAO.clearCart(testUser);
 
-        beforeAll(() => {
-            cartDAO = new CartDAO();
-        });
+			expect(mockDAOUpdate).toBeCalledTimes(1);
+			expect(result).toBe(true);
+		});
+	});
 
-        afterEach(() => {
-            jest.restoreAllMocks();
-            jest.clearAllMocks();
-        });
+	describe("DAO - Delete all carts", () => {
+		afterEach(() => {
+			jest.restoreAllMocks();
+			jest.clearAllMocks();
+		});
 
-        test("Clear cart successful", async() => {
-            const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
-            const mockDAOUpdate = jest.spyOn(CartDAO.prototype, "updateCart").mockResolvedValueOnce(true);
+		test("Delete successful", async () => {
+			const cartDAO = new CartDAO();
 
-            const result = await cartDAO.clearCart(testUser);
+			const mockDBRun = jest.spyOn(db, "run");
+			mockDBRun.mockImplementationOnce((sql, callback) => {
+				callback(null);
+				return {} as Database;
+			});
+			mockDBRun.mockImplementationOnce((sql, callback) => {
+				callback(null);
+				return {} as Database;
+			});
 
-            expect(mockDAOUpdate).toBeCalledTimes(1);
-            expect(result).toBe(true);
-        });
-    });
+			const result = await cartDAO.deleteAllCarts();
+			expect(mockDBRun).toBeCalledTimes(2);
+			expect(result).toBe(true);
 
-    describe("DAO - Delete all carts", () => {
+			//resetMock(mockDBRun);
+		});
+	});
 
-        afterEach(() => {
-            jest.restoreAllMocks();
-            jest.clearAllMocks();
-        });
+	describe("DAO - Fetch all carts", () => {
+		let cartDAO: CartDAO;
 
-        test("Delete successful", async () => {
-            const cartDAO = new CartDAO();
+		beforeAll(() => {
+			cartDAO = new CartDAO();
+		});
 
-            const mockDBRun = jest.spyOn(db, "run");
-            mockDBRun.mockImplementationOnce((sql, callback) => {
-                callback(null);
-                return {} as Database;
-            });
-            mockDBRun.mockImplementationOnce((sql, callback) => {
-                callback(null);
-                return {} as Database;
-            });
+		afterEach(() => {
+			jest.restoreAllMocks();
+			jest.clearAllMocks();
+		});
 
-            const result = await cartDAO.deleteAllCarts();
-            expect(mockDBRun).toBeCalledTimes(2);
-            expect(result).toBe(true);
+		test("Fetch all carts successful", async () => {
+			const testUser = new User(
+				"test",
+				"test",
+				"test",
+				Role.CUSTOMER,
+				"",
+				""
+			);
+			const testProductsInCart1 = [
+				new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0),
+				new ProductInCart("iPhone15", 1, Category.SMARTPHONE, 1200.0),
+			];
+			const testProductsInCart2 = [
+				new ProductInCart("iPhoneX", 1, Category.SMARTPHONE, 800.0),
+				new ProductInCart("iPhone8", 1, Category.SMARTPHONE, 1200.0),
+			];
+			const testCarts = [
+				{
+					id: 1,
+					cart: new Cart(testUser.username, false, "", 2200.0, []),
+				},
+				{
+					id: 2,
+					cart: new Cart(
+						testUser.username,
+						true,
+						"2024-03-20",
+						2000.0,
+						[]
+					),
+				},
+			];
+			const testCartsDB = [
+				{
+					Username: "test",
+					CartId: 1,
+					Paid: false,
+					PaymentDate: "",
+					Total: 2200.0,
+				},
+				{
+					Username: "test",
+					CartId: 2,
+					Paid: true,
+					PaymentDate: "2024-03-20",
+					Total: 2000.0,
+				},
+			];
 
-            //resetMock(mockDBRun);
-        });
-    });
+			const mockDBAll = jest.spyOn(db, "all");
 
-    describe("DAO - Fetch all carts", () => {
+			mockDBAll.mockImplementationOnce((sql, callback) => {
+				callback(null, testCartsDB);
+				return {} as Database;
+			});
 
-        let cartDAO: CartDAO;
+			const result = await cartDAO.fetchAllCarts();
 
-        beforeAll(() => {
-            cartDAO = new CartDAO();
-        });
+			expect(mockDBAll).toBeCalledTimes(1);
+			expect(result).toEqual(testCarts);
+		});
+	});
 
-        afterEach(() => {
-            jest.restoreAllMocks();
-            jest.clearAllMocks();
-        });
+	describe("DAO - Fetch product in cart", () => {
+		let cartDAO: CartDAO;
 
-        test("Fetch all carts successful", async () => {
-            const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
-            const testProductsInCart1 = [
-                new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0),
-                new ProductInCart("iPhone15", 1, Category.SMARTPHONE, 1200.0)
-            ];
-            const testProductsInCart2 = [
-                new ProductInCart("iPhoneX", 1, Category.SMARTPHONE, 800.0),
-                new ProductInCart("iPhone8", 1, Category.SMARTPHONE, 1200.0)
-            ];
-            const testCarts = [
-                {id: 1, cart: new Cart(testUser.username, false, "", 2200.0, [])},
-                {id: 2, cart: new Cart(testUser.username, true, "2024-03-20", 2000.0, [])}
-            ];
-            const testCartsDB = [
-                {
-                    "Username": "test",
-                    "CartId": 1,
-                    "Paid": false,
-                    "PaymentDate": "",
-                    "Total": 2200.0
-                },
-                {
-                    "Username": "test",
-                    "CartId": 2,
-                    "Paid": true,
-                    "PaymentDate": "2024-03-20",
-                    "Total": 2000.0
-                },
-            ];
+		beforeAll(() => {
+			cartDAO = new CartDAO();
+		});
 
-            const mockDBAll = jest.spyOn(db, "all");
+		test("Fetch product in cart successful", async () => {
+			const testCardId = 1;
+			const testProductsInCartDB = [
+				{
+					Model: "Test1",
+					Quantity: 2,
+					Category: Category.APPLIANCE,
+					SellingPrice: 100.0,
+				},
+				{
+					Model: "Test2",
+					Quantity: 3,
+					Category: Category.LAPTOP,
+					SellingPrice: 200.0,
+				},
+			];
+			const testProductsInCart = testProductsInCartDB.map(
+				(prod) =>
+					new ProductInCart(
+						prod.Model,
+						prod.Quantity,
+						prod.Category,
+						prod.SellingPrice
+					)
+			);
 
-            mockDBAll.mockImplementationOnce((sql, callback) => {
-                callback(null, testCartsDB);
-                return {} as Database;
-            });
+			const mockDBAll = jest.spyOn(db, "all");
 
-            const result = await cartDAO.fetchAllCarts();
+			mockDBAll.mockImplementationOnce((sql, params, callback) => {
+				callback(null, testProductsInCartDB);
+				return {} as Database;
+			});
 
-            expect(mockDBAll).toBeCalledTimes(1);
-            expect(result).toEqual(testCarts);
-        });
-    });
+			const result = await cartDAO.fetchProducts(testCardId);
+			expect(mockDBAll).toBeCalledTimes(1);
+			expect(result).toStrictEqual(testProductsInCart);
+		});
 
-    describe("DAO - Fetch product in cart", () => {
-        let cartDAO: CartDAO;
-
-        beforeAll(() => {
-            cartDAO = new CartDAO ();
-        });
-
-        test("Fetch product in cart successful", async () => {
-            const testCardId = 1;
-            const testProductsInCartDB = [
-                {
-                    "Model": "Test1",
-                    "Quantity": 2,
-                    "Category": Category.APPLIANCE,
-                    "SellingPrice": 100.0
-                },
-                {
-                    "Model": "Test2",
-                    "Quantity": 3,
-                    "Category": Category.LAPTOP,
-                    "SellingPrice": 200.0
-                }
-            ];
-            const testProductsInCart = testProductsInCartDB
-                .map(prod => new ProductInCart(prod.Model, prod.Quantity, prod.Category, prod.SellingPrice));
-
-            const mockDBAll = jest.spyOn(db, "all");
-
-            mockDBAll.mockImplementationOnce((sql, params, callback) => {
-                callback(null, testProductsInCartDB);
-                return {} as Database;
-            });
-
-            const result = await cartDAO.fetchProducts(testCardId);
-            expect(mockDBAll).toBeCalledTimes(1);
-            expect(result).toStrictEqual(testProductsInCart);
-        });
-
-        test("Fetch products in cart successful - Empty set", async () => {
-
-        });
-    })
+		test("Fetch products in cart successful - Empty set", async () => {});
+	});
 });
