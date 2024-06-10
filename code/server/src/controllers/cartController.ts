@@ -58,7 +58,10 @@ class CartController {
 				.getCurrentCart(user)
 				.then((cart) => resolve(cart))
 				.catch((err) => {
-					if (err === CartNotFoundError) {
+					if (
+						err === CartNotFoundError ||
+						err instanceof CartNotFoundError
+					) {
 						resolve(new Cart(user.username, false, "", 0, []));
 					} else {
 						console.log(err);
