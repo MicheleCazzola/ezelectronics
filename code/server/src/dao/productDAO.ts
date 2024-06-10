@@ -1,6 +1,7 @@
 import db from "../db/db"
 import { Product } from "../components/product"
-import { ProductAlreadyExistsError } from "../errors/productError"
+import { LowProductStockError, ProductAlreadyExistsError, ProductNotFoundError, ProductSoldError } from "../errors/productError"
+import { DateError } from "../utilities";
 
 /**
  * A class that implements the interaction with the database for all product-related operations.
@@ -38,8 +39,10 @@ class ProductDAO {
                 err.message.includes(
                   "UNIQUE constraint failed: product_descriptor.Model"
                 )
-              )
+              ) {
                 reject(new ProductAlreadyExistsError());
+                return
+              }
               reject(err);
             }
             resolve();
@@ -56,7 +59,7 @@ class ProductDAO {
    * @param model The unique model of the product.
    * @returns A Promise that resolves to true if the product identified by the model exists.
    */
-  async existsProduct(model: string): Promise<boolean> {
+  existsProduct(model: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       try {
         const sql = "SELECT * FROM product_descriptor WHERE Model = ?";
@@ -64,25 +67,6 @@ class ProductDAO {
           if (err) reject(err);
           if (row) resolve(true);
           else resolve(false);
-        });
-      } catch (error) {
-        reject(error);
-      }
-    });
-  }
-
-  /**
-   * Returns the product identified by the model.
-   * @param model The unique model of the product.
-   * @returns A promise that resolves to the found product.
-   */
-  getProductByModel(model: string): Promise<Product> {
-    return new Promise<Product>((resolve, reject) => {
-      try {
-        const sql = "SELECT * FROM product_descriptor WHERE Model = ?";
-        db.get(sql, [model], (err: Error | null, row: any) => {
-          if (err) reject(err);
-          resolve(row);
         });
       } catch (error) {
         reject(error);
@@ -105,23 +89,24 @@ class ProductDAO {
     return new Promise<number>((resolve, reject) => {
       try {
         const sql =
-          "SELECT AvailableQuantity FROM product_descriptor WHERE Model = ?";
+          "SELECT AvailableQuantity, ArrivalDate FROM product_descriptor WHERE Model = ?";
         db.get(sql, [model], (err: Error | null, row: any) => {
           if (err) reject(err);
+
+          if (!row) {
+            reject(new ProductNotFoundError())
+            return
+          }
+          if (changeDate < row.ArrivalDate) {
+            reject(new DateError())
+            return
+          }
+
           let qt = row.AvailableQuantity;
           qt = qt + newQuantity;
-          let sqlUpdate;
-          let param;
-          if (changeDate != null) {
-            sqlUpdate =
-              "UPDATE product_descriptor SET AvailableQuantity = ?, ArrivalDate = ? WHERE Model = ?";
-            param = [qt, changeDate, model];
-          } else {
-            sqlUpdate =
-              "UPDATE product_descriptor SET AvailableQuantity = ? WHERE Model = ?";
-            param = [qt, model];
-          }
-          db.run(sqlUpdate, param, (err: Error | null) => {
+          let sqlUpdate =
+            "UPDATE product_descriptor SET AvailableQuantity = ?, ArrivalDate = ? WHERE Model = ?";
+          db.run(sqlUpdate, [qt, changeDate, model], (err: Error | null) => {
             if (err) reject(err);
             resolve(qt);
           });
@@ -151,20 +136,31 @@ class ProductDAO {
           "SELECT AvailableQuantity FROM product_descriptor WHERE Model = ?";
         db.get(sql, [model], (err: Error | null, row: any) => {
           if (err) reject(err);
-          let qt = row.AvailableQuantity;
-          qt = qt - quantity;
-          let sqlUpdate;
-          let param;
-          if (sellingDate != null) {
-            sqlUpdate =
-              "UPDATE product_descriptor SET AvailableQuantity = ?, ArrivalDate = ? WHERE Model = ?";
-            param = [qt, sellingDate, model];
-          } else {
-            sqlUpdate =
-              "UPDATE product_descriptor SET AvailableQuantity = ? WHERE Model = ?";
-            param = [qt, model];
+
+          if (!row) {
+            reject(new ProductNotFoundError())
+            return
           }
-          db.run(sqlUpdate, param, (err: Error | null) => {
+          if (sellingDate < row.ArrivalDate) {
+            reject(new DateError())
+            return
+          }
+
+          let qt = row.AvailableQuantity;
+
+          if (qt == 0) {
+            reject(new ProductSoldError())
+            return
+          }
+          if (quantity > qt) {
+            reject(new LowProductStockError())
+          }
+
+          qt = qt - quantity;
+
+          let sqlUpdate =
+            "UPDATE product_descriptor SET AvailableQuantity = ?, ArrivalDate = ? WHERE Model = ?";
+          db.run(sqlUpdate, [qt, sellingDate, model], (err: Error | null) => {
             if (err) reject(err);
             resolve(qt);
           });
@@ -207,6 +203,10 @@ class ProductDAO {
           param == null ? [] : param,
           (err: Error | null, rows: any[]) => {
             if (err) reject(err);
+            if (grouping == "model" && !rows) {
+              reject(new ProductNotFoundError())
+              return
+            }
             const prod: Product[] = rows.map(
               (p) =>
                 new Product(
@@ -260,6 +260,10 @@ class ProductDAO {
           param == null ? [] : param,
           (err: Error | null, rows: any[]) => {
             if (err) reject(err);
+            if (grouping == "model" && !rows) {
+              reject(new ProductNotFoundError())
+              return
+            }
             const prod: Product[] = rows.map(
               (p) =>
                 new Product(
@@ -311,9 +315,13 @@ class ProductDAO {
     return new Promise<boolean>((resolve, reject) => {
       try {
         const sql = "DELETE FROM product_descriptor WHERE Model = ?";
-        db.run(sql, [model], (err: Error | null) => {
+        db.run(sql, [model], (err: Error | null, row: any) => {
           try {
             if (err) reject(err);
+            if (!row) {
+              reject(new ProductNotFoundError())
+              return
+            }
             resolve(true);
           } catch (error) {
             reject(error);

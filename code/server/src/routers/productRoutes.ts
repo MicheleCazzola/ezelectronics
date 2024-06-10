@@ -3,8 +3,6 @@ import ErrorHandler from "../helper"
 import { body, param, query } from "express-validator"
 import ProductController from "../controllers/productController"
 import Authenticator from "./auth"
-import { Product } from "../components/product"
-import { LowProductStockError, ProductNotFoundError, ProductSoldError } from "../errors/productError"
 
 /**
  * Represents a class that defines the routes for handling proposals.
@@ -64,7 +62,7 @@ class ProductRoutes {
             body("quantity").isInt({gt: 0}),
             body("details").isString().optional({nullable: true}),
             body("sellingPrice").isFloat({gt: 0}),
-            body("arrivalDate").isString().isDate({format: 'YYYY-MM-DD'}).isBefore().optional({nullable: true}),
+            body("arrivalDate").isString().isDate({format: 'YYYY-MM-DD'}).optional({nullable: true}),
             (req: any, res: any, next: any) => this.authenticator.isAdminOrManager(req, res, () => this.controller.registerProducts(req.body.model, req.body.category, req.body.quantity, req.body.details, req.body.sellingPrice, req.body.arrivalDate)
                 .then(() => res.status(200).end())
                 .catch((err) => next(err))
@@ -82,14 +80,9 @@ class ProductRoutes {
          */
         this.router.patch(
             "/:model",
-            param("model").isString().isLength({min: 1}).custom(async value => {
-                const pc = new ProductController
-                const prod: boolean = await pc.productExist(value);
-                if (!prod)
-                    throw new ProductNotFoundError
-            }),
+            param("model").isString().isLength({min: 1}),
             body("quantity").isInt({gt: 0}),
-            body("changeDate").isString().isDate({format: 'YYYY-MM-DD'}).isBefore().optional({nullable: true}),
+            body("changeDate").isString().isDate({format: 'YYYY-MM-DD'}).optional({nullable: true}),
             (req: any, res: any, next: any) => this.authenticator.isAdminOrManager(req, res, () => this.controller.changeProductQuantity(req.params.model, req.body.quantity, req.body.changeDate)
                 .then((quantity: any /**number */) => res.status(200).json({ quantity: quantity }))
                 .catch((err) => next(err))
@@ -107,26 +100,9 @@ class ProductRoutes {
          */
         this.router.patch(
             "/:model/sell",
-            param("model").isString().isLength({min: 1}).custom(async value => {
-                const pc = new ProductController
-                const prod: boolean = await pc.productExist(value);
-                if (!prod)
-                    throw new ProductNotFoundError
-            }),
-            body("quantity").isInt({gt: 0}).custom(async value => {
-                const pc = new ProductController
-                const prod: Product = await pc.productByModel(param("model").toString())
-                if (prod.quantity == 0)
-                    throw new ProductSoldError;
-                if (value > prod.quantity)
-                    throw new LowProductStockError
-            }),
-            body("sellingDate").isString().isDate({format: 'YYYY-MM-DD'}).isBefore().custom(async value => {
-                const pc = new ProductController
-                const prod: Product = await pc.productByModel(param("model").toString())
-                if (body(value).isBefore(prod.arrivalDate))
-                    return false
-            }).optional({nullable: true}),
+            param("model").isString().isLength({min: 1}),
+            body("quantity").isInt({gt: 0}),
+            body("sellingDate").isString().isDate({format: 'YYYY-MM-DD'}).optional({nullable: true}),
             (req: any, res: any, next: any) => this.authenticator.isAdminOrManager(req, res, () => this.controller.sellProduct(req.params.model, req.body.quantity, req.body.sellingDate)
                 .then((quantity: any /**number */) => res.status(200).json({ quantity: quantity }))
                 .catch((err) => {
@@ -220,12 +196,7 @@ class ProductRoutes {
          */
         this.router.delete(
             "/:model",
-            param("model").isString().isLength({min: 1}).custom(async value => {
-                const pc = new ProductController
-                const prod: boolean = await pc.productExist(value);
-                if (!prod)
-                    throw new ProductNotFoundError
-            }),
+            param("model").isString().isLength({min: 1}),
             (req: any, res: any, next: any) => this.authenticator.isAdminOrManager(req, res, () => this.controller.deleteProduct(req.params.model)
                 .then(() => res.status(200).end())
                 .catch((err: any) => next(err))

@@ -1,4 +1,7 @@
+import { EmptyProductStockError, LowProductStockError, ProductNotFoundError, ProductSoldError } from "../errors/productError";
 import ProductDAO from "../dao/productDAO";
+import { Time } from "../utilities";
+import { DateError } from "../utilities";
 
 /**
  * Represents a controller for managing products.
@@ -21,26 +24,17 @@ class ProductController {
      * @param arrivalDate The optional date in which the product arrived.
      * @returns A Promise that resolves to nothing.
      */
-    async registerProducts(model: string, category: string, quantity: number, details: string | null, sellingPrice: number, arrivalDate: string | null) /**:Promise<void> */ { 
+    async registerProducts(model: string, category: string, quantity: number, details: string | null, sellingPrice: number, arrivalDate: string | null) /**:Promise<void> */ {
+        if (arrivalDate == null || arrivalDate == "")
+            arrivalDate = Time.now()
+
+        console.log(arrivalDate)
+        console.log(Time.now())
+        
+        if (arrivalDate > Time.now())
+            throw new DateError()
+
         return this.dao.createProduct(model, category, quantity, details, sellingPrice, arrivalDate)
-    }
-
-    /**
-     * Returns true if the product identified by the model exists.
-     * @param model The unique model of the product.
-     * @returns A Promise that resolves a boolean value.
-     */
-    async productExist(model: string) /**: Promise<boolean>*/{
-        return this.dao.existsProduct(model)
-    }
-
-    /**
-     * Returns the product identified by the model.
-     * @param model The unique model of the product.
-     * @returns A promise that resolves to the found product.
-     */
-    async productByModel(model: string) /**: Promise<Product>*/{
-        return this.dao.getProductByModel(model)
     }
 
     /**
@@ -51,6 +45,13 @@ class ProductController {
      * @returns A Promise that resolves to the new available quantity of the product.
      */
     async changeProductQuantity(model: string, newQuantity: number, changeDate: string | null) /**:Promise<number> */ {
+        if ((changeDate == null) || (changeDate == ""))
+            changeDate = Time.now()
+
+        if ((changeDate > Time.now())) {
+            throw new DateError()
+        }
+
         return this.dao.increaseQuantity(model, newQuantity, changeDate)
     }
 
@@ -62,6 +63,13 @@ class ProductController {
      * @returns A Promise that resolves to the new available quantity of the product.
      */
     async sellProduct(model: string, quantity: number, sellingDate: string | null) /**:Promise<number> */ {
+        if ((sellingDate == null) || (sellingDate == ""))
+            sellingDate = Time.now()
+
+        if ((sellingDate > Time.now())) {
+            throw new DateError()
+        }
+
         return this.dao.decreaseQuantity(model, quantity, sellingDate)
     }
 
