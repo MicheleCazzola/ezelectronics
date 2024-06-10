@@ -74,17 +74,25 @@ class CartController {
 	 *
 	 */
 	async checkoutCart(user: User): Promise<boolean> {
-		let cart: Cart = await this.dao.getCurrentCart(user);
+		let cart: Cart = undefined;
+		try {
+			cart = await this.dao.getCurrentCart(user);
+		} catch (err) {
+			if (err instanceof CartNotFoundError) {
+				cart = new Cart(user.username, false, "", 0, []);
+			}
+		}
 		// Check availability of products
 		let unavailable_product = false;
 		let empty_stock: boolean;
 
-		console.log(cart);
+		//console.log(cart);
 
 		for (let product of cart.products) {
 			let quantity = await this.prod_dao.getProductQuantity(
 				product.model
 			);
+			//console.log(quantity);
 			if (quantity === 0) {
 				empty_stock = true;
 				break;
