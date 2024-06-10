@@ -397,16 +397,14 @@ class CartDAO {
 
 		return new Promise((resolve, reject) => {
 			db.run(sql1, (err) => {
-				if (err) {
-					reject(err);
+				if (err) reject(err);
+				else {
+					db.run(sql2, (err) => {
+						if (err) reject(err);
+						else resolve(true);
+					});
 				}
-				db.run(sql2, (err) => {
-					if (err) {
-						reject(err);
-					}
-				});
 			});
-			resolve(true);
 		});
 	}
 
