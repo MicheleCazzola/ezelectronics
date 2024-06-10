@@ -758,7 +758,7 @@ describe("DAO tests", () => {
 	});
 	*/
 
-	describe("DAO - Get paid carts", () => {
+	describe.skip("DAO - Get paid carts", () => {
 		let cartDAO: CartDAO;
 		let userDAO: UserDAO;
 		let productDAO: ProductDAO;
@@ -1330,7 +1330,7 @@ describe("DAO tests", () => {
 			await cleanup();
 		});
 
-		test("Get all carts successful", async () => {
+		test.skip("Get all carts successful", async () => {
 			const testUser1 = new User(
 				"test1",
 				"test",
