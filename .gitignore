@@ -136,3 +136,6 @@ flake.nix
 .envrc
 
 .vscode/*
+
+# databases
+*testdb.db

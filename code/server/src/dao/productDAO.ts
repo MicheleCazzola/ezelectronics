@@ -56,7 +56,7 @@ class ProductDAO {
    * @param model The unique model of the product.
    * @returns A Promise that resolves to true if the product identified by the model exists.
    */
-  existsProduct(model: string): Promise<boolean> {
+  async existsProduct(model: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       try {
         const sql = "SELECT * FROM product_descriptor WHERE Model = ?";

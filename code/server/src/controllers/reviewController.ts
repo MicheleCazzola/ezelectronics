@@ -1,12 +1,16 @@
+import ProductDAO from "../dao/productDAO";
 import { ProductReview } from "../components/review";
 import { User } from "../components/user";
 import ReviewDAO from "../dao/reviewDAO";
+import { ProductNotFoundError } from "../errors/productError";
 
 class ReviewController {
-    private dao: ReviewDAO
+    private dao: ReviewDAO;
+    private productDAO: ProductDAO;
 
     constructor() {
-        this.dao = new ReviewDAO
+        this.dao = new ReviewDAO;
+        this.productDAO = new ProductDAO;
     }
 
     /**
@@ -40,6 +44,16 @@ class ReviewController {
      * @returns A Promise that resolves to nothing
      */
     async deleteReview(model: string, user: User): Promise<void> {
+
+        // Check if product exists in db
+        let productExists = await this.productDAO.existsProduct(model);
+
+        // If absent, throw custom error
+        if (!productExists) {
+            throw(new ProductNotFoundError());
+        }
+
+        // Otherwise, delete correlated review of current user
         return this.dao.deleteReview(model, user.username);
      }
 
@@ -49,6 +63,15 @@ class ReviewController {
      * @returns A Promise that resolves to nothing
      */
     async deleteReviewsOfProduct(model: string): Promise<void> {
+        // Check if product exists in db
+        let productExists = await this.productDAO.existsProduct(model);
+
+        // If absent, throw custom error
+        if (!productExists) {
+            throw(new ProductNotFoundError());
+        }
+
+        // Otherwise, delete all correlated reviews
         return this.dao.deleteReviewsOfProduct(model);
     }
 
