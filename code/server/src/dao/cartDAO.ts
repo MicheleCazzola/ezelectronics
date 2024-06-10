@@ -263,7 +263,7 @@ class CartDAO {
 					rows.forEach((row: any) => {
 						let cart: Cart = new Cart(
 							row.Username,
-							row.Paid as boolean,
+							false ? row.Paid === 0 : true,
 							row.PaymentDate,
 							row.Total,
 							[]
@@ -323,7 +323,7 @@ class CartDAO {
 		const cartid = await this.getCurrentCartId(user);
 		let cart = await this.getCurrentCart(user);
 		let found = false;
-		let new_quantity = undefined;
+		let new_quantity: number = undefined;
 		for (let cart_product of cart.products) {
 			if (cart_product.model === product) {
 				new_quantity = cart_product.quantity--;
