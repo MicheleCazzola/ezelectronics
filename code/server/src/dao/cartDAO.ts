@@ -263,7 +263,7 @@ class CartDAO {
 					rows.forEach((row: any) => {
 						let cart: Cart = new Cart(
 							row.Username,
-							false ? row.Paid === 0 : true,
+							row.Paid === 1 ? true : false,
 							row.PaymentDate,
 							row.Total,
 							[]
@@ -478,7 +478,7 @@ class CartDAO {
 					rows.forEach((row: any) => {
 						let cart: Cart = new Cart(
 							row.Username,
-							true ? row.Paid === 1 : false,
+							row.Paid === 1 ? true : false,
 							row.PaymentDate,
 							row.Total,
 							[]
