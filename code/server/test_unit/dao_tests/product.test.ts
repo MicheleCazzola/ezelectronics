@@ -3,13 +3,14 @@ import ProductDAO from "../../src/dao/productDAO";
 import db from "../../src/db/db";
 import { Category, Product } from "../../src/components/product";
 import CartDAO from "../../src/dao/cartDAO";
-import { ProductAlreadyExistsError, ProductNotFoundError } from "../../src/errors/productError";
+import { EmptyProductStockError, LowProductStockError, ProductAlreadyExistsError, ProductNotFoundError } from "../../src/errors/productError";
 import { Database } from "sqlite3";
 import { hasUncaughtExceptionCaptureCallback } from "node:process";
 import { mock } from "node:test";
 import dayjs from "dayjs";
 import { callbackify } from "node:util";
 import { error } from "node:console";
+import { EmptyCartError } from "../../src/errors/cartError";
 
 
 jest.mock("../../src/db/db.ts");
@@ -442,6 +443,46 @@ describe("ProductDao test:", () => {
             );
 
         });
+/*
+Li faccio nella route
+        test("It should return a 409 error if `model` represents a product whose available quantity is 0", async () => {
+            const testModel = "TestModel";
+            const soldQuantity = 5;
+            
+            const mockDBGet = jest.spyOn(db, 'get').mockImplementation((sql, params, callback) => {
+                callback(new EmptyProductStockError(), null);
+                return {} as Database;
+            });
+
+            const dao = new ProductDAO();
+            const result = await dao.decreaseQuantity(testModel, soldQuantity, null);
+
+            expect(result).rejects.toThrow(EmptyProductStockError);
+
+            expect(mockDBGet).toHaveBeenCalledTimes(1);
+
+        });
+
+        test("it should return a 409 error if the available quantity of `model` is lower than the requested `quantity`", async () => {
+           
+            const testModel = "TestModel";
+            const soldQuantity = 5;
+            
+            const mockDBGet = jest.spyOn(db, 'get').mockImplementation((sql, params, callback) => {
+                callback(null, );
+                return {} as Database;
+            });
+
+            const dao = new ProductDAO();
+            const result = await dao.decreaseQuantity(testModel, soldQuantity, null);
+
+            expect(result).rejects.toThrow(EmptyProductStockError);
+
+            expect(mockDBGet).toHaveBeenCalledTimes(1);
+
+
+        });
+*/
 
         test("it should handle the error during selecting the available quantity", async () => {
 
