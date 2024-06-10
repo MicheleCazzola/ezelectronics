@@ -184,6 +184,7 @@ class AuthRoutes {
     private router: Router
     private errorHandler: ErrorHandler
     private authService: Authenticator
+    authenticator: any
 
     /**
      * Constructs a new instance of the UserRoutes class.
@@ -220,6 +221,8 @@ class AuthRoutes {
          */
         this.router.post(
             "/",
+            body("username").isString().isLength({min: 1}),
+            body("password").isString().isLength({min: 1}),
             (req, res, next) => this.authService.login(req, res, next)
                 .then((user: User) => res.status(200).json(user))
                 .catch((err: any) => { res.status(401).json(err) })
@@ -232,10 +235,12 @@ class AuthRoutes {
          */
         this.router.delete(
             "/current",
+            this.authService.isLoggedIn,
             (req, res, next) => this.authService.logout(req, res, next)
                 .then(() => res.status(200).end())
                 .catch((err: any) => next(err))
-        )
+            
+        )    
 
         /**
          * Route for retrieving the currently logged in user.
@@ -244,6 +249,7 @@ class AuthRoutes {
          */
         this.router.get(
             "/current",
+            this.authService.isLoggedIn,
             (req: any, res: any) => res.status(200).json(req.user)
         )
     }
