@@ -13,6 +13,7 @@ import { Time } from "../../src/utilities";
 class ReviewDAO {
 	/**
 	 * Queries the database for an insert operation into reviews table
+	 * Constraint: model must exist in the database 
 	 * @param model The model of the product to review
 	 * @param username The username of the user who made the review
 	 * @param score The score assigned to the product, in the range [1, 5]
@@ -37,8 +38,8 @@ class ReviewDAO {
 						if (err) {
 							//console.log(err);
 
-							console.log(`Name: ${err.name}`);
-							console.log(`Message: ${err.message}`);
+							// console.log(`Name: ${err.name}`);
+							// console.log(`Message: ${err.message}`);
 
 							// console.log(`Error: ${err.stack}`);
 
@@ -72,12 +73,13 @@ class ReviewDAO {
 
 	/**
 	 * Queries the database for a select operation on reviews table
+	 * Constraint: model must exist in the database
 	 * @param model The model of the product to get reviews from
 	 */
 	async getProductReviews(model: string): Promise<ProductReview[]> {
 		return new Promise((resolve, reject) => {
 			try {
-				let query: string = "SELECT * FROM review WHERE model = ?";
+				let query: string = "SELECT * FROM review WHERE Model = ?";
 				db.all(
 					query,
 					[model],
@@ -86,7 +88,8 @@ class ReviewDAO {
 							reject(err);
 						}
 						// Only if rows is empty is due to missing product
-						else if (!rows || rows.length === 0) {
+						else if (!rows) {
+							// never happens, rows is [] at worst
 							reject(new ProductNotFoundError());
 						} else {
 							let reviews: ProductReview[] = rows.map(
