@@ -22,9 +22,15 @@ class ReviewController {
      * @returns A Promise that resolves to nothing
      */
     async addReview(model: string, user: User, score: number, comment: string) : Promise<void> { 
-        
-        //console.log(`Model: ${model}, user: ${user.username}, score: ${score}, comment: ${comment}`);
-        //console.log("Calling DAO...");
+
+        // Check if product exists in db
+        let productExists = await this.productDAO.existsProduct(model);
+
+        // If absent, throw custom error
+        if (!productExists) {
+            throw(new ProductNotFoundError());
+        }
+
         return this.dao.addReview(model, user.username, score, comment);
     }
 
@@ -34,6 +40,14 @@ class ReviewController {
      * @returns A Promise that resolves to an array of ProductReview objects
      */
     async getProductReviews(model: string): Promise<ProductReview[]>  {
+        // Check if product exists in db
+        let productExists = await this.productDAO.existsProduct(model);
+
+        // If absent, throw custom error
+        if (!productExists) {
+            throw(new ProductNotFoundError());
+        }
+        
         return this.dao.getProductReviews(model);
      }
 

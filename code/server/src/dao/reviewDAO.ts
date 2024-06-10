@@ -13,6 +13,7 @@ import { Time } from "../../src/utilities";
 class ReviewDAO {
 	/**
 	 * Queries the database for an insert operation into reviews table
+	 * Constraint: model must exist in the database 
 	 * @param model The model of the product to review
 	 * @param username The username of the user who made the review
 	 * @param score The score assigned to the product, in the range [1, 5]
@@ -72,6 +73,7 @@ class ReviewDAO {
 
 	/**
 	 * Queries the database for a select operation on reviews table
+	 * Constraint: model must exist in the database
 	 * @param model The model of the product to get reviews from
 	 */
 	async getProductReviews(model: string): Promise<ProductReview[]> {
