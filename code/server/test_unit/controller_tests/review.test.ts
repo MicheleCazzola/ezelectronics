@@ -1,139 +1,207 @@
-//@ts-nocheck
-
 import { test, expect, jest, describe, beforeEach } from "@jest/globals";
 import ReviewController from "../../src/controllers/reviewController";
 import { Role, User } from "../../src/components/user";
 import ReviewDAO from "../../src/dao/reviewDAO";
 import ProductDAO from "../../src/dao/productDAO";
 import { ProductNotFoundError } from "../../src/errors/productError";
+import { ProductReview } from "../../src/components/review";
 
 jest.mock("../../src/dao/reviewDAO");
 
 beforeEach(() => {
-  jest.clearAllMocks();
+	jest.clearAllMocks();
 });
 
-describe("Controller", () => {
-  const testCases = [
-    {
-      description: "Add review",
-      func: "addReview",
-      expected: undefined as void,
-      args: (): [string, User, number, string] => [
-        "testmodel",
-        new User("testuser", "testname", "testsurname", Role.CUSTOMER, "", ""),
-        5,
-        "lorem ipsum",
-      ],
-    },
-    {
-      description: "Get Product Reviews",
-      func: "getProductReviews",
-      expected: ["testmodel"],
-      args: (): [string] => ["testmodel"],
-    },
-    {
-      description: "Delete All Reviews",
-      func: "deleteAllReviews",
-      expected: undefined as void,
-      args: (): [void] => [],
-    },
-  ];
+const testuser = new User("testuser", "name", "Surname", Role.CUSTOMER, "", "");
 
-  for (const testCase of testCases) {
-    test(testCase.description, async () => {
-      jest
-        .spyOn(ReviewDAO.prototype, testCase.func as keyof ReviewDAO)
-        .mockResolvedValueOnce(testCase.expected as any);
-      const controller = new ReviewController();
+describe("Add Review", () => {
+	test("Valid", async () => {
+		jest.spyOn(ReviewDAO.prototype, "addReview").mockResolvedValueOnce(
+			undefined
+		);
+		jest.spyOn(ProductDAO.prototype, "existsProduct").mockResolvedValueOnce(
+			true
+		);
 
-      const result = await controller[testCase.func as keyof ReviewController](
-        ...testCase.args()
-      );
-      expect(
-        ReviewDAO.prototype[testCase.func as keyof ReviewDAO]
-      ).toHaveBeenCalledTimes(1);
-      expect(result).toBe(testCase.expected);
-    });
-  }
+		const controller = new ReviewController();
 
-  const testCase2 = {
-    expected: undefined as void,
-    model: "testmodel",
-    user: new User(
-      "testuser",
-      "testname",
-      "testsurname",
-      Role.CUSTOMER,
-      "",
-      ""
-    ),
-  };
+		const result = await controller.addReview(
+			"testmodel",
+			testuser,
+			5,
+			"lorem ipsum"
+		);
+		expect(result).toBe(undefined);
 
-  test("Delete Product Review by a User - Valid", async () => {
-    jest
-      .spyOn(ProductDAO.prototype, "existsProduct")
-      .mockResolvedValueOnce(true);
-    jest
-      .spyOn(ReviewDAO.prototype, "deleteReview")
-      .mockResolvedValueOnce(testCase2.expected);
+		expect(ProductDAO.prototype.existsProduct).toHaveBeenCalledTimes(1);
+		expect(ProductDAO.prototype.existsProduct).toHaveBeenCalledWith(
+			"testmodel"
+		);
 
-    const controller = new ReviewController();
-    const result = await controller.deleteReview(
-      testCase2.model,
-      testCase2.user
-    );
-    expect(ProductDAO.prototype.existsProduct).toHaveBeenCalledTimes(1);
+		expect(ReviewDAO.prototype.addReview).toHaveBeenCalledTimes(1);
+		expect(ReviewDAO.prototype.addReview).toHaveBeenCalledWith(
+			"testmodel",
+			"testuser",
+			5,
+			"lorem ipsum"
+		);
+	});
 
-    expect(ReviewDAO.prototype.deleteReview).toHaveBeenCalledTimes(1);
-    expect(result).toBe(testCase2.expected);
-  });
+	test("Product Not Found", async () => {
+		jest.spyOn(ProductDAO.prototype, "existsProduct").mockResolvedValueOnce(
+			false
+		);
 
-  test("Delete Product Review by a User - Product Not Found", async () => {
-    jest
-      .spyOn(ProductDAO.prototype, "existsProduct")
-      .mockResolvedValueOnce(false);
-    jest.spyOn(ReviewDAO.prototype, "deleteReview");
+		const controller = new ReviewController();
 
-    const controller = new ReviewController();
-    expect(
-      controller.deleteReview(testCase2.model, testCase2.user)
-    ).rejects.toThrowError(ProductNotFoundError);
+		await expect(
+			controller.addReview("testmodel", testuser, 5, "lorem ipsum")
+		).rejects.toThrow(ProductNotFoundError);
 
-    expect(ProductDAO.prototype.existsProduct).toHaveBeenCalledTimes(1);
+		expect(ProductDAO.prototype.existsProduct).toHaveBeenCalledTimes(1);
+		expect(ProductDAO.prototype.existsProduct).toHaveBeenCalledWith(
+			"testmodel"
+		);
 
-    expect(ReviewDAO.prototype.deleteReview).toHaveBeenCalledTimes(0);
-  });
+		expect(ReviewDAO.prototype.addReview).toHaveBeenCalledTimes(0);
+	});
+});
 
-  test("Delete All Reviews of a Product - Valid", async () => {
-    jest
-      .spyOn(ProductDAO.prototype, "existsProduct")
-      .mockResolvedValueOnce(true);
-    jest
-      .spyOn(ReviewDAO.prototype, "deleteReviewsOfProduct")
-      .mockResolvedValueOnce(testCase2.expected);
+describe("Get Product Reviews", () => {
+	test("Valid", async () => {
+		const reviews = [
+			new ProductReview("testmodel", "testuser", 5, "", "lorem ipsum"),
+			new ProductReview("testmodel", "testuser2", 4, "", "lorem ipsum"),
+		];
 
-    const controller = new ReviewController();
-    const result = await controller.deleteReviewsOfProduct(testCase2.model);
-    expect(ProductDAO.prototype.existsProduct).toHaveBeenCalledTimes(1);
+		jest.spyOn(
+			ReviewDAO.prototype,
+			"getProductReviews"
+		).mockResolvedValueOnce(reviews);
+		jest.spyOn(ProductDAO.prototype, "existsProduct").mockResolvedValueOnce(
+			true
+		);
 
-    expect(ReviewDAO.prototype.deleteReviewsOfProduct).toHaveBeenCalledTimes(1);
-    expect(result).toBe(testCase2.expected);
-  });
+		const controller = new ReviewController();
 
-  test("Delete All Reviews of a Product - Product Not Found", async () => {
-    jest
-      .spyOn(ProductDAO.prototype, "existsProduct")
-      .mockResolvedValueOnce(false);
-    jest.spyOn(ReviewDAO.prototype, "deleteReviewsOfProduct");
+		const result = await controller.getProductReviews("testmodel");
+		expect(result).toBe(reviews);
 
-    const controller = new ReviewController();
-    expect(controller.deleteReview(testCase2.model)).rejects.toThrowError(
-      ProductNotFoundError
-    );
+		expect(ProductDAO.prototype.existsProduct).toHaveBeenCalledTimes(1);
+		expect(ProductDAO.prototype.existsProduct).toHaveBeenCalledWith(
+			"testmodel"
+		);
 
-    expect(ProductDAO.prototype.existsProduct).toHaveBeenCalledTimes(1);
+		expect(ReviewDAO.prototype.getProductReviews).toHaveBeenCalledTimes(1);
+		expect(ReviewDAO.prototype.getProductReviews).toHaveBeenCalledWith(
+			"testmodel"
+		);
+	});
 
-    expect(ReviewDAO.prototype.deleteReviewsOfProduct).toHaveBeenCalledTimes(0);
-  });
+	test("Product Not Found", async () => {
+		jest.spyOn(ProductDAO.prototype, "existsProduct").mockResolvedValueOnce(
+			false
+		);
+
+		const controller = new ReviewController();
+
+		await expect(controller.getProductReviews("testmodel")).rejects.toThrow(
+			ProductNotFoundError
+		);
+
+		expect(ProductDAO.prototype.existsProduct).toHaveBeenCalledTimes(1);
+		expect(ProductDAO.prototype.existsProduct).toHaveBeenCalledWith(
+			"testmodel"
+		);
+
+		expect(ReviewDAO.prototype.getProductReviews).toHaveBeenCalledTimes(0);
+	});
+});
+
+describe("Delete All Reviews", () => {
+	test("Valid", async () => {
+		jest.spyOn(
+			ReviewDAO.prototype,
+			"deleteAllReviews"
+		).mockResolvedValueOnce(undefined);
+		const controller = new ReviewController();
+
+		const result = await controller.deleteAllReviews();
+
+		expect(ReviewDAO.prototype.deleteAllReviews).toHaveBeenCalledTimes(1);
+		expect(result).toBe(undefined);
+	});
+});
+
+describe("Delete Product Review", () => {
+	test("Valid", async () => {
+		jest.spyOn(ProductDAO.prototype, "existsProduct").mockResolvedValueOnce(
+			true
+		);
+		jest.spyOn(ReviewDAO.prototype, "deleteReview").mockResolvedValueOnce(
+			undefined
+		);
+
+		const controller = new ReviewController();
+		const result = await controller.deleteReview("testmodel", testuser);
+		expect(ProductDAO.prototype.existsProduct).toHaveBeenCalledTimes(1);
+
+		expect(ReviewDAO.prototype.deleteReview).toHaveBeenCalledTimes(1);
+		expect(result).toBe(undefined);
+	});
+
+	test("Product Not Found", async () => {
+		jest.spyOn(ProductDAO.prototype, "existsProduct").mockResolvedValueOnce(
+			false
+		);
+		jest.spyOn(ReviewDAO.prototype, "deleteReview");
+
+		const controller = new ReviewController();
+		expect(
+			controller.deleteReview("notamodel", testuser)
+		).rejects.toThrowError(ProductNotFoundError);
+
+		expect(ProductDAO.prototype.existsProduct).toHaveBeenCalledTimes(1);
+
+		expect(ReviewDAO.prototype.deleteReview).toHaveBeenCalledTimes(0);
+	});
+});
+
+describe("Delete All Reviews of a Product", () => {
+	test("Valid", async () => {
+		jest.spyOn(ProductDAO.prototype, "existsProduct").mockResolvedValueOnce(
+			true
+		);
+		jest.spyOn(
+			ReviewDAO.prototype,
+			"deleteReviewsOfProduct"
+		).mockResolvedValueOnce(undefined);
+
+		const controller = new ReviewController();
+		const result = await controller.deleteReviewsOfProduct("testmodel");
+		expect(ProductDAO.prototype.existsProduct).toHaveBeenCalledTimes(1);
+
+		expect(
+			ReviewDAO.prototype.deleteReviewsOfProduct
+		).toHaveBeenCalledTimes(1);
+		expect(result).toBe(undefined);
+	});
+
+	test("Product Not Found", async () => {
+		jest.spyOn(ProductDAO.prototype, "existsProduct").mockResolvedValueOnce(
+			false
+		);
+		jest.spyOn(ReviewDAO.prototype, "deleteReviewsOfProduct");
+
+		const controller = new ReviewController();
+		expect(
+			controller.deleteReview("notamodel", testuser)
+		).rejects.toThrowError(ProductNotFoundError);
+
+		expect(ProductDAO.prototype.existsProduct).toHaveBeenCalledTimes(1);
+
+		expect(
+			ReviewDAO.prototype.deleteReviewsOfProduct
+		).toHaveBeenCalledTimes(0);
+	});
 });
