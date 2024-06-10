@@ -7,6 +7,7 @@ import { execPath } from "process";
 import ProductController from "../../src/controllers/productController";
 import { error } from "console";
 import { EmptyProductStockError, LowProductStockError, ProductAlreadyExistsError, ProductNotFoundError } from "../../src/errors/productError";
+import { DateError, Time } from "../../src/utilities";
 
 const baseURL = "/ezelectronics/products";
 const mockMiddleware = jest.fn((req, res, next: any) => next());
@@ -94,7 +95,7 @@ describe("Product router test:", () => {
                 
                 test("it should return an error 400 if the arrivalDate is invalid", async () => {
     
-                    const errDate = new Error("Invalid Date");
+                    const errDate = new DateError();
         
                     const invalidDateErr = 400;
                     const mockControllerRegisterProducts = jest.spyOn(ProductController.prototype, "registerProducts").mockRejectedValueOnce(errDate);
@@ -274,13 +275,14 @@ describe("Product router test:", () => {
         test("It should return a 404 error if `model` does not represent a product in the database", async() => {
             
             const statusCode = 404;
+            const testModel = "testModel";
             const err = new ProductNotFoundError();
             const mockControllerChangeProductQuantity = jest.spyOn(ProductController.prototype, "changeProductQuantity").mockRejectedValueOnce(err);
 
             const response = await request(app)
-                .patch(baseURL + "/:model")
+                .patch(baseURL + `/${testModel}`)
                 .send({
-                    model: "testModel",
+                    model: testModel,
                     quantity: 5,
                     date: "2024-03-03"
                 });
@@ -296,36 +298,37 @@ describe("Product router test:", () => {
             test("It should return a 400 error if `changeDate` is after the current date", async () => {
 
                 const invalidDateErr = 400;
-                const err = new Error("Invalid date");
-                /*
-                const futureDate = new Date();
+                const testModel = "testModel";
 
-                futureDate.setDate(futureDate.getDate() + 1);
-                    date: futureDate.toISOString().split('T')[0]
-                */
+                const err = new DateError();
+                const today = new Date();
+                const futureDate = new Date(today);
+                futureDate.setDate(today.getDate()+ 1);
 
+                const futureDateString = futureDate.toISOString().split('T')[0]; 
+                
                 const mockControllerChangeProductQuantity = jest.spyOn(ProductController.prototype, "changeProductQuantity").mockRejectedValueOnce(err);
     
                 const response = await request(app)
-                    .patch(baseURL + "/:model")
+                    .patch(baseURL + `/${testModel}`)
                     .send({
-                        model: "testModel",
+                        model: testModel,
                         quantity: 5,
-                        date: "2025-04-04"
+                        date: futureDateString
                     });
     
                 expect(Authenticator.prototype.isAdminOrManager).toHaveBeenCalledTimes(1);
                 expect(mockControllerChangeProductQuantity).toHaveBeenCalledTimes(1);    
-    
                 expect(response.status).toBe(invalidDateErr);
-    
-    
+            
             });
     
             test("It should return a 400 error if `changeDate` is before the product's `arrivalDate`", async () => {
                 
                 const invalidDateErr = 400;
-                const err = new Error("Invalid date");
+                const err = new DateError();
+
+                const testProduct = new Product(123, "TestModel", Category.SMARTPHONE, "2020-02-02", "TestDetails", 12);
     
                 const mockControllerChangeProductQuantity = jest.spyOn(ProductController.prototype, "changeProductQuantity").mockRejectedValueOnce(err);
     
@@ -334,7 +337,7 @@ describe("Product router test:", () => {
                     .send({
                         model: "testModel",
                         quantity: 5,
-                        date: "2020-03-03"
+                        date: "2020-02-01"
                     });
     
                 expect(Authenticator.prototype.isAdminOrManager).toHaveBeenCalledTimes(1);
@@ -365,6 +368,7 @@ describe("Product router test:", () => {
     
             });
 
+           
         });
 
         test("Quantity must be greater than 0", async () => {
@@ -466,10 +470,17 @@ describe("Product router test:", () => {
 
         describe("Date validation testing:", () => {
 
-            test("It should return a 400 error if `changeDate` is after the current date", async () => {
+            test("It should return a 400 error if `sellingDate` is after the current date", async () => {
 
                 const invalidDateErr = 400;
-                const err = new Error("Invalid date");
+                const err = new DateError();
+
+                const today = new Date();
+                const futureDate = new Date(today);
+                futureDate.setDate(today.getDate()+ 1);
+                const futureDateString = futureDate.toISOString().split('T')[0]; 
+
+
                
                 const mockControllerChangeProductQuantity = jest.spyOn(ProductController.prototype, "sellProduct").mockRejectedValueOnce(err);
     
@@ -478,7 +489,7 @@ describe("Product router test:", () => {
                     .send({
                         model: "testModel",
                         quantity: 5,
-                        date: "2025-04-04"
+                        date: futureDateString
                     });
     
                 expect(Authenticator.prototype.isAdminOrManager).toHaveBeenCalledTimes(1);
@@ -489,10 +500,10 @@ describe("Product router test:", () => {
     
             });
     
-            test("It should return a 400 error if `changeDate` is before the product's `arrivalDate`", async () => {
+            test("It should return a 400 error if `sellingDate` is before the product's `arrivalDate`", async () => {
                 
                 const invalidDateErr = 400;
-                const err = new Error("Invalid date");
+                const err = new DateError();
     
                 const mockControllerChangeProductQuantity = jest.spyOn(ProductController.prototype, "sellProduct").mockRejectedValueOnce(err);
     
@@ -501,7 +512,7 @@ describe("Product router test:", () => {
                     .send({
                         model: "testModel",
                         quantity: 5,
-                        date: "2020-03-03"
+                        date: "1980-03-03"
                     });
     
                 expect(Authenticator.prototype.isAdminOrManager).toHaveBeenCalledTimes(1);
