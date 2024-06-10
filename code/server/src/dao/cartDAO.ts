@@ -326,8 +326,9 @@ class CartDAO {
 		let new_quantity: number = undefined;
 		for (let cart_product of cart.products) {
 			if (cart_product.model === product) {
-				new_quantity = cart_product.quantity--;
-				if (cart_product.quantity === 0) {
+				new_quantity = --cart_product.quantity;
+				cart.total -= cart_product.price;
+				if (new_quantity === 0) {
 					cart.products = cart.products.filter(
 						(product) => product.model !== cart_product.model
 					);
