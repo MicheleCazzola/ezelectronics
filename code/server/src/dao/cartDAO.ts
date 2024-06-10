@@ -7,6 +7,7 @@ import {
 	EmptyProductStockError,
 	ProductNotFoundError,
 } from "../errors/productError";
+import { Time } from "../utilities";
 /**
  * A class that implements the interaction with the database for all cart-related operations.
  * You are free to implement any method you need here, as long as the requirements are satisfied.
@@ -172,14 +173,10 @@ class CartDAO {
 		return new Promise((resolve, reject) => {
 			const sql1 =
 				"UPDATE CART SET Paid = 1, PaymentDate = ? WHERE Username = ?";
-			db.run(
-				sql1,
-				[new Date().toISOString().split("T")[0], username],
-				(err) => {
-					if (err) reject(err);
-					else resolve(true);
-				}
-			);
+			db.run(sql1, [Time.now(), username], (err) => {
+				if (err) reject(err);
+				else resolve(true);
+			});
 		});
 	}
 

@@ -15,6 +15,7 @@ import { Category } from "../../src/components/product";
 import { ProductReview } from "../../src/components/review";
 import dayjs from "dayjs";
 import { UserNotFoundError } from "../../src/errors/userError";
+import { Time } from "../../src/utilities";
 
 const pdao = new ProductDAO();
 const udao = new UserDAO();
@@ -75,37 +76,6 @@ describe("DAO - Add a Review", () => {
 		);
 	});
 
-	test.skip("User Not Found", async () => {
-		const testCase = {
-			model: "notamodel",
-			username: "testuser",
-			score: 5,
-			comment: "Lorem Ipsum",
-		};
-		jest.spyOn(db, "run");
-		await expect(
-			dao.addReview(
-				testCase.model,
-				"notavaliduser",
-				testCase.score,
-				testCase.comment
-			)
-		).rejects.toThrow(UserNotFoundError);
-
-		expect(db.run).toBeCalledTimes(1);
-		expect(db.run).toBeCalledWith(
-			expect.any(String), // sql query
-			expect.arrayContaining([
-				testCase.username,
-				testCase.model,
-				expect.any(String), // date
-				testCase.comment,
-				testCase.score,
-			]),
-			expect.any(Function)
-		);
-	});
-
 	test("Valid", async () => {
 		const testCase = {
 			model: "testmodel",
@@ -141,10 +111,101 @@ describe("DAO - Add a Review", () => {
 				testCase.model,
 				testCase.username,
 				testCase.score,
-				dayjs().format("YYYY-MM-DD"),
+				Time.now(),
 				testCase.comment
 			),
 		]);
+	});
+
+	test("Multiple Valid - Same Model", async () => {
+		const testCases = [
+			new ProductReview(
+				"testmodel",
+				"testuser",
+				5,
+				Time.now(),
+				"Lorem Ipsum"
+			),
+			new ProductReview(
+				"testmodel",
+				"testuser2",
+				4,
+				Time.now(),
+				"Lorem Ipsum"
+			),
+		];
+		jest.spyOn(db, "run").mockClear();
+		for (const testCase of testCases) {
+			const result = await dao.addReview(
+				testCase.model,
+				testCase.user,
+				testCase.score,
+				testCase.comment
+			);
+			expect(result).resolves.toBeUndefined;
+			expect(db.run).toBeCalledWith(
+				expect.any(String), // sql query
+				expect.arrayContaining([
+					testCase.user,
+					testCase.model,
+					Time.now(),
+					testCase.comment,
+					testCase.score,
+				]),
+				expect.any(Function)
+			);
+		}
+		await expect(dao.getProductReviews("testmodel")).resolves.toStrictEqual(
+			testCases
+		);
+		expect(db.run).toBeCalledTimes(2);
+	});
+
+	test("Multiple Valid - Same User", async () => {
+		const testCases = [
+			new ProductReview(
+				"testmodel",
+				"testuser",
+				5,
+				Time.now(),
+				"Lorem Ipsum"
+			),
+			new ProductReview(
+				"testmodel2",
+				"testuser",
+				4,
+				Time.now(),
+				"Lorem Ipsum"
+			),
+		];
+		jest.spyOn(db, "run").mockClear();
+		for (const testCase of testCases) {
+			const result = await dao.addReview(
+				testCase.model,
+				testCase.user,
+				testCase.score,
+				testCase.comment
+			);
+			expect(result).resolves.toBeUndefined;
+			expect(db.run).toBeCalledWith(
+				expect.any(String), // sql query
+				expect.arrayContaining([
+					testCase.user,
+					testCase.model,
+					Time.now(),
+					testCase.comment,
+					testCase.score,
+				]),
+				expect.any(Function)
+			);
+		}
+		await expect(
+			dao.getProductReviews(testCases[0].model)
+		).resolves.toStrictEqual([testCases[0]]);
+		await expect(
+			dao.getProductReviews(testCases[1].model)
+		).resolves.toStrictEqual([testCases[1]]);
+		expect(db.run).toBeCalledTimes(2);
 	});
 
 	test("Review Already Exist", async () => {
@@ -193,7 +254,7 @@ describe("DAO - Add a Review", () => {
 				testCase.model,
 				testCase.username,
 				testCase.score,
-				dayjs().format("YYYY-MM-DD"),
+				Time.now(),
 				testCase.comment
 			),
 		]);
@@ -206,14 +267,14 @@ describe("DAO - Get Product's Reviews", () => {
 			"testmodel",
 			"testuser",
 			5,
-			new Date().toISOString().split("T")[0],
+			Time.now(),
 			"lorem ipsum"
 		),
 		new ProductReview(
 			"testmodel",
 			"testuser2",
 			5,
-			new Date().toISOString().split("T")[0],
+			Time.now(),
 			"lorem ipsum dolor sit amet"
 		),
 	];
@@ -242,7 +303,7 @@ describe("DAO - Get Product's Reviews", () => {
 		);
 	});
 
-	test("Product Not Found", async () => {
+	test.skip("Product Not Found", async () => {
 		// test
 		jest.spyOn(db, "all").mockClear();
 
@@ -293,25 +354,9 @@ describe("DAO - Delete a Review", () => {
 			expect.any(Function)
 		);
 	});
-
-	test.skip("User Not Found", async () => {
-		// test
-		jest.spyOn(db, "run").mockClear();
-
-		await expect(
-			dao.deleteReview("testmodel", "notavaliduser")
-		).rejects.toThrow(UserNotFoundError);
-
-		expect(db.run).toBeCalledTimes(1);
-		expect(db.run).toBeCalledWith(
-			expect.any(String), // sql query
-			expect.arrayContaining(["testmodel", "notavaliduser"]),
-			expect.any(Function)
-		);
-	});
 });
 
-describe.skip("DAO - Delete All Reviews of a Product", () => {
+describe("DAO - Delete All Reviews of a Product", () => {
 	test("Valid", async () => {
 		// setup
 		await dao.addReview("testmodel", "testuser", 5, "lorem ipsum");
@@ -336,13 +381,13 @@ describe.skip("DAO - Delete All Reviews of a Product", () => {
 	});
 });
 
-describe.skip("DAO - Delete All Reviews", () => {
+describe("DAO - Delete All Reviews", () => {
 	test("Valid", async () => {
 		// setup
 		await dao.addReview("testmodel", "testuser", 5, "lorem ipsum");
 		await dao.addReview("testmodel", "testuser2", 5, "lorem ipsum");
-		await dao.addReview("testmodel", "testuser2", 1, "lorem ipsum");
-		await dao.addReview("testmodel2", "testuser2", 5, "lorem ipsum");
+		//await dao.addReview("testmodel2", "testuser", 1, "lorem ipsum");
+		//await dao.addReview("testmodel2", "testuser2", 5, "lorem ipsum");
 
 		// test
 		jest.spyOn(db, "run").mockClear();

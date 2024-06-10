@@ -7,6 +7,7 @@ import {
 	EmptyProductStockError,
 	LowProductStockError,
 } from "../errors/productError";
+import { Time } from "../utilities";
 /**
  * Represents a controller for managing shopping carts.
  * All methods of this class must interact with the corresponding DAO class to retrieve or store data.
@@ -109,7 +110,7 @@ class CartController {
 					await this.prod_dao.decreaseQuantity(
 						product.model,
 						product.quantity,
-						new Date().toISOString().split("T")[0]
+						Time.now()
 					);
 				});
 

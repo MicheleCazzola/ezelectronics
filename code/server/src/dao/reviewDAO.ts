@@ -37,8 +37,8 @@ class ReviewDAO {
 						if (err) {
 							//console.log(err);
 
-							console.log(`Name: ${err.name}`);
-							console.log(`Message: ${err.message}`);
+							// console.log(`Name: ${err.name}`);
+							// console.log(`Message: ${err.message}`);
 
 							// console.log(`Error: ${err.stack}`);
 
@@ -77,7 +77,7 @@ class ReviewDAO {
 	async getProductReviews(model: string): Promise<ProductReview[]> {
 		return new Promise((resolve, reject) => {
 			try {
-				let query: string = "SELECT * FROM review WHERE model = ?";
+				let query: string = "SELECT * FROM review WHERE Model = ?";
 				db.all(
 					query,
 					[model],
@@ -86,7 +86,8 @@ class ReviewDAO {
 							reject(err);
 						}
 						// Only if rows is empty is due to missing product
-						else if (!rows || rows.length === 0) {
+						else if (!rows) {
+							// never happens, rows is [] at worst
 							reject(new ProductNotFoundError());
 						} else {
 							let reviews: ProductReview[] = rows.map(
