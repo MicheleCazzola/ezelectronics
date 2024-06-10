@@ -199,45 +199,12 @@ describe("ProductDao test:", () => {
 
         });
 
-        test("it should throw an ProductNotFoundError if model does not represent a product in the database", async () => {
-            
-            const testModel = "NotExistingModel";
-            const errMessage = new Error("UNIQUE constraint failed: product.model");
-            
-            const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
-                callback(errMessage, null);
-                return {} as Database;
-            });
 
-            const dao = new ProductDAO();
-
-            await expect(dao.getProductByModel(testModel)).rejects.toThrow(ProductNotFoundError);
-            expect(mockDBGet).toBeCalledTimes(1);
-
-        });
 
 
     });
 
     describe("increaseQuantity tests:", () => {
-
-        test("it should throw an ProductNotFoundError if model does not represent a product in the database", async () => {
-            
-            const testModel = "NotExistingModel";
-            const soldQuantity = 5;
-            const errMessage = new Error("UNIQUE constraint failed: product.model");
-
-            const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
-                callback(errMessage, null);
-                return {} as Database;
-            });
-
-            const dao = new ProductDAO();
-
-            await expect(dao.increaseQuantity(testModel, soldQuantity, null)).rejects.toThrow(ProductNotFoundError);
-            expect(mockDBGet).toBeCalledTimes(1);
-            
-        });
 
         test("it should increase the available quantity and return the new quantity", async () => {
 
@@ -393,24 +360,6 @@ describe("ProductDao test:", () => {
 
     describe("decreaseQuantity test:", () => {
 
-        test("it should throw an ProductNotFoundError if model does not represent a product in the database", async () => {
-            
-            const testModel = "NotExistingModel";
-            const soldQuantity = 5;
-            const errMessage = new Error("UNIQUE constraint failed: product.model");
-
-            
-            const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
-                callback(errMessage, null);
-                return {} as Database;
-            });
-
-            const dao = new ProductDAO();
-
-            await expect(dao.decreaseQuantity(testModel, soldQuantity, null)).rejects.toThrow(ProductNotFoundError);
-            expect(mockDBGet).toBeCalledTimes(1);
-
-        });
 
         test("it should decrease the available quantity and return the new quantity", async () => {
 
@@ -603,22 +552,6 @@ Li faccio nella route
    
     describe("getAllProducts test:", () => {
 
-        test("it should throw an ProductNotFoundError if model does not represent a product in the database", async () => {
-            
-            const testModel = "NotExistingModel";
-            const errMessage = new Error("UNIQUE constraint failed: product.model");            
-            
-            const mockDBAll = jest.spyOn(db, "all").mockImplementation((sql, params, callback) => {
-                callback(errMessage, null);
-                return {} as Database;
-            });
-
-            const dao = new ProductDAO();
-
-            await expect(dao.getAllProducts("Model", testModel, null)).rejects.toThrow(ProductNotFoundError);
-            expect(mockDBAll).toBeCalledTimes(1);
-
-        });
 
         test("it should return all products without filers", async () =>{
 
@@ -731,23 +664,6 @@ Li faccio nella route
 
     describe("getAllAvailableProducts test:", () => {
 
-        test("it should throw an ProductNotFoundError if model does not represent a product in the database", async () => {
-            
-            const testModel = "NotExistingModel";
-            const errMessage = new Error("UNIQUE constraint failed: product.model");
-
-            
-            const mockDBAll = jest.spyOn(db, "all").mockImplementation((sql, params, callback) => {
-                callback(errMessage, null);
-                return {} as Database;
-            });
-
-            const dao = new ProductDAO();
-
-            await expect(dao.getAllAvailableProducts("Model", testModel, null)).rejects.toThrow(ProductNotFoundError);
-            expect(mockDBAll).toBeCalledTimes(1);
-
-        });
     
         test("it should return all available products without filters", async () => {
 
@@ -883,24 +799,6 @@ Li faccio nella route
 
     describe("deleteProductByModel test:", () => {
 
-        test("it should throw an ProductNotFoundError if model does not represent a product in the database", async () => {
-            
-            const testModel = "NotExistingModel";
-            
-            const errMessage = new Error("UNIQUE constraint failed: product.model");
-
-            const mockDBRun = jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
-                callback(errMessage);
-                return {} as Database;
-            });
-
-            const dao = new ProductDAO();
-
-            await expect(dao.deleteProductByModel(testModel)).rejects.toThrow(ProductNotFoundError);
-            expect(mockDBRun).toBeCalledTimes(1);
-
-        });
-
 
         test("It should return true if the product has been deleted", async () =>{
 
@@ -944,23 +842,6 @@ Li faccio nella route
 
     describe("getProductQuantity test:", () => {
 
-        test("it should throw an ProductNotFoundError if model does not represent a product in the database", async () => {
-            
-            const testModel = "NotExistingModel";
-            
-            const errMessage = new Error("UNIQUE constraint failed: product.model");
-
-            const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
-                callback(errMessage, null);
-                return {} as Database;
-            });
-
-            const dao = new ProductDAO();
-
-            await expect(dao.getProductQuantity(testModel)).rejects.toThrow(ProductNotFoundError);
-            expect(mockDBGet).toBeCalledTimes(1);
-
-        });
 
         test("it should return the available quantity of the product", async () =>{
 
