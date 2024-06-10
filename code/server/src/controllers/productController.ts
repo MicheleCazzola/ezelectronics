@@ -38,6 +38,24 @@ class ProductController {
     }
 
     /**
+     * Returns true if the product identified by the model exists.
+     * @param model The unique model of the product.
+     * @returns A Promise that resolves a boolean value.
+     */
+    async productExist(model: string) /**: Promise<boolean>*/{
+        return this.dao.existsProduct(model)
+    }
+
+    /**
+     * Returns the product identified by the model.
+     * @param model The unique model of the product.
+     * @returns A promise that resolves to the found product.
+     */
+    async productByModel(model: string) /**: Promise<Product>*/{
+        return this.dao.getProductByModel(model)
+    }
+
+    /**
      * Increases the available quantity of a product through the addition of new units.
      * @param model The model of the product to increase.
      * @param newQuantity The number of product units to add. This number must be added to the existing quantity, it is not a new total.
