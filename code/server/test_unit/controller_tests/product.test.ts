@@ -16,7 +16,6 @@ describe("Controller tests", () => {
     });
 
     describe("registerProducts tests:", () => {
-        //Questo test deve essere fatto?
         test("it should call createProduct with correct parameters", async () => {
             //The test cheks if the method it's called correclty
             const testProduct = {
@@ -31,7 +30,7 @@ describe("Controller tests", () => {
             jest.spyOn(ProductDAO.prototype, "createProduct").mockResolvedValueOnce();
 
             const controller = new ProductController();
-            /* il metodo è void
+            
             const response = await controller.registerProducts(
                 testProduct.model,
                 testProduct.category, 
@@ -39,7 +38,7 @@ describe("Controller tests", () => {
                 testProduct.details, 
                 testProduct.sellingPrice, 
                 testProduct.arrivalDate
-            );*/
+            );
 
             //controlliamo che la createProduct (del DAO) venga chiamata una voltae con i corretti parametri
             expect(ProductDAO.prototype.createProduct).toHaveBeenCalledTimes(1);
