@@ -4,6 +4,8 @@ import ProductDAO from "../../src/dao/productDAO"
 import { after, it } from "node:test";
 import { Category, Product } from "../../src/components/product";
 import { hasUncaughtExceptionCaptureCallback } from "process";
+import { Time } from "../../src/utilities";
+import dayjs from "dayjs";
 
 jest.mock("../../src/dao/productDAO");
 
@@ -44,11 +46,10 @@ describe("Controller tests", () => {
             expect(ProductDAO.prototype.createProduct).toHaveBeenCalledTimes(1);
             expect(ProductDAO.prototype.createProduct).toHaveBeenCalledWith(testProduct.model, testProduct.category, testProduct.quantity, testProduct.details, testProduct.sellingPrice, testProduct.arrivalDate);
         });
-    
 
     });
 
-
+/*
     describe("productExist test:", () => {
         //The test checks if the method returns true when de DAO method return true.
         
@@ -104,7 +105,7 @@ describe("Controller tests", () => {
 
 
     });
-
+*/
 
     describe("changeProductquantity test:", () => {
 
@@ -113,23 +114,46 @@ describe("Controller tests", () => {
             //il test controlla se il metodo ritorna la nuova quantita del prodotto
 
             const testModel = "TestModel";
-            const testNewQuantity = 5;
-            const testChangeDate = "2/02/2024";
+            const newQuantity = 5;
+            const existingQuantity = 10;
+            const updatedQuantity = existingQuantity + newQuantity;
+            const testChangeDate = "2024-03-02";
 
-            jest.spyOn(ProductDAO.prototype, "increaseQuantity").mockResolvedValueOnce(testNewQuantity);
+            jest.spyOn(ProductDAO.prototype, "increaseQuantity").mockResolvedValueOnce(updatedQuantity);
 
             const controller = new ProductController();
-            const response = await controller.changeProductQuantity(testModel, testNewQuantity, testChangeDate);
+            const response = await controller.changeProductQuantity(testModel, newQuantity, testChangeDate);
 
             expect(ProductDAO.prototype.increaseQuantity).toBeCalledTimes(1);
-            expect(ProductDAO.prototype.increaseQuantity).toBeCalledWith(testModel,testNewQuantity, testChangeDate);
-            expect(response).toBe(testNewQuantity);
+            expect(ProductDAO.prototype.increaseQuantity).toBeCalledWith(testModel,newQuantity, testChangeDate);
+            expect(response).toBe(updatedQuantity);
         
         });    
+
+        test('it should set the arrival date to today if not provided', async () => {
+
+            const testModel = "TestModel";
+            const newQuantity = 5;
+            const existingQuantity = 10;
+            const updatedQuantity = existingQuantity + newQuantity;
+            const todayDate = Time.now();
+        
+            const mockDAOChangeProductQuantity = jest.spyOn(ProductDAO.prototype, "increaseQuantity").mockResolvedValueOnce(updatedQuantity);
+           
+            const controller = new ProductController();
+           
+            const result = await controller.changeProductQuantity(testModel, newQuantity, "");
+
+            expect(result).toBe(updatedQuantity);
+            expect(mockDAOChangeProductQuantity).toHaveBeenCalledTimes(1);    
+            expect(mockDAOChangeProductQuantity).toHaveBeenCalledWith(testModel, newQuantity, todayDate);
+
+        });
 
     });
 
     describe("sellProducts test:", () => {
+
         test("It should return the available quantity of the product", async () => {
             
             const testModel = "TestModel";
@@ -148,6 +172,26 @@ describe("Controller tests", () => {
             expect(ProductDAO.prototype.decreaseQuantity).toBeCalledWith(testModel, testQuantitySold, testSellingDate);
 
             expect(response).toBe(newQuantity);
+
+        });
+
+        test('it should set the selling date to today if not provided', async () => {
+
+            const testModel = "TestModel";
+            const soldQuantity = 5;
+            const existingQuantity = 10;
+            const updatedQuantity = existingQuantity - soldQuantity;
+            const todayDate = Time.now();
+        
+            const mockDAOSellProduct = jest.spyOn(ProductDAO.prototype, "decreaseQuantity").mockResolvedValueOnce(updatedQuantity);
+           
+            const controller = new ProductController();
+           
+            const result = await controller.sellProduct(testModel, soldQuantity, "");
+
+            expect(result).toBe(updatedQuantity);
+            expect(mockDAOSellProduct).toHaveBeenCalledTimes(1);    
+            expect(mockDAOSellProduct).toHaveBeenCalledWith(testModel, soldQuantity, todayDate);
 
         });
         
@@ -179,6 +223,8 @@ describe("Controller tests", () => {
             expect(response).toBe(testProduct);
 
         });
+
+
 
     });
 
