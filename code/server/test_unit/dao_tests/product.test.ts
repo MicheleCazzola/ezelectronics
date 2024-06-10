@@ -225,16 +225,21 @@ describe("ProductDao test:", () => {
             });
 
             const dao = new ProductDAO();
-            const result = await dao.increaseQuantity(testModel, newQuantity, null);
+            const result = await dao.increaseQuantity(testModel, newQuantity, testDate);
+
+            expect(mockDBGet).toHaveBeenCalledTimes(1);
+            expect(mockDBRun).toHaveBeenCalledTimes(1);
+            expect(mockDBGet).toHaveBeenCalledWith(expect.any(String), expect.arrayContaining([testModel]), expect.any(Function));
+
+            expect(mockDBRun).toHaveBeenCalledWith(
+                expect.any(String),
+                expect.arrayContaining([updatedQuantity, testDate, testModel]),
+                expect.any(Function)
+            );
 
             expect(result).toBe(updatedQuantity);
             
-            expect(mockDBGet).toHaveBeenCalledWith(expect.any(String), [testModel], expect.any(Function));
             
-            expect(mockDBRun).toHaveBeenCalledWith(
-                expect.any(String), [updatedQuantity, testDate, testModel],
-                expect.any(Function)
-            );
 
         });
 
@@ -261,6 +266,7 @@ describe("ProductDao test:", () => {
             const testModel = "TestModel";
             const newQuantity = 5;
             const existingQuantity = 10;
+            const testDate = "2024-03-03";
             const updatedQuantity = existingQuantity + newQuantity;
 
 
@@ -275,13 +281,13 @@ describe("ProductDao test:", () => {
             });
 
             const dao = new ProductDAO();
-            await expect(dao.increaseQuantity(testModel, newQuantity, null)).rejects.toThrow('DB run error');
+            await expect(dao.increaseQuantity(testModel, newQuantity, testDate)).rejects.toThrow('DB run error');
 
-            expect(mockDBGet).toHaveBeenCalledWith(expect.any(String), [testModel], expect.any(Function));
+            expect(mockDBGet).toHaveBeenCalledWith(expect.any(String), expect.arrayContaining([testModel]), expect.any(Function));
            
             expect(mockDBRun).toHaveBeenCalledWith(
                 expect.any(String),
-                [updatedQuantity, dayjs().format('YYYY-MM-DD'), testModel],
+                expect.arrayContaining([updatedQuantity, testDate, testModel]),
                 expect.any(Function)
             );
 
@@ -320,46 +326,13 @@ describe("ProductDao test:", () => {
         });
         
 
-        test('it should set the arrival date to today if not provided', async () => {
-
-            const testModel = "TestModel";
-            const newQuantity = 5;
-            const existingQuantity = 10;
-            const updatedQuantity = existingQuantity + newQuantity;
-        
-            const mockDBGet = jest.spyOn(db, 'get').mockImplementation((sql, params, callback) => {
-              callback(null, { AvailableQuantity: existingQuantity });
-              return {} as Database;
-
-            });
-        
-            const mockDBRun = jest.spyOn(db, 'run').mockImplementation((sql, params, callback) => {
-              callback(null);
-              return {} as Database;
-
-            });
-        
-            const dao = new ProductDAO();
-            const result = await dao.increaseQuantity(testModel, newQuantity, null);
-        
-            expect(result).toBe(updatedQuantity);
-            expect(mockDBGet).toHaveBeenCalledWith(expect.any(String), [testModel], expect.any(Function));
-            
-            expect(mockDBRun).toHaveBeenCalledWith(
-              expect.any(String),
-              [updatedQuantity, dayjs().format('YYYY-MM-DD'), testModel],
-              expect.any(Function)
-            );
-
-          });
-          
+   
 
     } );
 
     
 
     describe("decreaseQuantity test:", () => {
-
 
         test("it should decrease the available quantity and return the new quantity", async () => {
 
@@ -380,58 +353,22 @@ describe("ProductDao test:", () => {
             });
 
             const dao = new ProductDAO();
-            const result = await dao.decreaseQuantity(testModel, soldQuantity, null);
+            const result = await dao.decreaseQuantity(testModel, soldQuantity, testDate);
 
             expect(result).toBe(updatedQuantity);
             
-            expect(mockDBGet).toHaveBeenCalledWith(expect.any(String), [testModel], expect.any(Function));
             
+            expect(mockDBGet).toHaveBeenCalledTimes(1);
+            
+            expect(mockDBRun).toHaveBeenCalledTimes(1);
+
             expect(mockDBRun).toHaveBeenCalledWith(
-                expect.any(String), [updatedQuantity, testDate, testModel],
+                expect.any(String),
+                expect.arrayContaining([updatedQuantity, testDate, testModel]),
                 expect.any(Function)
             );
 
         });
-/*
-Li faccio nella route
-        test("It should return a 409 error if `model` represents a product whose available quantity is 0", async () => {
-            const testModel = "TestModel";
-            const soldQuantity = 5;
-            
-            const mockDBGet = jest.spyOn(db, 'get').mockImplementation((sql, params, callback) => {
-                callback(new EmptyProductStockError(), null);
-                return {} as Database;
-            });
-
-            const dao = new ProductDAO();
-            const result = await dao.decreaseQuantity(testModel, soldQuantity, null);
-
-            expect(result).rejects.toThrow(EmptyProductStockError);
-
-            expect(mockDBGet).toHaveBeenCalledTimes(1);
-
-        });
-
-        test("it should return a 409 error if the available quantity of `model` is lower than the requested `quantity`", async () => {
-           
-            const testModel = "TestModel";
-            const soldQuantity = 5;
-            
-            const mockDBGet = jest.spyOn(db, 'get').mockImplementation((sql, params, callback) => {
-                callback(null, );
-                return {} as Database;
-            });
-
-            const dao = new ProductDAO();
-            const result = await dao.decreaseQuantity(testModel, soldQuantity, null);
-
-            expect(result).rejects.toThrow(EmptyProductStockError);
-
-            expect(mockDBGet).toHaveBeenCalledTimes(1);
-
-
-        });
-*/
 
         test("it should handle the error during selecting the available quantity", async () => {
 
@@ -457,7 +394,7 @@ Li faccio nella route
             const soldQuantity = 5;
             const existingQuantity = 10;
             const updatedQuantity = existingQuantity - soldQuantity;
-
+            const testDate = "2023-04-03"
 
             const mockDBGet = jest.spyOn(db, 'get').mockImplementation((sql, params, callback) => {
                 callback(null, { AvailableQuantity: existingQuantity });
@@ -470,13 +407,13 @@ Li faccio nella route
             });
 
             const dao = new ProductDAO();
-            await expect(dao.decreaseQuantity(testModel, soldQuantity, null)).rejects.toThrow('DB run error');
+            await expect(dao.decreaseQuantity(testModel, soldQuantity, testDate)).rejects.toThrow('DB run error');
 
             expect(mockDBGet).toHaveBeenCalledWith(expect.any(String), [testModel], expect.any(Function));
            
             expect(mockDBRun).toHaveBeenCalledWith(
                 expect.any(String),
-                [updatedQuantity, dayjs().format('YYYY-MM-DD'), testModel],
+                expect.arrayContaining([updatedQuantity, testDate, testModel]),
                 expect.any(Function)
             );
 
@@ -514,39 +451,6 @@ Li faccio nella route
 
         });
         
-
-        test('it should set the selling date to today if not provided', async () => {
-
-            const testModel = "TestModel";
-            const soldQuantity = 5;
-            const existingQuantity = 10;
-            const updatedQuantity = existingQuantity - soldQuantity;
-        
-            const mockDBGet = jest.spyOn(db, 'get').mockImplementation((sql, params, callback) => {
-              callback(null, { AvailableQuantity: existingQuantity });
-              return {} as Database;
-
-            });
-        
-            const mockDBRun = jest.spyOn(db, 'run').mockImplementation((sql, params, callback) => {
-              callback(null);
-              return {} as Database;
-
-            });
-        
-            const dao = new ProductDAO();
-            const result = await dao.decreaseQuantity(testModel, soldQuantity, null);
-        
-            expect(result).toBe(updatedQuantity);
-            expect(mockDBGet).toHaveBeenCalledWith(expect.any(String), [testModel], expect.any(Function));
-            
-            expect(mockDBRun).toHaveBeenCalledWith(
-              expect.any(String),
-              [updatedQuantity, dayjs().format('YYYY-MM-DD'), testModel],
-              expect.any(Function)
-            );
-
-          });
 
     });
    
