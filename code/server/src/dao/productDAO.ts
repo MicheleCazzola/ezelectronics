@@ -75,6 +75,25 @@ class ProductDAO {
   }
 
   /**
+   * Returns the product identified by the model.
+   * @param model The unique model of the product.
+   * @returns A promise that resolves to the found product.
+   */
+  getProductByModel(model: string): Promise<Product> {
+    return new Promise<Product>((resolve, reject) => {
+      try {
+        const sql = "SELECT * FROM product_descriptor WHERE Model = ?";
+        db.get(sql, [model], (err: Error | null, row: any) => {
+          if (err) reject(err);
+          resolve(row);
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  /**
    * Increases the available quantity of a product.
    * @param model The model of the product to increase.
    * @param newQuantity The number of product units to add. This number must be added to the existing quantity, it is not a new total.
