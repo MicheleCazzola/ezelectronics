@@ -541,7 +541,6 @@ describe("Controller tests", () => {
 			).rejects.toBeInstanceOf(EmptyCartError);
 		});
 
-		// Fails because of productController not returning a Product object
 		test("Checkout failed - Unpaid cart present, all product present in stock, but at least one whose quantity is higher than available", async () => {
 			const testUser = new User(
 				"test",
@@ -813,7 +812,7 @@ describe("Controller tests", () => {
 				"test",
 				testUser.role
 			);
-			
+
 			// Test
 			await expect(cartController.clearCart(testUser)).rejects.toBeInstanceOf(CartNotFoundError);
 		});
