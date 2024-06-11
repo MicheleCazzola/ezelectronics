@@ -166,19 +166,19 @@ class UserDAO {
                     if (!row){
                         reject(new UserNotFoundError);
                         return;
+                    }else{
+
+                        const sql2 = "DELETE FROM users WHERE username = ?";
+
+                        db.run(sql2, [username], (err: Error | null) => {
+                            if (err) {               
+                                reject(err);
+                                return;
+                            }
+                            resolve(true);
+                        });
                     }
-                
-                });
-
-                const sql2 = "DELETE FROM users WHERE username = ?";
-
-                db.run(sql2, [username], (err: Error | null) => {
-                    if (err) {               
-                        reject(err);
-                        return;
-                    }
-                    resolve(true);
-
+        
                 });
 
 
@@ -246,33 +246,46 @@ class UserDAO {
         return new Promise<User>((resolve, reject) =>{
             try{
 
-                const sql = "UPDATE users SET name = ?, surname = ?, address = ?, birthdate = ? WHERE username = ?";
-
-                db.run(sql, [name, surname, address, birthdate, username],(err: Error | null) => {
-                
-                    if(err){
-                        if (err.message.includes("UNIQUE constraint failed: users.username")) {
-                            reject(new UserAlreadyExistsError);
-                            return;
-                        }
-                    
-                        reject(err);
-                        return;    
-                    }
-                    
-                });
-
-                db.get(sql, [username], (err: Error | null, row: any) => {
+                const sql2 = "SELECT * FROM users WHERE username = ?"
+                db.get(sql2, [username], (err: Error | null, row: any) => {
                     if (err) {
                         reject(err);
                         return;
                     }
+                    if(!row){
+                    
+                        reject(new UserAlreadyExistsError);
+                        return;
+          
+                    }else{
+                        const sql = "UPDATE users SET name = ?, surname = ?, address = ?, birthdate = ? WHERE username = ?";
+
+                        db.run(sql, [name, surname, address, birthdate, username],(err: Error | null) => {
+                            if (err){
+                                reject(err);
+                                return;
+                            }
+                            
+                            const sql3 = "SELECT * FROM users WHERE username = ?"
+
+                            db.get(sql2, [username], (err: Error | null, row: any) => {
+                                if (err){
+                                    reject(err);
+                                    return;
+                                }
+                                const user: User = new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate);
+                                resolve(user);
+                    
+                            });
+
+                        });
+
+                        
+                    }
+            
                 
-                    const user: User = new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate);
-                    resolve(user);
-                })
-
-
+                });
+            
             }catch (error) {
                 reject(error);
 
