@@ -389,7 +389,7 @@ describe("Controller tests", () => {
 			await cleanup();
 		});
 
-		test.skip("Checkout successful", async () => {
+		test("Checkout successful", async () => {
 			const testUser = new User(
 				"test",
 				"test",
@@ -414,7 +414,7 @@ describe("Controller tests", () => {
 				testUser.username,
 				true,
 				Time.now(),
-				200,
+				300,
 				[testNewProductInCart1, testNewProductInCart2]
 			);
 
@@ -456,18 +456,17 @@ describe("Controller tests", () => {
 
 			// Check
 			// Cart was just checked out, so the current cart is empty
-			const checkedOutCart = await cartController.getCart(testUser);
-			//const quantity1 = await productController.productByModel(
-			//	testNewProductInCart1.model
-			//);
-			//const quantity2 = await productController.productByModel(
-			//	testNewProductInCart2.model
-			//);
-			//
-			//expect(result).toBe(true);
-			//expect(checkedOutCart).toStrictEqual(testCart);
-			//expect(quantity1).toBe(1);
-			//expect(quantity2).toBe(1);
+			const checkedOutCarts = await cartController.getCustomerCarts(testUser)
+			const checkedOut = checkedOutCarts.filter(cart => 
+				cart.customer === testCart.customer &&
+				cart.paid === testCart.paid &&
+				cart.paymentDate === testCart.paymentDate &&
+				cart.total === testCart.total
+			);
+			
+			expect(result).toBe(true);
+			expect(checkedOut.length).toBe(1);
+			expect(checkedOut[0]).toStrictEqual(testCart);
 		});
 
 		test("Checkout failed - No unpaid cart in database", async () => {
@@ -542,8 +541,8 @@ describe("Controller tests", () => {
 			).rejects.toBeInstanceOf(EmptyCartError);
 		});
 
-		// Fails because of productController
-		test.skip("Checkout failed - Unpaid cart present, all product present in stock, but at least one whose quantity is higher than available", async () => {
+		// Fails because of productController not returning a Product object
+		test("Checkout failed - Unpaid cart present, all product present in stock, but at least one whose quantity is higher than available", async () => {
 			const testUser = new User(
 				"test",
 				"test",
@@ -608,17 +607,20 @@ describe("Controller tests", () => {
 			).rejects.toBeInstanceOf(LowProductStockError);
 
 			// Check
-			//const product1 = await productController.productByModel(
-			//	testNewProductInCart1.model
-			//);
-			//const product2 = await productController.productByModel(
-			//	testNewProductInCart2.model
-			//);
-			//expect(product1.quantity).toBe(testNewProductInCart1.quantity - 1);
-			//expect(product2.quantity).toBe(testNewProductInCart2.quantity + 1);
+			const product1 = await productController.productByModel(
+				testNewProductInCart1.model
+			);
+			const product2 = await productController.productByModel(
+				testNewProductInCart2.model
+			);
+			console.log(product1);
+			console.log(product2);
+			expect(product1.quantity).toBe(testNewProductInCart1.quantity - 1);
+			expect(product2.quantity).toBe(testNewProductInCart2.quantity + 1);
 		});
 
-		test.skip("Checkout failed - Unpaid cart present, but at least a product with empty stock", async () => {
+		// Fails because of productController not certain behavior
+		test("Checkout failed - Unpaid cart present, but at least a product with empty stock", async () => {
 			const testUser = new User(
 				"test",
 				"test",
@@ -822,7 +824,7 @@ describe("Controller tests", () => {
 		});
 
 		// According to the comment on the route it should fail in this case
-		test.skip("Cart cleared successfully - No unpaid cart", async () => {
+		test("Cart cleared successfully - No unpaid cart", async () => {
 			const testUser = new User(
 				"test",
 				"test",
@@ -884,13 +886,7 @@ describe("Controller tests", () => {
 			await cartController.checkoutCart(testUser);
 
 			// Test
-			const result = await cartController.clearCart(testUser);
-
-			// Check
-			const currentCart = await cartController.getCart(testUser);
-
-			expect(result).toBe(true);
-			expect(currentCart).toStrictEqual(testCart);
+			await expect(cartController.clearCart(testUser)).rejects.toBeInstanceOf(CartNotFoundError);
 		});
 	});
 
