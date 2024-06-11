@@ -2,6 +2,7 @@ import { EmptyProductStockError, LowProductStockError, ProductNotFoundError, Pro
 import ProductDAO from "../dao/productDAO";
 import { Time } from "../utilities";
 import { DateError } from "../utilities";
+import { Product } from "../components/product";
 
 /**
  * Represents a controller for managing products.
@@ -24,7 +25,7 @@ class ProductController {
      * @param arrivalDate The optional date in which the product arrived.
      * @returns A Promise that resolves to nothing.
      */
-    async registerProducts(model: string, category: string, quantity: number, details: string | null, sellingPrice: number, arrivalDate: string | null) /**:Promise<void> */ {
+    async registerProducts(model: string, category: string, quantity: number, details: string | null, sellingPrice: number, arrivalDate: string | null) :Promise<void> {
         if (arrivalDate == null || arrivalDate == "")
             arrivalDate = Time.now()
 
@@ -42,7 +43,7 @@ class ProductController {
      * @param model The unique model of the product.
      * @returns A Promise that resolves a boolean value.
      */
-    async productExist(model: string) /**: Promise<boolean>*/{
+    async productExist(model: string): Promise<boolean> {
         return this.dao.existsProduct(model)
     }
 
@@ -51,7 +52,7 @@ class ProductController {
      * @param model The unique model of the product.
      * @returns A promise that resolves to the found product.
      */
-    async productByModel(model: string) /**: Promise<Product>*/{
+    async productByModel(model: string): Promise<Product> {
         return this.dao.getProductByModel(model)
     }
 
@@ -62,7 +63,7 @@ class ProductController {
      * @param changeDate The optional date in which the change occurred.
      * @returns A Promise that resolves to the new available quantity of the product.
      */
-    async changeProductQuantity(model: string, newQuantity: number, changeDate: string | null) /**:Promise<number> */ {
+    async changeProductQuantity(model: string, newQuantity: number, changeDate: string | null): Promise<number> {
         if ((changeDate == null) || (changeDate == ""))
             changeDate = Time.now()
 
@@ -80,7 +81,7 @@ class ProductController {
      * @param sellingDate The optional date in which the sale occurred.
      * @returns A Promise that resolves to the new available quantity of the product.
      */
-    async sellProduct(model: string, quantity: number, sellingDate: string | null) /**:Promise<number> */ {
+    async sellProduct(model: string, quantity: number, sellingDate: string | null): Promise<number> {
         if ((sellingDate == null) || (sellingDate == ""))
             sellingDate = Time.now()
 
@@ -98,7 +99,7 @@ class ProductController {
      * @param model An optional parameter. It can only be present if grouping is equal to "model" (in which case it must be present and not empty).
      * @returns A Promise that resolves to an array of Product objects.
      */
-    async getProducts(grouping: string | null, category: string | null, model: string | null) /**Promise<Product[]> */ {
+    async getProducts(grouping: string | null, category: string | null, model: string | null): Promise<Product[]> {
         return this.dao.getAllProducts(grouping, category, model)
     }
 
@@ -109,7 +110,7 @@ class ProductController {
      * @param model An optional parameter. It can only be present if grouping is equal to "model" (in which case it must be present and not empty).
      * @returns A Promise that resolves to an array of Product objects.
      */
-    async getAvailableProducts(grouping: string | null, category: string | null, model: string | null) /**:Promise<Product[]> */ {
+    async getAvailableProducts(grouping: string | null, category: string | null, model: string | null): Promise<Product[]> {
         return this.dao.getAllAvailableProducts(grouping, category, model)
     }
 
@@ -117,7 +118,7 @@ class ProductController {
      * Deletes all products.
      * @returns A Promise that resolves to `true` if all products have been successfully deleted.
      */
-    async deleteAllProducts() /**:Promise <Boolean> */ {
+    async deleteAllProducts(): Promise <Boolean> {
         return this.dao.deleteProducts()
     }
 
@@ -127,7 +128,7 @@ class ProductController {
      * @param model The model of the product to delete
      * @returns A Promise that resolves to `true` if the product has been successfully deleted.
      */
-    async deleteProduct(model: string) /**:Promise <Boolean> */ {
+    async deleteProduct(model: string): Promise <Boolean> {
         return this.dao.deleteProductByModel(model)
     }
 
