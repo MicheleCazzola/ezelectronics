@@ -1,4 +1,4 @@
-import { jest, beforeEach, describe, test, expect } from "@jest/globals";
+import { jest, beforeEach, describe, test, expect, afterEach } from "@jest/globals";
 import { app } from "../../index";
 
 import request from "supertest";
@@ -35,7 +35,7 @@ const logout = async () => {
 
 const create_product = async (model: string) => {
 	return agent.post("/ezelectronics/products").send({
-		model: "model1",
+		model: model,
 		category: Category.LAPTOP,
 		sellingPrice: 100,
 		quantity: 10,

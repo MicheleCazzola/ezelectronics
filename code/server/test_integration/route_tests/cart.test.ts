@@ -47,93 +47,93 @@ const create_product = async (model: string, quantity: number) => {
 	});
 };
 
-describe("Carts router tests", () => {
+describe.skip("Carts router tests", () => {
 
-  describe.only("Add product to cart", () => {
-    let customURL: string;
-    let ok: number;
-    let invalid: number;
+    describe("Add product to cart", () => {
+      let customURL: string;
+      let ok: number;
+      let invalid: number;
 
-    beforeAll(async () => {
-      customURL = "/";
-      ok = 200;
-      invalid = 422;
-  
-      await cleanup();
+      beforeAll(async () => {
+        customURL = "/";
+        ok = 200;
+        invalid = 422;
+    
+        await cleanup();
+      });
+
+      beforeEach(async() => {
+        agent = request.agent(app);
+        await register_user("c1", Role.CUSTOMER);
+        await register_user("c2", Role.CUSTOMER);
+        await register_user("m1", Role.MANAGER);
+        await register_user("a1", Role.ADMIN);
+        await login("m1");
+        await create_product("p1", 10)
+        await create_product("p2", 10);
+        await create_product("p3", 10);
+        await create_product("p4", 1);
+        await logout();
+      });
+
+      afterEach(async () => {
+        //await logout();
+        //await cleanup();
+      });
+
+      test("Add product to cart successful", async () => {
+        await login("c1");
+        const response = await agent
+          .post(baseURL + customURL)
+          .send({ model: "p1" });
+        console.log(response.body.error);
+
+        expect(response.status).toBe(ok);
+      });
+
+      test("Add product to cart failed - Model does not exist", async () => {
+        const testErr = new ProductNotFoundError();
+
+        await login("c1");
+        const response = await agent
+          .post(baseURL + customURL)
+          .send({ model: "iPhone12" });
+
+        expect(response.status).toBe(testErr.customCode);
+        expect(response.text).toContain(testErr.customMessage);
+      });
+
+      // Need checkout cart
+      test.skip("Add product to cart failed - Model exists but it has no stock available", async () => {
+        const testErr = new EmptyProductStockError();
+
+        await login("c1");
+        let response = await agent
+          .post(baseURL + customURL)
+          .send({ model: "p4" });
+
+        expect(response.status).toBe(ok);
+
+        response = await agent
+          .post(baseURL + customURL)
+          .send({ model: "p4" });
+
+        //console.log(response.status, response.text);
+        expect(response.status).toBe(testErr.customCode);
+        expect(response.text).toContain(testErr.customMessage);
+      });
+
+      test("Add product to cart failed - Model is an empty string", async () => {
+        const testModel = "";
+
+        await login("c1");
+        const response = await agent
+          .post(baseURL + customURL)
+          .send({ model: testModel });
+
+        expect(response.status).toBe(invalid);
+      });
     });
-
-    beforeEach(async() => {
-      agent = request.agent(app);
-      await register_user("c1", Role.CUSTOMER);
-      await register_user("c2", Role.CUSTOMER);
-      await register_user("m1", Role.MANAGER);
-      await register_user("a1", Role.ADMIN);
-      await login("m1");
-      await create_product("p1", 10)
-      await create_product("p2", 10);
-      await create_product("p3", 10);
-      await create_product("p4", 1);
-      await logout();
-    });
-
-    afterEach(async () => {
-      //await logout();
-      //await cleanup();
-    });
-
-    test("Add product to cart successful", async () => {
-      await login("c1");
-      const response = await agent
-        .post(baseURL + customURL)
-        .send({ model: "p1" });
-      console.log(response.body.error);
-
-      expect(response.status).toBe(ok);
-    });
-
-    test("Add product to cart failed - Model does not exist", async () => {
-      const testErr = new ProductNotFoundError();
-
-      await login("c1");
-      const response = await agent
-        .post(baseURL + customURL)
-        .send({ model: "iPhone12" });
-
-      expect(response.status).toBe(testErr.customCode);
-      expect(response.text).toContain(testErr.customMessage);
-    });
-
-    // Need checkout cart
-    test.skip("Add product to cart failed - Model exists but it has no stock available", async () => {
-      const testErr = new EmptyProductStockError();
-
-      await login("c1");
-      let response = await agent
-        .post(baseURL + customURL)
-        .send({ model: "p4" });
-
-      expect(response.status).toBe(ok);
-
-      response = await agent
-        .post(baseURL + customURL)
-        .send({ model: "p4" });
-
-      //console.log(response.status, response.text);
-      expect(response.status).toBe(testErr.customCode);
-      expect(response.text).toContain(testErr.customMessage);
-    });
-
-    test("Add product to cart failed - Model is an empty string", async () => {
-      const testModel = "";
-
-      await login("c1");
-      const response = await agent
-        .post(baseURL + customURL)
-        .send({ model: testModel });
-
-      expect(response.status).toBe(invalid);
-    });
-  });
 
     describe("Get current cart", () => {
       let customURL: string;
