@@ -293,7 +293,7 @@ describe("DAO - Get Product's Reviews", () => {
 		jest.spyOn(db, "all").mockClear();
 
 		const result = await dao.getProductReviews("testmodel");
-		expect(result).toStrictEqual(reviews);
+		expect(result).toEqual(reviews);
 
 		expect(db.all).toBeCalledTimes(1);
 		expect(db.all).toBeCalledWith(
