@@ -85,6 +85,10 @@ class ProductDAO {
         const sql = "SELECT * FROM product_descriptor WHERE Model = ?";
         db.get(sql, [model], (err: Error | null, row: any) => {
           if (err) reject(err);
+          if (!row) {
+            reject(new ProductNotFoundError)
+            return
+          }
           let prod : Product = new Product(row.SellingPrice, row.Model, row.Category, row.ArrivalDate, row.Details, row.AvailableQuantity)
           resolve(prod);
         });
@@ -334,14 +338,16 @@ class ProductDAO {
   async deleteProductByModel(model: string): Promise<Boolean> {
     return new Promise<boolean>((resolve, reject) => {
       try {
+        this.existsProduct(model).then(prod => {
+          if (prod == false) {
+            reject(new ProductNotFoundError)
+            return
+          }
+        })
         const sql = "DELETE FROM product_descriptor WHERE Model = ?";
-        db.run(sql, [model], (err: Error | null, row: any) => {
+        db.run(sql, [model], (err: Error | null) => {
           try {
             if (err) reject(err);
-            if (!row) {
-              reject(new ProductNotFoundError())
-              return
-            }
             resolve(true);
           } catch (error) {
             reject(error);
