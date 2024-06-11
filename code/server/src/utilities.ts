@@ -29,7 +29,7 @@ class Utility {
 }
 
 class Time {
-    static now(): string {
+    static today(): string {
         return new Date().toLocaleString("en-ZA")
             .split(",")[0]
             .split("/")
