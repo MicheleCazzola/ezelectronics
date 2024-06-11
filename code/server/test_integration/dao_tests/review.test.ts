@@ -278,10 +278,11 @@ describe("DAO - Get Product's Reviews", () => {
 			"lorem ipsum dolor sit amet"
 		),
 	];
+
 	test("Valid", async () => {
 		// setup
 		for (const review of reviews) {
-			dao.addReview(
+			await dao.addReview(
 				review.model,
 				review.user,
 				review.score,
@@ -293,7 +294,9 @@ describe("DAO - Get Product's Reviews", () => {
 		jest.spyOn(db, "all").mockClear();
 
 		const result = await dao.getProductReviews("testmodel");
-		expect(result).toEqual(reviews);
+		expect(result).toHaveLength(2);
+		expect(result).toContainEqual(reviews[0]);
+		expect(result).toContainEqual(reviews[1]);
 
 		expect(db.all).toBeCalledTimes(1);
 		expect(db.all).toBeCalledWith(
