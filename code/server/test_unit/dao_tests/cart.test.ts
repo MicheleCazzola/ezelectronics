@@ -864,11 +864,10 @@ describe("DAO tests", () => {
 
 			const mockDBRUn = jest.spyOn(db, "run");
 
-			const result = await cartDAO.clearCart(testUser);
+			await expect(cartDAO.clearCart(testUser)).rejects.toBeInstanceOf(CartNotFoundError);
 
 			expect(mockDAOUpdate).toBeCalledTimes(1);
 			expect(mockDBRUn).toBeCalledTimes(0);
-			expect(result).toBe(true);
 		});
 	});
 
