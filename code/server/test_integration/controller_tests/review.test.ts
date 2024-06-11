@@ -2,24 +2,17 @@ import { test, expect, jest, describe, beforeEach } from "@jest/globals";
 import ReviewController from "../../src/controllers/reviewController";
 import UserController from "../../src/controllers/userController";
 import ProductController from "../../src/controllers/productController";
-import { Cart, ProductInCart } from "../../src/components/cart";
 import { Category } from "../../src/components/product";
 import { Role, User } from "../../src/components/user";
-import {
-	CartNotFoundError,
-	EmptyCartError,
-	ProductNotInCartError,
-} from "../../src/errors/cartError";
-import {
-	EmptyProductStockError,
-	LowProductStockError,
-	ProductNotFoundError,
-} from "../../src/errors/productError";
+import { ProductNotFoundError } from "../../src/errors/productError";
 import { cleanup } from "../../src/db/cleanup";
 import { Time } from "../../src/utilities";
 import ProductDAO from "../../src/dao/productDAO";
 import ReviewDAO from "../../src/dao/reviewDAO";
-import { ExistingReviewError } from "../../src/errors/reviewError";
+import {
+	ExistingReviewError,
+	NoReviewProductError,
+} from "../../src/errors/reviewError";
 import { ProductReview } from "../../src/components/review";
 
 const controller = new ReviewController();
@@ -164,8 +157,106 @@ describe("Controller - Get All Reviews of a Product", () => {
 	});
 });
 
-describe("Controller - Delete Review of a Product by a User", () => {});
+describe("Controller - Delete Review of a Product by a User", () => {
+	const reviews = [
+		new ProductReview(
+			"model1",
+			testuser1.username,
+			5,
+			Time.now(),
+			"comment"
+		),
+		new ProductReview(
+			"model1",
+			testuser2.username,
+			4,
+			Time.now(),
+			"comment"
+		),
+	];
+	test("Valid", async () => {
+		await controller.addReview("model1", testuser1, 5, "comment");
+		await controller.addReview("model1", testuser2, 4, "comment");
 
-describe("Controller - Delete All Reviews of a Product", () => {});
+		const result = await controller.deleteReview("model1", testuser1);
+		expect(result).toBeUndefined();
 
-describe("Controller - Delete All Reviews", () => {});
+		const reviewsAfter = await controller.getProductReviews("model1");
+		expect(reviewsAfter).toHaveLength(1);
+		expect(reviewsAfter).toContainEqual(reviews[1]);
+	});
+
+	test("Product Not Found", async () => {
+		await controller.addReview("model1", testuser1, 5, "comment");
+		await controller.addReview("model1", testuser2, 4, "comment");
+
+		await expect(
+			controller.deleteReview("notamodel", testuser1)
+		).rejects.toThrowError(ProductNotFoundError);
+
+		const reviewsAfter = await controller.getProductReviews("model1");
+		expect(reviewsAfter).toHaveLength(2);
+		expect(reviewsAfter).toContainEqual(reviews[0]);
+		expect(reviewsAfter).toContainEqual(reviews[1]);
+	});
+
+	test("Review Doesn't Exist", async () => {
+		await controller.addReview("model1", testuser1, 5, "comment");
+
+		await expect(
+			controller.deleteReview("model1", testuser2)
+		).rejects.toThrowError(NoReviewProductError);
+
+		const reviewsAfter = await controller.getProductReviews("model1");
+		expect(reviewsAfter).toHaveLength(1);
+		expect(reviewsAfter).toContainEqual(reviews[0]);
+	});
+});
+
+describe("Controller - Delete All Reviews of a Product", () => {
+	test("Valid", async () => {
+		await controller.addReview("model1", testuser1, 5, "comment");
+		await controller.addReview("model1", testuser2, 4, "comment");
+		await controller.addReview("model2", testuser1, 1, "comment");
+
+		const result = await controller.deleteReviewsOfProduct("model1");
+		expect(result).toBeUndefined();
+
+		await expect(
+			controller.getProductReviews("model1")
+		).resolves.toHaveLength(0);
+		const reviewsAfter = await controller.getProductReviews("model2");
+		expect(reviewsAfter).toHaveLength(1);
+	});
+
+	test("Product Not Found", async () => {
+		await controller.addReview("model1", testuser1, 5, "comment");
+		await controller.addReview("model1", testuser2, 4, "comment");
+
+		await expect(
+			controller.deleteReviewsOfProduct("notamodel")
+		).rejects.toThrowError(ProductNotFoundError);
+
+		const reviewsAfter = await controller.getProductReviews("model1");
+		expect(reviewsAfter).toHaveLength(2);
+	});
+});
+
+describe("Controller - Delete All Reviews", () => {
+	test("Valid", async () => {
+		await controller.addReview("model1", testuser1, 5, "comment");
+		await controller.addReview("model1", testuser2, 4, "comment");
+		await controller.addReview("model2", testuser1, 1, "comment");
+		await controller.addReview("model2", testuser2, 2, "comment");
+
+		const result = await controller.deleteAllReviews();
+		expect(result).toBeUndefined();
+
+		await expect(
+			controller.getProductReviews("model1")
+		).resolves.toHaveLength(0);
+		await expect(
+			controller.getProductReviews("model2")
+		).resolves.toHaveLength(0);
+	});
+});
