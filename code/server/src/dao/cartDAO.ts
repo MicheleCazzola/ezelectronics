@@ -383,7 +383,7 @@ class CartDAO {
 		}
 
 		return new Promise((resolve, reject) => {
-			if (!cartid) resolve(true);
+			if (!cartid) reject(new CartNotFoundError());
 			else {
 				const sql1 =
 					"UPDATE CART SET (Total) = (?) WHERE Username = ? AND Paid = 0";
