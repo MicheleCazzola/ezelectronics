@@ -334,14 +334,15 @@ class ProductDAO {
   async deleteProductByModel(model: string): Promise<Boolean> {
     return new Promise<boolean>((resolve, reject) => {
       try {
+        let prod = this.existsProduct(model)
+        if (!prod) {
+          reject(new ProductNotFoundError())
+          return
+        }
         const sql = "DELETE FROM product_descriptor WHERE Model = ?";
         db.run(sql, [model], (err: Error | null, row: any) => {
           try {
             if (err) reject(err);
-            if (!row) {
-              reject(new ProductNotFoundError())
-              return
-            }
             resolve(true);
           } catch (error) {
             reject(error);
