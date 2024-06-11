@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, jest, test } from "@jest/globals";
 import crypto from "crypto";
 
 import ReviewDAO from "../../src/dao/reviewDAO";
-import { cleanup } from "../../src/db/cleanup";
+import { cleanup } from "../../src/db/cleanup_custom";
 import db from "../../src/db/db";
 import { ProductNotFoundError } from "../../src/errors/productError";
 import {
@@ -111,7 +111,7 @@ describe("DAO - Add a Review", () => {
 				testCase.model,
 				testCase.username,
 				testCase.score,
-				Time.now(),
+				Time.today(),
 				testCase.comment
 			),
 		]);
@@ -123,14 +123,14 @@ describe("DAO - Add a Review", () => {
 				"testmodel",
 				"testuser",
 				5,
-				Time.now(),
+				Time.today(),
 				"Lorem Ipsum"
 			),
 			new ProductReview(
 				"testmodel",
 				"testuser2",
 				4,
-				Time.now(),
+				Time.today(),
 				"Lorem Ipsum"
 			),
 		];
@@ -148,7 +148,7 @@ describe("DAO - Add a Review", () => {
 				expect.arrayContaining([
 					testCase.user,
 					testCase.model,
-					Time.now(),
+					Time.today(),
 					testCase.comment,
 					testCase.score,
 				]),
@@ -167,14 +167,14 @@ describe("DAO - Add a Review", () => {
 				"testmodel",
 				"testuser",
 				5,
-				Time.now(),
+				Time.today(),
 				"Lorem Ipsum"
 			),
 			new ProductReview(
 				"testmodel2",
 				"testuser",
 				4,
-				Time.now(),
+				Time.today(),
 				"Lorem Ipsum"
 			),
 		];
@@ -192,7 +192,7 @@ describe("DAO - Add a Review", () => {
 				expect.arrayContaining([
 					testCase.user,
 					testCase.model,
-					Time.now(),
+					Time.today(),
 					testCase.comment,
 					testCase.score,
 				]),
@@ -254,7 +254,7 @@ describe("DAO - Add a Review", () => {
 				testCase.model,
 				testCase.username,
 				testCase.score,
-				Time.now(),
+				Time.today(),
 				testCase.comment
 			),
 		]);
@@ -267,14 +267,14 @@ describe("DAO - Get Product's Reviews", () => {
 			"testmodel",
 			"testuser",
 			5,
-			Time.now(),
+			Time.today(),
 			"lorem ipsum"
 		),
 		new ProductReview(
 			"testmodel",
 			"testuser2",
 			5,
-			Time.now(),
+			Time.today(),
 			"lorem ipsum dolor sit amet"
 		),
 	];

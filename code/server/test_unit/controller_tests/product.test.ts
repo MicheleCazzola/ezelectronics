@@ -136,7 +136,7 @@ describe("Controller tests", () => {
             const newQuantity = 5;
             const existingQuantity = 10;
             const updatedQuantity = existingQuantity + newQuantity;
-            const todayDate = Time.now();
+            const todayDate = Time.today();
         
             const mockDAOChangeProductQuantity = jest.spyOn(ProductDAO.prototype, "increaseQuantity").mockResolvedValueOnce(updatedQuantity);
            
@@ -181,7 +181,7 @@ describe("Controller tests", () => {
             const soldQuantity = 5;
             const existingQuantity = 10;
             const updatedQuantity = existingQuantity - soldQuantity;
-            const todayDate = Time.now();
+            const todayDate = Time.today();
         
             const mockDAOSellProduct = jest.spyOn(ProductDAO.prototype, "decreaseQuantity").mockResolvedValueOnce(updatedQuantity);
            

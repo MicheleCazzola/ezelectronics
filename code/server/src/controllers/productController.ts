@@ -27,12 +27,12 @@ class ProductController {
      */
     async registerProducts(model: string, category: string, quantity: number, details: string | null, sellingPrice: number, arrivalDate: string | null) :Promise<void> {
         if (arrivalDate == null || arrivalDate == "")
-            arrivalDate = Time.now()
+            arrivalDate = Time.today()
 
         console.log(arrivalDate)
-        console.log(Time.now())
+        console.log(Time.today())
         
-        if (arrivalDate > Time.now())
+        if (arrivalDate > Time.today())
             throw new DateError()
 
         return this.dao.createProduct(model, category, quantity, details, sellingPrice, arrivalDate)
@@ -65,9 +65,9 @@ class ProductController {
      */
     async changeProductQuantity(model: string, newQuantity: number, changeDate: string | null): Promise<number> {
         if ((changeDate == null) || (changeDate == ""))
-            changeDate = Time.now()
+            changeDate = Time.today()
 
-        if ((changeDate > Time.now())) {
+        if ((changeDate > Time.today())) {
             throw new DateError()
         }
 
@@ -83,9 +83,9 @@ class ProductController {
      */
     async sellProduct(model: string, quantity: number, sellingDate: string | null): Promise<number> {
         if ((sellingDate == null) || (sellingDate == ""))
-            sellingDate = Time.now()
+            sellingDate = Time.today()
 
-        if ((sellingDate > Time.now())) {
+        if ((sellingDate > Time.today())) {
             throw new DateError()
         }
 

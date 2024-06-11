@@ -173,7 +173,7 @@ class CartDAO {
 		return new Promise((resolve, reject) => {
 			const sql1 =
 				"UPDATE CART SET Paid = 1, PaymentDate = ? WHERE Username = ?";
-			db.run(sql1, [Time.now(), username], (err) => {
+			db.run(sql1, [Time.today(), username], (err) => {
 				if (err) reject(err);
 				else resolve(true);
 			});

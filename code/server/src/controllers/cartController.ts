@@ -115,7 +115,7 @@ class CartController {
 					await this.prod_dao.decreaseQuantity(
 						product.model,
 						product.quantity,
-						Time.now()
+						Time.today()
 					);
 				});
 

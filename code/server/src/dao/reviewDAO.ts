@@ -28,7 +28,7 @@ class ReviewDAO {
 	): Promise<void> {
 		return new Promise((resolve, reject) => {
 			try {
-				let today: string = Time.now();
+				let today: string = Time.today();
 				let query: string = `INSERT INTO REVIEW (Username, Model, Date, Comment, Score)
                                         VALUES (?, ?, ?, ?, ?)`;
 				db.run(

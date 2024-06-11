@@ -15,7 +15,7 @@ import {
 	LowProductStockError,
 	ProductNotFoundError,
 } from "../../src/errors/productError";
-import { cleanup } from "../../src/db/cleanup";
+import { cleanup } from "../../src/db/cleanup_custom";
 import { Time } from "../../src/utilities";
 import ProductDAO from "../../src/dao/productDAO";
 import ReviewDAO from "../../src/dao/reviewDAO";
@@ -121,14 +121,14 @@ describe("Controller - Get All Reviews of a Product", () => {
 				"model1",
 				testuser1.username,
 				5,
-				Time.now(),
+				Time.today(),
 				"comment"
 			),
 			new ProductReview(
 				"model1",
 				testuser2.username,
 				4,
-				Time.now(),
+				Time.today(),
 				"comment"
 			),
 		];
