@@ -982,6 +982,11 @@ describe("DAO tests", () => {
 			cartDAO = new CartDAO();
 		});
 
+		afterEach(() => {
+			jest.restoreAllMocks();
+			jest.clearAllMocks();
+		});
+
 		test("Fetch product in cart successful", async () => {
 			const testCardId = 1;
 			const testProductsInCartDB = [
@@ -1020,6 +1025,20 @@ describe("DAO tests", () => {
 			expect(result).toStrictEqual(testProductsInCart);
 		});
 
-		test("Fetch products in cart successful - Empty set", async () => {});
+		test("Fetch products in cart successful - Empty set", async () => {
+			const testCardId = 1;
+			const testProductsInCartDB: any[] = [];
+
+			const mockDBAll = jest.spyOn(db, "all");
+
+			mockDBAll.mockImplementationOnce((sql, params, callback) => {
+				callback(null, testProductsInCartDB);
+				return {} as Database;
+			});
+
+			const result = await cartDAO.fetchProducts(testCardId);
+			expect(mockDBAll).toBeCalledTimes(1);
+			expect(result).toStrictEqual(testProductsInCartDB);
+		});
 	});
 });

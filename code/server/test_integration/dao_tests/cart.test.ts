@@ -524,7 +524,7 @@ describe("DAO tests", () => {
 			await cleanup();
 		});
 
-		test.skip("Checkout cart successful", async () => {
+		test("Checkout cart successful", async () => {
 			const testUser = new User(
 				"test",
 				"test",
@@ -542,7 +542,7 @@ describe("DAO tests", () => {
 				true,
 				Time.now(),
 				6800.0,
-				testProductsInCart
+				[]
 			);
 			const testCartId = 1;
 
@@ -595,8 +595,8 @@ describe("DAO tests", () => {
 				)
 				.map((cartObj) => cartObj.cart);
 			expect(checkedOutCart.length).toBe(1);
-			expect(checkedOutCart[0].products).toStrictEqual(
-				testProductsInCart
+			expect(checkedOutCart[0]).toStrictEqual(
+				testCart
 			);
 			expect(result).toBe(true);
 		});
@@ -758,7 +758,7 @@ describe("DAO tests", () => {
 	});
 	*/
 
-	describe.skip("DAO - Get paid carts", () => {
+	describe("DAO - Get paid carts", () => {
 		let cartDAO: CartDAO;
 		let userDAO: UserDAO;
 		let productDAO: ProductDAO;
@@ -810,21 +810,21 @@ describe("DAO tests", () => {
 					false,
 					"",
 					4600.0,
-					testProductsInCart1
+					[]
 				),
 				new Cart(
 					testUser1.username,
 					true,
-					"2024-03-20",
+					Time.now(),
 					5200.0,
-					testProductsInCart2
+					[]
 				),
 				new Cart(
 					testUser2.username,
 					true,
-					"2024-03-20",
+					Time.now(),
 					800.0,
-					testProductsInCart3
+					[]
 				),
 			];
 
@@ -893,6 +893,7 @@ describe("DAO tests", () => {
 				""
 			);
 
+			// Setup
 			const cartId2 = await cartDAO.createCart(testUser1);
 			for (let prod of testProductsInCart2) {
 				await cartDAO.addProductToCart(cartId2, prod);
@@ -1330,7 +1331,7 @@ describe("DAO tests", () => {
 			await cleanup();
 		});
 
-		test.skip("Get all carts successful", async () => {
+		test("Get all carts successful", async () => {
 			const testUser1 = new User(
 				"test1",
 				"test",
@@ -1363,7 +1364,7 @@ describe("DAO tests", () => {
 						false,
 						"",
 						5600.0,
-						testProductsInCart1
+						[]
 					),
 				},
 				{
@@ -1373,7 +1374,7 @@ describe("DAO tests", () => {
 						true,
 						Time.now(),
 						5200.0,
-						testProductsInCart2
+						[]
 					),
 				},
 			];
@@ -1427,16 +1428,17 @@ describe("DAO tests", () => {
 				""
 			);
 
+			const cartId1 = await cartDAO.createCart(testUser1);
+			for (let prod of testProductsInCart1) {
+				await cartDAO.addProductToCart(cartId1, prod);
+			}
+
 			const cartId2 = await cartDAO.createCart(testUser2);
 			for (let prod of testProductsInCart2) {
 				await cartDAO.addProductToCart(cartId2, prod);
 			}
 			await cartDAO.checkoutCart(testUser2.username);
-
-			const cartId1 = await cartDAO.createCart(testUser1);
-			for (let prod of testProductsInCart1) {
-				await cartDAO.addProductToCart(cartId1, prod);
-			}
+			
 
 			// Test
 			const result = await cartDAO.fetchAllCarts();
@@ -1451,6 +1453,90 @@ describe("DAO tests", () => {
 			const result = await cartDAO.fetchAllCarts();
 
 			expect(result).toStrictEqual(testCarts);
+		});
+	});
+
+	describe("DAO - Fetch product in cart", () => {
+		let cartDAO: CartDAO;
+		let productDAO: ProductDAO;
+		let userDAO: UserDAO;
+
+		beforeAll(async () => {
+			cartDAO = new CartDAO();
+			productDAO = new ProductDAO();
+			userDAO = new UserDAO();
+
+			await cleanup();
+		});
+
+		afterEach(async() => {
+			await cleanup();
+		});
+
+		test("Fetch products in cart successful", async () => {
+			const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
+			const testCardId = 1;
+			const testProductsInCartDB = [
+				{
+					Model: "Test1",
+					Quantity: 2,
+					Category: Category.APPLIANCE,
+					SellingPrice: 100.0,
+				},
+				{
+					Model: "Test2",
+					Quantity: 3,
+					Category: Category.LAPTOP,
+					SellingPrice: 200.0,
+				},
+			];
+			const testProductsInCart = testProductsInCartDB.map(
+				(prod) =>
+					new ProductInCart(
+						prod.Model,
+						prod.Quantity,
+						prod.Category,
+						prod.SellingPrice
+					)
+			);
+
+			// Setup
+			await userDAO.createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
+			const cartId = await cartDAO.createCart(testUser);
+			for (let prod of testProductsInCart) {
+				await productDAO.createProduct(prod.model, prod.category, prod.quantity, "", prod.price, "");
+				await cartDAO.addProductToCart(cartId, prod);
+			}
+
+			const result = await cartDAO.fetchProducts(cartId);
+			expect(result).toStrictEqual(testProductsInCart);
+		});
+
+		test("Fetch products in cart successful - Empty set", async () => {
+			const testUser = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
+			const testCardId = 1;
+			const testProductsInCartDB = [
+				{
+					Model: "Test1",
+					Quantity: 2,
+					Category: Category.APPLIANCE,
+					SellingPrice: 100.0,
+				},
+				{
+					Model: "Test2",
+					Quantity: 3,
+					Category: Category.LAPTOP,
+					SellingPrice: 200.0,
+				},
+			];
+			const testProductsInCart: ProductInCart[] = [];
+
+			// Setup
+			await userDAO.createUser(testUser.username, testUser.name, testUser.surname, "test", testUser.role);
+			const cartId = await cartDAO.createCart(testUser);
+
+			const result = await cartDAO.fetchProducts(cartId);
+			expect(result).toStrictEqual(testProductsInCart);
 		});
 	});
 });
