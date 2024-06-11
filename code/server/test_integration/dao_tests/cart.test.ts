@@ -9,7 +9,7 @@ import {
 
 import CartDAO from "../../src/dao/cartDAO";
 import db from "../../src/db/db";
-import { cleanup } from "../../src/db/cleanup";
+import { cleanup } from "../../src/db/cleanup_custom";
 import { Database } from "sqlite3";
 import { Category } from "../../src/components/product";
 import { Cart, ProductInCart } from "../../src/components/cart";
@@ -540,7 +540,7 @@ describe("DAO tests", () => {
 			const testCart = new Cart(
 				testUser.username,
 				true,
-				Time.now(),
+				Time.today(),
 				6800.0,
 				[]
 			);
@@ -815,14 +815,14 @@ describe("DAO tests", () => {
 				new Cart(
 					testUser1.username,
 					true,
-					Time.now(),
+					Time.today(),
 					5200.0,
 					[]
 				),
 				new Cart(
 					testUser2.username,
 					true,
-					Time.now(),
+					Time.today(),
 					800.0,
 					[]
 				),
@@ -1372,7 +1372,7 @@ describe("DAO tests", () => {
 					cart: new Cart(
 						testUser2.username,
 						true,
-						Time.now(),
+						Time.today(),
 						5200.0,
 						[]
 					),

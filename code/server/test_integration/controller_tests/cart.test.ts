@@ -9,7 +9,7 @@ import { Role, User } from "../../src/components/user"
 import { CartNotFoundError, EmptyCartError, ProductNotInCartError } from "../../src/errors/cartError"
 import { EmptyProductStockError, LowProductStockError, ProductNotFoundError } from "../../src/errors/productError"
 import ProductDAO from "../../src/dao/productDAO"
-import {cleanup} from "../../src/db/cleanup"
+import {cleanup} from "../../src/db/cleanup_custom"
 import { Time } from "../../src/utilities"
 
 describe("Controller tests", () => {
@@ -413,7 +413,7 @@ describe("Controller tests", () => {
 			const testCart = new Cart(
 				testUser.username,
 				true,
-				Time.now(),
+				Time.today(),
 				300,
 				[testNewProductInCart1, testNewProductInCart2]
 			);
@@ -612,16 +612,22 @@ describe("Controller tests", () => {
 			const product2 = await productController.productByModel(
 				testNewProductInCart2.model
 			);
-			console.log(product1);
-			console.log(product2);
 			expect(product1.quantity).toBe(testNewProductInCart1.quantity - 1);
 			expect(product2.quantity).toBe(testNewProductInCart2.quantity + 1);
 		});
 
 		// Fails because of productController not certain behavior
 		test("Checkout failed - Unpaid cart present, but at least a product with empty stock", async () => {
-			const testUser = new User(
+			const testUser1 = new User(
+				"test1",
 				"test",
+				"test",
+				Role.CUSTOMER,
+				"test",
+				"test"
+			);
+			const testUser2 = new User(
+				"test2", 
 				"test",
 				"test",
 				Role.CUSTOMER,
@@ -641,20 +647,27 @@ describe("Controller tests", () => {
 				200.0
 			);
 			const testCart = new Cart(
-				testUser.username,
+				testUser1.username,
 				true,
-				Time.now(),
+				Time.today(),
 				1100,
 				[testNewProductInCart1, testNewProductInCart2]
 			);
 
 			// Setup
 			await userController.createUser(
-				testUser.username,
-				testUser.name,
-				testUser.surname,
+				testUser1.username,
+				testUser1.name,
+				testUser1.surname,
 				"test",
-				testUser.role
+				testUser1.role
+			);
+			await userController.createUser(
+				testUser2.username,
+				testUser2.name,
+				testUser2.surname,
+				"test",
+				testUser2.role
 			);
 			await productController.registerProducts(
 				testNewProductInCart1.model,
@@ -667,42 +680,49 @@ describe("Controller tests", () => {
 			await productController.registerProducts(
 				testNewProductInCart2.model,
 				testNewProductInCart2.category,
-				testNewProductInCart2.quantity + 1,
+				testNewProductInCart2.quantity,
 				"",
 				testNewProductInCart2.price,
 				null
 			);
 			await cartController.addToCart(
-				testUser,
+				testUser1,
 				testNewProductInCart1.model
 			);
 			await cartController.addToCart(
-				testUser,
+				testUser1,
 				testNewProductInCart2.model
+			);
+			await cartController.addToCart(
+				testUser2,
+				testNewProductInCart1.model
 			);
 
 			// changeProductQuantity seems to just increase it
 			// Not sure how the product controller and dao work, but doesn't seem to be a cartController problem.
-			await productController.changeProductQuantity(
-				testNewProductInCart1.model,
-				0,
-				""
-			);
+			//await productController.deleteProduct(testNewProductInCart1.model);
 
 			// Test
+
+			const result1 = await cartController.checkoutCart(testUser2);
+			
+			expect(result1).toBe(true);
 			await expect(
-				cartController.checkoutCart(testUser)
+				cartController.checkoutCart(testUser1)
 			).rejects.toBeInstanceOf(EmptyProductStockError);
 
 			// Check
-			//const prod1 = await productController.productByModel(
-			//	testNewProductInCart1.model
-			//);
-			//const prod2 = await productController.productByModel(
-			//	testNewProductInCart2.model
-			//);
-			//expect(prod1.quantity).toBe(0);
-			//expect(prod2.quantity).toBe(testNewProductInCart2.quantity + 1);
+			
+			//await expect(productController.productByModel(testNewProductInCart1.model)).rejects.toBeInstanceOf(ProductNotFoundError);
+			const prod1 = await productController.productByModel(
+				testNewProductInCart1.model
+			);
+			const prod2 = await productController.productByModel(
+				testNewProductInCart2.model
+			);
+			expect(prod1.quantity).toBe(0);
+			expect(prod2.quantity).toBe(testNewProductInCart2.quantity);
+			
 		});
 	});
 
@@ -1139,14 +1159,14 @@ describe("Controller tests", () => {
 				new Cart(
 					testUser.username,
 					true,
-					Time.now(),
+					Time.today(),
 					300,
 					testProductsInCart1
 				),
 				new Cart(
 					testUser.username,
 					true,
-					Time.now(),
+					Time.today(),
 					700,
 					testProductsInCart2
 				),
@@ -1306,7 +1326,7 @@ describe("Controller tests", () => {
 				new Cart(
 					testUser1.username,
 					true,
-					Time.now(),
+					Time.today(),
 					300,
 					testProductsInCart1
 				),
@@ -1320,7 +1340,7 @@ describe("Controller tests", () => {
 				new Cart(
 					testUser2.username,
 					true,
-					Time.now(),
+					Time.today(),
 					600,
 					testProductsInCart3
 				),
