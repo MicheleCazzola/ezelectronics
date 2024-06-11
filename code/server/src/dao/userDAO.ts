@@ -155,7 +155,7 @@ class UserDAO {
             try{
 
                 let usExist = 0;
-                const sql = "DELETE FROM users WHERE username = ?";
+                const sql = "SELECT * FROM users WHERE username = ?";
 
                 db.get(sql, [username], (err: Error | null, row: any) => {
 
@@ -170,7 +170,9 @@ class UserDAO {
                 
                 });
 
-                db.run(sql, [username], (err: Error | null) => {
+                const sql2 = "DELETE FROM users WHERE username = ?";
+
+                db.run(sql2, [username], (err: Error | null) => {
                     if (err) {               
                         reject(err);
                         return;
