@@ -85,7 +85,8 @@ class ProductDAO {
         const sql = "SELECT * FROM product_descriptor WHERE Model = ?";
         db.get(sql, [model], (err: Error | null, row: any) => {
           if (err) reject(err);
-          resolve(row);
+          let prod : Product = new Product(row.SellingPrice, row.Model, row.Category, row.ArrivalDate, row.Details, row.AvailableQuantity)
+          resolve(prod);
         });
       } catch (error) {
         reject(error);
