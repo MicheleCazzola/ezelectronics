@@ -30,11 +30,11 @@ class Utility {
 
 class Time {
     static now(): string {
-        return new Date().toLocaleString()
+        return new Date().toLocaleString("en-ZA")
             .split(",")[0]
             .split("/")
-            .map((field, index) => index == 2 ? field.padStart(4, "0") : field.padStart(2, "0"))
-            .reverse()
+            //.map((field, index) => index == 2 ? field.padStart(4, "0") : field.padStart(2, "0"))
+            //.reverse()
             .join("-");
     }
 }
