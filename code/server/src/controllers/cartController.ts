@@ -58,9 +58,13 @@ class CartController {
 				.getCurrentCart(user)
 				.then((cart) => resolve(cart))
 				.catch((err) => {
-					if (err instanceof CartNotFoundError) {
+					if (
+						err === CartNotFoundError ||
+						err instanceof CartNotFoundError
+					) {
 						resolve(new Cart(user.username, false, "", 0, []));
 					} else {
+						console.log(err);
 						reject(err);
 					}
 				});
@@ -75,13 +79,8 @@ class CartController {
 	 */
 	async checkoutCart(user: User): Promise<boolean> {
 		let cart: Cart = undefined;
-		try {
-			cart = await this.dao.getCurrentCart(user);
-		} catch (err) {
-			if (err instanceof CartNotFoundError) {
-				cart = new Cart(user.username, false, "", 0, []);
-			}
-		}
+		cart = await this.dao.getCurrentCart(user);
+
 		// Check availability of products
 		let unavailable_product = false;
 		let empty_stock: boolean;

@@ -15,7 +15,7 @@ class UserDAO {
      * @param plainPassword The password of the user (in plain text).
      * @returns A Promise that resolves to true if the user is authenticated, false otherwise.
      */
-    getIsUserAuthenticated(username: string, plainPassword: string): Promise<boolean> {
+    async getIsUserAuthenticated(username: string, plainPassword: string): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
             try {
                 /**
@@ -54,7 +54,7 @@ class UserDAO {
      * @param role The role of the user. It must be one of the three allowed types ("Manager", "Customer", "Admin")
      * @returns A Promise that resolves to true if the user has been created.
      */
-    createUser(username: string, name: string, surname: string, password: string, role: string): Promise<boolean> {
+    async createUser(username: string, name: string, surname: string, password: string, role: string): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
             try {
                 const salt = crypto.randomBytes(16)
@@ -79,7 +79,7 @@ class UserDAO {
      * @param username The username of the user to retrieve
      * @returns A Promise that resolves the information of the requested user
      */
-    getUserByUsername(username: string): Promise<User> {
+    async getUserByUsername(username: string): Promise<User> {
         return new Promise<User>((resolve, reject) => {
             try {
                 const sql = "SELECT * FROM users WHERE username = ?"
@@ -102,7 +102,7 @@ class UserDAO {
         })
     }
 
-    getUser(): Promise<User[]>{
+    async getUser(): Promise<User[]>{
         return new Promise<User[]>((resolve, reject) => {
             try{
                 const sql = "SELECT * FROM users"
@@ -127,7 +127,7 @@ class UserDAO {
 
 
     //Ritorna un array di oggetti utenti in base al ruolo scelto.
-    getUserByRole(role: string): Promise<User[]> {
+    async getUserByRole(role: string): Promise<User[]> {
         return new Promise<User[]>((resolve, reject) => {
             try {
                 const sql = "SELECT * FROM users WHERE role = ?";
@@ -148,7 +148,7 @@ class UserDAO {
 
 
     //Elimina un utente specifico.
-    deleteUser(username: string): Promise<Boolean>{
+    async deleteUser(username: string): Promise<Boolean>{
         return new Promise<Boolean>((resolve, reject) =>{
             try{
 
@@ -174,7 +174,7 @@ class UserDAO {
     }
 
     //elimina tutti gli utenti
-    deleteAll(): Promise<Boolean>{
+    async deleteAll(): Promise<Boolean>{
         return new Promise<Boolean>((resolve, reject) =>{
             try{
 
@@ -198,7 +198,7 @@ class UserDAO {
     }
 
     //verifica se il ruolo di un utente è Admin
-    isAdminByUsername(username: string): Promise<Boolean>{
+    async isAdminByUsername(username: string): Promise<Boolean>{
         return new Promise<Boolean>((resolve, reject) =>{
             try{
                 const sql = "SELECT username FROM users WHERE username = ? and role = ?";
@@ -225,7 +225,7 @@ class UserDAO {
 
     }
 
-    updateUserInformation(name: string, surname: string, address: string, birthdate: string, username: string):Promise<User>{
+    async updateUserInformation(name: string, surname: string, address: string, birthdate: string, username: string):Promise<User>{
         return new Promise<User>((resolve, reject) =>{
             try{
 

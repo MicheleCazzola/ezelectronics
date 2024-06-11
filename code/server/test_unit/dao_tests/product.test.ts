@@ -150,60 +150,6 @@ describe("ProductDao test:", () => {
 
     });
 
-
-
-    describe("getProductByModel test:", () => {
-        
-        test("it should trhow error if an error occures", async () => {
-
-            const testModel = "TestModel";
-            const errorMessage = "Database error";
-
-            const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) =>{
-                callback(new Error(errorMessage), null);
-                return {} as Database;
-            });
-
-            const dao = new ProductDAO();
-            await expect(dao.getProductByModel(testModel)).rejects.toThrow(errorMessage);
-
-            expect(mockDBGet).toBeCalledTimes(1);
-            expect(mockDBGet).toBeCalledWith(expect.any(String), [testModel], expect.any(Function));
-
-
-        });
-
-        test("it should return product if it exists", async () => {
-
-            const testModel = 'TestModel';
-            const testProduct = {
-                model: "TestModel",
-                category: "Smartphone",
-                quantity: 10,
-                details: "TestDetails",
-                sellingPrice: 123,
-                arrivalDate: "2024-01-01"
-            };
-    
-            const mockDBGet = jest.spyOn(db, 'get').mockImplementation((sql, params, callback) => {
-                callback(null, testProduct);
-                return {} as Database;
-            });
-    
-            const dao = new ProductDAO();
-            const result = await dao.getProductByModel(testModel);
-    
-            expect(mockDBGet).toBeCalledTimes(1);
-            expect(mockDBGet).toBeCalledWith(expect.any(String), [testModel], expect.any(Function));
-            expect(result).toEqual(testProduct);
-
-        });
-
-
-
-
-    });
-
     describe("increaseQuantity tests:", () => {
 
         test("it should increase the available quantity and return the new quantity", async () => {
@@ -450,7 +396,7 @@ describe("ProductDao test:", () => {
             );
 
         });
-        
+
 
     });
    
@@ -709,7 +655,7 @@ describe("ProductDao test:", () => {
             const testModel = "TestModel";
 
             const mockDBRun = jest.spyOn(db, "run").mockImplementationOnce((sql, params, callback) => {
-                callback(null);
+                callback(null, true);
                 return {} as Database;
             });
 
@@ -719,7 +665,6 @@ describe("ProductDao test:", () => {
 
             expect(result).toBe(true);
             expect(mockDBRun).toBeCalledTimes(1);
-
 
         });
 

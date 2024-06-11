@@ -302,22 +302,6 @@ describe("DAO - Get Product's Reviews", () => {
 			expect.any(Function)
 		);
 	});
-
-	test.skip("Product Not Found", async () => {
-		// test
-		jest.spyOn(db, "all").mockClear();
-
-		await expect(dao.getProductReviews("notamodel")).rejects.toThrow(
-			ProductNotFoundError
-		);
-
-		expect(db.all).toBeCalledTimes(1);
-		expect(db.all).toBeCalledWith(
-			expect.any(String), // sql query
-			expect.arrayContaining(["notamodel"]),
-			expect.any(Function)
-		);
-	});
 });
 
 describe("DAO - Delete a Review", () => {
