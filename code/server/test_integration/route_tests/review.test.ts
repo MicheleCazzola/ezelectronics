@@ -3,7 +3,7 @@ import { app } from "../../index";
 
 import request from "supertest";
 import { Role } from "../../src/components/user";
-import { cleanup } from "../../src/db/cleanup";
+import { cleanup } from "../../src/db/cleanup_custom";
 import { Time } from "../../src/utilities";
 import { Category } from "../../src/components/product";
 
@@ -37,7 +37,7 @@ const create_product = async (model: string) => {
 		sellingPrice: 100,
 		quantity: 10,
 		details: "details",
-		arrivalDate: Time.now(),
+		arrivalDate: Time.today(),
 	});
 };
 
