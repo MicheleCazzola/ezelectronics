@@ -82,7 +82,7 @@ describe("Controller tests", () => {
             expect(response).toBe(false);
         });
     });
-
+*/
     
     describe("productByModel test: ", () => {
 
@@ -105,7 +105,7 @@ describe("Controller tests", () => {
 
 
     });
-*/
+
 
     describe("changeProductquantity test:", () => {
 
