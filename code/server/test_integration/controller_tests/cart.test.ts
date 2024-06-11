@@ -794,7 +794,7 @@ describe("Controller tests", () => {
 			expect(currentCart).toStrictEqual(testCart);
 		});
 
-		test("Cart cleared successfully - Empty cart", async () => {
+		test("Cart clear failed - Empty cart", async () => {
 			const testUser = new User(
 				"test",
 				"test",
@@ -813,18 +813,13 @@ describe("Controller tests", () => {
 				"test",
 				testUser.role
 			);
+			
 			// Test
-			const result = await cartController.clearCart(testUser);
-
-			// Check
-			const currentCart = await cartController.getCart(testUser);
-
-			expect(result).toBe(true);
-			expect(currentCart).toStrictEqual(testCart);
+			await expect(cartController.clearCart(testUser)).rejects.toBeInstanceOf(CartNotFoundError);
 		});
 
 		// According to the comment on the route it should fail in this case
-		test("Cart cleared successfully - No unpaid cart", async () => {
+		test("Cart clear failed - No unpaid cart", async () => {
 			const testUser = new User(
 				"test",
 				"test",
