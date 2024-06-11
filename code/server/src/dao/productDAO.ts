@@ -18,7 +18,7 @@ class ProductDAO {
    * @param arrivalDate The optional date in which the product arrived.
    * @returns A Promise that resolves to nothing.
    */
-  createProduct(
+  async createProduct(
     model: string,
     category: string,
     quantity: number,
@@ -59,7 +59,7 @@ class ProductDAO {
    * @param model The unique model of the product.
    * @returns A Promise that resolves to true if the product identified by the model exists.
    */
-  existsProduct(model: string): Promise<boolean> {
+  async existsProduct(model: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       try {
         const sql = "SELECT * FROM product_descriptor WHERE Model = ?";
@@ -79,7 +79,7 @@ class ProductDAO {
    * @param model The unique model of the product.
    * @returns A promise that resolves to the found product.
    */
-  getProductByModel(model: string): Promise<Product> {
+  async getProductByModel(model: string): Promise<Product> {
     return new Promise<Product>((resolve, reject) => {
       try {
         const sql = "SELECT * FROM product_descriptor WHERE Model = ?";
@@ -100,7 +100,7 @@ class ProductDAO {
    * @param changeDate The optional date in which the change occurred.
    * @returns A Promise that resolves to the new available quantity of the product.
    */
-  increaseQuantity(
+  async increaseQuantity(
     model: string,
     newQuantity: number,
     changeDate: string | null
@@ -144,7 +144,7 @@ class ProductDAO {
    * @param sellingDate The optional date in which the sale occurred.
    * @returns A Promise that resolves to the new available quantity of the product.
    */
-  decreaseQuantity(
+  async decreaseQuantity(
     model: string,
     quantity: number,
     sellingDate: string | null
@@ -198,7 +198,7 @@ class ProductDAO {
    * @param model An optional parameter. It can only be present if grouping is equal to "model" (in which case it must be present and not empty).
    * @returns A Promise that resolves to an array of Product objects.
    */
-  getAllProducts(
+  async getAllProducts(
     grouping: string | null,
     category: string | null,
     model: string | null
@@ -253,7 +253,7 @@ class ProductDAO {
    * @param model An optional parameter. It can only be present if grouping is equal to "model" (in which case it must be present and not empty).
    * @returns A Promise that resolves to an array of Product objects.
    */
-  getAllAvailableProducts(
+  async getAllAvailableProducts(
     grouping: string | null,
     category: string | null,
     model: string | null
@@ -307,7 +307,7 @@ class ProductDAO {
    * Deletes all products.
    * @returns A Promise that resolves to `true` if all products have been successfully deleted.
    */
-  deleteProducts(): Promise<Boolean> {
+  async deleteProducts(): Promise<Boolean> {
     return new Promise<boolean>((resolve, reject) => {
       try {
         const sql = "DELETE FROM product_descriptor";
@@ -330,7 +330,7 @@ class ProductDAO {
    * @param model The model of the product to delete
    * @returns A Promise that resolves to `true` if the product has been successfully deleted.
    */
-  deleteProductByModel(model: string): Promise<Boolean> {
+  async deleteProductByModel(model: string): Promise<Boolean> {
     return new Promise<boolean>((resolve, reject) => {
       try {
         const sql = "DELETE FROM product_descriptor WHERE Model = ?";
