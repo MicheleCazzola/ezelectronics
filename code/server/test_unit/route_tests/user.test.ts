@@ -283,8 +283,18 @@ describe("Route unit tests:", () => {
             jest.spyOn(Authenticator.prototype, "isAdmin").mockImplementation((req, res, next) => {
                 return res.status(401).json({ error: "Unauthorized" });
             })
-            const response = await request(app).get(baseURL + "/users/roles/Admin")
+            const response = await request(app).get(baseURL + "/users")
             expect(response.status).toBe(401)
+        })
+
+        test("It should return Error", async () => {
+            jest.spyOn(UserController.prototype, "deleteAll").mockRejectedValueOnce(new Error())
+            jest.spyOn(Authenticator.prototype, "isAdmin").mockImplementation((req, res, next) => {
+                return next();
+            })
+
+            const response = await request(app).delete(baseURL + "/users")
+            expect(response.status).toBe(503)
         })
     })
 
@@ -419,6 +429,11 @@ describe("Route unit tests:", () => {
     describe("POST ezelectronics/sessions", () => {
         test("It returns the logged in user", async () => {
             jest.spyOn(Authenticator.prototype, "login").mockResolvedValueOnce(testAdmin)
+            jest.mock('express-validator', () => ({
+                body: jest.fn().mockImplementation(() => ({
+                    isString: () => ({ isLength: () => ({}) }),
+                })),
+            }))
 
             const response = await request(app).post(baseURL + "/sessions").send(testAdmin)
             expect(response.status).toBe(200)
@@ -427,6 +442,11 @@ describe("Route unit tests:", () => {
 
         test("It should return UserNotFoundError", async () => {
             jest.spyOn(Authenticator.prototype, "login").mockRejectedValueOnce(new Error)
+            jest.mock('express-validator', () => ({
+                body: jest.fn().mockImplementation(() => ({
+                    isString: () => ({ isLength: () => ({}) }),
+                })),
+            }))
 
             const response = await request(app).post(baseURL + "/sessions").send(testAdmin)
             expect(response.status).toBe(401)
@@ -434,15 +454,52 @@ describe("Route unit tests:", () => {
         })
 
         test("The password provided does not match the one in the database", async () => {
-            
+            jest.spyOn(Authenticator.prototype, "login").mockRejectedValueOnce(new Error)
+            jest.mock('express-validator', () => ({
+                body: jest.fn().mockImplementation(() => ({
+                    isString: () => ({ isLength: () => ({}) }),
+                })),
+            }))
+
+            const response = await request(app).post(baseURL + "/sessions").send(testAdmin)
+            expect(response.status).toBe(401)
+            expect(Authenticator.prototype.login).toHaveBeenCalled()
         })
     })
 
     describe("DELETE ezelectronics/sessions/current", () => {
-        
+        test("It returns a 200 status code", async () => {
+            jest.spyOn(Authenticator.prototype, "isLoggedIn").mockImplementation((req, res, next) => {
+                return next();
+            })
+            jest.spyOn(Authenticator.prototype, "logout").mockResolvedValueOnce(null)
+
+            const response = await request(app).delete(baseURL + "/sessions/current")
+            expect(response.status).toBe(200)
+            expect(Authenticator.prototype.logout).toHaveBeenCalled()
+        })
+
+        test("It should return Error", async () => {
+            jest.spyOn(Authenticator.prototype, "isLoggedIn").mockImplementation((req, res, next) => {
+                return next();
+            })
+            jest.spyOn(Authenticator.prototype, "logout").mockRejectedValueOnce(new Error())
+
+            const response = await request(app).delete(baseURL + "/sessions/current")
+            expect(response.status).toBe(503)
+        })
     })
 
     describe("GET ezelectronics/sessions/current", () => {
-        
+        test("It returns the logged in user", async () => {
+            jest.spyOn(Authenticator.prototype, "isLoggedIn").mockImplementation((req, res, next) => {
+                req.user = testCustomer
+                return next();
+            })
+            const response = await request(app).get(baseURL + "/sessions/current")
+            expect(response.status).toBe(200)
+            expect(response.body).toEqual(testCustomer)
+            expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalled()
+        })
     })
 })
