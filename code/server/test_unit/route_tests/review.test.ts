@@ -101,12 +101,11 @@ describe("Route - Add Review", () => {
         .mockResolvedValueOnce();
 
       const response = await request(app)
-        .post(`${baseURL}/${testCase.model}`)
-        .query({ user: testCase.user })
-        .send({
-          score: testCase.score,
-          comment: testCase.comment,
-        });
+			.post(`${baseURL}/${testCase.model}`)
+			.send({
+				score: testCase.score,
+				comment: testCase.comment,
+			});
 
       expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
       expect(Authenticator.prototype.isCustomer).toHaveBeenCalledTimes(1);

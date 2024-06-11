@@ -2,24 +2,17 @@ import { test, expect, jest, describe, beforeEach } from "@jest/globals";
 import ReviewController from "../../src/controllers/reviewController";
 import UserController from "../../src/controllers/userController";
 import ProductController from "../../src/controllers/productController";
-import { Cart, ProductInCart } from "../../src/components/cart";
 import { Category } from "../../src/components/product";
 import { Role, User } from "../../src/components/user";
-import {
-	CartNotFoundError,
-	EmptyCartError,
-	ProductNotInCartError,
-} from "../../src/errors/cartError";
-import {
-	EmptyProductStockError,
-	LowProductStockError,
-	ProductNotFoundError,
-} from "../../src/errors/productError";
+import { ProductNotFoundError } from "../../src/errors/productError";
 import { cleanup } from "../../src/db/cleanup_custom";
 import { Time } from "../../src/utilities";
 import ProductDAO from "../../src/dao/productDAO";
 import ReviewDAO from "../../src/dao/reviewDAO";
-import { ExistingReviewError } from "../../src/errors/reviewError";
+import {
+	ExistingReviewError,
+	NoReviewProductError,
+} from "../../src/errors/reviewError";
 import { ProductReview } from "../../src/components/review";
 
 const controller = new ReviewController();

@@ -49,7 +49,7 @@ describe("Controller tests", () => {
 
     });
 
-/*
+
     describe("productExist test:", () => {
         //The test checks if the method returns true when de DAO method return true.
         
@@ -82,7 +82,7 @@ describe("Controller tests", () => {
             expect(response).toBe(false);
         });
     });
-*/
+
     
     describe("productByModel test: ", () => {
 
