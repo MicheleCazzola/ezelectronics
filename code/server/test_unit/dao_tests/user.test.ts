@@ -298,40 +298,71 @@ describe("UserDAO tests:", () => {
     describe("deleteUser tests:", () => {
         test("It should resolve true", async () => {
             const userDAO = new UserDAO()
+            const row = {
+                username: "username",
+                name: "test",
+                surname: "test"
+            }
+            const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+                callback(null, row)
+                return {} as Database
+            });
             const mockDBRun = jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
                 callback(null)
                 return {} as Database
             });
             const result = await userDAO.deleteUser("username");
             expect(result).toBe(true)
+            mockDBGet.mockRestore()
             mockDBRun.mockRestore()
         })
 
         test("It should reject Error", async () => {
             const userDAO = new UserDAO()
-            const mockDBRun = jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+            const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
                 callback(new Error)
                 return {} as Database
             });
             const result = userDAO.deleteUser("username");
             await expect(result).rejects.toThrow(Error)
+            mockDBGet.mockRestore()
+        })
+
+        test("It should reject Error", async () => {
+            const userDAO = new UserDAO()
+            const row = {
+                username: "username",
+                name: "test",
+                surname: "test"
+            }
+            const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+                callback(null, row)
+                return {} as Database
+            });
+            const mockDBRun = jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+                callback(new Error())
+                return {} as Database
+            });
+            const result = userDAO.deleteUser("username");
+            await expect(result).rejects.toThrow(Error)
+            mockDBGet.mockRestore()
             mockDBRun.mockRestore()
         })
 
         test("It should reject UserNotFoundError", async () => {
             const userDAO = new UserDAO()
-            const mockDBRun = jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
-                callback(new Error("UNIQUE constraint failed: users.username"))
+            const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+                callback(null)
                 return {} as Database
             });
             const result = userDAO.deleteUser("username")
             await expect(result).rejects.toThrow(UserNotFoundError)
-            mockDBRun.mockRestore()
+            mockDBGet.mockRestore()
         })
 
         test("It should reject error", async () => {
             const userDAO = new UserDAO()
-            const mockDBRun = jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+            const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
                 throw error;
             });
 
@@ -341,7 +372,7 @@ describe("UserDAO tests:", () => {
                 expect(e).toBe(error)
             }
 
-            mockDBRun.mockRestore()
+            mockDBGet.mockRestore()
         })
     })
 
@@ -427,7 +458,19 @@ describe("UserDAO tests:", () => {
     describe("updateUserInformation tests:", () => {
         test("It should resolve user", async () => {
             const userDAO = new UserDAO()
+            const row = {
+                username: "test",
+                name: "test",
+                surname: "test",
+                role: "Customer",
+                address: "test",
+                birthdate: "test"
+            }
             const user = new User("test", "test", "test", Role.CUSTOMER, "test", "test");
+            const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+                callback(null, row)
+                return {} as Database
+            });
             const mockDBRun = jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
                 callback(null, user)
                 return {} as Database
@@ -435,33 +478,58 @@ describe("UserDAO tests:", () => {
             const result = userDAO.updateUserInformation("name", "surname", "address", "birthdate", "username");
             await expect(result).resolves.toStrictEqual(user);
             mockDBRun.mockRestore()
+            mockDBGet.mockRestore()
         })
 
         test("It should reject Error", async () => {
             const userDAO = new UserDAO()
+            const row = {
+                username: "test",
+                name: "test",
+                surname: "test",
+                role: "Customer",
+                address: "test",
+                birthdate: "test"
+            }
+            const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+                callback(null, row)
+                return {} as Database
+            });
             const mockDBRun = jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
                 callback(new Error("Error"))
                 return {} as Database
             });
             const result = userDAO.updateUserInformation("name", "surname", "address", "birthdate", "username");
             await expect(result).rejects.toThrow(Error)
+            mockDBGet.mockRestore()
             mockDBRun.mockRestore()
+        })
+
+        test("It should reject Error", async () => {
+            const userDAO = new UserDAO()
+            const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+                callback(new Error("Error"))
+                return {} as Database
+            });
+            const result = userDAO.updateUserInformation("name", "surname", "address", "birthdate", "username");
+            await expect(result).rejects.toThrow(Error)
+            mockDBGet.mockRestore()
         })
 
         test("It should reject UserNotFoundError", async () => {
             const userDAO = new UserDAO()
-            const mockDBRun = jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
-                callback()
+            const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+                callback(null)
                 return {} as Database
             });
             const result = userDAO.updateUserInformation("name", "surname", "address", "birthdate", "username");
             await expect(result).rejects.toThrow(UserNotFoundError)
-            mockDBRun.mockRestore()
+            mockDBGet.mockRestore()
         })
 
         test("It should reject error", async () => {
             const userDAO = new UserDAO()
-            const mockDBRun = jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+            const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
                 throw error;
             });
 
@@ -471,7 +539,7 @@ describe("UserDAO tests:", () => {
                 expect(e).toBe(error)
             }
 
-            mockDBRun.mockRestore()
+            mockDBGet.mockRestore()
         })
     })
 })
