@@ -21,32 +21,28 @@ describe("Controller unit tests:", () => {
     });
     */
     describe("createUser tests:", () => {
-        //Example of a unit test for the createUser method of the UserController
         //The test checks if the method returns true when the DAO method returns true
         //The test also expects the DAO method to be called once with the correct parameters
 
         test("It should return true", async () => {
-            const testUser = { //Define a test user object
+            const testUser = {
                 username: "test",
                 name: "test",
                 surname: "test",
                 password: "test",
                 role: "Manager"
             }
-            jest.spyOn(UserDAO.prototype, "createUser").mockResolvedValueOnce(true); //Mock the createUser method of the DAO
-            const controller = new UserController(); //Create a new instance of the controller
-            //Call the createUser method of the controller with the test user object
-            //console.log("Creating user by controller test");
+            jest.spyOn(UserDAO.prototype, "createUser").mockResolvedValueOnce(true);
+            const controller = new UserController();
             const response = await controller.createUser(testUser.username, testUser.name, testUser.surname, testUser.password, testUser.role);
             
-            //Check if the createUser method of the DAO has been called once with the correct parameters
             expect(UserDAO.prototype.createUser).toHaveBeenCalledTimes(1);
             expect(UserDAO.prototype.createUser).toHaveBeenCalledWith(testUser.username,
                 testUser.name,
                 testUser.surname,
                 testUser.password,
                 testUser.role);
-            expect(response).toBe(true); //Check if the response is true
+            expect(response).toBe(true);
 
             //console.log("Controller user test done");
         });
@@ -225,6 +221,26 @@ describe("Controller unit tests:", () => {
                 username: "test1"
             }
             const testUser_ = new User("test", "test", "test", Role.CUSTOMER, "test", "test")
+
+            const controller = new UserController();
+            const response = controller.updateUserInfo(testUser_, testUser.name, testUser.surname, testUser.address, testUser.birthdate, testUser.username);
+
+            await expect(response).rejects.toThrow(UnauthorizedUserError);
+        })
+
+        test("It should return UnauthorizedUserError", async () => {
+            const testUser = {
+                name: "test",
+                surname: "test",
+                address: "test",
+                birthdate: "test",
+                username: "test1",
+                role: "Admin"
+            }
+
+            const user = new User("test", "test", "test", Role.ADMIN, "test", "test")
+            const testUser_ = new User("test", "test", "test", Role.ADMIN, "test", "test")
+            jest.spyOn(UserDAO.prototype, "getUserByUsername").mockResolvedValueOnce(user);
 
             const controller = new UserController();
             const response = controller.updateUserInfo(testUser_, testUser.name, testUser.surname, testUser.address, testUser.birthdate, testUser.username);
