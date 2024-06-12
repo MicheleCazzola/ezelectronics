@@ -54,7 +54,7 @@ const user4 = {
 const firstUser = new User(user1.username, user1.name, user1.surname, Role.CUSTOMER, "", "")
 const secondUser = new User(user2.username, user2.name, user2.surname, Role.ADMIN, "", "")
 const thirdUser = new User(user3.username, user3.name, user3.surname, Role.CUSTOMER, "", "")
-const fourthUser = new User(user4.username, user4.name, user4.surname, Role.CUSTOMER, "", "")
+const fourthUser = new User(user4.username, user4.name, user4.surname, Role.ADMIN, "", "")
 const firstModUser = new User(user1.username, "First", "User", Role.CUSTOMER, "", "")
 const users = [firstUser, secondUser]
 const custUsers = [firstUser, thirdUser]
@@ -239,6 +239,13 @@ describe("User Controller integration tests:", () => {
             await controller.createUser(user1.username, user1.name, user1.surname, user1.password, user1.role)
             await controller.createUser(user2.username, user2.name, user2.surname, user2.password, user2.role)
             const result = controller.updateUserInfo(firstUser, "Second", "User", "", "", user2.username)
+            await expect(result).rejects.toThrow(UnauthorizedUserError)
+        })
+
+        test("It should return UnauthorizedUserError", async () => {
+            await controller.createUser(user1.username, user1.name, user1.surname, user1.password, user1.role)
+            await controller.createUser(user4.username, user4.name, user4.surname, user4.password, user4.role)
+            const result = controller.updateUserInfo(firstUser, "Fourth", "User", "", "", user4.username)
             await expect(result).rejects.toThrow(UnauthorizedUserError)
         })
     })
