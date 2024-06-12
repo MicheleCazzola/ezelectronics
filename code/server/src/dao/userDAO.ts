@@ -195,8 +195,7 @@ class UserDAO {
         return new Promise<Boolean>((resolve, reject) =>{
             try{
 
-                const sql = "DELETE FROM users";
-
+            const sql = "DELETE FROM users WHERE role = 'Customer' OR role = 'Manager'";
                 db.run(sql, [], (err: Error | null) => {
                     if (err) {
                         reject(err);
