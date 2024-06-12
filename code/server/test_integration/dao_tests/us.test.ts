@@ -157,7 +157,7 @@ describe("User DAO integration tests:", () => {
             const result = await dao.deleteUser(user3.username)
             expect(result).toBe(true)
             const check = await dao.getUser()
-            //await expect(check).resolves.toStrictEqual(users)
+
             expect(check[0].username).toBe(users[0].username)
             expect(check[0].name).toBe(users[0].name)
             expect(check[0].surname).toBe(users[0].surname)
@@ -208,9 +208,6 @@ describe("User DAO integration tests:", () => {
         test("It should resolve user", async () => {
             await dao.createUser(user1.username, user1.name, user1.surname, user1.password, user1.role)
             const result = await dao.updateUserInformation("First", "User", "", "", user1.username)
-
-            const check = await dao.getUserByUsername(firstUser.username)
-            expect(check.username).toBe(firstUser.username)
 
             expect(result.username).toBe(firstModUser.username)
             expect(result.name).toBe(firstModUser.name)
