@@ -157,7 +157,7 @@ class ProductDAO {
     return new Promise<number>((resolve, reject) => {
       try {
         const sql =
-          "SELECT AvailableQuantity FROM product_descriptor WHERE Model = ?";
+          "SELECT AvailableQuantity, ArrivalDate FROM product_descriptor WHERE Model = ?";
         db.get(sql, [model], (err: Error | null, row: any) => {
           if (err) reject(err);
 
@@ -178,6 +178,7 @@ class ProductDAO {
           }
           if (quantity > qt) {
             reject(new LowProductStockError())
+            return
           }
 
           qt = qt - quantity;
