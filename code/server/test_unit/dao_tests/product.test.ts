@@ -11,6 +11,7 @@ import dayjs from "dayjs";
 import { callbackify } from "node:util";
 import { error } from "node:console";
 import { EmptyCartError } from "../../src/errors/cartError";
+import { DateError } from "../../src/utilities";
 
 
 jest.mock("../../src/db/db.ts");
@@ -150,6 +151,59 @@ describe("ProductDao test:", () => {
 
     });
 
+
+    describe("getProductByModel test:", () => {
+        
+        test("it should trhow error if an error occures", async () => {
+
+            const testModel = "TestModel";
+            const errorMessage = "Database error";
+
+            const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) =>{
+                callback(new Error(errorMessage), null);
+                return {} as Database;
+            });
+
+            const dao = new ProductDAO();
+            await expect(dao.getProductByModel(testModel)).rejects.toThrow(errorMessage);
+
+            expect(mockDBGet).toBeCalledTimes(1);
+            expect(mockDBGet).toBeCalledWith(expect.any(String), [testModel], expect.any(Function));
+
+
+        });
+
+        test("it should return product if it exists", async () => {
+
+            const testProduct2 = new Product(123, "TestModel", Category.SMARTPHONE, "2024-01-01", "TestDetails", 10);
+
+            const testProduct = {
+                sellingPrice: testProduct2.sellingPrice,
+                model: testProduct2.model,
+                category: testProduct2.category,
+                arrivaldate: testProduct2.arrivalDate,
+                details: testProduct2.details,
+                quantity: testProduct2.quantity
+            };
+
+            const mockDBGet = jest.spyOn(db, 'get').mockImplementation((sql, params, callback) => {
+                callback(null, testProduct);
+                return {} as Database;
+            });
+
+            const dao = new ProductDAO();
+            const result = await dao.getProductByModel(testProduct2.model);
+
+            expect(mockDBGet).toBeCalledTimes(1);
+            expect(mockDBGet).toBeCalledWith(expect.any(String), [testProduct2.model], expect.any(Function));
+            expect(result).toEqual(testProduct2); 
+            
+
+        });
+
+    });
+
+
     describe("increaseQuantity tests:", () => {
 
         test("it should increase the available quantity and return the new quantity", async () => {
@@ -270,9 +324,38 @@ describe("ProductDao test:", () => {
             );
 
         });
+/*
+
+TO FIX
+
+        test("It should return an error if `changeDate` is before the product's `arrivalDate`", async () => {
+                
+            const testModel = "TestModel";
+            const newQuantity = 5;
+            const existingQuantity = 10;
+            const changeDate = "2024-01-01";
+            const updatedQuantity = existingQuantity + newQuantity;
+            const err = new DateError();
+
+            const dao = new ProductDAO();
+
+            const testProduct = new Product(123, "TestModel", Category.SMARTPHONE, "2020-02-02", "TestDetails", 12);
+           
+            const mockDBGet = jest.spyOn(db, 'get').mockImplementation((sql, params, callback) => {
+                callback(err, null);
+                return {} as Database;
+            });
+
+            await dao.increaseQuantity(testModel, newQuantity, changeDate);
+
+            expect(mockDBGet).toHaveBeenCalledWith(expect.any(String), [testModel], expect.any(Function));
+            expect(mockDBGet).rejects.toThrow(err);
+
+
+        });
         
 
-   
+   */
 
     } );
 
@@ -396,6 +479,8 @@ describe("ProductDao test:", () => {
             );
 
         });
+
+        //TO UPDATE TEST OF SELLING DATE
 
 
     });
