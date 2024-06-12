@@ -88,7 +88,7 @@ Version: V2 - description of EZElectronics in FUTURE form
       - [Scenario 14.1](#scenario-141)
     - [Use Case 15, View all carts (UC15)](#use-case-15-view-all-carts-uc15)
       - [Scenario 15.1](#scenario-151)
-      - [Use Case 16, Delete all carts (UC16)](#use-case-16-delete-all-carts-uc16)
+    - [Use Case 16, Delete all carts (UC16)](#use-case-16-delete-all-carts-uc16)
       - [Scenario 16.1](#scenario-161)
     - [Use Case 17, Manage reviews (UC12)](#use-case-17-manage-reviews-uc12)
       - [Scenario 17.1](#scenario-171)
@@ -154,8 +154,8 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 | FR3.4.1 |            Show the list of all available products             |
 |  FR3.5  |      Show the list of all products with the same category      |
 | FR3.5.1 | Show the list of all available products with the same category |
-|  FR3.5  |       Show the list of all products with the same model        |
-| FR3.5.1 |  Show the list of all available products with the same model   |
+|  FR3.6  |       Show the list of all products with the same model        |
+| FR3.6.1 |  Show the list of all available products with the same model   |
 |  FR3.7  |                        Delete a product                        |
 |  FR3.8  |                      Delete all products                       |
 | **FR4** |                       **Manage reviews**                       |
@@ -1038,7 +1038,7 @@ EZElectronics (read EaSy Electronics) is a software application designed to help
 |       2       |                        System: Retrieve information about all carts                        |
 |       3       | System: Display information about all carts (customer, payment date, total cost, products) |
 
-#### Use Case 16, Delete all carts (UC16)
+### Use Case 16, Delete all carts (UC16)
 
 | Actors Involved  |                  Admin, Manager                  |
 | :--------------: | :----------------------------------------------: |
