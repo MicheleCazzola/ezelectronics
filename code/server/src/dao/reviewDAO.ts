@@ -3,7 +3,6 @@ import { ExistingReviewError } from "../errors/reviewError";
 import { NoReviewProductError } from "../errors/reviewError";
 import { ProductReview } from "../components/review";
 import { ProductNotFoundError } from "../errors/productError";
-import ProductDAO from "./productDAO";
 import { Time } from "../../src/utilities";
 
 /**
