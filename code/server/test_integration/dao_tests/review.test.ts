@@ -44,6 +44,10 @@ beforeEach(async () => {
 	await udao.createUser("testuser2", "a", "b", "password", "Customer");
 });
 
+afterAll(async () => {
+	await cleanup();
+});
+
 describe("DAO - Add a Review", () => {
 	test("Product Not Found", async () => {
 		const testCase = {
