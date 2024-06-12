@@ -60,7 +60,7 @@ class UserController {
         if(user.role !== "Admin"){
             //se l'utente non è admin può vedere solo le sue informazioni
 
-            if(username !== user.name){
+            if(username !== user.username){
                 //se il nome è diverso da quello dell'user che ha chiamato la route ->errore
                 throw new UnauthorizedUserError();
             }

@@ -59,6 +59,10 @@ beforeEach(async () => {
 	);
 });
 
+afterAll(async () => {
+	await cleanup();
+});
+
 describe("Controller - Add Review", () => {
 	test("Valid", async () => {
 		const result = await controller.addReview(

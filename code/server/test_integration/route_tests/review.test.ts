@@ -61,6 +61,10 @@ afterEach(async () => {
 	await logout(); // just making sure
 });
 
+afterAll(async () => {
+	await cleanup();
+});
+
 describe("Route - Add Review", () => {
 	test("Valid", async () => {
 		await login("user1");

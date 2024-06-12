@@ -178,26 +178,28 @@ describe("ProductDao test:", () => {
             const testProduct2 = new Product(123, "TestModel", Category.SMARTPHONE, "2024-01-01", "TestDetails", 10);
 
             const testProduct = {
-                sellingPrice: testProduct2.sellingPrice,
-                model: testProduct2.model,
-                category: testProduct2.category,
-                arrivaldate: testProduct2.arrivalDate,
-                details: testProduct2.details,
-                quantity: testProduct2.quantity
+                SellingPrice: testProduct2.sellingPrice,
+                Model: testProduct2.model,
+                Category: testProduct2.category,
+                ArrivalDate: testProduct2.arrivalDate,
+                Details: testProduct2.details,
+                AvailableQuantity: testProduct2.quantity
             };
 
             const mockDBGet = jest.spyOn(db, 'get').mockImplementation((sql, params, callback) => {
-                callback(null, testProduct);
+                callback(null,
+                    testProduct
+                );
                 return {} as Database;
             });
 
             const dao = new ProductDAO();
-            const result = await dao.getProductByModel(testProduct2.model);
+            const result = await dao.getProductByModel("TestModel");
 
             expect(mockDBGet).toBeCalledTimes(1);
             expect(mockDBGet).toBeCalledWith(expect.any(String), [testProduct2.model], expect.any(Function));
-            expect(result).toEqual(testProduct2); 
-            
+            expect(result).toEqual(testProduct2);
+              
 
         });
 
