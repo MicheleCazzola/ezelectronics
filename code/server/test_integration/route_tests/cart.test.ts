@@ -81,7 +81,7 @@ describe("Carts router tests", () => {
       generic = {status: 503, text: "Internal Server Error"};
     });
 
-    describe.only("Add product to cart", () => {
+    describe("Add product to cart", () => {
       let customURL: string;
 
       beforeAll(async () => {
@@ -178,7 +178,7 @@ describe("Carts router tests", () => {
       });
     });
 
-    describe.only("Get current cart", () => {
+    describe("Get current cart", () => {
       let customURL: string;
 
       beforeAll(async () => {
@@ -266,7 +266,7 @@ describe("Carts router tests", () => {
       });
     });
 
-    describe.only("Checkout cart", () => {
+    describe("Checkout cart", () => {
       let customURL: string;
 
       beforeAll(async () => {
@@ -391,56 +391,190 @@ describe("Carts router tests", () => {
 
     describe("Get paid carts", () => {
       let customURL: string;
-      let ok: number;
 
-      beforeAll(() => {
+      beforeAll(async () => {
         customURL = "/history";
-        ok = 200;
+    
+        await cleanup();
       });
 
-      beforeEach(() => {
-        jest
-          .spyOn(Authenticator.prototype, "isLoggedIn")
-          .mockImplementation(mockMiddleware);
-        jest
-          .spyOn(Authenticator.prototype, "isCustomer")
-          .mockImplementation(mockMiddleware);
+      beforeEach(async() => {
+        agent = request.agent(app);
+        await register_user("c1", Role.CUSTOMER);
+        await register_user("c2", Role.CUSTOMER);
+        await register_user("m1", Role.MANAGER);
+        await register_user("a1", Role.ADMIN);
+        await login("m1");
+        await create_product("p1", 10)
+        await create_product("p2", 10);
+        await create_product("p3", 10);
+        await create_product("p4", 1);
+        await logout();
+        await login("c1");
+        await agent.post(baseURL + "/").send({model: "p1"});
+        await agent.post(baseURL + "/").send({model: "p2"});
+        await agent.patch(baseURL + "/").send({});
+        await agent.post(baseURL + "/").send({model: "p1"});
+        await agent.post(baseURL + "/").send({model: "p1"});
+        await agent.post(baseURL + "/").send({model: "p2"});
+        await agent.patch(baseURL + "/").send({});
+        await logout();
+        await login("c2");
+        await agent.post(baseURL + "/").send({model: "p2"});
+        await agent.post(baseURL + "/").send({model: "p3"});
+        await agent.patch(baseURL + "/").send({});
+        await logout();
       });
 
-      afterEach(() => {
-        jest.clearAllMocks();
-        jest.restoreAllMocks();
+      afterEach(async () => {
+        await logout();
+        await cleanup();
       });
 
-      test("Get paid carts successful", async () => {
+      test("Get paid carts successful - Unpaid cart present", async () => {
         const testProductsInCart1 = [
-          new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0),
+          new ProductInCart("p1", 1, Category.LAPTOP, 100.0),
+          new ProductInCart("p2", 1, Category.LAPTOP, 100.0)
         ];
         const testProductsInCart2 = [
-          new ProductInCart("HP", 1, Category.LAPTOP, 500.0),
+          new ProductInCart("p1", 2, Category.LAPTOP, 100.0),
+          new ProductInCart("p2", 1, Category.LAPTOP, 100.0)
         ];
-        const testCarts = [
-          new Cart("test", true, "2024-02-12", 1000.0, testProductsInCart1),
-          new Cart("test", true, "2024-03-12", 500.0, testProductsInCart2),
+        const testProductsInCart3 = [
+          new ProductInCart("p2", 1, Category.LAPTOP, 100.0),
+          new ProductInCart("p3", 1, Category.LAPTOP, 100.0)
+        ]
+        const testCarts1 = [
+          new Cart("c1", true, Time.today(), 200, testProductsInCart1),
+          new Cart("c1", true, Time.today(), 300, testProductsInCart2),
         ];
-        const mockControllerGetPaidCarts = jest.spyOn(
-          CartController.prototype,
-          "getCustomerCarts"
-        );
+        const testCarts2 = [
+          new Cart("c2", true, Time.today(), 200, testProductsInCart3)
+        ];
 
-        mockControllerGetPaidCarts.mockResolvedValueOnce(testCarts);
-        const response = await request(app).get(baseURL + customURL);
+        // Setup 1
+        await login("c1");
+        await agent.post(baseURL + "/").send({model: "p1"});
+        await agent.post(baseURL + "/").send({model: "p1"});
+        await agent.post(baseURL + "/").send({model: "p2"});
 
-        expect(Authenticator.prototype.isCustomer).toBeCalledTimes(1);
+        // Test 1
+        let response = await agent.get(baseURL + customURL).send({});
 
-        expect(mockControllerGetPaidCarts).toBeCalledTimes(1);
+        expect(response.status).toBe(okStatus);
+        expect(response.body).toEqual(testCarts1);
 
-        expect(response.status).toBe(ok);
-        expect(response.body).toEqual(testCarts);
+        await logout();
+        
+        // Setup 2: different user
+        await login("c2");
+        await agent.post(baseURL + "/").send({model: "p1"});
+        await agent.post(baseURL + "/").send({model: "p1"});
+        await agent.post(baseURL + "/").send({model: "p2"});
+
+        // Test 2
+        response = await agent.get(baseURL + customURL).send({});
+
+        expect(response.status).toBe(okStatus);
+        expect(response.body).toEqual(testCarts2);
+      });
+
+      test("Get paid carts successful - No unpaid cart", async () => {
+        const testProductsInCart1 = [
+          new ProductInCart("p1", 1, Category.LAPTOP, 100.0),
+          new ProductInCart("p2", 1, Category.LAPTOP, 100.0)
+        ];
+        const testProductsInCart2 = [
+          new ProductInCart("p1", 2, Category.LAPTOP, 100.0),
+          new ProductInCart("p2", 1, Category.LAPTOP, 100.0)
+        ];
+        const testProductsInCart3 = [
+          new ProductInCart("p2", 1, Category.LAPTOP, 100.0),
+          new ProductInCart("p3", 1, Category.LAPTOP, 100.0)
+        ]
+        const testCarts1 = [
+          new Cart("c1", true, Time.today(), 200, testProductsInCart1),
+          new Cart("c1", true, Time.today(), 300, testProductsInCart2),
+        ];
+        const testCarts2 = [
+          new Cart("c2", true, Time.today(), 200, testProductsInCart3)
+        ];
+
+        // Setup 1
+        await login("c1");
+
+        // Test 1
+        let response = await agent.get(baseURL + customURL).send({});
+
+        expect(response.status).toBe(okStatus);
+        expect(response.body).toEqual(testCarts1);
+
+        await logout();
+        
+        // Setup 2: different user
+        await login("c2");
+
+        // Test 2
+        response = await agent.get(baseURL + customURL).send({});
+
+        expect(response.status).toBe(okStatus);
+        expect(response.body).toEqual(testCarts2);
+      });
+
+      test("Get paid carts successful - No paid carts", async () => {
+        // Setup: needed to delete all paid carts since there are some in beforeEach
+        await login("a1");
+        await agent.delete(baseURL + "/").send({});
+        await logout();
+
+        // Setup 1
+        await login("c1");
+        await agent.post(baseURL + "/").send({model: "p1"});
+        await agent.post(baseURL + "/").send({model: "p1"});
+        await agent.post(baseURL + "/").send({model: "p2"});
+
+        // Test 1
+        let response = await agent.get(baseURL + customURL).send({});
+
+        expect(response.status).toBe(okStatus);
+        expect(response.body).toEqual([]);
+
+        await logout();
+        
+        // Setup 2: different user
+        await login("c2");
+        await agent.post(baseURL + "/").send({model: "p1"});
+        await agent.post(baseURL + "/").send({model: "p1"});
+        await agent.post(baseURL + "/").send({model: "p2"});
+
+        // Test 2
+        response = await agent.get(baseURL + customURL).send({});
+
+        expect(response.status).toBe(okStatus);
+        expect(response.body).toEqual([]);
+      });
+
+      test("Get paid carts failed - Not authenticated", async () => {
+        const response = await agent
+          .get(baseURL + customURL)
+          .send({});
+
+        expect(response.status).toBe(unauthenticated.status);
+        expect(getError(response.text)).toBe(unauthenticated.text);
+      });
+
+      test("Get paid carts failed - Not a customer", async () => {
+        await login("m1");
+        const response = await agent
+          .get(baseURL + customURL)
+          .send({});
+
+        expect(response.status).toBe(notACustomer.status);
+        expect(getError(response.text)).toBe(notACustomer.text);
       });
     });
 
-    describe.only("Remove product from cart", () => {
+    describe("Remove product from cart", () => {
       let customURL: string;
 
       beforeAll(async () => {
@@ -591,7 +725,7 @@ describe("Carts router tests", () => {
         });
     });
 
-    describe.only("Empty current cart", () => {
+    describe("Empty current cart", () => {
       let customURL: string;
 
       beforeAll(async () => {
@@ -680,88 +814,220 @@ describe("Carts router tests", () => {
     });
 
     describe("Delete all carts", () => {
-        let customURL: string;
-        let ok: number;
+      let customURL: string;
 
-        beforeAll(() => {
-            customURL = "";
-            ok = 200;
+      beforeAll(async () => {
+        customURL = "/";
+    
+        await cleanup();
+      });
+
+      beforeEach(async() => {
+        agent = request.agent(app);
+        await register_user("c1", Role.CUSTOMER);
+        await register_user("c2", Role.CUSTOMER);
+        await register_user("m1", Role.MANAGER);
+        await register_user("a1", Role.ADMIN);
+        await login("m1");
+        await create_product("p1", 10)
+        await create_product("p2", 10);
+        await create_product("p3", 10);
+        await create_product("p4", 1);
+        await logout();
+        await login("c1");
+        await agent.post(baseURL + "/").send({model: "p1"});
+        await agent.post(baseURL + "/").send({model: "p2"});
+        await agent.patch(baseURL + "/").send({});
+        await agent.post(baseURL + "/").send({model: "p1"});
+        await agent.post(baseURL + "/").send({model: "p1"});
+        await agent.post(baseURL + "/").send({model: "p2"});
+        await agent.patch(baseURL + "/").send({});
+        await logout();
+      });
+
+      afterEach(async () => {
+        await logout();
+        await cleanup();
+      });
+
+
+        test("Delete all carts successful - Manager", async () => {
+            await login("m1");
+
+            // Test
+            let response = await agent.delete(baseURL + customURL).send({});
+            
+            expect(response.status).toBe(okStatus);
+
+            // Check
+            response = await agent.get(baseURL + "/all").send({});
+
+            expect(response.status).toBe(okStatus);
+            expect(response.body).toEqual([]);
         });
 
-        beforeEach(() => {
-            jest
-                .spyOn(Authenticator.prototype, "isLoggedIn")
-                .mockImplementation(mockMiddleware);
-            jest
-                .spyOn(Authenticator.prototype, "isAdminOrManager")
-                .mockImplementation(mockMiddleware);
+        test("Delete all carts successful - Admin", async () => {
+          await login("a1");
 
-        });
+          // Test
+          let response = await agent.delete(baseURL + customURL).send({});
+          
+          expect(response.status).toBe(okStatus);
 
-        afterEach(() => {
-            jest.clearAllMocks();
-            jest.restoreAllMocks();
-        });
+          // Check
+          response = await agent.get(baseURL + "/all").send({});
 
-        test("Delete all carts successful", async () => {
-            const mockControllerDeleteAllCarts = jest.spyOn(CartController.prototype, "deleteAllCarts");
+          expect(response.status).toBe(okStatus);
+          expect(response.body).toEqual([]);
+      });
 
-            mockControllerDeleteAllCarts.mockResolvedValue(true);
-            const response = await request(app).delete(baseURL + customURL);
+      test("Delete all carts successful - No carts to delete", async () => {
+        await login("a1");
 
-            expect(Authenticator.prototype.isAdminOrManager).toBeCalledTimes(1);
+        // Setup
+        await agent.delete(baseURL + customURL).send({});
 
-            expect(mockControllerDeleteAllCarts).toBeCalledTimes(1);
+        // Test
+        let response = await agent.delete(baseURL + customURL).send({});
+        
+        expect(response.status).toBe(okStatus);
 
-            expect(response.status).toBe(ok);
-        });
+        // Check
+        response = await agent.get(baseURL + "/all").send({});
+
+        expect(response.status).toBe(okStatus);
+        expect(response.body).toEqual([]);
+      });
+
+      test("Delete all carts failed - Not authenticated", async () => {
+        const response = await agent
+          .delete(baseURL + customURL)
+          .send({});
+
+        expect(response.status).toBe(unauthenticated.status);
+        expect(getError(response.text)).toBe(unauthenticated.text);
+      });
+
+      test("Delete all carts failed - Neither an admin nor a manager", async () => {
+        await login("c1");
+        const response = await agent
+          .delete(baseURL + customURL)
+          .send({});
+
+        expect(response.status).toBe(neitherAdminNorManager.status);
+        expect(getError(response.text)).toBe(neitherAdminNorManager.text);
+      });
     });
 
     describe("Get all carts", () => {
-        let customURL: string;
-        let ok: number;
+      let customURL: string;
 
-        beforeAll(() => {
-            customURL = "/all";
-            ok = 200;
-        });
+      beforeAll(async () => {
+        customURL = "/all";
+    
+        await cleanup();
+      });
 
-        beforeEach(() => {
-            jest
-                .spyOn(Authenticator.prototype, "isLoggedIn")
-                .mockImplementation(mockMiddleware);
-            jest
-                .spyOn(Authenticator.prototype, "isAdminOrManager")
-                .mockImplementation(mockMiddleware);
-        });
+      beforeEach(async() => {
+        agent = request.agent(app);
+        await register_user("c1", Role.CUSTOMER);
+        await register_user("c2", Role.CUSTOMER);
+        await register_user("m1", Role.MANAGER);
+        await register_user("a1", Role.ADMIN);
+        await login("m1");
+        await create_product("p1", 10)
+        await create_product("p2", 10);
+        await create_product("p3", 10);
+        await create_product("p4", 1);
+        await logout();
+        await login("c1");
+        await agent.post(baseURL + "/").send({model: "p1"});
+        await agent.post(baseURL + "/").send({model: "p2"});
+        await agent.patch(baseURL + "/").send({});
+        await agent.post(baseURL + "/").send({model: "p1"});
+        await agent.post(baseURL + "/").send({model: "p1"});
+        await agent.post(baseURL + "/").send({model: "p2"});
+        await agent.patch(baseURL + "/").send({});
+        await logout();
+      });
 
-        afterEach(() => {
-            jest.clearAllMocks();
-            jest.restoreAllMocks();
-        });
+      afterEach(async () => {
+        await logout();
+        await cleanup();
+      });
 
-        test("Get all carts successful", async () => {
-            const testProductsInCart1 = [
-                new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0)
-            ];
-            const testProductsInCart2 = [
-                new ProductInCart("HP", 1, Category.LAPTOP, 500.0)
-            ];
-            const testCarts = [
-                new Cart("test1", true, "2024-02-12", 1000.0, testProductsInCart1),
-                new Cart("test2", true, "2024-03-12", 500.0, testProductsInCart2)
-            ];
-            const mockControllerGetAllCarts = jest.spyOn(CartController.prototype, "getAllCarts");
+      test("Get all carts successful - Manager", async () => {
+          const testProductsInCart1 = [
+              new ProductInCart("p1", 1, Category.LAPTOP, 100.0),
+              new ProductInCart("p2", 1, Category.LAPTOP, 100.0)
+          ];
+          const testProductsInCart2 = [
+              new ProductInCart("p1", 2, Category.LAPTOP, 100.0),
+              new ProductInCart("p2", 1, Category.LAPTOP, 100.0)
+          ];
+          const testCarts = [
+              new Cart("c1", true, Time.today(), 200.0, testProductsInCart1),
+              new Cart("c1", true, Time.today(), 300.0, testProductsInCart2)
+          ];
+          
+          await login("m1");
+          const response = await agent.get(baseURL + customURL).send({});
+          
+          expect(response.status).toBe(okStatus);
+          expect(response.body).toEqual(testCarts);
+      });
 
-            mockControllerGetAllCarts.mockResolvedValue(testCarts);
-            const response = await request(app).get(baseURL + customURL);
+      test("Get all carts successful - Admin", async () => {
+        const testProductsInCart1 = [
+            new ProductInCart("p1", 1, Category.LAPTOP, 100.0),
+            new ProductInCart("p2", 1, Category.LAPTOP, 100.0)
+        ];
+        const testProductsInCart2 = [
+            new ProductInCart("p1", 2, Category.LAPTOP, 100.0),
+            new ProductInCart("p2", 1, Category.LAPTOP, 100.0)
+        ];
+        const testCarts = [
+            new Cart("c1", true, Time.today(), 200.0, testProductsInCart1),
+            new Cart("c1", true, Time.today(), 300.0, testProductsInCart2)
+        ];
+        
+        await login("a1");
+        const response = await agent.get(baseURL + customURL).send({});
+        
+        expect(response.status).toBe(okStatus);
+        expect(response.body).toEqual(testCarts);
+      });
 
-            expect(Authenticator.prototype.isAdminOrManager).toBeCalledTimes(1);
+      // Needs delete all carts
+      test("Get all carts successful - Empty", async () => {
+        // Setup
+        await login("a1");
+        await agent.delete(baseURL + "/").send({});
 
-            expect(mockControllerGetAllCarts).toBeCalledTimes(1);
+        // Test
+        const response = await agent.get(baseURL + customURL).send({});
+        
+        expect(response.status).toBe(okStatus);
+        expect(response.body).toEqual([]);
+      });
 
-            expect(response.status).toBe(ok);
-            expect(response.body).toEqual(testCarts);
-        });
+      test("Get all carts failed - Not authenticated", async () => {
+        const response = await agent
+          .get(baseURL + customURL)
+          .send({});
+
+        expect(response.status).toBe(unauthenticated.status);
+        expect(getError(response.text)).toBe(unauthenticated.text);
+      });
+
+      test("Get all carts failed - Neither an admin nor a manager", async () => {
+        await login("c1");
+        const response = await agent
+          .get(baseURL + customURL)
+          .send({});
+
+        expect(response.status).toBe(neitherAdminNorManager.status);
+        expect(getError(response.text)).toBe(neitherAdminNorManager.text);
+      });
     });
 })
