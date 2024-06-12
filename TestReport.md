@@ -31,9 +31,27 @@
 
 <in the table below list the test cases defined For each test report the object tested, the test level (API, integration, unit) and the technique used to define the test case (BB/ eq partitioning, BB/ boundary, WB/ statement coverage, etc)> <split the table if needed>
 
+=====MICHELE
 | Test case name | Object(s) tested | Test level | Technique used |
 | :------------: | :--------------: | :--------: | :------------: |
 |                |                  |            |                |
+
+=====FRANCESCO
+| Test case name | Object(s) tested | Test level | Technique used |
+| :------------: | :--------------: | :--------: | :------------: |
+|                |                  |            |                |
+
+=====GIUSEPPE
+| Test case name | Object(s) tested | Test level | Technique used |
+| :------------: | :--------------: | :--------: | :------------: |
+|                |                  |            |                |
+
+=====FLAVIANA
+| Test case name | Object(s) tested | Test level | Technique used |
+| :------------: | :--------------: | :--------: | :------------: |
+|                |                  |            |                |
+
+=====END
 
 # Coverage
 
