@@ -185,8 +185,14 @@ describe("User DAO integration tests:", () => {
             await dao.createUser(user2.username, user2.name, user2.surname, user2.password, user2.role)
             const result = await dao.deleteAll()
             expect(result).toBe(true)
-            const check = dao.getUser()
-            await expect(check).resolves.toStrictEqual(noUsers)
+            const check = await dao.getUser()
+
+            expect(check[0].username).toBe(secondUser.username)
+            expect(check[0].name).toBe(secondUser.name)
+            expect(check[0].surname).toBe(secondUser.surname)
+            expect(check[0].role).toBe(secondUser.role)
+            expect(check[0].address).toBe(null)
+            expect(check[0].birthdate).toBe(null)
         })
     })
 

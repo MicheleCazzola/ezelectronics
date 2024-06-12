@@ -201,7 +201,7 @@ describe("User Controller integration tests:", () => {
             const result = await controller.deleteAll()
             expect(result).toBe(true)
             const check = await controller.getUsers()
-            //await expect(check).resolves.toStrictEqual(noUsers)
+
             expect(check[0].username).toBe(secondUser.username)
             expect(check[0].name).toBe(secondUser.name)
             expect(check[0].surname).toBe(secondUser.surname)
