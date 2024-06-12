@@ -15,17 +15,13 @@
 
 # Dependency graph
 
-     <report the here the dependency graph of EzElectronics>
+  ![alt text](media/dependency_graph.png)
 
 # Integration approach
 
-    <Write here the integration sequence you adopted, in general terms (top down, bottom up, mixed) and as sequence
-
-    (ex: step1: unit A, step 2: unit A+B, step 3: unit A+B+C, etc)>
-
-    <Some steps may  correspond to unit testing (ex step1 in ex above)>
-
-    <One step will  correspond to API testing, or testing unit route.js>
+    1. DAO + DB
+    2. Controller + DAO + DB
+    3. Route + Controller + DAO + DB
 
 # Tests
 
