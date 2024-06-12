@@ -507,6 +507,36 @@ describe("UserDAO tests:", () => {
 
         test("It should reject Error", async () => {
             const userDAO = new UserDAO()
+            const row = {
+                username: "test",
+                name: "test",
+                surname: "test",
+                role: "Customer",
+                address: "test",
+                birthdate: "test"
+            }
+            const mockDBGet = jest.spyOn(db, "get").mockImplementationOnce((sql, params, callback) => {
+                callback(null, row)
+                return {} as Database
+            });
+            const mockDBRun = jest.spyOn(db, "run").mockImplementation((sql, params, callback) => {
+                callback(null)
+                return {} as Database
+            });
+
+            const mockDBGet2 = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
+                callback(new Error())
+                return {} as Database
+            });
+            const result = userDAO.updateUserInformation("name", "surname", "address", "birthdate", "username");
+            await expect(result).rejects.toThrow(Error)
+            mockDBGet.mockRestore()
+            mockDBRun.mockRestore()
+            mockDBGet2.mockRestore()
+        })
+
+        test("It should reject Error", async () => {
+            const userDAO = new UserDAO()
             const mockDBGet = jest.spyOn(db, "get").mockImplementation((sql, params, callback) => {
                 callback(new Error("Error"))
                 return {} as Database
