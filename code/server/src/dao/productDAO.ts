@@ -217,6 +217,12 @@ class ProductDAO {
           sql = "SELECT * FROM product_descriptor WHERE Category = ?";
           param = [category];
         } else if (grouping == "model") {
+          this.existsProduct(model).then(prod => {
+            if (prod == false) {
+              reject(new ProductNotFoundError)
+              return
+            }
+          })
           sql = "SELECT * FROM product_descriptor WHERE Model = ?";
           param = [model];
         } else {
@@ -228,10 +234,6 @@ class ProductDAO {
           param == null ? [] : param,
           (err: Error | null, rows: any[]) => {
             if (err) reject(err);
-            if (grouping == "model" && !rows) {
-              reject(new ProductNotFoundError())
-              return
-            }
             const prod: Product[] = rows.map(
               (p) =>
                 new Product(
@@ -273,6 +275,12 @@ class ProductDAO {
             "SELECT * FROM product_descriptor WHERE Category = ? AND AvailableQuantity > 0";
           param = [category];
         } else if (grouping == "model") {
+          this.existsProduct(model).then(prod => {
+            if (prod == false) {
+              reject(new ProductNotFoundError)
+              return
+            }
+          })
           sql =
             "SELECT * FROM product_descriptor WHERE Model = ? AND AvailableQuantity > 0";
           param = [model];
@@ -285,10 +293,6 @@ class ProductDAO {
           param == null ? [] : param,
           (err: Error | null, rows: any[]) => {
             if (err) reject(err);
-            if (grouping == "model" && !rows) {
-              reject(new ProductNotFoundError())
-              return
-            }
             const prod: Product[] = rows.map(
               (p) =>
                 new Product(
