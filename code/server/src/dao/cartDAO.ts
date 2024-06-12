@@ -2,12 +2,13 @@ import { User } from "../components/user";
 import { Cart, ProductInCart } from "../components/cart";
 import db from "../db/db";
 import { Category } from "../components/product";
-import { CartNotFoundError, ProductNotInCartError } from "../errors/cartError";
+import { CartNotFoundError, EmptyCartError, ProductNotInCartError } from "../errors/cartError";
 import {
 	EmptyProductStockError,
 	ProductNotFoundError,
 } from "../errors/productError";
 import { Time } from "../utilities";
+import ProductDAO from "./productDAO";
 /**
  * A class that implements the interaction with the database for all cart-related operations.
  * You are free to implement any method you need here, as long as the requirements are satisfied.
@@ -320,9 +321,11 @@ class CartDAO {
 	} */
 
 	async removeProductFromCart(user: User, product: string): Promise<boolean> {
+		const productExists = await (new ProductDAO()).existsProduct(product);
 		const cartid = await this.getCurrentCartId(user);
 		let cart = await this.getCurrentCart(user);
 		let found = false;
+		let emptyCart = cart.products.length === 0;
 		let new_quantity: number = undefined;
 		for (let cart_product of cart.products) {
 			if (cart_product.model === product) {
@@ -339,35 +342,43 @@ class CartDAO {
 		}
 
 		return new Promise((resolve, reject) => {
-			if (!found) {
+			if(!productExists) {
+				reject(new ProductNotFoundError());
+			}
+			else if(emptyCart) {
+				reject(new EmptyCartError());
+			}
+			else if (!found) {
 				reject(new ProductNotInCartError());
 			}
-
-			const sql =
+			else {
+				const sql =
 				"UPDATE CART SET (Total, Paid, PaymentDate) = (?, ?, ?) WHERE Username = ? AND Paid = 0";
-			db.run(
-				sql,
-				[cart.total, cart.paid, cart.paymentDate, cart.customer],
-				(err) => {
-					if (err) reject(err);
-					else if (new_quantity === 0) {
-						const sql2 =
-							"DELETE FROM PRODUCT_IN_CART WHERE CartId = ? AND Model = ?";
+				db.run(
+					sql,
+					[cart.total, cart.paid, cart.paymentDate, cart.customer],
+					(err) => {
+						if (err) reject(err);
+						else if (new_quantity === 0) {
+							const sql2 =
+								"DELETE FROM PRODUCT_IN_CART WHERE CartId = ? AND Model = ?";
 
-						db.run(sql2, [cartid, product], (err) => {
-							if (err) reject(err);
-							else resolve(true);
-						});
-					} else {
-						const sql2 =
-							"UPDATE PRODUCT_IN_CART SET Quantity = ? WHERE CartId = ? AND Model = ?";
-						db.run(sql2, [new_quantity, cartid, product], (err) => {
-							if (err) reject(err);
-							else resolve(true);
-						});
+							db.run(sql2, [cartid, product], (err) => {
+								if (err) reject(err);
+								else resolve(true);
+							});
+						} else {
+							const sql2 =
+								"UPDATE PRODUCT_IN_CART SET Quantity = ? WHERE CartId = ? AND Model = ?";
+							db.run(sql2, [new_quantity, cartid, product], (err) => {
+								if (err) reject(err);
+								else resolve(true);
+							});
+						}
 					}
-				}
-			);
+				);
+			}
+			
 		});
 	}
 
