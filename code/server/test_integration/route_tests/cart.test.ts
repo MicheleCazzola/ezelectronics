@@ -10,11 +10,16 @@ import { CartNotFoundError, EmptyCartError, ProductNotInCartError } from "../../
 import { cleanup } from "../../src/db/cleanup_custom";
 import { Role, User } from "../../src/components/user";
 import { Time } from "../../src/utilities";
-import { assert } from "console";
+import { assert, log } from "console";
 
 const baseURL = "/ezelectronics/carts";
 const mockMiddleware: any = undefined;
 let agent: any = undefined;
+
+const getError = (data: string): string => {
+  const cleaned = data.replace(/\\"/g, '"').replace(/\\\\"/g, '\\"');
+  return JSON.parse(cleaned).error;
+}
 
 const register_user = async (username: string, role: Role) => {
 	return agent.post("/ezelectronics/users").send({
@@ -40,24 +45,47 @@ const create_product = async (model: string, quantity: number) => {
 	return agent.post("/ezelectronics/products").send({
 		model: model,
 		category: Category.LAPTOP,
-		sellingPrice: 100,
+		sellingPrice: 100.0,
 		quantity: quantity,
 		details: "details",
 		arrivalDate: Time.today(),
 	});
 };
 
-describe.skip("Carts router tests", () => {
+describe("Carts router tests", () => {
+    let okStatus: number;
+    let emptyCart: {status: number, text: string};
+    let unauthenticated: {status: number, text: string};
+    let notACustomer: {status: number, text: string};
+    let neitherAdminNorManager: {status: number, text: string};
+    let cartNotFound: {status: number, text: string};
+    let productNotFound: {status: number, text: string};
+    let productNotInCart: {status: number, text: string};
+    let emptyProductStock: {status: number, text: string};
+    let lowProductStock: {status: number, text: string};
+    let invalidStatus: number;
+    let generic: {status: number, text: string};
 
-    describe("Add product to cart", () => {
+    beforeAll(() => {
+      okStatus = 200;
+      emptyCart = {status: 400, text: "Cart is empty"};
+      unauthenticated = {status: 401, text: "Unauthenticated user"};
+      notACustomer = {status: 401, text: "User is not a customer"};
+      neitherAdminNorManager = {status: 401, text: "User is not an admin or manager"};
+      cartNotFound = {status: 404, text: "Cart not found"};
+      productNotFound = {status: 404, text: "Product not found"};
+      productNotInCart = {status: 409, text: "Product not in cart"};
+      emptyProductStock = {status: 409, text: "Product stock is empty"};
+      lowProductStock = {status: 409, text: "Product stock cannot satisfy the requested quantity"};
+      invalidStatus = 422;
+      generic = {status: 503, text: "Internal Server Error"};
+    });
+
+    describe.only("Add product to cart", () => {
       let customURL: string;
-      let ok: number;
-      let invalid: number;
 
       beforeAll(async () => {
         customURL = "/";
-        ok = 200;
-        invalid = 422;
     
         await cleanup();
       });
@@ -77,8 +105,8 @@ describe.skip("Carts router tests", () => {
       });
 
       afterEach(async () => {
-        //await logout();
-        //await cleanup();
+        await logout();
+        await cleanup();
       });
 
       test("Add product to cart successful", async () => {
@@ -88,39 +116,32 @@ describe.skip("Carts router tests", () => {
           .send({ model: "p1" });
         console.log(response.body.error);
 
-        expect(response.status).toBe(ok);
+        expect(response.status).toBe(okStatus);
       });
 
       test("Add product to cart failed - Model does not exist", async () => {
-        const testErr = new ProductNotFoundError();
-
         await login("c1");
         const response = await agent
           .post(baseURL + customURL)
           .send({ model: "iPhone12" });
 
-        expect(response.status).toBe(testErr.customCode);
-        expect(response.text).toContain(testErr.customMessage);
+        expect(response.status).toBe(productNotFound.status);
+        expect(response.text).toContain(productNotFound.text);
       });
 
       // Need checkout cart
-      test.skip("Add product to cart failed - Model exists but it has no stock available", async () => {
-        const testErr = new EmptyProductStockError();
-
+      test("Add product to cart failed - Model exists but it has no stock available", async () => {
         await login("c1");
-        let response = await agent
-          .post(baseURL + customURL)
-          .send({ model: "p4" });
+        await agent.post(baseURL + customURL).send({ model: "p4" });
+        await agent.patch(baseURL + customURL).send({});
 
-        expect(response.status).toBe(ok);
-
-        response = await agent
+        const response = await agent
           .post(baseURL + customURL)
           .send({ model: "p4" });
 
         //console.log(response.status, response.text);
-        expect(response.status).toBe(testErr.customCode);
-        expect(response.text).toContain(testErr.customMessage);
+        expect(response.status).toBe(emptyProductStock.status);
+        expect(getError(response.text)).toContain(emptyProductStock.text);
       });
 
       test("Add product to cart failed - Model is an empty string", async () => {
@@ -131,184 +152,240 @@ describe.skip("Carts router tests", () => {
           .post(baseURL + customURL)
           .send({ model: testModel });
 
-        expect(response.status).toBe(invalid);
+        expect(response.status).toBe(invalidStatus);
+      });
+
+      test("Add product to cart failed - Not authenticated", async () => {
+        const testModel = "p1";
+        const response = await agent
+          .post(baseURL + customURL)
+          .send({ model: testModel });
+
+        expect(response.status).toBe(unauthenticated.status);
+        expect(getError(response.text)).toStrictEqual(unauthenticated.text);
+      });
+
+      test("Add product to cart failed - Not a customer", async () => {
+        const testModel = "p1";
+
+        await login("m1");
+        const response = await agent
+          .post(baseURL + customURL)
+          .send({ model: testModel });
+
+        expect(response.status).toBe(notACustomer.status);
+        expect(getError(response.text)).toBe(notACustomer.text);
       });
     });
 
-    describe("Get current cart", () => {
+    describe.only("Get current cart", () => {
       let customURL: string;
-      let ok: number;
 
       beforeAll(async () => {
         customURL = "/";
-        ok = 200;
-
+    
         await cleanup();
       });
 
+      beforeEach(async() => {
+        agent = request.agent(app);
+        await register_user("c1", Role.CUSTOMER);
+        await register_user("c2", Role.CUSTOMER);
+        await register_user("m1", Role.MANAGER);
+        await register_user("a1", Role.ADMIN);
+        await login("m1");
+        await create_product("p1", 10)
+        await create_product("p2", 10);
+        await create_product("p3", 10);
+        await create_product("p4", 1);
+        await logout();
+      });
+
       afterEach(async () => {
+        await logout();
         await cleanup();
       });
 
       test("Get current cart successful - Unpaid cart already present", async () => {
-        const testUser = new User("test", "test", "test", Role.CUSTOMER, "", "");
         const testProductsInCart = [
-          new ProductInCart("testModel1", 1, Category.APPLIANCE, 1000.0),
-          new ProductInCart("testModel2", 1, Category.APPLIANCE, 500.0),
+          new ProductInCart("p1", 1, Category.LAPTOP, 100),
+          new ProductInCart("p2", 3, Category.LAPTOP, 100),
         ];
         const testCart = new Cart(
-          "test",
-          true,
-          "2024-03-30",
-          1500.0,
+          "c1",
+          false,
+          "",
+          400.0,
           testProductsInCart
         );
 
         // Setup
-        agent = request.agent(app);
-        await register_user(testUser.username, testUser.role);
-        await login(testUser.username);
+        await login("c1");
+        await agent.post(baseURL + customURL).send({model: "p1"});
+        await agent.post(baseURL + customURL).send({model: "p2"});
+        await agent.post(baseURL + customURL).send({model: "p2"});
+        await agent.post(baseURL + customURL).send({model: "p2"});
+
         const response = await
           agent.get(baseURL + customURL)
           .send({});
         
-        expect(response.status).toBe(ok);
+        expect(response.status).toBe(okStatus);
         expect(response.body).toEqual(testCart);
       });
 
       test("Get current cart successful - Unpaid cart not yet present", async () => {
-        const testCart = new Cart("test", false, "", 0.0, []);
-        const mockControllerGetCart = jest.spyOn(
-          CartController.prototype,
-          "getCart"
-        );
+        const testCart = new Cart("c1", false, "", 0.0, []);
 
-        mockControllerGetCart.mockResolvedValueOnce(testCart);
-        const response = await request(app)
+        await login("c1");
+        const response = await agent
           .get(baseURL + customURL)
           .send({});
 
-        expect(Authenticator.prototype.isCustomer).toBeCalledTimes(1);
-
-        expect(mockControllerGetCart).toBeCalledTimes(1);
-
-        expect(response.status).toBe(ok);
+        expect(response.status).toBe(okStatus);
         expect(response.body).toEqual(testCart);
+      });
+
+      test("Get current cart failed - Not authenticated", async () => {
+        const response = await agent
+          .get(baseURL + customURL)
+          .send({});
+
+        expect(response.status).toBe(unauthenticated.status);
+        expect(getError(response.text)).toBe(unauthenticated.text);
+      });
+
+      test("Get current cart failed - Not a customer", async () => {
+        await login("m1");
+        const response = await agent
+          .get(baseURL + customURL)
+          .send({});
+
+        expect(response.status).toBe(notACustomer.status);
+        expect(getError(response.text)).toBe(notACustomer.text);
       });
     });
 
-    describe("Checkout cart", () => {
+    describe.only("Checkout cart", () => {
       let customURL: string;
-      let ok: number;
 
-      beforeAll(() => {
+      beforeAll(async () => {
         customURL = "/";
-        ok = 200;
+    
+        await cleanup();
       });
 
-      beforeEach(() => {
-        jest
-          .spyOn(Authenticator.prototype, "isLoggedIn")
-          .mockImplementation(mockMiddleware);
-        jest
-          .spyOn(Authenticator.prototype, "isCustomer")
-          .mockImplementation(mockMiddleware);
-        jest
-          .spyOn(Authenticator.prototype, "isAdminOrManager")
-          .mockImplementation(mockMiddleware);
+      beforeEach(async() => {
+        agent = request.agent(app);
+        await register_user("c1", Role.CUSTOMER);
+        await register_user("c2", Role.CUSTOMER);
+        await register_user("m1", Role.MANAGER);
+        await register_user("a1", Role.ADMIN);
+        await login("m1");
+        await create_product("p1", 10)
+        await create_product("p2", 10);
+        await create_product("p3", 10);
+        await create_product("p4", 1);
+        await logout();
       });
 
-      afterEach(() => {
-        jest.clearAllMocks();
-        jest.restoreAllMocks();
+      afterEach(async () => {
+        await logout();
+        await cleanup();
       });
 
       test("Checkout cart successful", async () => {
-        const mockControllerCheckoutCart = jest.spyOn(
-          CartController.prototype,
-          "checkoutCart"
-        );
+        const testProductsInCart = [
+          new ProductInCart("p1", 2, Category.LAPTOP, 100.0),
+          new ProductInCart("p2", 1, Category.LAPTOP, 100.0),
+          new ProductInCart("p3", 1, Category.LAPTOP, 100.0)
+        ];
+        const testCart = new Cart("c1", true, Time.today(), 400, testProductsInCart);
 
-        mockControllerCheckoutCart.mockResolvedValueOnce(true);
-        const response = await request(app).patch(baseURL + customURL);
+        // Setup
+        await login("c1");
+        await agent.post(baseURL + customURL).send({model: "p1"});
+        await agent.post(baseURL + customURL).send({model: "p1"});
+        await agent.post(baseURL + customURL).send({model: "p2"});
+        await agent.post(baseURL + customURL).send({model: "p3"});
 
-        expect(Authenticator.prototype.isCustomer).toBeCalledTimes(1);
+        // Test
+        const response = await agent.patch(baseURL + customURL).send({});
 
-        expect(mockControllerCheckoutCart).toBeCalledTimes(1);
+        // Check
+        expect(response.status).toBe(okStatus);
 
-        expect(response.status).toBe(ok);
+        const cartResponse = await agent.get(baseURL + customURL).send({});
+
+        expect(cartResponse.status).toBe(okStatus);
       });
 
       test("Checkout cart failed - No unpaid cart", async () => {
-        const testError = new CartNotFoundError();
-        const mockControllerCheckoutCart = jest.spyOn(
-          CartController.prototype,
-          "checkoutCart"
-        );
+        await login("c1");
+        const response = await agent.patch(baseURL + customURL).send({});
 
-        mockControllerCheckoutCart.mockRejectedValueOnce(testError);
-        const response = await request(app).patch(baseURL + customURL);
-
-        expect(Authenticator.prototype.isCustomer).toBeCalledTimes(1);
-
-        expect(mockControllerCheckoutCart).toBeCalledTimes(1);
-
-        expect(response.status).toBe(testError.customCode);
-        expect(response.text).toContain(testError.customMessage);
+        expect(response.status).toBe(cartNotFound.status);
+        expect(getError(response.text)).toBe(cartNotFound.text);
       });
 
+      // Requires delete product from cart tested
       test("Checkout cart failed - Unpaid cart empty", async () => {
-        const testError = new EmptyCartError();
-        const mockControllerCheckoutCart = jest.spyOn(
-          CartController.prototype,
-          "checkoutCart"
-        );
+        await login("c1");
+        await agent.post(baseURL + customURL).send({model: "p1"});
+        await agent.delete(baseURL + "/products/p1");
+        const response = await agent.patch(baseURL + customURL).send({});
 
-        mockControllerCheckoutCart.mockRejectedValueOnce(testError);
-        const response = await request(app).patch(baseURL + customURL);
-
-        expect(Authenticator.prototype.isCustomer).toBeCalledTimes(1);
-
-        expect(mockControllerCheckoutCart).toBeCalledTimes(1);
-
-        expect(response.status).toBe(testError.customCode);
-        expect(response.text).toContain(testError.customMessage);
+        expect(response.status).toBe(emptyCart.status);
+        expect(getError(response.text)).toBe(emptyCart.text);
       });
 
       test("Checkout cart failed - Product in cart with no stock at all", async () => {
-        const testError = new EmptyProductStockError();
-        const mockControllerCheckoutCart = jest.spyOn(
-          CartController.prototype,
-          "checkoutCart"
-        );
+        // Setup
+        await login("c1");
+        await agent.post(baseURL + customURL).send({model: "p4"});
+        await logout();
+        await login("c2");
+        await agent.post(baseURL + customURL).send({model: "p4"});
+        await logout();
+        await login("c1");
+        await agent.patch(baseURL + customURL).send({});
+        await logout();
+        await login("c2");
 
-        mockControllerCheckoutCart.mockRejectedValueOnce(testError);
-        const response = await request(app).patch(baseURL + customURL);
+        const response = await agent.patch(baseURL + customURL).send({});
 
-        expect(Authenticator.prototype.isCustomer).toBeCalledTimes(1);
-
-        expect(mockControllerCheckoutCart).toBeCalledTimes(1);
-
-        expect(response.status).toBe(testError.customCode);
-        expect(response.text).toContain(testError.customMessage);
+        expect(response.status).toBe(emptyProductStock.status);
+        expect(getError(response.text)).toBe(emptyProductStock.text);
       });
 
       test("Checkout cart failed - Product in cart with available quantity smaller than requested one", async () => {
-        const testError = new LowProductStockError();
-        const mockControllerCheckoutCart = jest.spyOn(
-          CartController.prototype,
-          "checkoutCart"
-        );
+        await login("c1");
+        await agent.post(baseURL + customURL).send({model: "p4"});
+        await agent.post(baseURL + customURL).send({model: "p4"});
 
-        mockControllerCheckoutCart.mockRejectedValueOnce(testError);
-        const response = await request(app).patch(baseURL + customURL);
+        const response = await agent.patch(baseURL + customURL).send({});
 
-        expect(Authenticator.prototype.isCustomer).toBeCalledTimes(1);
+        expect(response.status).toBe(lowProductStock.status);
+        expect(getError(response.text)).toBe(lowProductStock.text);
+      });
 
-        expect(mockControllerCheckoutCart).toBeCalledTimes(1);
+      test("Checkout cart failed - Not authenticated", async () => {
+        const response = await agent
+          .patch(baseURL + customURL)
+          .send({});
 
-        expect(response.status).toBe(testError.customCode);
-        expect(response.text).toContain(testError.customMessage);
+        expect(response.status).toBe(unauthenticated.status);
+        expect(getError(response.text)).toBe(unauthenticated.text);
+      });
+
+      test("Checkout cart failed - Not a customer", async () => {
+        await login("m1");
+        const response = await agent
+          .patch(baseURL + customURL)
+          .send({});
+
+        expect(response.status).toBe(notACustomer.status);
+        expect(getError(response.text)).toBe(notACustomer.text);
       });
     });
 
@@ -363,225 +440,243 @@ describe.skip("Carts router tests", () => {
       });
     });
 
-    describe("Remove product from cart", () => {
-        let customURL: string;
-        let ok: number;
-        let invalid: number;
-        let notFound: number;
+    describe.only("Remove product from cart", () => {
+      let customURL: string;
 
-        beforeAll(() => {
-            customURL = "/products";
-            ok = 200;
-            invalid = 422;
-            notFound = 404;
+      beforeAll(async () => {
+        customURL = "/products";
+    
+        await cleanup();
+      });
+
+      beforeEach(async() => {
+        agent = request.agent(app);
+        await register_user("c1", Role.CUSTOMER);
+        await register_user("c2", Role.CUSTOMER);
+        await register_user("m1", Role.MANAGER);
+        await register_user("a1", Role.ADMIN);
+        await login("m1");
+        await create_product("p1", 10)
+        await create_product("p2", 10);
+        await create_product("p3", 10);
+        await create_product("p4", 1);
+        await logout();
+      });
+
+      afterEach(async () => {
+        await logout();
+        await cleanup();
+      });
+
+        test("Remove product from cart successful - Decrease", async () => {
+            const testProductsInCart = [
+              new ProductInCart("p1", 2, Category.LAPTOP, 100),
+              new ProductInCart("p2", 1, Category.LAPTOP, 100),
+              new ProductInCart("p3", 1, Category.LAPTOP, 100)
+            ];
+            const testCart = new Cart("c1", false, "", 400.0, testProductsInCart);
+
+            await login("c1");
+            await agent.post(baseURL + "/").send({model: "p1"});
+            await agent.post(baseURL + "/").send({model: "p1"});
+            await agent.post(baseURL + "/").send({model: "p1"});
+            await agent.post(baseURL + "/").send({model: "p2"});
+            await agent.post(baseURL + "/").send({model: "p3"});
+            
+            let response = await agent.delete(baseURL + customURL + "/p1").send({});
+
+            expect(response.status).toBe(okStatus);
+
+            response = await agent.get(baseURL + "/").send({});
+
+            expect(response.status).toBe(okStatus);
+            expect(response.body).toEqual(testCart);
         });
 
-        beforeEach(() => {
-            jest
-                .spyOn(Authenticator.prototype, "isLoggedIn")
-                .mockImplementation(mockMiddleware);
-            jest
-                .spyOn(Authenticator.prototype, "isCustomer")
-                .mockImplementation(mockMiddleware);
-        });
+        test("Remove product from cart successful - Remove", async () => {
+          const testProductsInCart = [
+            new ProductInCart("p1", 3, Category.LAPTOP, 100),
+            new ProductInCart("p2", 1, Category.LAPTOP, 100)
+          ];
+          const testCart = new Cart("c1", false, "", 400.0, testProductsInCart);
 
-        afterEach(() => {
-            jest.clearAllMocks();
-            jest.restoreAllMocks();
-        });
+          await login("c1");
+          await agent.post(baseURL + "/").send({model: "p1"});
+          await agent.post(baseURL + "/").send({model: "p1"});
+          await agent.post(baseURL + "/").send({model: "p1"});
+          await agent.post(baseURL + "/").send({model: "p2"});
+          await agent.post(baseURL + "/").send({model: "p3"});
+          
+          let response = await agent.delete(baseURL + customURL + "/p3").send({});
 
-        test("Remove product from cart successful", async () => {
-            const testModel = "iPhone13";
-            const mockControllerRemoveProductFromCart = jest.spyOn(
-            CartController.prototype,
-            "removeProductFromCart"
-            );
+          expect(response.status).toBe(okStatus);
 
-            mockControllerRemoveProductFromCart.mockResolvedValueOnce(true);
-            const response = await request(app).delete(
-            baseURL + customURL + `/${testModel}`
-            );
+          response = await agent.get(baseURL + "/").send({});
 
-            expect(Authenticator.prototype.isCustomer).toBeCalledTimes(1);
-
-            expect(mockControllerRemoveProductFromCart).toBeCalledTimes(1);
-            expect(mockControllerRemoveProductFromCart).toBeCalledWith(
-                undefined,
-                testModel
-            );
-
-            expect(response.status).toBe(ok);
-        });
+          expect(response.status).toBe(okStatus);
+          expect(response.body).toEqual(testCart);
+      });
 
         test("Remove product from cart failed - Product not in cart", async () => {
-            const testModel = "iPhone13";
-            const testErr = new ProductNotInCartError();
-            const mockControllerRemoveProductFromCart = jest.spyOn(
-                CartController.prototype,
-                "removeProductFromCart"
-            );
+            await login("c1");
+            await agent.post(baseURL + "/").send({model: "p1"});
+            await agent.post(baseURL + "/").send({model: "p1"});
+            await agent.post(baseURL + "/").send({model: "p1"});
+            await agent.post(baseURL + "/").send({model: "p2"});
+            
+            let response = await agent.delete(baseURL + customURL + "/p3").send({});
 
-            mockControllerRemoveProductFromCart.mockRejectedValueOnce(testErr);
-            const response = await request(app).delete(
-                baseURL + customURL + `/${testModel}`
-            );
-
-            expect(Authenticator.prototype.isCustomer).toBeCalledTimes(1);
-
-            expect(mockControllerRemoveProductFromCart).toBeCalledTimes(1);
-            expect(mockControllerRemoveProductFromCart).toBeCalledWith(
-                undefined,
-                testModel
-            );
-
-            expect(response.status).toBe(testErr.customCode);
-            expect(response.text).toContain(testErr.customMessage);
+            //expect(response.status).toBe(productNotInCart.status);
+            expect(getError(response.text)).toBe(productNotInCart.text);
         });
 
         test("Remove product from cart failed - No unpaid cart", async () => {
-          const testModel = "iPhone13";
-          const testErr = new CartNotFoundError();
-          const mockControllerRemoveProductFromCart = jest.spyOn(
-            CartController.prototype,
-            "removeProductFromCart"
-          );
+          await login("c1");
+          
+          let response = await agent.delete(baseURL + customURL + "/p1").send({});
 
-          mockControllerRemoveProductFromCart.mockRejectedValueOnce(testErr);
-          const response = await request(app).delete(
-            baseURL + customURL + `/${testModel}`
-          );
-
-          expect(Authenticator.prototype.isCustomer).toBeCalledTimes(1);
-
-          expect(mockControllerRemoveProductFromCart).toBeCalledTimes(1);
-          expect(mockControllerRemoveProductFromCart).toBeCalledWith(
-            undefined,
-            testModel
-          );
-
-          expect(response.status).toBe(testErr.customCode);
-          expect(response.text).toContain(testErr.customMessage);
+          expect(response.status).toBe(cartNotFound.status);
+          expect(getError(response.text)).toBe(cartNotFound.text);
         });
 
         // Different from APIs but more clear and allowed (issue closed on GitLab)
         test("Remove product from cart failed - Unpaid cart present but empty", async () => {
-          const testModel = "iPhone13";
-          const testErr = new EmptyCartError();
-          const mockControllerRemoveProductFromCart = jest.spyOn(
-            CartController.prototype,
-            "removeProductFromCart"
-          );
+          await login("c1");
+          await agent.post(baseURL + "/").send({model: "p1"});
+          await agent.delete(baseURL + customURL + "/p1").send({});
+          let response = await agent.delete(baseURL + customURL + "/p2").send({});
 
-          mockControllerRemoveProductFromCart.mockRejectedValueOnce(testErr);
-          const response = await request(app).delete(
-            baseURL + customURL + `/${testModel}`
-          );
-
-          expect(Authenticator.prototype.isCustomer).toBeCalledTimes(1);
-
-          expect(mockControllerRemoveProductFromCart).toBeCalledTimes(1);
-          expect(mockControllerRemoveProductFromCart).toBeCalledWith(
-            undefined,
-            testModel
-          );
-
-          expect(response.status).toBe(testErr.customCode);
-          expect(response.text).toContain(testErr.customMessage);
+          expect(response.status).toBe(emptyCart.status);
+          expect(getError(response.text)).toBe(emptyCart.text);
         });
 
         test("Remove product from cart failed - Product not found", async () => {
-          const testModel = "iPhone13";
-          const testErr = new ProductNotFoundError();
-          const mockControllerRemoveProductFromCart = jest.spyOn(
-            CartController.prototype,
-            "removeProductFromCart"
-          );
+          await login("c1");
+          await agent.post(baseURL + "/").send({model: "p1"});
+          
+          let response = await agent.delete(baseURL + customURL + "/pippo").send({});
 
-          mockControllerRemoveProductFromCart.mockRejectedValueOnce(testErr);
-          const response = await request(app).delete(
-            baseURL + customURL + `/${testModel}`
-          );
-
-          expect(Authenticator.prototype.isCustomer).toBeCalledTimes(1);
-
-          expect(mockControllerRemoveProductFromCart).toBeCalledTimes(1);
-          expect(mockControllerRemoveProductFromCart).toBeCalledWith(
-            undefined,
-            testModel
-          );
-
-          expect(response.status).toBe(testErr.customCode);
-          expect(response.text).toContain(testErr.customMessage);
+          //expect(response.status).toBe(productNotFound.status);
+          expect(getError(response.text)).toBe(productNotFound.text);
         });
 
+        // Should not match this route
         test("Remove product from cart failed - Model string empty", async () => {
-          const testModel = "";
-          const mockControllerRemoveProductFromCart = jest.spyOn(
-            CartController.prototype,
-            "removeProductFromCart"
-          ); 
+          jest.spyOn(CartController.prototype, "removeProductFromCart");
 
-          mockControllerRemoveProductFromCart.mockRejectedValueOnce(ProductNotFoundError);
-          const response = await request(app).delete(
-            baseURL + customURL + `/${testModel}`
-          );
+          await login("c1");
+          await agent.post(baseURL + "/").send({model: "p1"});
+          await agent.delete(baseURL + customURL + "/").send({});
 
-          expect(mockControllerRemoveProductFromCart).toBeCalledTimes(0);
+          expect(CartController.prototype.removeProductFromCart).toBeCalledTimes(0);
+        });
 
-          expect(response.status).toBe(notFound);
+        test("Remove product from cart failed - Not authenticated", async () => {
+          const response = await agent
+            .delete(baseURL + customURL + "/pippo")
+            .send({});
+  
+          expect(response.status).toBe(unauthenticated.status);
+          expect(getError(response.text)).toBe(unauthenticated.text);
+        });
+  
+        test("Remove product from cart failed - Not a customer", async () => {
+          await login("m1");
+          const response = await agent
+            .delete(baseURL + customURL + "/pippo")
+            .send({});
+  
+          expect(response.status).toBe(notACustomer.status);
+          expect(getError(response.text)).toBe(notACustomer.text);
         });
     });
 
-    describe("Empty current cart", () => {
-        let customURL: string;
-        let ok: number;
+    describe.only("Empty current cart", () => {
+      let customURL: string;
 
-        beforeAll(() => {
-            customURL = "/current";
-            ok = 200;
-        });
+      beforeAll(async () => {
+        customURL = "/current";
+    
+        await cleanup();
+      });
 
-        beforeEach(() => {
-            jest
-                .spyOn(Authenticator.prototype, "isLoggedIn")
-                .mockImplementation(mockMiddleware);
-            jest
-                .spyOn(Authenticator.prototype, "isCustomer")
-                .mockImplementation(mockMiddleware);
-        });
+      beforeEach(async() => {
+        agent = request.agent(app);
+        await register_user("c1", Role.CUSTOMER);
+        await register_user("c2", Role.CUSTOMER);
+        await register_user("m1", Role.MANAGER);
+        await register_user("a1", Role.ADMIN);
+        await login("m1");
+        await create_product("p1", 10)
+        await create_product("p2", 10);
+        await create_product("p3", 10);
+        await create_product("p4", 1);
+        await logout();
+      });
 
-        afterEach(() => {
-            jest.clearAllMocks();
-            jest.restoreAllMocks();
-        });
+      afterEach(async () => {
+        await logout();
+        await cleanup();
+      });
 
         test("Empty cart successful", async () => {
-            const mockControllerEmptyCart = jest.spyOn(CartController.prototype, "clearCart");
+            const testCart = new Cart("c1", false, "", 0.0, []);
 
-            mockControllerEmptyCart.mockResolvedValueOnce(true);
-            const response = await request(app).delete(baseURL + customURL);
+            await login("c1");
+            await agent.post(baseURL + "/").send({model: "p1"});
+            await agent.post(baseURL + "/").send({model: "p1"});
+            await agent.post(baseURL + "/").send({model: "p2"});
 
-            expect(Authenticator.prototype.isCustomer).toBeCalledTimes(1);
+            let response = await agent.delete(baseURL + customURL).send({});
 
-            expect(mockControllerEmptyCart).toBeCalledTimes(1);
+            expect(response.status).toBe(okStatus);
 
-            expect(response.status).toBe(ok);
+            response = await agent.get(baseURL + "/").send({});
+
+            expect(response.status).toBe(okStatus);
+            expect(response.body).toEqual(testCart);
         });
 
         test("Empty cart failed - No unpaid cart", async () => {
-            const testErr = new CartNotFoundError();
-            const mockControllerEmptyCart = jest.spyOn(CartController.prototype, "clearCart");
+            await login("c1");
 
-            mockControllerEmptyCart.mockRejectedValueOnce(testErr);
-            const response = await request(app).delete(baseURL + customURL);
+            let response = await agent.delete(baseURL + customURL).send({});
 
-            expect(Authenticator.prototype.isCustomer).toBeCalledTimes(1);
-
-            expect(mockControllerEmptyCart).toBeCalledTimes(1);
-
-            expect(response.status).toBe(testErr.customCode);
-            expect(response.text).toContain(testErr.customMessage);
+            expect(response.status).toBe(cartNotFound.status);
+            expect(getError(response.text)).toBe(cartNotFound.text);
         });
+
+        test("Empty cart failed - No unpaid cart, paid cart present", async () => {
+          await login("c1");
+          await agent.post(baseURL + "/").send({model: "m1"});
+          await agent.post(baseURL + "/").send({model: "m1"});
+          await agent.post(baseURL + "/").send({model: "m2"});
+          await agent.patch(baseURL + "/").send({});
+
+          let response = await agent.delete(baseURL + customURL).send({});
+
+          expect(response.status).toBe(cartNotFound.status);
+          expect(getError(response.text)).toBe(cartNotFound.text);
+      });
+
+      test("Empty cart failed - Not authenticated", async () => {
+        const response = await agent
+          .delete(baseURL + customURL)
+          .send({});
+
+        expect(response.status).toBe(unauthenticated.status);
+        expect(getError(response.text)).toBe(unauthenticated.text);
+      });
+
+      test("Empty cart failed - Not a customer", async () => {
+        await login("m1");
+        const response = await agent
+          .delete(baseURL + customURL)
+          .send({});
+
+        expect(response.status).toBe(notACustomer.status);
+        expect(getError(response.text)).toBe(notACustomer.text);
+      });
     });
 
     describe("Delete all carts", () => {

@@ -1105,6 +1105,14 @@ describe("Controller tests", () => {
 				testNewProductInCart1.price,
 				null
 			);
+			await productController.registerProducts(
+				"Test2",
+				Category.APPLIANCE,
+				3,
+				"",
+				100,
+				null
+			);
 			await cartController.addToCart(
 				testUser,
 				testNewProductInCart1.model
@@ -1114,6 +1122,137 @@ describe("Controller tests", () => {
 			await expect(
 				cartController.removeProductFromCart(testUser, "Test2")
 			).rejects.toBeInstanceOf(ProductNotInCartError);
+		});
+
+		test("Product delete failure: no unpaid cart", async () => {
+			const testUser = new User(
+				"test",
+				"test",
+				"test",
+				Role.CUSTOMER,
+				"test",
+				"test"
+			);
+			const testNewProductInCart1 = new ProductInCart(
+				"Test",
+				1,
+				Category.APPLIANCE,
+				100.0
+			);
+
+			// Setup
+			await userController.createUser(
+				testUser.username,
+				testUser.name,
+				testUser.surname,
+				"test",
+				testUser.role
+			);
+			await productController.registerProducts(
+				testNewProductInCart1.model,
+				testNewProductInCart1.category,
+				testNewProductInCart1.quantity + 1,
+				"",
+				testNewProductInCart1.price,
+				null
+			);
+			await cartController.addToCart(
+				testUser,
+				testNewProductInCart1.model
+			);
+			await cartController.checkoutCart(testUser);
+
+			// Test
+			await expect(
+				cartController.removeProductFromCart(testUser, "Test")
+			).rejects.toBeInstanceOf(CartNotFoundError);
+		});
+
+		test("Product delete failure: unpaid cart present but empty", async () => {
+			const testUser = new User(
+				"test",
+				"test",
+				"test",
+				Role.CUSTOMER,
+				"test",
+				"test"
+			);
+			const testNewProductInCart1 = new ProductInCart(
+				"Test",
+				1,
+				Category.APPLIANCE,
+				100.0
+			);
+
+			// Setup
+			await userController.createUser(
+				testUser.username,
+				testUser.name,
+				testUser.surname,
+				"test",
+				testUser.role
+			);
+			await productController.registerProducts(
+				testNewProductInCart1.model,
+				testNewProductInCart1.category,
+				testNewProductInCart1.quantity + 1,
+				"",
+				testNewProductInCart1.price,
+				null
+			);
+			await cartController.addToCart(
+				testUser,
+				testNewProductInCart1.model
+			);
+			await cartController.removeProductFromCart(testUser, "Test");
+
+			// Test
+			await expect(
+				cartController.removeProductFromCart(testUser, "Test")
+			).rejects.toBeInstanceOf(EmptyCartError);
+		});
+
+		test("Product delete failure: product not found in db", async () => {
+			const testUser = new User(
+				"test",
+				"test",
+				"test",
+				Role.CUSTOMER,
+				"test",
+				"test"
+			);
+			const testNewProductInCart1 = new ProductInCart(
+				"Test",
+				1,
+				Category.APPLIANCE,
+				100.0
+			);
+
+			// Setup
+			await userController.createUser(
+				testUser.username,
+				testUser.name,
+				testUser.surname,
+				"test",
+				testUser.role
+			);
+			await productController.registerProducts(
+				testNewProductInCart1.model,
+				testNewProductInCart1.category,
+				testNewProductInCart1.quantity + 1,
+				"",
+				testNewProductInCart1.price,
+				null
+			);
+			await cartController.addToCart(
+				testUser,
+				testNewProductInCart1.model
+			);
+
+			// Test
+			await expect(
+				cartController.removeProductFromCart(testUser, "Test2")
+			).rejects.toBeInstanceOf(ProductNotFoundError);
 		});
 	});
 

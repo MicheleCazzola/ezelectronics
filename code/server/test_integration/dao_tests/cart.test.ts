@@ -16,6 +16,7 @@ import { Cart, ProductInCart } from "../../src/components/cart";
 import { Role, User } from "../../src/components/user";
 import {
 	CartNotFoundError,
+	EmptyCartError,
 	ProductNotInCartError,
 } from "../../src/errors/cartError";
 import {
@@ -1097,12 +1098,138 @@ describe("DAO tests", () => {
 				testProductInCart.price,
 				null
 			);
+			await productDAO.createProduct("iPhone15", Category.SMARTPHONE, 2, "", 100, "");
 			await cartDAO.addProductToCart(cartId, testProductInCart);
 
 			// Test
 			await expect(
 				cartDAO.removeProductFromCart(testUser, "iPhone15")
 			).rejects.toBeInstanceOf(ProductNotInCartError);
+		});
+
+		test("Remove failed - No unpaid cart", async () => {
+			const testUser = new User(
+				"test",
+				"test",
+				"test",
+				Role.CUSTOMER,
+				"",
+				""
+			);
+			const testProductInCart = new ProductInCart(
+				"iPhone13",
+				1,
+				Category.SMARTPHONE,
+				200.0
+			);
+
+			// Setup
+			await userDAO.createUser(
+				testUser.username,
+				testUser.name,
+				testUser.surname,
+				"test",
+				testUser.role
+			);
+			const cartId = await cartDAO.createCart(testUser);
+			await productDAO.createProduct(
+				testProductInCart.model,
+				testProductInCart.category,
+				testProductInCart.quantity,
+				null,
+				testProductInCart.price,
+				null
+			);
+			await cartDAO.addProductToCart(cartId, testProductInCart);
+			await cartDAO.checkoutCart(testUser.username);
+
+			// Test
+			await expect(
+				cartDAO.removeProductFromCart(testUser, "iPhone13")
+			).rejects.toBeInstanceOf(CartNotFoundError);
+		});
+
+		test("Remove failed - Unpaid cart present but empty", async () => {
+			const testUser = new User(
+				"test",
+				"test",
+				"test",
+				Role.CUSTOMER,
+				"",
+				""
+			);
+			const testProductInCart = new ProductInCart(
+				"iPhone13",
+				1,
+				Category.SMARTPHONE,
+				200.0
+			);
+
+			// Setup
+			await userDAO.createUser(
+				testUser.username,
+				testUser.name,
+				testUser.surname,
+				"test",
+				testUser.role
+			);
+			const cartId = await cartDAO.createCart(testUser);
+			await productDAO.createProduct(
+				testProductInCart.model,
+				testProductInCart.category,
+				testProductInCart.quantity,
+				null,
+				testProductInCart.price,
+				null
+			);
+			await cartDAO.addProductToCart(cartId, testProductInCart);
+			await cartDAO.removeProductFromCart(testUser, "iPhone13");
+
+			// Test
+			await expect(
+				cartDAO.removeProductFromCart(testUser, "iPhone13")
+			).rejects.toBeInstanceOf(EmptyCartError);
+		});
+
+		test("Remove failed - Product not found", async () => {
+			const testUser = new User(
+				"test",
+				"test",
+				"test",
+				Role.CUSTOMER,
+				"",
+				""
+			);
+			const testProductInCart = new ProductInCart(
+				"iPhone13",
+				1,
+				Category.SMARTPHONE,
+				200.0
+			);
+
+			// Setup
+			await userDAO.createUser(
+				testUser.username,
+				testUser.name,
+				testUser.surname,
+				"test",
+				testUser.role
+			);
+			const cartId = await cartDAO.createCart(testUser);
+			await productDAO.createProduct(
+				testProductInCart.model,
+				testProductInCart.category,
+				testProductInCart.quantity,
+				null,
+				testProductInCart.price,
+				null
+			);
+			await cartDAO.addProductToCart(cartId, testProductInCart);
+
+			// Test
+			await expect(
+				cartDAO.removeProductFromCart(testUser, "iPhone15")
+			).rejects.toBeInstanceOf(ProductNotFoundError);
 		});
 	});
 
