@@ -697,6 +697,84 @@ describe("Controller tests", () => {
         );
       });
 
+      test("Product delete failure: product not found in db", async () => {
+        const testUser = new User(
+          "test",
+          "test",
+          "test",
+          Role.CUSTOMER,
+          "test",
+          "test"
+        );
+        const testProductModel = "TestModel";
+
+        jest
+          .spyOn(CartDAO.prototype, "removeProductFromCart")
+          .mockRejectedValueOnce(ProductNotFoundError);
+        const controller = new CartController();
+        await expect(
+          controller.removeProductFromCart(testUser, testProductModel)
+        ).rejects.toBe(ProductNotFoundError);
+
+        expect(CartDAO.prototype.removeProductFromCart).toBeCalledTimes(1);
+        expect(CartDAO.prototype.removeProductFromCart).toBeCalledWith(
+          testUser,
+          testProductModel
+        );
+      });
+
+      test("Product delete failure: empty cart", async () => {
+        const testUser = new User(
+          "test",
+          "test",
+          "test",
+          Role.CUSTOMER,
+          "test",
+          "test"
+        );
+        const testProductModel = "TestModel";
+
+        jest
+          .spyOn(CartDAO.prototype, "removeProductFromCart")
+          .mockRejectedValueOnce(EmptyCartError);
+        const controller = new CartController();
+        await expect(
+          controller.removeProductFromCart(testUser, testProductModel)
+        ).rejects.toBe(EmptyCartError);
+
+        expect(CartDAO.prototype.removeProductFromCart).toBeCalledTimes(1);
+        expect(CartDAO.prototype.removeProductFromCart).toBeCalledWith(
+          testUser,
+          testProductModel
+        );
+      });
+
+      test("Product delete failure: no unpaid cart", async () => {
+        const testUser = new User(
+          "test",
+          "test",
+          "test",
+          Role.CUSTOMER,
+          "test",
+          "test"
+        );
+        const testProductModel = "TestModel";
+
+        jest
+          .spyOn(CartDAO.prototype, "removeProductFromCart")
+          .mockRejectedValueOnce(CartNotFoundError);
+        const controller = new CartController();
+        await expect(
+          controller.removeProductFromCart(testUser, testProductModel)
+        ).rejects.toBe(CartNotFoundError);
+
+        expect(CartDAO.prototype.removeProductFromCart).toBeCalledTimes(1);
+        expect(CartDAO.prototype.removeProductFromCart).toBeCalledWith(
+          testUser,
+          testProductModel
+        );
+      });
+
       // Generic error test is skipped since it is one-line function
     });
 

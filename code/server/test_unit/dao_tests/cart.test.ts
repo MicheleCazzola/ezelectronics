@@ -6,8 +6,9 @@ import { Database } from "sqlite3";
 import { Category } from "../../src/components/product";
 import { Cart, ProductInCart } from "../../src/components/cart";
 import { Role, User } from "../../src/components/user";
-import { CartNotFoundError, ProductNotInCartError } from "../../src/errors/cartError";
+import { CartNotFoundError, EmptyCartError, ProductNotInCartError } from "../../src/errors/cartError";
 import { EmptyProductStockError, ProductNotFoundError } from "../../src/errors/productError";
+import ProductDAO from "../../src/dao/productDAO";
 
 jest.mock("../../src/db/db.ts");
 
@@ -659,6 +660,10 @@ describe("DAO tests", () => {
 			);
 			const testCartId = 1;
 
+			const mockDAOExistsProduct = jest
+				.spyOn(ProductDAO.prototype, "existsProduct")
+				.mockResolvedValueOnce(true);
+
 			const mockDAOGetId = jest
 			.spyOn(CartDAO.prototype, "getCurrentCartId")
 			.mockResolvedValueOnce(testCartId);
@@ -683,6 +688,7 @@ describe("DAO tests", () => {
 				testProductsInCart[1].model
 			);
 
+			expect(mockDAOExistsProduct).toBeCalledTimes(1);
 			expect(mockDAOGetId).toBeCalledTimes(1);
 			expect(mockDAOGet).toBeCalledTimes(1);
 			expect(mockDBRun).toBeCalledTimes(2);
@@ -715,6 +721,10 @@ describe("DAO tests", () => {
 			);
 			const testCartId = 1;
 
+			const mockDAOExistsProduct = jest
+				.spyOn(ProductDAO.prototype, "existsProduct")
+				.mockResolvedValueOnce(true);
+
 			const mockDAOGetId = jest
 			.spyOn(CartDAO.prototype, "getCurrentCartId")
 			.mockResolvedValueOnce(testCartId);
@@ -739,11 +749,55 @@ describe("DAO tests", () => {
 				testProductsInCartBefore[1].model
 			);
 
+			expect(mockDAOExistsProduct).toBeCalledTimes(1);
 			expect(mockDAOGetId).toBeCalledTimes(1);
 			expect(mockDAOGet).toBeCalledTimes(1);
 			expect(mockDBRun).toBeCalledTimes(2);
 			expect(result).toBe(true);
 		});
+
+		test("Remove failed - Product not found in db", async() => {
+			const testUser = new User(
+				"test",
+				"test",
+				"test",
+				Role.CUSTOMER,
+				"",
+				""
+			);
+			const testProductsInCart = [
+				new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0),
+				new ProductInCart("iPhone15", 1, Category.SMARTPHONE, 1200.0),
+			];
+			const testCart = new Cart(
+				testUser.username,
+				false,
+				"",
+				2200.0,
+				testProductsInCart
+			);
+			const testCartId = 1;
+
+			const mockDAOExistsProduct = jest
+				.spyOn(ProductDAO.prototype, "existsProduct")
+				.mockResolvedValueOnce(false);
+
+			const mockDAOGetId = jest
+			.spyOn(CartDAO.prototype, "getCurrentCartId")
+			.mockResolvedValueOnce(testCartId);
+
+			const mockDAOGet = jest
+				.spyOn(CartDAO.prototype, "getCurrentCart")
+				.mockResolvedValueOnce(testCart);
+
+			await expect(
+				cartDAO.removeProductFromCart(testUser, "HP")
+			).rejects.toBeInstanceOf(ProductNotFoundError);
+
+			expect(mockDAOExistsProduct).toBeCalledTimes(1);
+			expect(mockDAOGetId).toBeCalledTimes(1);
+			expect(mockDAOGet).toBeCalledTimes(1);
+		})
 
 		test("Remove failed - Product not found in cart", async () => {
 			const testUser = new User(
@@ -767,6 +821,10 @@ describe("DAO tests", () => {
 			);
 			const testCartId = 1;
 
+			const mockDAOExistsProduct = jest
+				.spyOn(ProductDAO.prototype, "existsProduct")
+				.mockResolvedValueOnce(true);
+
 			const mockDAOGetId = jest
 			.spyOn(CartDAO.prototype, "getCurrentCartId")
 			.mockResolvedValueOnce(testCartId);
@@ -779,6 +837,46 @@ describe("DAO tests", () => {
 				cartDAO.removeProductFromCart(testUser, "HP")
 			).rejects.toBeInstanceOf(ProductNotInCartError);
 
+			expect(mockDAOExistsProduct).toBeCalledTimes(1);
+			expect(mockDAOGetId).toBeCalledTimes(1);
+			expect(mockDAOGet).toBeCalledTimes(1);
+		});
+
+		test("Remove failed - Empty cart", async () => {
+			const testUser = new User(
+				"test",
+				"test",
+				"test",
+				Role.CUSTOMER,
+				"",
+				""
+			);
+			const testCart = new Cart(
+				testUser.username,
+				false,
+				"",
+				0.0,
+				[]
+			);
+			const testCartId = 1;
+
+			const mockDAOExistsProduct = jest
+				.spyOn(ProductDAO.prototype, "existsProduct")
+				.mockResolvedValueOnce(true);
+
+			const mockDAOGetId = jest
+			.spyOn(CartDAO.prototype, "getCurrentCartId")
+			.mockResolvedValueOnce(testCartId);
+
+			const mockDAOGet = jest
+				.spyOn(CartDAO.prototype, "getCurrentCart")
+				.mockResolvedValueOnce(testCart);
+
+			await expect(
+				cartDAO.removeProductFromCart(testUser, "HP")
+			).rejects.toBeInstanceOf(EmptyCartError);
+
+			expect(mockDAOExistsProduct).toBeCalledTimes(1);
 			expect(mockDAOGetId).toBeCalledTimes(1);
 			expect(mockDAOGet).toBeCalledTimes(1);
 		});
@@ -793,6 +891,10 @@ describe("DAO tests", () => {
 				""
 			);
 
+			const mockDAOExistsProduct = jest
+				.spyOn(ProductDAO.prototype, "existsProduct")
+				.mockResolvedValueOnce(true);
+
 			const mockDAOGetId = jest
 			.spyOn(CartDAO.prototype, "getCurrentCartId")
 			.mockRejectedValueOnce(new CartNotFoundError());
@@ -801,6 +903,7 @@ describe("DAO tests", () => {
 				cartDAO.removeProductFromCart(testUser, "HP")
 			).rejects.toBeInstanceOf(CartNotFoundError);
 
+			expect(mockDAOExistsProduct).toBeCalledTimes(1);
 			expect(mockDAOGetId).toBeCalledTimes(1);
 		});
 	});
