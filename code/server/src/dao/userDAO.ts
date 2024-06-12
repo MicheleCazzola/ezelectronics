@@ -254,7 +254,7 @@ class UserDAO {
                     }
                     if(!row){
                     
-                        reject(new UserAlreadyExistsError);
+                        reject(new UserNotFoundError());
                         return;
           
                     }else{
