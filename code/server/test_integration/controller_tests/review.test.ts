@@ -216,10 +216,10 @@ describe("Controller - Delete Review of a Product by a User", () => {
 				"comment"
 			)
 		);
-		expect(controller.getProductReviews("model2")).resolves.toStrictEqual([
+		expect(await controller.getProductReviews("model2")).toStrictEqual([
 			new ProductReview(
 				"model2",
-				testuser2.username,
+				testuser1.username,
 				5,
 				Time.today(),
 				"comment"
