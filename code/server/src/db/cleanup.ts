@@ -1,12 +1,13 @@
 "use strict"
 
-import db from "../db/db";
+import db from "./db";
 
 /**
  * Deletes all data from the database.
  * This function must be called before any integration test, to ensure a clean database state for each test run.
  */
 
+/*
 function cleanup_intern() {
     db.serialize(() => {
         // Delete all data from the database.
@@ -19,6 +20,7 @@ function cleanup_intern() {
         //Add delete statements for other tables here
     });
 }
+*/
 
 function cleanup_custom(): Promise<string> {
     return new Promise((resolve, reject) => {
