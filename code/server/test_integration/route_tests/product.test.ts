@@ -354,7 +354,7 @@ describe("ProductRouter tests:", () => {
                     changeDate: "20-02-2024"
             });
 
-            expect(response.status).toBe(400);
+            expect(response.status).toBe(422);
 
         });
 
@@ -510,7 +510,7 @@ describe("ProductRouter tests:", () => {
                     sellingDate: "20-02-2024"
             });
 
-            expect(response.status).toBe(400);
+            expect(response.status).toBe(422);
 
         });
 
@@ -858,7 +858,7 @@ describe("ProductRouter tests:", () => {
 
         })
 
-        test("It should return a 422 error if `grouping` is null and `category` is null", async () => {
+        test("It should return a 422 error if `grouping` is null and `category` is not null", async () => {
 
             await login("a1");
 
@@ -881,8 +881,7 @@ describe("ProductRouter tests:", () => {
                     model: ""
             });
             
-            console.log("GUARDA QUA");
-            console.log( response.body);
+    
             expect(response.status).toBe(422);
         });
 
@@ -1497,7 +1496,7 @@ describe("ProductRouter tests:", () => {
 
         })
 
-        test("It should return a 422 error if `grouping` is null and `category` is null", async () => {
+        test("It should return a 422 error if `grouping` is null and `category` is not null", async () => {
 
             await login("a1");
 
