@@ -102,7 +102,58 @@
 =====FLAVIANA
 | Test case name | Object(s) tested | Test level | Technique used |
 | :------------: | :--------------: | :--------: | :------------: |
-| | | | |
+| TU1: UserDAO - Check login information | getIsUserAuthenticated (UserDAO) | unit | WB (statement coverage) |
+| TU2: UserDAO - Create a new user | createUser (UserDAO) | unit | WB (statement coverage) |
+| TU3: UserDAO - Get a specific user | getUserByUsername (UserDAO) | unit | WB (statement coverage) |
+| TU4: UserDAO - Get users | getUser (UserDAO) | unit | WB (statement coverage) |
+| TU5: UserDAO - Get all users with a specific role | getUserByRole (UserDAO) | unit | WB (statement coverage) |
+| TU6: UserDAO - Delete a specific user | deleteUser (UserDAO) | unit | WB (statement coverage) |
+| TU7: UserDAO - Delete all users | deleteAll (UserDAO) | unit | WB (statement coverage) |
+| TU8: UserDAO - Check if the role of the user is Admin | isAdminByUsername (UserDAO) | unit | WB (statement coverage) |
+| TU9: UserDAO - Update user information | updateUserInformation (UserDAO) | unit | WB (statement coverage) |
+| TU10: UserController - Create a new user | createUser (UserController) | unit | WB (statement coverage) |
+| TU11: UserController - Get all users | getUsers (UserController) | unit | WB (statement coverage) |
+| TU12: UserController - Get all users with a specific role | getUsersByRole (UserController) | unit | WB (statement coverage) |
+| TU13: UserController - Get a specific user | getUsersByUsername (UserController) | unit | WB (statement coverage) |
+| TU14: UserController - Delete a specific user | deleteUser (UserController) | unit | WB (statement coverage) |
+| TU15: UserController - Delete all users | deleteAll (UserController) | unit | WB (statement coverage) |
+| TU16: UserController - Update user information | updateUserInfo (UserController) | unit | WB (statement coverage) |
+| TU17: UserRoutes - Create a new user | POST ezelectronics/users (UserRoutes) | unit | WB (statement coverage) |
+| TU18: UserRoutes - Get all users | GET ezelectronics/users (UserRoutes) | unit | WB (statement coverage) |
+| TU19: UserRoutes - Get all users with a specific role | GET ezelectronics/users/roles/:role (UserRoutes) | unit | WB (statement coverage) |
+| TU20: UserRoutes - Get a user by its username | GET ezelectronics/users/:username (UserRoutes) | unit | WB (statement coverage) |
+| TU21: UserRoutes - Delete a user | DELETE ezelectronics/users/:username (UserRoutes) | unit | WB (statement coverage) |
+| TU22: UserRoutes - Delete all users | DELETE ezelectronics/users (UserRoutes) | unit | WB (statement coverage) |
+| TU23: UserRoutes - Update user information | PATCH ezelectronics/users/:username (UserRoutes) | unit | WB (statement coverage) |
+| TU24: UserRoutes - Log in a user | POST ezelectronics/sessions (UserRoutes) | unit | WB (statement coverage) |
+| TU25: UserRoutes - Log out the currently logged in user | DELETE ezelectronics/sessions/current (UserRoutes) | unit | WB (statement coverage) |
+| TU26: UserRoutes - Get the currently logged in user | GET ezelectronics/sessions/current (UserRoutes) | unit | WB (statement coverage) |
+| TU27: UserDAO - Check login information | getIsUserAuthenticated (UserDAO) | integration | BB (equivalent classes partitioning) |
+| TU28: UserDAO - Create a new user | createUser (UserDAO) | unit | BB (equivalent classes partitioning) |
+| TU29: UserDAO - Get a specific user | getUserByUsername (UserDAO) | integration | BB (equivalent classes partitioning) |
+| TU30: UserDAO - Get users | getUser (UserDAO) | integration | BB (equivalent classes partitioning) |
+| TU31: UserDAO - Get all users with a specific role | getUserByRole (UserDAO) | integration | BB (equivalent classes partitioning) |
+| TU32: UserDAO - Delete a specific user | deleteUser (UserDAO) | integration | BB (equivalent classes partitioning) |
+| TU33: UserDAO - Delete all users | deleteAll (UserDAO) | integration | BB (equivalent classes partitioning) |
+| TU34: UserDAO - Check if the role of the user is Admin | isAdminByUsername (UserDAO) | integration | BB (equivalent classes partitioning) |
+| TU35: UserDAO - Update user information | updateUserInformation (UserDAO) | integration | BB (equivalent classes partitioning) |
+| TU36: UserController - Create a new user | createUser (UserController) | integration | BB (equivalent classes partitioning) |
+| TU37: UserController - Get all users | getUsers (UserController) | integration | BB (equivalent classes partitioning) |
+| TU38: UserController - Get all users with a specific role | getUsersByRole (UserController) | integration | BB (equivalent classes partitioning) |
+| TU39: UserController - Get a specific user | getUsersByUsername (UserController) | integration | BB (equivalent classes partitioning) |
+| TU40: UserController - Delete a specific user | deleteUser (UserController) | integration | BB (equivalent classes partitioning) |
+| TU41: UserController - Delete all users | deleteAll (UserController) | integration | BB (equivalent classes partitioning) |
+| TU42: UserController - Update user information | updateUserInfo (UserController) | integration | BB (equivalent classes partitioning) |
+| TU43: UserRoutes - Create a new user | POST ezelectronics/users (UserRoutes) | API | BB (equivalent classes partitioning) |
+| TU44: UserRoutes - Get all users | GET ezelectronics/users (UserRoutes) | API | BB (equivalent classes partitioning) |
+| TU45: UserRoutes - Get all users with a specific role | GET ezelectronics/users/roles/:role (UserRoutes) | API | BB (equivalent classes partitioning) |
+| TU46: UserRoutes - Get a user by its username | GET ezelectronics/users/:username (UserRoutes) | API | BB (equivalent classes partitioning) |
+| TU47: UserRoutes - Delete a user | DELETE ezelectronics/users/:username (UserRoutes) | API | BB (equivalent classes partitioning) |
+| TU48: UserRoutes - Delete all users | DELETE ezelectronics/users (UserRoutes) | API | BB (equivalent classes partitioning) |
+| TU49: UserRoutes - Update user information | PATCH ezelectronics/users/:username (UserRoutes) | API | BB (equivalent classes partitioning) |
+| TU50: UserRoutes - Log in a user | POST ezelectronics/sessions (UserRoutes) | API | BB (equivalent classes partitioning)|
+| TU51: UserRoutes - Log out the currently logged in user | DELETE ezelectronics/sessions/current (UserRoutes) | API | BB (equivalent classes partitioning) |
+| TU52: UserRoutes - Get the currently logged in user | GET ezelectronics/sessions/current (UserRoutes) | API | BB (equivalent classes partitioning) |
 
 =====END
 
@@ -114,17 +165,17 @@
 
 | Functional Requirement | Test(s) |
 | :--------------------: | :-----: |
-|        **FR1**         |         |
-|         FR1.1          |         |
-|         FR1.2          |         |
-|         FR1.3          |         |
-|        **FR2**         |         |
-|         FR2.1          |         |
-|         FR2.2          |         |
-|         FR2.3          |         |
-|         FR2.4          |         |
-|         FR2.5          |         |
-|         FR2.6          |         |
+|        **FR1**         |    TU1, TU2, TU10, TU17, TU24-TU28, TU36, TU43, TU50-TU52     |
+|         FR1.1          |    TU1, TU24, TU26, TU27, TU50, TU52     |
+|         FR1.2          |    TU25, TU51     |
+|         FR1.3          |    TU2, TU10, TU17, TU28, TU36, TU43     |
+|        **FR2**         |    TU3-TU9, TU11-TU16, TU18-TU23, TU29-TU35, TU37-TU42, TU44-TU49     |
+|         FR2.1          |    TU4, TU11, TU18, TU30, TU37, TU44     |
+|         FR2.2          |    TU5, TU12, TU19, TU31, TU38, TU45     |
+|         FR2.3          |    TU3, TU13, TU20, TU29, TU39, TU46     |
+|         FR2.4          |    TU9, TU16, TU23, TU35, TU42, TU49     |
+|         FR2.5          |    TU6, TU8, TU14, TU21, TU32, TU34 TU40, TU47     |
+|         FR2.6          |    TU7, TU15, TU22, TU33, TU41, TU48     |
 |        **FR3**         |         |
 |         FR3.1          |         |
 |         FR3.2          |         |
@@ -153,22 +204,22 @@
 
 | Scenario | Test(s) |
 | :------: | :-----: |
-|   1.1    |         |
-|   1.2    |         |
-|   1.3    |         |
-|   1.4    |         |
-|   2.1    |         |
-|   2.2    |         |
-|   3.1    |         |
-|   3.2    |         |
-|   3.3    |         |
-|   4.1    |         |
-|   4.2    |         |
-|   4.3    |         |
-|   4.4    |         |
-|   4.5    |         |
-|   5.1    |         |
-|   5.2    |         |
+|   1.1    |    TU1, TU27     |
+|   1.2    |    TU1, TU27,     |
+|   1.3    |    TU24, TU50     |
+|   1.4    |    TU24, TU50     |
+|   2.1    |    TU25, TU51     |
+|   2.2    |    TU25, TU51     |
+|   3.1    |    TU2, TU10, TU17, TU28, TU36, TU43     |
+|   3.2    |    TU2, TU10, TU17, TU28, TU36, TU43     |
+|   3.3    |    TU2, TU10, TU17, TU28, TU36, TU43     |
+|   4.1    |    TU3, TU13, TU20, TU29, TU39, TU46     |
+|   4.2    |    TU3, TU13, TU20, TU29, TU39, TU46     |
+|   4.3    |    TU4, TU11, TU18, TU30, TU37, TU44     |
+|   4.4    |    TU5, TU12, TU19, TU31, TU38, TU45     |
+|   4.5    |    TU5, TU12, TU19, TU31, TU38, TU45     |
+|   5.1    |    TU6, TU8, TU14, TU21, TU32, TU34 TU40, TU47     |
+|   5.2    |    TU6, TU8, TU14, TU21, TU32, TU34 TU40, TU47     |
 |   6.1    |         |
 |   6.2    |         |
 |   6.3    |         |
