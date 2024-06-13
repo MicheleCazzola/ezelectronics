@@ -654,7 +654,7 @@ describe("Product router test:", () => {
             test("grouping null and category not null", async () => {
 
                 const errCode = 422;
-                const err = new Error("category must not to be not null");
+                const err = new Error("category must to be null");
 
                 const mockControllerGetProducts = jest.spyOn(ProductController.prototype, "getProducts").mockRejectedValueOnce(err);
 
@@ -716,8 +716,8 @@ describe("Product router test:", () => {
                         }
                     );
                  
-                expect(Authenticator.prototype.isAdminOrManager).toHaveBeenCalledTimes(1);
-                expect(mockControllerGetProducts).toHaveBeenCalledTimes(1);
+                expect(Authenticator.prototype.isAdminOrManager).toHaveBeenCalledTimes(0);
+                expect(mockControllerGetProducts).toHaveBeenCalledTimes(0);
                 expect(resolve.status).toBe(errCode);
     
             });
@@ -787,7 +787,7 @@ describe("Product router test:", () => {
                     );
                  
                 //expect(Authenticator.prototype.isAdminOrManager).toHaveBeenCalledTimes(1);
-                expect(mockControllerGetProducts).toHaveBeenCalledTimes(1);
+                expect(mockControllerGetProducts).toHaveBeenCalledTimes(0);
                 expect(resolve.status).toBe(errCode);
     
             });
@@ -930,13 +930,13 @@ describe("Product router test:", () => {
             test("grouping null and category not null", async () => {
 
                 const errCode = 422;
-                const err = new Error("category must not to be not null");
+                const err = new Error("category must to be null");
 
                 const mockControllerGetAvailableProduct = jest.spyOn(ProductController.prototype, "getAvailableProducts").mockRejectedValueOnce(err);
 
                 const resolve = await request(app)
                     .get(baseURL + "/available")
-                    .send(
+                    .query(
                         {
                             grouping: "",
                             category: "Smartphone",
@@ -944,8 +944,8 @@ describe("Product router test:", () => {
                         }
                     );
                 
-                expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
-                expect(mockControllerGetAvailableProduct).toHaveBeenCalledTimes(1);
+                expect(Authenticator.prototype.isAdminOrManager).toHaveBeenCalledTimes(0);
+                expect(mockControllerGetAvailableProduct).toHaveBeenCalledTimes(0);
                 expect(resolve.status).toBe(errCode);
 
             });
@@ -992,8 +992,8 @@ describe("Product router test:", () => {
                         }
                     );
                  
-                expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
-                expect(mockControllerGetAvailableProduct).toHaveBeenCalledTimes(1);
+                expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(0);
+                expect(mockControllerGetAvailableProduct).toHaveBeenCalledTimes(0);
                 expect(resolve.status).toBe(errCode);
     
             });
@@ -1062,8 +1062,8 @@ describe("Product router test:", () => {
                         }
                     );
                  
-                expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
-                expect(mockControllerGetAvailableProduct).toHaveBeenCalledTimes(1);
+                expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(0);
+                expect(mockControllerGetAvailableProduct).toHaveBeenCalledTimes(0);
                 expect(resolve.status).toBe(errCode);
     
             });
