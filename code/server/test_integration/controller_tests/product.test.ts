@@ -1,7 +1,7 @@
 import ProductDAO from "../../src/dao/productDAO";
 import ProductController from "../../src/controllers/productController";
 import { test, expect, jest, describe, afterEach, beforeAll } from "@jest/globals"
-import { cleanup } from "../../src/db/cleanup_custom";
+import { cleanup } from "../../src/db/cleanup";
 import { Category, Product } from "../../src/components/product";
 import { DateError, Time } from "../../src/utilities";
 import { LowProductStockError, ProductAlreadyExistsError, ProductNotFoundError } from "../../src/errors/productError";

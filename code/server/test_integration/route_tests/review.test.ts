@@ -3,7 +3,7 @@ import { app } from "../../index";
 
 import request from "supertest";
 import { Role } from "../../src/components/user";
-import { cleanup } from "../../src/db/cleanup_custom";
+import { cleanup } from "../../src/db/cleanup";
 import { Time } from "../../src/utilities";
 import { Category } from "../../src/components/product";
 import { log } from "console";

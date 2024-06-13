@@ -2,7 +2,7 @@ import { describe, test, expect, beforeAll, afterAll, afterEach, beforeEach, jes
 import request from 'supertest'
 import { app } from "../../index"
 import db from "../../src/db/db"
-import { cleanup } from "../../src/db/cleanup_custom"
+import { cleanup } from "../../src/db/cleanup"
 import { Role, User } from "../../src/components/user"
 import UserDAO from "../../src/dao/userDAO"
 import { UserAlreadyExistsError, UserNotFoundError } from "../../src/errors/userError"

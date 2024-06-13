@@ -96,8 +96,6 @@ class Authenticator {
     login(req: any, res: any, next: any) {
         return new Promise((resolve, reject) => {
             passport.authenticate("local", (err: any, user: any, info: any) => {
-                console.log("USER object");
-                console.log(user);
 
                 if (err) return reject(err)
                 if (!user) return reject(info)

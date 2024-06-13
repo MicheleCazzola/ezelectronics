@@ -3,7 +3,7 @@ import request from "supertest"
 import { app } from "../..";
 import { Time } from "../../src/utilities";
 import { Role } from "../../src/components/user";
-import { cleanup } from "../../src/db/cleanup_custom";
+import { cleanup } from "../../src/db/cleanup";
 import { Category, Product } from "../../src/components/product";
 import { Console, group, log } from "console";
 import { ProductAlreadyExistsError } from "../../src/errors/productError";

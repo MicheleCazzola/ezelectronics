@@ -1,6 +1,6 @@
 import ProductDAO from "../../src/dao/productDAO";
 import { beforeEach, afterEach, beforeAll, describe, expect, jest, test } from "@jest/globals";
-import { cleanup } from "../../src/db/cleanup_custom";
+import { cleanup } from "../../src/db/cleanup";
 import { Category, Product } from "../../src/components/product";
 import { LowProductStockError, ProductAlreadyExistsError, ProductNotFoundError, ProductSoldError } from "../../src/errors/productError";
 import { DateError, Time } from "../../src/utilities";

@@ -28,9 +28,6 @@ class ProductController {
     async registerProducts(model: string, category: string, quantity: number, details: string | null, sellingPrice: number, arrivalDate: string | null) :Promise<void> {
         if (arrivalDate == null || arrivalDate == "")
             arrivalDate = Time.today()
-
-        console.log(arrivalDate)
-        console.log(Time.today())
         
         if (arrivalDate > Time.today())
             throw new DateError()

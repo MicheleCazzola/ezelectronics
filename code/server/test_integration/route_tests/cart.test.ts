@@ -7,13 +7,11 @@ import CartController from "../../src/controllers/cartController";
 import Authenticator from "../../src/routers/auth";
 import { EmptyProductStockError, LowProductStockError, ProductNotFoundError } from "../../src/errors/productError";
 import { CartNotFoundError, EmptyCartError, ProductNotInCartError } from "../../src/errors/cartError";
-import { cleanup } from "../../src/db/cleanup_custom";
+import { cleanup } from "../../src/db/cleanup";
 import { Role, User } from "../../src/components/user";
 import { Time } from "../../src/utilities";
-import { assert, log } from "console";
 
 const baseURL = "/ezelectronics/carts";
-const mockMiddleware: any = undefined;
 let agent: any = undefined;
 
 const getError = (data: string): string => {
@@ -114,7 +112,6 @@ describe("Carts router tests", () => {
         const response = await agent
           .post(baseURL + customURL)
           .send({ model: "p1" });
-        console.log(response.body.error);
 
         expect(response.status).toBe(okStatus);
       });
@@ -139,7 +136,6 @@ describe("Carts router tests", () => {
           .post(baseURL + customURL)
           .send({ model: "p4" });
 
-        //console.log(response.status, response.text);
         expect(response.status).toBe(emptyProductStock.status);
         expect(getError(response.text)).toContain(emptyProductStock.text);
       });

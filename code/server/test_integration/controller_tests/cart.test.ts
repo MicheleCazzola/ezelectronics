@@ -9,7 +9,7 @@ import { Role, User } from "../../src/components/user"
 import { CartNotFoundError, EmptyCartError, ProductNotInCartError } from "../../src/errors/cartError"
 import { EmptyProductStockError, LowProductStockError, ProductNotFoundError } from "../../src/errors/productError"
 import ProductDAO from "../../src/dao/productDAO"
-import {cleanup} from "../../src/db/cleanup_custom"
+import {cleanup} from "../../src/db/cleanup"
 import { Time } from "../../src/utilities"
 
 describe("Controller tests", () => {

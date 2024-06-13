@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, jest, test } from "@jest/globals";
 import crypto from "crypto";
 
 import ReviewDAO from "../../src/dao/reviewDAO";
-import { cleanup } from "../../src/db/cleanup_custom";
+import { cleanup } from "../../src/db/cleanup";
 import db from "../../src/db/db";
 import { ProductNotFoundError } from "../../src/errors/productError";
 import {

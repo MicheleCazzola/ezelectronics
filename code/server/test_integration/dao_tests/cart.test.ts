@@ -9,7 +9,7 @@ import {
 
 import CartDAO from "../../src/dao/cartDAO";
 import db from "../../src/db/db";
-import { cleanup } from "../../src/db/cleanup_custom";
+import { cleanup } from "../../src/db/cleanup";
 import { Database } from "sqlite3";
 import { Category } from "../../src/components/product";
 import { Cart, ProductInCart } from "../../src/components/cart";
@@ -27,37 +27,6 @@ import UserDAO from "../../src/dao/userDAO";
 import ProductDAO from "../../src/dao/productDAO";
 import {Time} from "../../src/utilities"
 
-/* OLD FUNCTIONS USED TO TRY CLEANUP
-function deleteTable(tableName: string): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-        db.run(`DELETE FROM ${tableName}`, function(err) {
-            if (err) reject(err);
-            else {
-                console.log(`Delete from ${tableName} involved ${this.changes} rows`);
-                resolve();
-            }
-        });
-    });
-}
-
-function cleanup_custom() {
-    const tables = ["PRODUCT_IN_CART", "REVIEW", "CART", "USERS", "PRODUCT_DESCRIPTOR", "SQLITE_SEQUENCE"];
-    Promise
-    console.log("CLEANUP DONE");
-}
-
-async function cleanup_cart_users() {
-    const tables = ["PRODUCT_IN_CART", "REVIEW", "CART", "USERS", "PRODUCT_DESCRIPTOR", "SQLITE_SEQUENCE"];
-    deleteTable(tables[0])
-        .then(() => deleteTable(tables[1])
-            .then(() => deleteTable(tables[2])
-                .then(() => deleteTable(tables[3]))
-                    .then(() => deleteTable(tables[4])
-                        .then(() => deleteTable(tables[5])))))
-        .catch(err => console.log(err))
-}
-*/
-
 describe("DAO tests", () => {
 	describe("DAO - Create cart", () => {
 		let cartDAO: CartDAO;
@@ -67,13 +36,11 @@ describe("DAO tests", () => {
 			cartDAO = new CartDAO();
 			userDAO = new UserDAO();
 
-			const beforeCleanupResult = await cleanup();
-			//console.log(`BEFORE\n${beforeCleanupResult}`);
+			await cleanup();
 		});
 
 		afterEach(async () => {
-			const afterCleanupResult = await cleanup();
-			//console.log(`AFTER\n${afterCleanupResult}`);
+			await cleanup();
 		});
 
 		test("Create cart successful - Empty cart", async () => {
@@ -223,7 +190,6 @@ describe("DAO tests", () => {
 
 			// Check
 			const result = await cartDAO.getCurrentCart(testUser);
-			console.log(result, testCart);
 			expect(result).toStrictEqual(testCart);
 		});
 	});
@@ -291,7 +257,6 @@ describe("DAO tests", () => {
 
 			// Test
 			const result = await cartDAO.getCurrentCart(testUser);
-			console.log(result, testCart);
 			expect(result).toEqual(testCart);
 		});
 
@@ -582,8 +547,6 @@ describe("DAO tests", () => {
 
 			// Check: getAllCarts needed
 			const checkedOutCartObj = await cartDAO.fetchAllCarts();
-			console.log(checkedOutCartObj);
-			//console.log(checkedOutCartObj, testCart);
 			const checkedOutCart = checkedOutCartObj
 				.filter(
 					({ id, cart }) =>
@@ -602,163 +565,7 @@ describe("DAO tests", () => {
 			expect(result).toBe(true);
 		});
 	});
-	/*
-	describe("DAO - Update cart", () => {
-		let cartDAO: CartDAO;
-		let productDAO: ProductDAO;
-		let userDAO: UserDAO;
-
-		beforeAll(async () => {
-			cartDAO = new CartDAO();
-			productDAO = new ProductDAO();
-			userDAO = new UserDAO();
-
-			await cleanup();
-		});
-
-		afterEach(async () => {
-			await cleanup();
-		});
-
-		test("Update cart successful - Cart already existing with products inside", async () => {
-			const testUser = new User(
-				"test",
-				"test",
-				"test",
-				Role.CUSTOMER,
-				"",
-				""
-			);
-			const testProductsInCartAfter = [
-				new ProductInCart("iPhone13", 2, Category.SMARTPHONE, 200.0),
-				new ProductInCart("iPhone15", 3, Category.SMARTPHONE, 300.0),
-			];
-			const testProductsInCartBefore = [
-				new ProductInCart("iPhone10", 2, Category.SMARTPHONE, 500.0),
-				new ProductInCart("iPhone11", 3, Category.SMARTPHONE, 700.0),
-			];
-			const testCart = new Cart(
-				testUser.username,
-				false,
-				"",
-				1300.0,
-				testProductsInCartAfter
-			);
-
-			// Setup
-			await userDAO.createUser(
-				testUser.username,
-				testUser.name,
-				testUser.surname,
-				"test",
-				testUser.role
-			);
-			const cartId = await cartDAO.createCart(testUser);
-			for (let prod of testProductsInCartBefore) {
-				await productDAO.createProduct(
-					prod.model,
-					prod.category,
-					prod.quantity,
-					null,
-					prod.price,
-					null
-				);
-				await cartDAO.addProductToCart(cartId, prod);
-			}
-
-			// Test
-			const result = await cartDAO.updateCart(testCart);
-
-			// Check
-			const cartUpdated = await cartDAO.getCurrentCart(testUser);
-
-			expect(result).toBe(true);
-			expect(cartUpdated).toStrictEqual(testCart);
-		});
-
-		test("Update cart successful - Cart already existing but empty", async () => {
-			const testUser = new User(
-				"test",
-				"test",
-				"test",
-				Role.CUSTOMER,
-				"",
-				""
-			);
-			const testProductsInCartAfter = [
-				new ProductInCart("iPhone13", 2, Category.SMARTPHONE, 200.0),
-				new ProductInCart("iPhone15", 3, Category.SMARTPHONE, 300.0),
-			];
-			const testCart = new Cart(
-				testUser.username,
-				false,
-				"",
-				1300.0,
-				testProductsInCartAfter
-			);
-
-			// Setup
-			await userDAO.createUser(
-				testUser.username,
-				testUser.name,
-				testUser.surname,
-				"test",
-				testUser.role
-			);
-			const cartId = await cartDAO.createCart(testUser);
-
-			// Test
-			const result = await cartDAO.updateCart(testCart);
-
-			// Check
-			const cartUpdated = await cartDAO.getCurrentCart(testUser);
-
-			expect(result).toBe(true);
-			expect(cartUpdated).toStrictEqual(testCart);
-		});
-
-		test("Update cart successful - Cart not existing yet", async () => {
-			const testUser = new User(
-				"test",
-				"test",
-				"test",
-				Role.CUSTOMER,
-				"",
-				""
-			);
-			const testProductsInCartAfter = [
-				new ProductInCart("iPhone13", 2, Category.SMARTPHONE, 200.0),
-				new ProductInCart("iPhone15", 3, Category.SMARTPHONE, 300.0),
-			];
-			const testCart = new Cart(
-				testUser.username,
-				false,
-				"",
-				1300.0,
-				testProductsInCartAfter
-			);
-
-			// Setup
-			await userDAO.createUser(
-				testUser.username,
-				testUser.name,
-				testUser.surname,
-				"test",
-				testUser.role
-			);
-
-			// Test
-			const result = await cartDAO.updateCart(testCart);
-
-			// Check
-			const cartUpdated = await cartDAO.getCurrentCart(testUser);
-
-			expect(result).toBe(true);
-			expect(cartUpdated).toStrictEqual(testCart);
-		});
-	});
-	*/
-
+	
 	describe("DAO - Get paid carts", () => {
 		let cartDAO: CartDAO;
 		let userDAO: UserDAO;

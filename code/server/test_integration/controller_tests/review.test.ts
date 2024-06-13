@@ -5,7 +5,7 @@ import ProductController from "../../src/controllers/productController";
 import { Category } from "../../src/components/product";
 import { Role, User } from "../../src/components/user";
 import { ProductNotFoundError } from "../../src/errors/productError";
-import { cleanup } from "../../src/db/cleanup_custom";
+import { cleanup } from "../../src/db/cleanup";
 import { Time } from "../../src/utilities";
 import ProductDAO from "../../src/dao/productDAO";
 import ReviewDAO from "../../src/dao/reviewDAO";

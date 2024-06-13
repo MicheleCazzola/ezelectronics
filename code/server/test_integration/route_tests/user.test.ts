@@ -1,7 +1,7 @@
 import { describe, test, expect, beforeAll, afterAll, afterEach } from "@jest/globals"
 import request from 'supertest'
 import { app } from "../../index"
-import { cleanup } from "../../src/db/cleanup_custom"
+import { cleanup } from "../../src/db/cleanup"
 import UserDAO from "../../src/dao/userDAO"
 
 const routePath = "/ezelectronics"
