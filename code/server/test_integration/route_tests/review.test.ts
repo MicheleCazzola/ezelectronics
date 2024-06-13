@@ -445,6 +445,13 @@ describe("Route - Delete All Product Reviews", () => {
 
 		// test
 		await login("manager");
+
+		const response = await agent.delete(`${baseURL}/model1/all`);
+		expect(response.status).toBe(200);
+
+		const reviews1 = await agent.get(`${baseURL}/model1`);
+		expect(reviews1.body).toStrictEqual([]);
+
 		const reviews2 = await agent.get(`${baseURL}/model2`);
 		expect(reviews2.body).toStrictEqual([
 			{
@@ -455,15 +462,28 @@ describe("Route - Delete All Product Reviews", () => {
 				comment: "comment",
 			},
 		]);
-
-		const response = await agent.delete(`${baseURL}/model1/all`);
-		expect(response.status).toBe(200);
-
-		const reviews1 = await agent.get(`${baseURL}/model1`);
-		expect(reviews1.body).toStrictEqual([]);
 	});
 
 	test("Product Not Found", async () => {
+		// setup
+		await login("user1");
+		await agent.post(`${baseURL}/model1`).send({
+			score: 5,
+			comment: "comment",
+		});
+		await agent.post(`${baseURL}/model2`).send({
+			score: 4,
+			comment: "comment",
+		});
+		await logout();
+
+		await login("user2");
+		await agent.post(`${baseURL}/model1`).send({
+			score: 5,
+			comment: "comment",
+		});
+
+		// test
 		await login("admin");
 		const response = await agent.delete(`${baseURL}/notamodel/all`);
 		expect(response.status).toBe(404);
@@ -479,6 +499,34 @@ describe("Route - Delete All Product Reviews", () => {
 			error: "Product not found",
 			status: 404,
 		});
+
+		const reviews1 = await agent.get(`${baseURL}/model1`);
+		expect(reviews1.body).toHaveLength(2);
+		expect(reviews1.body).toContainEqual({
+			user: "user1",
+			model: "model1",
+			score: 5,
+			date: Time.today(),
+			comment: "comment",
+		});
+		expect(reviews1.body).toContainEqual({
+			user: "user2",
+			model: "model1",
+			score: 5,
+			date: Time.today(),
+			comment: "comment",
+		});
+
+		const reviews2 = await agent.get(`${baseURL}/model2`);
+		expect(reviews2.body).toStrictEqual([
+			{
+				user: "user1",
+				model: "model2",
+				score: 4,
+				date: Time.today(),
+				comment: "comment",
+			},
+		]);
 	});
 
 	test("User Not Logged In", async () => {
