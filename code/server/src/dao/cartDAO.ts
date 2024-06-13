@@ -342,11 +342,11 @@ class CartDAO {
 		}
 
 		return new Promise((resolve, reject) => {
-			if(!productExists) {
-				reject(new ProductNotFoundError());
-			}
-			else if(emptyCart) {
+			if(emptyCart) {
 				reject(new EmptyCartError());
+			}
+			else if(!productExists) {
+				reject(new ProductNotFoundError());
 			}
 			else if (!found) {
 				reject(new ProductNotInCartError());

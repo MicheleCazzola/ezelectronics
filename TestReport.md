@@ -141,15 +141,15 @@
 |         FR4.3          |         |
 |         FR4.4          |         |
 |         FR4.5          |         |
-|        **FR5**         |         |
-|         FR5.1          |         |
-|         FR5.2          |         |
-|         FR5.3          |         |
-|         FR5.4          |         |
-|         FR5.5          |         |
-|         FR5.6          |         |
-|         FR5.7          |         |
-|         FR5.8          |         |
+|        **FR5**         |    TC1 - TC57     |
+|         FR5.1          |    TC1,TC13,TC22,TC32,TC43,TC51    |
+|         FR5.2          |    TC2,TC3,TC5,TC7,TC16,TC23,TC30,TC31,TC33,TC34,TC42,TC50    |
+|         FR5.3          |    TC1,TC4,TC17,TC24,TC32,TC35,TC44,TC52     |
+|         FR5.4          |    TC6,TC12,TC14,TC25,TC36,TC41,TC47,TC53     |
+|         FR5.5          |    TC1,TC7,TC8,TC19,TC26,TC32,TC34,TC37,TC46,TC54,TC54.1     |
+|         FR5.6          |    TC7,TC9,TC18,TC27,TC34,TC38,TC45,TC55     |
+|         FR5.7          |    TC11,TC12,TC15,TC28,TC36,TC41,TC48,TC57     |
+|         FR5.8          |    TC10,TC20,TC29,TC39,TC49,TC56     |
 
 | Scenario | Test(s) |
 | :------: | :-----: |
