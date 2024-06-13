@@ -161,8 +161,151 @@ describe("Controller - Get All Reviews of a Product", () => {
 	});
 });
 
-describe("Controller - Delete Review of a Product by a User", () => {});
+describe("Controller - Delete Review of a Product by a User", () => {
+	test("Valid", async () => {
+		await controller.addReview("model1", testuser1, 5, "comment");
+		await controller.addReview("model1", testuser2, 4, "comment");
+		await controller.addReview("model2", testuser1, 5, "comment");
 
-describe("Controller - Delete All Reviews of a Product", () => {});
+		await controller.deleteReview("model1", testuser1);
+		expect(controller.getProductReviews("model1")).resolves.toStrictEqual([
+			new ProductReview(
+				"model1",
+				testuser2.username,
+				4,
+				Time.today(),
+				"comment"
+			),
+		]);
+		expect(controller.getProductReviews("model2")).resolves.toStrictEqual([
+			new ProductReview(
+				"model2",
+				testuser1.username,
+				5,
+				Time.today(),
+				"comment"
+			),
+		]);
+	});
 
-describe("Controller - Delete All Reviews", () => {});
+	test("Product Not Found", async () => {
+		await controller.addReview("model1", testuser1, 5, "comment");
+		await controller.addReview("model1", testuser2, 4, "comment");
+		await controller.addReview("model2", testuser1, 5, "comment");
+
+		expect(
+			controller.deleteReview("notamodel", testuser1)
+		).rejects.toThrowError(ProductNotFoundError);
+		const rew = await controller.getProductReviews("model1");
+		expect(rew).toHaveLength(2);
+		expect(rew).toContainEqual(
+			new ProductReview(
+				"model1",
+				testuser2.username,
+				4,
+				Time.today(),
+				"comment"
+			)
+		);
+		expect(rew).toContainEqual(
+			new ProductReview(
+				"model1",
+				testuser1.username,
+				5,
+				Time.today(),
+				"comment"
+			)
+		);
+		expect(await controller.getProductReviews("model2")).toStrictEqual([
+			new ProductReview(
+				"model2",
+				testuser1.username,
+				5,
+				Time.today(),
+				"comment"
+			),
+		]);
+	});
+});
+
+describe("Controller - Delete All Reviews of a Product", () => {
+	test("Valid", async () => {
+		await controller.addReview("model1", testuser1, 5, "comment");
+		await controller.addReview("model1", testuser2, 4, "comment");
+		await controller.addReview("model2", testuser1, 5, "comment");
+
+		await controller.deleteReviewsOfProduct("model1");
+		expect(controller.getProductReviews("model1")).resolves.toStrictEqual(
+			[]
+		);
+		await expect(
+			controller.getProductReviews("model2")
+		).resolves.toStrictEqual([
+			new ProductReview(
+				"model2",
+				testuser1.username,
+				5,
+				Time.today(),
+				"comment"
+			),
+		]);
+	});
+
+	test("Product Not Found", async () => {
+		await controller.addReview("model1", testuser1, 5, "comment");
+		await controller.addReview("model1", testuser2, 4, "comment");
+		await controller.addReview("model2", testuser1, 5, "comment");
+
+		expect(
+			controller.deleteReviewsOfProduct("notamodel")
+		).rejects.toThrowError(ProductNotFoundError);
+		const rew = await controller.getProductReviews("model1");
+		expect(rew).toHaveLength(2);
+		expect(rew).toContainEqual(
+			new ProductReview(
+				"model1",
+				testuser1.username,
+				5,
+				Time.today(),
+				"comment"
+			)
+		);
+		expect(rew).toContainEqual(
+			new ProductReview(
+				"model1",
+				testuser2.username,
+				4,
+				Time.today(),
+				"comment"
+			)
+		);
+
+		await expect(
+			controller.getProductReviews("model2")
+		).resolves.toStrictEqual([
+			new ProductReview(
+				"model2",
+				testuser1.username,
+				5,
+				Time.today(),
+				"comment"
+			),
+		]);
+	});
+});
+
+describe("Controller - Delete All Reviews", () => {
+	test("Valid", async () => {
+		await controller.addReview("model1", testuser1, 5, "comment");
+		await controller.addReview("model1", testuser2, 4, "comment");
+		await controller.addReview("model2", testuser1, 5, "comment");
+
+		await controller.deleteAllReviews();
+		expect(controller.getProductReviews("model1")).resolves.toStrictEqual(
+			[]
+		);
+		expect(controller.getProductReviews("model2")).resolves.toStrictEqual(
+			[]
+		);
+	});
+});
