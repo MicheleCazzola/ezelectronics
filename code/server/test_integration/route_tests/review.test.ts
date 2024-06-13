@@ -76,7 +76,7 @@ describe("Route - Add Review", () => {
 		expect(response.status).toBe(200);
 	});
 
-	test.skip("Empty Comment", async () => {
+	test("Empty Comment", async () => {
 		await login("user1");
 		const response = await agent.post(`${baseURL}/model1`).send({
 			score: 5,
