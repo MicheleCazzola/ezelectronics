@@ -126,15 +126,26 @@ class ProductRoutes {
          */
         this.router.get(
             "/",
-            query("grouping").isString().isIn(["category", "model"]).optional({nullable: true, checkFalsy: true}),
-            query("category").isString().custom((value, {req}) => {
-                if (req.query.grouping == "model" && value == null)
-                    return true
-                else if (req.query.grouping == "category" && (value == "Smartphone" || value == "Laptop" || value == "Appliance"))
-                    return true
-                else if (req.query.grouping == null && value == null)
-                    return true
+            query("grouping").isString().isIn(["category", "model"]).custom((value, {req}) => {
+                if (value == "model" && req.query.model == undefined)
+                    return false
+                else if (value == "category" && req.query.category == undefined)
+                    return false
+                else if (value == "model" && req.query.model == "")
+                    return false
+                else if (value == "category" && req.query.category == "")
+                    return false
                 else
+                    return true
+            }).optional({nullable: true, checkFalsy: true}),
+            query("category").isString().custom((value, {req}) => {
+                if (req.query.grouping == "model" && value == null) {
+                    return true
+                } else if (req.query.grouping == "category" && (value == "Smartphone" || value == "Laptop" || value == "Appliance")) {
+                    return true
+                } else if (req.query.grouping == null && value == null) {
+                    return true
+                } else
                     return false
             }).optional({nullable: true, checkFalsy: true}),
             query("model").isString().custom((value, {req}) => {
@@ -168,7 +179,18 @@ class ProductRoutes {
          */
         this.router.get(
             "/available",
-            query("grouping").isString().isIn(["category", "model"]).optional({nullable: true, checkFalsy: true}),
+            query("grouping").isString().isIn(["category", "model"]).custom((value, {req}) => {
+                if (value == "model" && req.query.model == undefined)
+                    return false
+                else if (value == "category" && req.query.category == undefined)
+                    return false
+                else if (value == "model" && req.query.model == "")
+                    return false
+                else if (value == "category" && req.query.category == "")
+                    return false
+                else
+                    return true
+            }).optional({nullable: true, checkFalsy: true}),
             query("category").isString().custom((value, {req}) => {
                 if (req.query.grouping == "model" && value == null)
                     return true
