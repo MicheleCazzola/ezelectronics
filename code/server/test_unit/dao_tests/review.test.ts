@@ -9,7 +9,6 @@ import {
 } from "../../src/errors/reviewError";
 import { ProductReview } from "../../src/components/review";
 import ProductDAO from "../../src/dao/productDAO";
-import assert from "assert";
 
 jest.mock("../../src/dao/productDAO");
 
@@ -19,7 +18,7 @@ beforeEach(() => {
 
 const dao = new ReviewDAO();
 
-describe("DAO - Add a Review", () => {
+describe("ReviewDAO - Add a Review", () => {
 	const testCase = {
 		model: "testmodel",
 		username: "testuser",
@@ -119,7 +118,7 @@ describe("DAO - Add a Review", () => {
 	}
 });
 
-describe("DAO - Get Product's Reviews", () => {
+describe("ReviewDAO - Get Product's Reviews", () => {
 	const testCase = {
 		db_result: {
 			err: null as Error | null,
@@ -205,7 +204,7 @@ describe("DAO - Get Product's Reviews", () => {
 	});
 });
 
-describe("DAO - Delete a Review", () => {
+describe("ReviewDAO - Delete a Review", () => {
 	const testCase = {
 		model: "testmodel",
 		user: "testuser",
@@ -269,7 +268,7 @@ describe("DAO - Delete a Review", () => {
 	});
 });
 
-describe("DAO - Delete All Reviews of a Product", () => {
+describe("ReviewDAO - Delete All Reviews of a Product", () => {
 	test("Valid", async () => {
 		jest.spyOn(db, "run").mockImplementationOnce(function (
 			query,
@@ -320,7 +319,7 @@ describe("DAO - Delete All Reviews of a Product", () => {
 	});
 });
 
-describe("DAO - Delete All Reviews", () => {
+describe("ReviewDAO - Delete All Reviews", () => {
 	test("Valid", async () => {
 		jest.spyOn(db, "run").mockImplementationOnce((query, cb) => {
 			cb(null);

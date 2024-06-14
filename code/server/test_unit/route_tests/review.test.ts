@@ -32,7 +32,7 @@ beforeEach(() => {
     .mockImplementation(mockMiddleware);
 });
 
-describe("Route - Add Review", () => {
+describe("ReviewRoute - Add Review", () => {
   beforeEach(() => {
     jest.spyOn(ReviewController.prototype, "addReview").mockReset();
   });
@@ -167,215 +167,233 @@ describe("Route - Add Review", () => {
   // Authentication is not tested
 });
 
-describe("Route - Fetch All Product Reviews", () => {
-  test("Valid", async () => {
-    const testCase = {
-      expectedStatus: 200,
-      model: "iPhone13",
-    };
-    const reviews = [
-      new ProductReview(testCase.model, "test", 5, "2024-05-12", "Lorem Ipsum"),
-    ];
-    jest
-      .spyOn(ReviewController.prototype, "getProductReviews")
-      .mockResolvedValueOnce(reviews);
+describe("ReviewRoute - Get a Product's Reviews", () => {
+	test("Valid", async () => {
+		const testCase = {
+			expectedStatus: 200,
+			model: "iPhone13",
+		};
+		const reviews = [
+			new ProductReview(
+				testCase.model,
+				"test",
+				5,
+				"2024-05-12",
+				"Lorem Ipsum"
+			),
+		];
+		jest.spyOn(
+			ReviewController.prototype,
+			"getProductReviews"
+		).mockResolvedValueOnce(reviews);
 
-    const response = await request(app)
-      .get(`${baseURL}/${testCase.model}`)
-      .send();
+		const response = await request(app)
+			.get(`${baseURL}/${testCase.model}`)
+			.send();
 
-    expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
+		expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
 
-    expect(response.status).toBe(testCase.expectedStatus);
+		expect(response.status).toBe(testCase.expectedStatus);
 
-    expect(ReviewController.prototype.getProductReviews).toHaveBeenCalledTimes(
-      1
-    );
-    expect(ReviewController.prototype.getProductReviews).toHaveBeenCalledWith(
-      testCase.model
-    );
-    expect(response.body).toEqual(reviews);
-  });
+		expect(
+			ReviewController.prototype.getProductReviews
+		).toHaveBeenCalledTimes(1);
+		expect(
+			ReviewController.prototype.getProductReviews
+		).toHaveBeenCalledWith(testCase.model);
+		expect(response.body).toEqual(reviews);
+	});
 
-  test("Product Not Found", async () => {
-    const testCase = {
-      expectedStatus: 404,
-      model: "test",
-    };
-    //jest.spyOn(ReviewController.prototype, "getProductReviews").mockReset();
-    jest
-      .spyOn(ReviewController.prototype, "getProductReviews")
-      .mockRejectedValueOnce(new ProductNotFoundError());
+	test("Product Not Found", async () => {
+		const testCase = {
+			expectedStatus: 404,
+			model: "test",
+		};
+		//jest.spyOn(ReviewController.prototype, "getProductReviews").mockReset();
+		jest.spyOn(
+			ReviewController.prototype,
+			"getProductReviews"
+		).mockRejectedValueOnce(new ProductNotFoundError());
 
-    const response = await request(app)
-      .get(`${baseURL}/${testCase.model}`)
-      .send();
+		const response = await request(app)
+			.get(`${baseURL}/${testCase.model}`)
+			.send();
 
-    expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
+		expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
 
-    expect(response.status).toBe(testCase.expectedStatus);
+		expect(response.status).toBe(testCase.expectedStatus);
 
-    expect(ReviewController.prototype.getProductReviews).toHaveBeenCalledTimes(
-      1
-    );
-    expect(ReviewController.prototype.getProductReviews).toHaveBeenCalledWith(
-      testCase.model
-    );
-  });
+		expect(
+			ReviewController.prototype.getProductReviews
+		).toHaveBeenCalledTimes(1);
+		expect(
+			ReviewController.prototype.getProductReviews
+		).toHaveBeenCalledWith(testCase.model);
+	});
 
-  test("Review Already Exists", async () => {
-    const testCase = {
-      expectedStatus: 409,
-      model: "testmodel",
-    };
+	test("Review Already Exists", async () => {
+		const testCase = {
+			expectedStatus: 409,
+			model: "testmodel",
+		};
 
-    jest
-      .spyOn(ReviewController.prototype, "getProductReviews")
-      .mockRejectedValueOnce(new ExistingReviewError());
+		jest.spyOn(
+			ReviewController.prototype,
+			"getProductReviews"
+		).mockRejectedValueOnce(new ExistingReviewError());
 
-    const response = await request(app)
-      .get(`${baseURL}/${testCase.model}`)
-      .send();
+		const response = await request(app)
+			.get(`${baseURL}/${testCase.model}`)
+			.send();
 
-    expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
+		expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
 
-    expect(response.status).toBe(testCase.expectedStatus);
+		expect(response.status).toBe(testCase.expectedStatus);
 
-    expect(ReviewController.prototype.getProductReviews).toHaveBeenCalledTimes(
-      1
-    );
-    expect(ReviewController.prototype.getProductReviews).toHaveBeenCalledWith(
-      testCase.model
-    );
-  });
-  // Authentication is not tested
+		expect(
+			ReviewController.prototype.getProductReviews
+		).toHaveBeenCalledTimes(1);
+		expect(
+			ReviewController.prototype.getProductReviews
+		).toHaveBeenCalledWith(testCase.model);
+	});
+	// Authentication is not tested
 });
 
-describe("Route - Delete a Review", () => {
-  const testCases = [
-    {
-      description: "Valid",
-      expectedStatus: 200,
-      model: "iPhone13",
-      user: "testcustomer",
-      err: null,
-      called: 1,
-    },
-    {
-      description: "Product Not Found",
-      expectedStatus: 404,
-      model: "notavalidproduct",
-      user: "testcustomer",
-      err: new ProductNotFoundError(),
-      called: 1,
-    },
-    {
-      description: "Product Not Reviewed",
-      expectedStatus: 404,
-      model: "notavalidproduct",
-      user: "testcustomer",
-      err: new NoReviewProductError(),
-      called: 1,
-    },
-  ];
+describe("ReviewRoute - Delete a Review", () => {
+	const testCases = [
+		{
+			description: "Valid",
+			expectedStatus: 200,
+			model: "iPhone13",
+			user: "testcustomer",
+			err: null,
+			called: 1,
+		},
+		{
+			description: "Product Not Found",
+			expectedStatus: 404,
+			model: "notavalidproduct",
+			user: "testcustomer",
+			err: new ProductNotFoundError(),
+			called: 1,
+		},
+		{
+			description: "Product Not Reviewed",
+			expectedStatus: 404,
+			model: "notavalidproduct",
+			user: "testcustomer",
+			err: new NoReviewProductError(),
+			called: 1,
+		},
+	];
 
-  for (const testCase of testCases) {
-    test(testCase.description, async () => {
-      const delete_func = jest.spyOn(
-        ReviewController.prototype,
-        "deleteReview"
-      );
+	for (const testCase of testCases) {
+		test(testCase.description, async () => {
+			const delete_func = jest.spyOn(
+				ReviewController.prototype,
+				"deleteReview"
+			);
 
-      if (!testCase.err) delete_func.mockResolvedValueOnce();
-      else delete_func.mockRejectedValueOnce(testCase.err);
+			if (!testCase.err) delete_func.mockResolvedValueOnce();
+			else delete_func.mockRejectedValueOnce(testCase.err);
 
-      const response = await request(app)
-        .delete(`${baseURL}/${testCase.model}`)
-        .send();
+			const response = await request(app)
+				.delete(`${baseURL}/${testCase.model}`)
+				.send();
 
-      expect(Authenticator.prototype.isCustomer).toHaveBeenCalledTimes(1);
-      expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
+			expect(Authenticator.prototype.isCustomer).toHaveBeenCalledTimes(1);
+			expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
 
-      expect(response.status).toBe(testCase.expectedStatus);
+			expect(response.status).toBe(testCase.expectedStatus);
 
-      expect(ReviewController.prototype.deleteReview).toHaveBeenCalledTimes(
-        testCase.called
-      );
-      if (testCase.called > 0) {
-        expect(ReviewController.prototype.deleteReview).toHaveBeenCalledWith(
-          testCase.model,
-          "testuser" // set in the middleware mock
-        );
-      }
-    });
-  }
+			expect(
+				ReviewController.prototype.deleteReview
+			).toHaveBeenCalledTimes(testCase.called);
+			if (testCase.called > 0) {
+				expect(
+					ReviewController.prototype.deleteReview
+				).toHaveBeenCalledWith(
+					testCase.model,
+					"testuser" // set in the middleware mock
+				);
+			}
+		});
+	}
 });
 
-describe("Route - Delete All Reviews of a Product", () => {
-  const testCases = [
-    {
-      description: "Valid",
-      expectedStatus: 200,
-      model: "iPhone13",
-      err: null,
-      called: 1,
-    },
-    {
-      description: "Product Not Found",
-      expectedStatus: 404,
-      model: "notavalidproduct",
-      err: new ProductNotFoundError(),
-      called: 1,
-    },
-  ];
+describe("ReviewRoute - Delete All Reviews of a Product", () => {
+	const testCases = [
+		{
+			description: "Valid",
+			expectedStatus: 200,
+			model: "iPhone13",
+			err: null,
+			called: 1,
+		},
+		{
+			description: "Product Not Found",
+			expectedStatus: 404,
+			model: "notavalidproduct",
+			err: new ProductNotFoundError(),
+			called: 1,
+		},
+	];
 
-  for (const testCase of testCases) {
-    test(testCase.description, async () => {
-      const delete_func = jest.spyOn(
-        ReviewController.prototype,
-        "deleteReviewsOfProduct"
-      );
+	for (const testCase of testCases) {
+		test(testCase.description, async () => {
+			const delete_func = jest.spyOn(
+				ReviewController.prototype,
+				"deleteReviewsOfProduct"
+			);
 
-      if (!testCase.err) delete_func.mockResolvedValueOnce();
-      else delete_func.mockRejectedValueOnce(testCase.err);
+			if (!testCase.err) delete_func.mockResolvedValueOnce();
+			else delete_func.mockRejectedValueOnce(testCase.err);
 
-      const response = await request(app)
-        .delete(`${baseURL}/${testCase.model}/all`)
-        .send();
+			const response = await request(app)
+				.delete(`${baseURL}/${testCase.model}/all`)
+				.send();
 
-      expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
-      expect(Authenticator.prototype.isAdminOrManager).toHaveBeenCalledTimes(1);
+			expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
+			expect(
+				Authenticator.prototype.isAdminOrManager
+			).toHaveBeenCalledTimes(1);
 
-      expect(response.status).toBe(testCase.expectedStatus);
+			expect(response.status).toBe(testCase.expectedStatus);
 
-      expect(
-        ReviewController.prototype.deleteReviewsOfProduct
-      ).toHaveBeenCalledTimes(testCase.called);
-      if (testCase.called > 0) {
-        expect(
-          ReviewController.prototype.deleteReviewsOfProduct
-        ).toHaveBeenCalledWith(testCase.model);
-      }
-    });
-  }
+			expect(
+				ReviewController.prototype.deleteReviewsOfProduct
+			).toHaveBeenCalledTimes(testCase.called);
+			if (testCase.called > 0) {
+				expect(
+					ReviewController.prototype.deleteReviewsOfProduct
+				).toHaveBeenCalledWith(testCase.model);
+			}
+		});
+	}
 });
 
-describe("Route - Delete All Reviews", () => {
-  test("Valid", async () => {
-    jest
-      .spyOn(ReviewController.prototype, "deleteAllReviews")
-      .mockResolvedValueOnce();
+describe("ReviewRoute - Delete All Reviews", () => {
+	test("Valid", async () => {
+		jest.spyOn(
+			ReviewController.prototype,
+			"deleteAllReviews"
+		).mockResolvedValueOnce();
 
-    const response = await request(app).delete(`${baseURL}/`).send();
+		const response = await request(app).delete(`${baseURL}/`).send();
 
-    expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
-    expect(Authenticator.prototype.isAdminOrManager).toHaveBeenCalledTimes(1);
+		expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(1);
+		expect(Authenticator.prototype.isAdminOrManager).toHaveBeenCalledTimes(
+			1
+		);
 
-    expect(response.status).toBe(200);
+		expect(response.status).toBe(200);
 
-    expect(ReviewController.prototype.deleteAllReviews).toHaveBeenCalledTimes(
-      1
-    );
-    expect(ReviewController.prototype.deleteAllReviews).toHaveBeenCalledWith();
-  });
+		expect(
+			ReviewController.prototype.deleteAllReviews
+		).toHaveBeenCalledTimes(1);
+		expect(
+			ReviewController.prototype.deleteAllReviews
+		).toHaveBeenCalledWith();
+	});
 });

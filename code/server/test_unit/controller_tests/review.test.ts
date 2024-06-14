@@ -14,7 +14,7 @@ beforeEach(() => {
 
 const testuser = new User("testuser", "name", "Surname", Role.CUSTOMER, "", "");
 
-describe("Add Review", () => {
+describe("ReviewController - Add Review", () => {
 	test("Valid", async () => {
 		jest.spyOn(ReviewDAO.prototype, "addReview").mockResolvedValueOnce(
 			undefined
@@ -67,7 +67,7 @@ describe("Add Review", () => {
 	});
 });
 
-describe("Get Product Reviews", () => {
+describe("ReviewController - Get Product Reviews", () => {
 	test("Valid", async () => {
 		const reviews = [
 			new ProductReview("testmodel", "testuser", 5, "", "lorem ipsum"),
@@ -118,22 +118,7 @@ describe("Get Product Reviews", () => {
 	});
 });
 
-describe("Delete All Reviews", () => {
-	test("Valid", async () => {
-		jest.spyOn(
-			ReviewDAO.prototype,
-			"deleteAllReviews"
-		).mockResolvedValueOnce(undefined);
-		const controller = new ReviewController();
-
-		const result = await controller.deleteAllReviews();
-
-		expect(ReviewDAO.prototype.deleteAllReviews).toHaveBeenCalledTimes(1);
-		expect(result).toBe(undefined);
-	});
-});
-
-describe("Delete Product Review", () => {
+describe("ReviewController - Delete Product Review", () => {
 	test("Valid", async () => {
 		jest.spyOn(ProductDAO.prototype, "existsProduct").mockResolvedValueOnce(
 			true
@@ -167,7 +152,7 @@ describe("Delete Product Review", () => {
 	});
 });
 
-describe("Delete All Reviews of a Product", () => {
+describe("ReviewController - Delete All Reviews of a Product", () => {
 	test("Valid", async () => {
 		jest.spyOn(ProductDAO.prototype, "existsProduct").mockResolvedValueOnce(
 			true
@@ -203,5 +188,20 @@ describe("Delete All Reviews of a Product", () => {
 		expect(
 			ReviewDAO.prototype.deleteReviewsOfProduct
 		).toHaveBeenCalledTimes(0);
+	});
+});
+
+describe("ReviewController - Delete All Reviews", () => {
+	test("Valid", async () => {
+		jest.spyOn(
+			ReviewDAO.prototype,
+			"deleteAllReviews"
+		).mockResolvedValueOnce(undefined);
+		const controller = new ReviewController();
+
+		const result = await controller.deleteAllReviews();
+
+		expect(ReviewDAO.prototype.deleteAllReviews).toHaveBeenCalledTimes(1);
+		expect(result).toBe(undefined);
 	});
 });
