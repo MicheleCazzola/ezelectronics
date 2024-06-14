@@ -592,17 +592,16 @@ describe("ProductDao test:", () => {
             */
 
             const categoryFiltered = [
-                { SellingPrice: 123, Model: "TestModel2", category: Category.LAPTOP, ArrivalDate: "2024-06-06", Details: "testDetails", AvailableQuantity: 10 },
+                { SellingPrice: 123, Model: "TestModel2", Category: Category.LAPTOP, ArrivalDate: "2024-06-06", Details: "testDetails", AvailableQuantity: 10 },
             ]
 
             const mockDBAll = jest.spyOn(db, "all").mockImplementation((sql, params, callback) => {
-              
                 callback(null, categoryFiltered);
                 return {} as Database;
             })
 
             const testProducts = categoryFiltered.map(p => 
-                new Product(p.SellingPrice, p.Model, p.category, p.ArrivalDate, p.Details, p.AvailableQuantity)
+                new Product(p.SellingPrice, p.Model, p.Category, p.ArrivalDate, p.Details, p.AvailableQuantity)
             );
 
 
