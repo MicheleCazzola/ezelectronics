@@ -340,15 +340,19 @@ class ProductDAO {
    * @param model The model of the product to delete
    * @returns A Promise that resolves to `true` if the product has been successfully deleted.
    */
-  async deleteProductByModel(model: string): Promise<Boolean> {
+
+
+async deleteProductByModel(model: string): Promise<Boolean> {
+  const prod = await this.existsProduct(model);
     return new Promise<boolean>((resolve, reject) => {
       try {
-        this.existsProduct(model).then(prod => {
-          if (prod == false) {
-            reject(new ProductNotFoundError)
-            return
-          }
-        })
+        
+        if (prod == false) {
+    
+          reject(new ProductNotFoundError)
+          return
+        }
+        
         const sql = "DELETE FROM product_descriptor WHERE Model = ?";
         db.run(sql, [model], (err: Error | null) => {
           try {
