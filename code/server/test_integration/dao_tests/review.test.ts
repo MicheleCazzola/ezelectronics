@@ -1,4 +1,11 @@
-import { beforeEach, afterAll, describe, expect, jest, test } from "@jest/globals";
+import {
+	beforeEach,
+	afterAll,
+	describe,
+	expect,
+	jest,
+	test,
+} from "@jest/globals";
 import crypto from "crypto";
 
 import ReviewDAO from "../../src/dao/reviewDAO";
@@ -95,7 +102,7 @@ describe("DAO - Add a Review", () => {
 			testCase.comment
 		);
 
-		expect(result).resolves.toBeUndefined;
+		expect(result).toBeUndefined();
 		expect(db.run).toBeCalledTimes(1);
 		expect(db.run).toBeCalledWith(
 			expect.any(String), // sql query
@@ -108,9 +115,7 @@ describe("DAO - Add a Review", () => {
 			]),
 			expect.any(Function)
 		);
-		await expect(
-			dao.getProductReviews(testCase.model)
-		).resolves.toStrictEqual([
+		expect(await dao.getProductReviews(testCase.model)).toStrictEqual([
 			new ProductReview(
 				testCase.model,
 				testCase.username,
@@ -146,7 +151,7 @@ describe("DAO - Add a Review", () => {
 				testCase.score,
 				testCase.comment
 			);
-			expect(result).resolves.toBeUndefined;
+			expect(result).toBeUndefined();
 			expect(db.run).toBeCalledWith(
 				expect.any(String), // sql query
 				expect.arrayContaining([
@@ -159,7 +164,7 @@ describe("DAO - Add a Review", () => {
 				expect.any(Function)
 			);
 		}
-		await expect(dao.getProductReviews("testmodel")).resolves.toStrictEqual(
+		expect(await dao.getProductReviews("testmodel")).toStrictEqual(
 			testCases
 		);
 		expect(db.run).toBeCalledTimes(2);
@@ -190,7 +195,7 @@ describe("DAO - Add a Review", () => {
 				testCase.score,
 				testCase.comment
 			);
-			expect(result).resolves.toBeUndefined;
+			expect(result).toBeUndefined();
 			expect(db.run).toBeCalledWith(
 				expect.any(String), // sql query
 				expect.arrayContaining([
@@ -203,12 +208,12 @@ describe("DAO - Add a Review", () => {
 				expect.any(Function)
 			);
 		}
-		await expect(
-			dao.getProductReviews(testCases[0].model)
-		).resolves.toStrictEqual([testCases[0]]);
-		await expect(
-			dao.getProductReviews(testCases[1].model)
-		).resolves.toStrictEqual([testCases[1]]);
+		expect(await dao.getProductReviews(testCases[0].model)).toStrictEqual([
+			testCases[0],
+		]);
+		expect(await dao.getProductReviews(testCases[1].model)).toStrictEqual([
+			testCases[1],
+		]);
 		expect(db.run).toBeCalledTimes(2);
 	});
 
@@ -251,9 +256,7 @@ describe("DAO - Add a Review", () => {
 			expect.any(Function)
 		);
 
-		await expect(
-			dao.getProductReviews(testCase.model)
-		).resolves.toStrictEqual([
+		expect(await dao.getProductReviews(testCase.model)).toStrictEqual([
 			new ProductReview(
 				testCase.model,
 				testCase.username,
@@ -366,9 +369,7 @@ describe("DAO - Delete All Reviews of a Product", () => {
 			expect.any(Function)
 		);
 
-		await expect(dao.getProductReviews("testmodel")).resolves.toStrictEqual(
-			[]
-		);
+		expect(await dao.getProductReviews("testmodel")).toStrictEqual([]);
 	});
 });
 
@@ -392,11 +393,7 @@ describe("DAO - Delete All Reviews", () => {
 			expect.any(Function)
 		);
 
-		await expect(dao.getProductReviews("testmodel")).resolves.toStrictEqual(
-			[]
-		);
-		await expect(
-			dao.getProductReviews("testmodel2")
-		).resolves.toStrictEqual([]);
+		expect(await dao.getProductReviews("testmodel")).toStrictEqual([]);
+		expect(await dao.getProductReviews("testmodel2")).toStrictEqual([]);
 	});
 });
