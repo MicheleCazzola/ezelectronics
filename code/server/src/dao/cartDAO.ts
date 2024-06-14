@@ -2,7 +2,11 @@ import { User } from "../components/user";
 import { Cart, ProductInCart } from "../components/cart";
 import db from "../db/db";
 import { Category } from "../components/product";
-import { CartNotFoundError, EmptyCartError, ProductNotInCartError } from "../errors/cartError";
+import {
+	CartNotFoundError,
+	EmptyCartError,
+	ProductNotInCartError,
+} from "../errors/cartError";
 import {
 	EmptyProductStockError,
 	ProductNotFoundError,
@@ -181,75 +185,6 @@ class CartDAO {
 		});
 	}
 
-	/*async updateCart(cart: Cart): Promise<boolean> {
-		return new Promise((resolve, reject) => {
-			const sql1 =
-				"SELECT CartId FROM CART WHERE Username = ? AND Paid = 0";
-			let cartid: number = undefined;
-			db.get(sql1, [cart.customer], (err: Error | null, row: any) => {
-				if (err) {
-					reject(err);
-				}
-				if (!row) {
-					const sql2 =
-						"INSERT INTO CART (Total, Paid, PaymentDate, Username) VALUES (?, ?, ?, ?)";
-					db.run(
-						sql2,
-						[
-							cart.total,
-							cart.paid,
-							cart.paymentDate,
-							cart.customer,
-						],
-						function (err: Error | null) {
-							if (err) {
-								reject(err);
-							}
-
-							cartid = this.lastID;
-						}
-					);
-				} else {
-					cartid = row.CartId;
-					const sql3 =
-						"UPDATE CART SET (Total, Paid, PaymentDate) = (?, ?, ?) WHERE Username = ? AND Paid = 0";
-					db.run(
-						sql3,
-						[
-							cart.total,
-							cart.paid,
-							cart.paymentDate,
-							cart.customer,
-						],
-						(err) => {
-							if (err) reject(err);
-						}
-					);
-				}
-
-				const sql4 = "DELETE FROM PRODUCT_IN_CART WHERE CartId = ?";
-				const sql5 =
-					"INSERT INTO PRODUCT_IN_CART (CartId, Model, Quantity) VALUES (?, ?, ?)";
-
-				db.run(sql4, [cartid], (err) => {
-					if (err) reject(err);
-
-					cart.products.forEach((product) => {
-						db.run(
-							sql5,
-							[cartid, product.model, product.quantity],
-							(err) => {
-								if (err) reject(err);
-							}
-						);
-					});
-				});
-			});
-
-			resolve(true);
-		});
-	}*/
-
 	async fetchPaidCarts(
 		username: string
 	): Promise<{ id: number; cart: Cart }[]> {
@@ -276,52 +211,9 @@ class CartDAO {
 			});
 		});
 	}
-	/* async getPaidCarts(user: User): Promise<Cart[]> {
-		const sql1 = "SELECT * FROM CART WHERE Username = ? AND Paid = 1";
-		const sql2 =
-			"SELECT PD.Model, PD.Category, PC.Quantity, PD.SellingPrice FROM PRODUCT_IN_CART PC, PRODUCT_DESCRIPTOR PD WHERE PC.Model = PD.Model AND CartId = ?";
-
-		return new Promise((resolve, reject) => {
-			db.all(sql1, [user.username], (err, rows) => {
-				if (err) reject(err);
-
-				if (rows) {
-					resolve(
-						rows.map((cart_row: any) => {
-							let cart: Cart = new Cart(
-								user.username,
-								cart_row.Paid,
-								cart_row.PaymentDate,
-								cart_row.Total,
-								[]
-							);
-							db.all(sql2, [cart_row.CartId], (err, prod_row) => {
-								if (err) {
-									reject(err);
-								}
-								if (prod_row) {
-									cart.products = prod_row.map((row: any) => {
-										return new ProductInCart(
-											row.Model,
-											row.Quantity,
-											row.Category,
-											row.SellingPrice
-										);
-									});
-								}
-							});
-							return cart;
-						})
-					);
-				} else {
-					resolve([]);
-				}
-			});
-		});
-	} */
 
 	async removeProductFromCart(user: User, product: string): Promise<boolean> {
-		const productExists = await (new ProductDAO()).existsProduct(product);
+		const productExists = await new ProductDAO().existsProduct(product);
 		const cartid = await this.getCurrentCartId(user);
 		let cart = await this.getCurrentCart(user);
 		let found = false;
@@ -342,18 +234,15 @@ class CartDAO {
 		}
 
 		return new Promise((resolve, reject) => {
-			if(emptyCart) {
+			if (emptyCart) {
 				reject(new EmptyCartError());
-			}
-			else if(!productExists) {
+			} else if (!productExists) {
 				reject(new ProductNotFoundError());
-			}
-			else if (!found) {
+			} else if (!found) {
 				reject(new ProductNotInCartError());
-			}
-			else {
+			} else {
 				const sql =
-				"UPDATE CART SET (Total, Paid, PaymentDate) = (?, ?, ?) WHERE Username = ? AND Paid = 0";
+					"UPDATE CART SET (Total, Paid, PaymentDate) = (?, ?, ?) WHERE Username = ? AND Paid = 0";
 				db.run(
 					sql,
 					[cart.total, cart.paid, cart.paymentDate, cart.customer],
@@ -370,15 +259,18 @@ class CartDAO {
 						} else {
 							const sql2 =
 								"UPDATE PRODUCT_IN_CART SET Quantity = ? WHERE CartId = ? AND Model = ?";
-							db.run(sql2, [new_quantity, cartid, product], (err) => {
-								if (err) reject(err);
-								else resolve(true);
-							});
+							db.run(
+								sql2,
+								[new_quantity, cartid, product],
+								(err) => {
+									if (err) reject(err);
+									else resolve(true);
+								}
+							);
 						}
 					}
 				);
 			}
-			
 		});
 	}
 
@@ -429,53 +321,6 @@ class CartDAO {
 			});
 		});
 	}
-
-	/* async getAllCarts(): Promise<Cart[]> {
-		const sql1 = "SELECT * FROM CART";
-		const sql2 =
-			"SELECT PD.Model, PD.Category, PC.Quantity, PD.SellingPrice FROM PRODUCT_IN_CART PC, PRODUCT_DESCRIPTOR PD WHERE PC.Model = PD.Model AND CartId = ?";
-
-		let carts: Cart[] = [];
-		return new Promise((resolve, reject) => {
-			db.all(sql1, (err, rows) => {
-				if (err) {
-					reject(err);
-				}
-				if (rows) {
-					rows.forEach((row: any) => {
-						let cart: Cart = new Cart(
-							row.Username,
-							row.Paid,
-							row.PaymentDate,
-							row.Total,
-							[]
-						);
-						db.all(sql2, [row.CartId], (err, rows2) => {
-							if (err) {
-								reject(err);
-							}
-							if (rows2) {
-								rows2.forEach((row: any) => {
-									cart.products.push(
-										new ProductInCart(
-											row.Model,
-											row.Quantity,
-											row.Category,
-											row.SellingPrice
-										)
-									);
-								});
-							}
-							carts.push(cart);
-						});
-					});
-					resolve(carts);
-				} else {
-					resolve([]);
-				}
-			});
-		});
-	} */
 
 	async fetchAllCarts(): Promise<{ id: number; cart: Cart }[]> {
 		return new Promise((resolve, reject) => {
