@@ -2054,8 +2054,8 @@ describe("ProductRouter tests:", () => {
             });
 
             const response = await agent
-                .delete(baseURL + "/")
-                .send({ model: "TestModel"});
+                .delete(baseURL + customURL)
+                .send({});
 
             const check = await agent
                 .get(baseURL)
@@ -2090,7 +2090,7 @@ describe("ProductRouter tests:", () => {
 
             const response = await agent
                 .delete(baseURL + customURL)
-                .send({ model: "TestModel"});
+                .send({});
 
             expect(response.status).toBe(401);
 
@@ -2103,7 +2103,7 @@ describe("ProductRouter tests:", () => {
 
             const response = await agent
                 .delete(baseURL + customURL)
-                .send({ model: "TestModel"});
+                .send({});
 
             expect(response.status).toBe(404);
 
