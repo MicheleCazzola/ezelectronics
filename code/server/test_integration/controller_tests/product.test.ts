@@ -4,7 +4,7 @@ import { test, expect, jest, describe, afterEach, beforeAll } from "@jest/global
 import { cleanup } from "../../src/db/cleanup";
 import { Category, Product } from "../../src/components/product";
 import { DateError, Time } from "../../src/utilities";
-import { LowProductStockError, ProductAlreadyExistsError, ProductNotFoundError } from "../../src/errors/productError";
+import { LowProductStockError, ProductAlreadyExistsError, ProductNotFoundError, ProductSoldError } from "../../src/errors/productError";
 import { resourceLimits } from "worker_threads";
 
 
@@ -41,6 +41,24 @@ describe("ProductController test:", () => {
             )
 
             expect(result).toBeUndefined();
+        });
+
+        test("Register a new product - with a future date", async () => {
+            
+            const testProduct  = new Product(12, "TestModel", Category.SMARTPHONE, "2024-04-02", "TestDetails", 12);
+
+            const futureDate = "2030-02-02"
+            const err = new DateError();
+
+            await expect(productController.registerProducts(
+                testProduct.model,
+                testProduct.category,
+                testProduct.quantity, 
+                testProduct.details, 
+                testProduct.sellingPrice, 
+                futureDate
+            )).rejects.toThrow(err);
+
         });
 
         test("Register the same product more time", async () => {
@@ -285,6 +303,56 @@ describe("ProductController test:", () => {
 
         });
 
+        test("It should set the selldate to today if not provided", async () => {
+
+            const testProduct  = new Product(12, "TestModel", Category.SMARTPHONE, "2023-02-03", "TestDetails", 12);
+
+            await productController.registerProducts(
+                testProduct.model,
+                testProduct.category,
+                testProduct.quantity, 
+                testProduct.details, 
+                testProduct.sellingPrice, 
+                testProduct.arrivalDate
+            );
+
+
+            const soldQuantity = 10
+            const expectedQuantity = testProduct.quantity - soldQuantity;
+
+            const todayDate = Time.today();
+
+            const result = await productController.sellProduct(testProduct.model, soldQuantity, "");
+
+            expect(result).toBe(expectedQuantity);
+
+        });
+
+        test("It should reject error if the sellDate is in the future", async () => {
+
+            const testProduct  = new Product(12, "TestModel", Category.SMARTPHONE, "2023-02-03", "TestDetails", 12);
+
+            await productController.registerProducts(
+                testProduct.model,
+                testProduct.category,
+                testProduct.quantity, 
+                testProduct.details, 
+                testProduct.sellingPrice, 
+                testProduct.arrivalDate
+            );
+
+            const err = new DateError();
+
+            const soldQuantity = 10
+            const expectedQuantity = testProduct.quantity - soldQuantity;
+
+            const futureDate = "2030-03-03";
+
+            await expect(productController.sellProduct(testProduct.model, soldQuantity, futureDate)).rejects.toThrow(err);
+
+
+        });
+
         test("the selling date must to be before or equal the today date", async () => {
             
             const testProduct  = new Product(12, "TestModel", Category.SMARTPHONE, "2023-02-03", "TestDetails", 12);
@@ -324,6 +392,30 @@ describe("ProductController test:", () => {
             const todayDate = Time.today();
 
             await expect(productController.sellProduct(testProduct.model, soldQuantity, todayDate)).rejects.toThrow(new LowProductStockError());
+
+        });
+
+        test("it should reject an error if the quantity is higher than the available quantity - quantity = 0", async () => {
+            const testProduct  = new Product(12, "TestModel", Category.SMARTPHONE, "2023-02-03", "TestDetails", 5);
+
+            await productController.registerProducts(
+                testProduct.model,
+                testProduct.category,
+                testProduct.quantity, 
+                testProduct.details, 
+                testProduct.sellingPrice, 
+                testProduct.arrivalDate
+            );
+
+            const date= "2024-02-01";
+
+            await productController.sellProduct(testProduct.model, 5, date);
+
+            const soldQuantity = 20;
+
+            const todayDate = Time.today();
+
+            await expect(productController.sellProduct(testProduct.model, soldQuantity, todayDate)).rejects.toThrow(new ProductSoldError());
 
         });
 
