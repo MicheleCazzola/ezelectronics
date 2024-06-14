@@ -252,7 +252,7 @@ describe("DAO - Delete a Review", () => {
 
 	test("Review Not Found", async () => {
 		jest.spyOn(db, "run").mockImplementationOnce((query, values, cb) => {
-			cb.call({ changes: 0 }, new NoReviewProductError());
+			cb.call({ changes: 0 }, null);
 			return {} as Database;
 		});
 
