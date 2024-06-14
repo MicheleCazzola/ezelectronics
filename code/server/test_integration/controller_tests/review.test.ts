@@ -199,9 +199,8 @@ describe("Controller - Delete All Reviews of a Product", () => {
 		expect(controller.getProductReviews("model1")).resolves.toStrictEqual(
 			[]
 		);
-		await expect(
-			controller.getProductReviews("model2")
-		).resolves.toStrictEqual([
+		const res = await controller.getProductReviews("model2");
+		expect(res).toStrictEqual([
 			new ProductReview(
 				"model2",
 				testuser1.username,
@@ -217,7 +216,7 @@ describe("Controller - Delete All Reviews of a Product", () => {
 		await controller.addReview("model1", testuser2, 4, "comment");
 		await controller.addReview("model2", testuser1, 5, "comment");
 
-		expect(
+		await expect(
 			controller.deleteReviewsOfProduct("notamodel")
 		).rejects.toThrowError(ProductNotFoundError);
 		const rew = await controller.getProductReviews("model1");
@@ -241,9 +240,7 @@ describe("Controller - Delete All Reviews of a Product", () => {
 			)
 		);
 
-		await expect(
-			controller.getProductReviews("model2")
-		).resolves.toStrictEqual([
+		expect(await controller.getProductReviews("model2")).toStrictEqual([
 			new ProductReview(
 				"model2",
 				testuser1.username,
