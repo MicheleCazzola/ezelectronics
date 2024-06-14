@@ -330,6 +330,15 @@ describe("DAO - Delete a Review", () => {
 		);
 	});
 
+	test("Product Not Found", async () => {
+		// setup
+		await dao.addReview("testmodel", "testuser", 5, "lorem ipsum");
+
+		await expect(dao.deleteReview("notamodel", "testuser")).rejects.toThrow(
+			ProductNotFoundError
+		);
+	});
+
 	test("Review Not Found", async () => {
 		// test
 		jest.spyOn(db, "run").mockClear();
