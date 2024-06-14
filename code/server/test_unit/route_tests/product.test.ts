@@ -814,6 +814,47 @@ describe("Product router test:", () => {
     
             });
 
+            test("grouping = model and model undefined", async ()=>{
+                const errCode = 422;
+                const err = new Error("model must to be null");
+    
+                const mockControllerGetProducts = jest.spyOn(ProductController.prototype, "getProducts").mockRejectedValueOnce(err);
+    
+                const resolve = await request(app)
+                    .get(baseURL)
+                    .query(
+                        {
+                            grouping: "model",
+                            category: "Laptop"
+                        }
+                    );
+                 
+                //expect(Authenticator.prototype.isAdminOrManager).toHaveBeenCalledTimes(1);
+                expect(mockControllerGetProducts).toHaveBeenCalledTimes(0);
+                expect(resolve.status).toBe(errCode);
+    
+            });
+
+            test("grouping = category and category undefined", async ()=>{
+                const errCode = 422;
+                const err = new Error("category must to be null");
+    
+                const mockControllerGetProducts = jest.spyOn(ProductController.prototype, "getProducts").mockRejectedValueOnce(err);
+    
+                const resolve = await request(app)
+                    .get(baseURL)
+                    .query(
+                        {
+                            grouping: "category",
+                            model: "TestModel"
+                        }
+                    );
+                 
+                //expect(Authenticator.prototype.isAdminOrManager).toHaveBeenCalledTimes(1);
+                expect(mockControllerGetProducts).toHaveBeenCalledTimes(0);
+                expect(resolve.status).toBe(errCode);
+            });
+
             test("grouping = model and category not null", async ()=>{
                 const errCode = 422;
                 const err = new Error("category and model cannot both be not null");
@@ -971,6 +1012,47 @@ describe("Product router test:", () => {
                 expect(mockControllerGetAvailableProduct).toHaveBeenCalledTimes(0);
                 expect(resolve.status).toBe(errCode);
 
+            });
+
+            test("grouping = model and model undefined", async ()=>{
+                const errCode = 422;
+                const err = new Error("model must to be null");
+    
+                const mockControllerGetProducts = jest.spyOn(ProductController.prototype, "getAvailableProducts").mockRejectedValueOnce(err);
+    
+                const resolve = await request(app)
+                    .get(baseURL + "/available")
+                    .query(
+                        {
+                            grouping: "model",
+                            category: "Laptop"
+                        }
+                    );
+                 
+                //expect(Authenticator.prototype.isAdminOrManager).toHaveBeenCalledTimes(1);
+                expect(mockControllerGetProducts).toHaveBeenCalledTimes(0);
+                expect(resolve.status).toBe(errCode);
+    
+            });
+
+            test("grouping = category and category undefined", async ()=>{
+                const errCode = 422;
+                const err = new Error("category must to be null");
+    
+                const mockControllerGetProducts = jest.spyOn(ProductController.prototype, "getAvailableProducts").mockRejectedValueOnce(err);
+    
+                const resolve = await request(app)
+                    .get(baseURL + "/available")
+                    .query(
+                        {
+                            grouping: "category",
+                            model: "TestModel"
+                        }
+                    );
+                 
+                //expect(Authenticator.prototype.isAdminOrManager).toHaveBeenCalledTimes(1);
+                expect(mockControllerGetProducts).toHaveBeenCalledTimes(0);
+                expect(resolve.status).toBe(errCode);
             });
 
             test("grouping invalid", async () => {
