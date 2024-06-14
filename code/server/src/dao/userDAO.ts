@@ -267,7 +267,7 @@ class UserDAO {
                             
                             const sql3 = "SELECT * FROM users WHERE username = ?"
 
-                            db.get(sql2, [username], (err: Error | null, row: any) => {
+                            db.get(sql3, [username], (err: Error | null, row: any) => {
                                 if (err){
                                     reject(err);
                                     return;

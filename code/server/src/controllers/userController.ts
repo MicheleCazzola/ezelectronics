@@ -127,7 +127,7 @@ class UserController {
         const date = new Date(birthdate);
         const today = new Date();
 
-        const userToUpdate = await this.dao.getUserByUsername(username);
+       
 
         if(date > today) {
             throw new InvalidDateError();
@@ -143,7 +143,7 @@ class UserController {
 
         }else if(user.role == "Admin"){
             //se l'utente è admin non può modificare altri utenti admin 
-            
+            const userToUpdate = await this.dao.getUserByUsername(username);
             if(userToUpdate.role == "Admin" && username !== user.username){
                 throw new UnauthorizedUserError();
             }

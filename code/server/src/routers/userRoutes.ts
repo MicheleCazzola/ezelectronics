@@ -167,10 +167,11 @@ class UserRoutes {
             body("address").isString().isLength({min: 1}),
             body("birthdate").isString().isLength({min: 1}).matches(/^\d{4}-\d{2}-\d{2}$/).withMessage("La data di nascita deve essere nel formato YYYY-MM-DD"),
             this.errorHandler.validateRequest,
-
+            
             (req: any, res: any, next: any) => this.authService.isLoggedIn(req, res, () => this.controller.updateUserInfo(req.user, req.body.name, req.body.surname, req.body.address, req.body.birthdate, req.params.username)
                 .then((user: any /**User */) => res.status(200).json(user))
-                .catch((err: any) => next(err))
+                .catch((err: any) => {console.log(err.customMessage);
+                    next(err)})
             )
         )   
 
