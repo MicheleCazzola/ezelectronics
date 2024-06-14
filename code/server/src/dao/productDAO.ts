@@ -289,6 +289,7 @@ class ProductDAO {
         "SELECT * FROM product_descriptor WHERE Category = ? AND AvailableQuantity > 0";
       param = [category];
     } else if (grouping == "model") {
+      prod = await this.existsProduct(model);
       sql =
         "SELECT * FROM product_descriptor WHERE Model = ? AND AvailableQuantity > 0";
       param = [model];

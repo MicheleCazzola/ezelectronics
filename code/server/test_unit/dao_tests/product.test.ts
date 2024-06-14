@@ -652,16 +652,18 @@ describe("ProductDao test:", () => {
                 return {} as Database;
             })
 
+            jest.spyOn(ProductDAO.prototype, "existsProduct").mockResolvedValueOnce(false);
+
             const testProducts = modelFiltered.map(p => 
                 new Product(p.SellingPrice, p.Model, p.Category, p.ArrivalDate, p.Details, p.AvailableQuantity)
             );
-
 
             const dao = new ProductDAO();
             //Model filters:
             await expect(dao.getAllProducts("model", null, "TestModel3")).rejects.toThrow(err);
 
-            expect(mockDBAll).toBeCalledTimes(1);
+            
+            expect(mockDBAll).toBeCalledTimes(0);
             
         });
     
@@ -775,11 +777,13 @@ describe("ProductDao test:", () => {
                 return {} as Database;
             })
 
+            jest.spyOn(ProductDAO.prototype, "existsProduct").mockResolvedValueOnce(false);
+
             const dao = new ProductDAO();
             //Model filters:
             await expect(dao.getAllAvailableProducts("model", null, "TestModel3")).rejects.toThrow(err);
 
-            expect(mockDBAll).toBeCalledTimes(1);
+            expect(mockDBAll).toBeCalledTimes(0);
             
         });
 
@@ -883,6 +887,8 @@ describe("ProductDao test:", () => {
 
         test("It should reject if there is an error during delection", async () => {
            
+            const testModel = "TestModel";
+
             const error = new Error("Database error");
 
             const mockDBRun = jest.spyOn(db, 'run').mockImplementation((sql, params, callback) => {
@@ -892,10 +898,32 @@ describe("ProductDao test:", () => {
 
             const dao = new ProductDAO();
 
-            await expect(dao.deleteProducts()).rejects.toThrow(error); 
+            await expect(dao.deleteProductByModel(testModel)).rejects.toThrow(error); 
             expect(mockDBRun).toBeCalledTimes(1);
 
         });
+
+        test("it should reject error if the model does not exist", async () => {
+
+            const testModel = "TestModel";
+
+            const err = new ProductNotFoundError();
+            jest.spyOn(ProductDAO.prototype, "existsProduct").mockResolvedValueOnce(false);
+
+            const mockDBRun = jest.spyOn(db, 'run').mockImplementation((sql, params, callback) => {
+                callback(err);  
+                return {} as Database;
+            });
+
+
+            const dao = new ProductDAO();
+
+            await expect(dao.deleteProductByModel(testModel)).rejects.toThrow(err); 
+
+            expect(mockDBRun).toBeCalledTimes(0);
+
+
+        })
 
 
 
