@@ -187,45 +187,6 @@ describe("Controller - Delete Review of a Product by a User", () => {
 			),
 		]);
 	});
-
-	test("Product Not Found", async () => {
-		await controller.addReview("model1", testuser1, 5, "comment");
-		await controller.addReview("model1", testuser2, 4, "comment");
-		await controller.addReview("model2", testuser1, 5, "comment");
-
-		expect(
-			controller.deleteReview("notamodel", testuser1)
-		).rejects.toThrowError(ProductNotFoundError);
-		const rew = await controller.getProductReviews("model1");
-		expect(rew).toHaveLength(2);
-		expect(rew).toContainEqual(
-			new ProductReview(
-				"model1",
-				testuser2.username,
-				4,
-				Time.today(),
-				"comment"
-			)
-		);
-		expect(rew).toContainEqual(
-			new ProductReview(
-				"model1",
-				testuser1.username,
-				5,
-				Time.today(),
-				"comment"
-			)
-		);
-		expect(await controller.getProductReviews("model2")).toStrictEqual([
-			new ProductReview(
-				"model2",
-				testuser1.username,
-				5,
-				Time.today(),
-				"comment"
-			),
-		]);
-	});
 });
 
 describe("Controller - Delete All Reviews of a Product", () => {

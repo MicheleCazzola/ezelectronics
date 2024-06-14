@@ -183,16 +183,6 @@ class CartController {
 		}
 		return carts.map((cart) => cart.cart);
 	}
-
-	/****/
-
-	/**
-	 * Check if a cart contains a product by model
-	 * @returns A Boolean
-	 */
-	containsProduct(cart: Cart, model: string): boolean {
-		return cart.products.some((product) => product.model === model);
-	}
 }
 
 export default CartController;
