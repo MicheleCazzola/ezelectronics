@@ -80,10 +80,28 @@ describe("ProductRouter tests:", () => {
                     sellingPrice: 123,
                     arrivalDate: "2024-02-03"
             });
-            console.log(response.body.error);
-
+            
+            const check = await agent
+                .get(baseURL)
+                .query({
+                    grouping: "model",
+                    category: "",
+                    model: "TestModel"
+                });
 
             expect(response.status).toBe(okStatus);
+
+            expect(check.status).toBe(okStatus);
+            expect(check.body).toStrictEqual([{
+                model: "TestModel",
+                category: "Smartphone",
+                quantity: 10,
+                details: "TestDetails",
+                sellingPrice: 123,
+                arrivalDate: "2024-02-03"
+            }]);
+
+           // expect(response.status).toBe(okStatus);
     
         });
 
@@ -2036,10 +2054,21 @@ describe("ProductRouter tests:", () => {
             });
 
             const response = await agent
-                .delete(baseURL + customURL)
+                .delete(baseURL + "/")
                 .send({ model: "TestModel"});
 
+            const check = await agent
+                .get(baseURL)
+                .query({
+                    grouping: "model",
+                    category: "",
+                    model: "TestModel"
+            });
+
             expect(response.status).toBe(okStatus);
+
+            expect(check.status).toBe(404);
+
 
 
         });
@@ -2083,7 +2112,7 @@ describe("ProductRouter tests:", () => {
     });
 
 
-    describe("DELETE - Deletes one product from the database", () => {
+    describe("DELETE - Deletes all products from the database", () => {
 
         let customURL: string;
 
@@ -2126,11 +2155,21 @@ describe("ProductRouter tests:", () => {
             });
 
             const response = await agent
-                .delete(baseURL + customURL)
+                .delete(baseURL + "/")
                 .send({});
+
+            const check = await agent
+                .get(baseURL + "/")
+                .query({
+                    grouping: "",
+                    category: "",
+                    model: ""
+            });
 
             expect(response.status).toBe(okStatus);
 
+            expect(check.status).toBe(200);
+            expect(check.body).toStrictEqual([]);
 
         });
 
