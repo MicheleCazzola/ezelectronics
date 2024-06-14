@@ -972,6 +972,29 @@ describe("Product router test:", () => {
                 expect(resolve.status).toBe(errCode);
 
             });
+
+            test("grouping invalid", async () => {
+
+                const errCode = 422;
+                const err = new Error("Grouping invalid");
+
+                const mockControllerGetAvailableProduct = jest.spyOn(ProductController.prototype, "getAvailableProducts").mockRejectedValueOnce(err);
+
+                const resolve = await request(app)
+                    .get(baseURL + "/available")
+                    .query(
+                        {
+                            grouping: "pippo",
+                            category: "",
+                            model: ""
+                        }
+                    );
+                
+                expect(Authenticator.prototype.isLoggedIn).toHaveBeenCalledTimes(0);
+                expect(mockControllerGetAvailableProduct).toHaveBeenCalledTimes(0);
+                expect(resolve.status).toBe(errCode);
+
+            });
         })
 
         describe("It should return a 422 error if `grouping` is `category` and `category` is null OR `model` is not null", () => {

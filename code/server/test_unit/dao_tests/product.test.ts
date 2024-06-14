@@ -592,7 +592,7 @@ describe("ProductDao test:", () => {
             */
 
             const categoryFiltered = [
-                { SellingPrice: 123, Model: "TestModel2", Category: Category.LAPTOP, ArrivalDate: "2024-06-06", Details: "testDetails", AvailableQuantity: 10 },
+                { SellingPrice: 123, Model: "TestModel2", category: Category.LAPTOP, ArrivalDate: "2024-06-06", Details: "testDetails", AvailableQuantity: 10 },
             ]
 
             const mockDBAll = jest.spyOn(db, "all").mockImplementation((sql, params, callback) => {
@@ -602,13 +602,13 @@ describe("ProductDao test:", () => {
             })
 
             const testProducts = categoryFiltered.map(p => 
-                new Product(p.SellingPrice, p.Model, p.Category, p.ArrivalDate, p.Details, p.AvailableQuantity)
+                new Product(p.SellingPrice, p.Model, p.category, p.ArrivalDate, p.Details, p.AvailableQuantity)
             );
 
 
             const dao = new ProductDAO();
             //Category filters:
-            const result = await dao.getAllProducts("Category", "Laptop", null);
+            const result = await dao.getAllProducts("category", "Laptop", null);
 
             expect(result).toEqual(testProducts);
             expect(mockDBAll).toBeCalledTimes(1);
@@ -633,7 +633,7 @@ describe("ProductDao test:", () => {
 
             const dao = new ProductDAO();
             //Model filters:
-            const result = await dao.getAllProducts("Model", null, "TestModel2");
+            const result = await dao.getAllProducts("model", null, "TestModel2");
 
             expect(result).toEqual(testProducts);
             expect(mockDBAll).toBeCalledTimes(1);
@@ -660,7 +660,7 @@ describe("ProductDao test:", () => {
 
             const dao = new ProductDAO();
             //Model filters:
-            await expect(dao.getAllProducts("Model", null, "TestModel3")).rejects.toThrow(err);
+            await expect(dao.getAllProducts("model", null, "TestModel3")).rejects.toThrow(err);
 
             expect(mockDBAll).toBeCalledTimes(1);
             
@@ -732,7 +732,7 @@ describe("ProductDao test:", () => {
 
             const dao = new ProductDAO();
             //Category filters:
-            const result = await dao.getAllAvailableProducts("Category", "Laptop", null);
+            const result = await dao.getAllAvailableProducts("category", "Laptop", null);
 
             expect(result).toEqual(testProducts);
             expect(mockDBAll).toBeCalledTimes(1);
@@ -759,7 +759,7 @@ describe("ProductDao test:", () => {
 
             const dao = new ProductDAO();
             //Model filters:
-            const result = await dao.getAllAvailableProducts("Model", null, "TestModel2");
+            const result = await dao.getAllAvailableProducts("model", null, "TestModel2");
 
             expect(result).toEqual(testProducts);
             expect(mockDBAll).toBeCalledTimes(1);
@@ -778,7 +778,7 @@ describe("ProductDao test:", () => {
 
             const dao = new ProductDAO();
             //Model filters:
-            await expect(dao.getAllAvailableProducts("Model", null, "TestModel3")).rejects.toThrow(err);
+            await expect(dao.getAllAvailableProducts("model", null, "TestModel3")).rejects.toThrow(err);
 
             expect(mockDBAll).toBeCalledTimes(1);
             
@@ -799,7 +799,7 @@ describe("ProductDao test:", () => {
             
             const dao = new ProductDAO();
             //Model filters:
-            const result = await dao.getAllAvailableProducts("Model", null, "TestModel2");
+            const result = await dao.getAllAvailableProducts("model", null, "TestModel2");
 
             expect(result).toStrictEqual([])
             expect(mockDBAll).toBeCalledTimes(1);

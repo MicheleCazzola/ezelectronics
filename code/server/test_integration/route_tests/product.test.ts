@@ -1136,6 +1136,22 @@ describe("ProductRouter tests:", () => {
 
         });
 
+        test("grouping invalid", async () => {
+
+            await login("a1");
+
+            const response = await agent
+                .get(baseURL + customURL)
+                .query({
+                    grouping: "pippo",
+                    category: "",
+                    model: ""
+            });
+
+            expect(response.status).toBe(422);
+
+        });
+
         
 
         test("get Products - access by non Admin or Manager",async  () =>{
@@ -1310,6 +1326,23 @@ describe("ProductRouter tests:", () => {
 
 
         });
+
+        test("grouping invalid", async () => {
+
+            await login("a1");
+
+            const response = await agent
+                .get(baseURL + customURL)
+                .query({
+                    grouping: "pippo",
+                    category: "",
+                    model: ""
+            });
+
+            expect(response.status).toBe(422);
+
+        });
+
 
         test("get products by model", async () => {
             await login("a1");
