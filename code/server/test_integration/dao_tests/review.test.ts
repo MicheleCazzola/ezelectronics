@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, jest, test } from "@jest/globals";
+import { beforeEach, afterAll, describe, expect, jest, test } from "@jest/globals";
 import crypto from "crypto";
 
 import ReviewDAO from "../../src/dao/reviewDAO";

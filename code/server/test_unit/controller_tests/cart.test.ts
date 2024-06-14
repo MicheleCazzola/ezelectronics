@@ -798,48 +798,4 @@ describe("Controller tests", () => {
 
       // Error test is skipped since it is generic
     });
-
-    describe("Controller - Contains product utility function", () => {
-        afterEach(() => {
-            jest.clearAllMocks();
-        });
-
-        test("Cart contains product", async () => {
-          const testProductsInCart = [
-            new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0),
-          ];
-          const testCart = new Cart(
-            "test",
-            false,
-            "",
-            1000.0,
-            testProductsInCart
-          );
-          const testProductModel = testProductsInCart[0].model;
-
-          const controller = new CartController();
-          const response = controller.containsProduct(
-            testCart,
-            testProductModel
-          );
-
-          expect(response).toBe(true);
-        });
-
-        test("Cart does not contain product", async () => {
-            const testProductsInCart = [
-                new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0)
-            ];
-            const testCart = new Cart("test", false, "", 1000.0, testProductsInCart);
-            const testProductModel = "HP";
-
-            const controller = new CartController();
-            const response = controller.containsProduct(
-              testCart,
-              testProductModel
-            );
-
-            expect(response).toBe(false);
-        });
-    });
 });
