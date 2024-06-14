@@ -255,6 +255,57 @@ describe("ProductController test:", () => {
 
         });
 
+        test("It should set the cahngeDate to today if not provided", async () => {
+
+            const testProduct  = new Product(12, "TestModel", Category.SMARTPHONE, "2023-02-03", "TestDetails", 12);
+
+            await productController.registerProducts(
+                testProduct.model,
+                testProduct.category,
+                testProduct.quantity, 
+                testProduct.details, 
+                testProduct.sellingPrice, 
+                testProduct.arrivalDate
+            );
+
+
+            const newQuantity = 10
+            const expectedQuantity = testProduct.quantity + newQuantity;
+
+            const todayDate = Time.today();
+
+            const result = await productController.changeProductQuantity(testProduct.model, newQuantity, "");
+
+            expect(result).toBe(expectedQuantity);
+
+        });
+
+
+        test("It should reject error if the changeDate is in the future", async () => {
+
+            const testProduct  = new Product(12, "TestModel", Category.SMARTPHONE, "2023-02-03", "TestDetails", 12);
+
+            await productController.registerProducts(
+                testProduct.model,
+                testProduct.category,
+                testProduct.quantity, 
+                testProduct.details, 
+                testProduct.sellingPrice, 
+                testProduct.arrivalDate
+            );
+
+            const err = new DateError();
+
+            const newQuantity = 10
+            const expectedQuantity = testProduct.quantity + newQuantity;
+
+            const futureDate = "2030-03-03";
+
+            await expect(productController.changeProductQuantity(testProduct.model, newQuantity, futureDate)).rejects.toThrow(err);
+
+
+        });
+
         test("it should return an error if the product does not exists", async () =>{
 
             await expect(productController.changeProductQuantity("UnkownModel", 10, Time.today())).rejects.toThrow(new ProductNotFoundError());
