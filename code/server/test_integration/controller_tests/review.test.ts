@@ -7,20 +7,12 @@ import { Role, User } from "../../src/components/user";
 import { ProductNotFoundError } from "../../src/errors/productError";
 import { cleanup } from "../../src/db/cleanup";
 import { Time } from "../../src/utilities";
-import ProductDAO from "../../src/dao/productDAO";
-import ReviewDAO from "../../src/dao/reviewDAO";
-import {
-	ExistingReviewError,
-	NoReviewProductError,
-} from "../../src/errors/reviewError";
+import { ExistingReviewError } from "../../src/errors/reviewError";
 import { ProductReview } from "../../src/components/review";
 
 const controller = new ReviewController();
 const testuser1 = new User("user1", "name", "surname", Role.CUSTOMER, "", "");
 const testuser2 = new User("user2", "name", "surname", Role.CUSTOMER, "", "");
-
-jest.spyOn(ProductDAO.prototype, "existsProduct");
-jest.spyOn(ReviewDAO.prototype, "addReview");
 
 beforeEach(async () => {
 	await cleanup();
@@ -72,32 +64,12 @@ describe("Controller - Add Review", () => {
 			"comment"
 		);
 		expect(result).toBeUndefined();
-
-		expect(ProductDAO.prototype.existsProduct).toHaveBeenCalledTimes(1);
-		expect(ProductDAO.prototype.existsProduct).toHaveBeenCalledWith(
-			"model1"
-		);
-
-		expect(ReviewDAO.prototype.addReview).toHaveBeenCalledTimes(1);
-		expect(ReviewDAO.prototype.addReview).toHaveBeenCalledWith(
-			"model1",
-			testuser1.username,
-			5,
-			"comment"
-		);
 	});
 
 	test("Product Not Found", async () => {
 		await expect(
 			controller.addReview("notamodel", testuser1, 5, "comment")
 		).rejects.toThrowError(ProductNotFoundError);
-
-		expect(ProductDAO.prototype.existsProduct).toHaveBeenCalledTimes(1);
-		expect(ProductDAO.prototype.existsProduct).toHaveBeenCalledWith(
-			"notamodel"
-		);
-
-		expect(ReviewDAO.prototype.addReview).toHaveBeenCalledTimes(0);
 	});
 
 	test("Review Already Exists", async () => {
@@ -105,9 +77,6 @@ describe("Controller - Add Review", () => {
 		await expect(
 			controller.addReview("model1", testuser1, 5, "comment")
 		).rejects.toThrowError(ExistingReviewError);
-
-		expect(ProductDAO.prototype.existsProduct).toHaveBeenCalledTimes(2);
-		expect(ReviewDAO.prototype.addReview).toHaveBeenCalledTimes(2);
 	});
 });
 

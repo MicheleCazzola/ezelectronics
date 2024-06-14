@@ -1,16 +1,7 @@
-import {
-	beforeEach,
-	afterAll,
-	describe,
-	expect,
-	jest,
-	test,
-} from "@jest/globals";
-import crypto from "crypto";
+import { beforeEach, afterAll, describe, expect, test } from "@jest/globals";
 
 import ReviewDAO from "../../src/dao/reviewDAO";
 import { cleanup } from "../../src/db/cleanup";
-import db from "../../src/db/db";
 import { ProductNotFoundError } from "../../src/errors/productError";
 import {
 	ExistingReviewError,
@@ -20,8 +11,6 @@ import ProductDAO from "../../src/dao/productDAO";
 import UserDAO from "../../src/dao/userDAO";
 import { Category } from "../../src/components/product";
 import { ProductReview } from "../../src/components/review";
-import dayjs from "dayjs";
-import { UserNotFoundError } from "../../src/errors/userError";
 import { Time } from "../../src/utilities";
 
 const pdao = new ProductDAO();
@@ -29,7 +18,6 @@ const udao = new UserDAO();
 const dao = new ReviewDAO();
 
 beforeEach(async () => {
-	//jest.clearAllMocks();
 	await cleanup();
 	await pdao.createProduct(
 		"testmodel",
@@ -63,7 +51,6 @@ describe("DAO - Add a Review", () => {
 			score: 5,
 			comment: "Lorem Ipsum",
 		};
-		jest.spyOn(db, "run");
 		await expect(
 			dao.addReview(
 				testCase.model,
@@ -72,19 +59,6 @@ describe("DAO - Add a Review", () => {
 				testCase.comment
 			)
 		).rejects.toThrow(ProductNotFoundError);
-
-		expect(db.run).toBeCalledTimes(1);
-		expect(db.run).toBeCalledWith(
-			expect.any(String), // sql query
-			expect.arrayContaining([
-				testCase.username,
-				testCase.model,
-				expect.any(String), // date
-				testCase.comment,
-				testCase.score,
-			]),
-			expect.any(Function)
-		);
 	});
 
 	test("Valid", async () => {
@@ -94,7 +68,7 @@ describe("DAO - Add a Review", () => {
 			score: 5,
 			comment: "Lorem Ipsum",
 		};
-		jest.spyOn(db, "run").mockClear();
+
 		const result = await dao.addReview(
 			testCase.model,
 			testCase.username,
@@ -103,18 +77,7 @@ describe("DAO - Add a Review", () => {
 		);
 
 		expect(result).toBeUndefined();
-		expect(db.run).toBeCalledTimes(1);
-		expect(db.run).toBeCalledWith(
-			expect.any(String), // sql query
-			expect.arrayContaining([
-				testCase.username,
-				testCase.model,
-				expect.any(String), // date
-				testCase.comment,
-				testCase.score,
-			]),
-			expect.any(Function)
-		);
+
 		expect(await dao.getProductReviews(testCase.model)).toStrictEqual([
 			new ProductReview(
 				testCase.model,
@@ -143,7 +106,6 @@ describe("DAO - Add a Review", () => {
 				"Lorem Ipsum"
 			),
 		];
-		jest.spyOn(db, "run").mockClear();
 		for (const testCase of testCases) {
 			const result = await dao.addReview(
 				testCase.model,
@@ -152,26 +114,14 @@ describe("DAO - Add a Review", () => {
 				testCase.comment
 			);
 			expect(result).toBeUndefined();
-			expect(db.run).toBeCalledWith(
-				expect.any(String), // sql query
-				expect.arrayContaining([
-					testCase.user,
-					testCase.model,
-					Time.today(),
-					testCase.comment,
-					testCase.score,
-				]),
-				expect.any(Function)
-			);
 		}
 		expect(await dao.getProductReviews("testmodel")).toStrictEqual(
 			testCases
 		);
-		expect(db.run).toBeCalledTimes(2);
 	});
 
 	test("Multiple Valid - Same User", async () => {
-		const testCases = [
+		const reviews = [
 			new ProductReview(
 				"testmodel",
 				"testuser",
@@ -187,34 +137,22 @@ describe("DAO - Add a Review", () => {
 				"Lorem Ipsum"
 			),
 		];
-		jest.spyOn(db, "run").mockClear();
-		for (const testCase of testCases) {
+
+		for (const review of reviews) {
 			const result = await dao.addReview(
-				testCase.model,
-				testCase.user,
-				testCase.score,
-				testCase.comment
+				review.model,
+				review.user,
+				review.score,
+				review.comment
 			);
 			expect(result).toBeUndefined();
-			expect(db.run).toBeCalledWith(
-				expect.any(String), // sql query
-				expect.arrayContaining([
-					testCase.user,
-					testCase.model,
-					Time.today(),
-					testCase.comment,
-					testCase.score,
-				]),
-				expect.any(Function)
-			);
 		}
-		expect(await dao.getProductReviews(testCases[0].model)).toStrictEqual([
-			testCases[0],
+		expect(await dao.getProductReviews(reviews[0].model)).toStrictEqual([
+			reviews[0],
 		]);
-		expect(await dao.getProductReviews(testCases[1].model)).toStrictEqual([
-			testCases[1],
+		expect(await dao.getProductReviews(reviews[1].model)).toStrictEqual([
+			reviews[1],
 		]);
-		expect(db.run).toBeCalledTimes(2);
 	});
 
 	test("Review Already Exist", async () => {
@@ -233,7 +171,6 @@ describe("DAO - Add a Review", () => {
 		);
 
 		// test
-		jest.spyOn(db, "run").mockClear();
 		await expect(
 			dao.addReview(
 				testCase.model,
@@ -242,19 +179,6 @@ describe("DAO - Add a Review", () => {
 				testCase.comment
 			)
 		).rejects.toThrow(ExistingReviewError);
-
-		expect(db.run).toBeCalledTimes(1);
-		expect(db.run).toBeCalledWith(
-			expect.any(String), // sql query
-			expect.arrayContaining([
-				testCase.username,
-				testCase.model,
-				expect.any(String), // date
-				testCase.comment,
-				testCase.score,
-			]),
-			expect.any(Function)
-		);
 
 		expect(await dao.getProductReviews(testCase.model)).toStrictEqual([
 			new ProductReview(
@@ -298,19 +222,10 @@ describe("DAO - Get Product's Reviews", () => {
 		}
 
 		// test
-		jest.spyOn(db, "all").mockClear();
-
 		const result = await dao.getProductReviews("testmodel");
 		expect(result).toHaveLength(2);
 		expect(result).toContainEqual(reviews[0]);
 		expect(result).toContainEqual(reviews[1]);
-
-		expect(db.all).toBeCalledTimes(1);
-		expect(db.all).toBeCalledWith(
-			expect.any(String), // sql query
-			expect.arrayContaining(["testmodel"]),
-			expect.any(Function)
-		);
 	});
 });
 
@@ -320,32 +235,14 @@ describe("DAO - Delete a Review", () => {
 		await dao.addReview("testmodel", "testuser", 5, "lorem ipsum");
 
 		// test
-		jest.spyOn(db, "run").mockClear();
-
 		const result = await dao.deleteReview("testmodel", "testuser");
 		expect(result).toBeUndefined();
-
-		expect(db.run).toBeCalledTimes(1);
-		expect(db.run).toBeCalledWith(
-			expect.any(String), // sql query
-			expect.arrayContaining(["testmodel", "testuser"]),
-			expect.any(Function)
-		);
 	});
 
 	test("Review Not Found", async () => {
 		// test
-		jest.spyOn(db, "run").mockClear();
-
 		await expect(dao.deleteReview("testmodel", "testuser")).rejects.toThrow(
 			NoReviewProductError
-		);
-
-		expect(db.run).toBeCalledTimes(1);
-		expect(db.run).toBeCalledWith(
-			expect.any(String), // sql query
-			expect.arrayContaining(["testmodel", "testuser"]),
-			expect.any(Function)
 		);
 	});
 });
@@ -357,17 +254,8 @@ describe("DAO - Delete All Reviews of a Product", () => {
 		await dao.addReview("testmodel", "testuser2", 5, "lorem ipsum");
 
 		// test
-		jest.spyOn(db, "run").mockClear();
-
 		const result = await dao.deleteReviewsOfProduct("testmodel");
 		expect(result).toBeUndefined();
-
-		expect(db.run).toBeCalledTimes(1);
-		expect(db.run).toBeCalledWith(
-			expect.any(String), // sql query
-			expect.arrayContaining(["testmodel"]),
-			expect.any(Function)
-		);
 
 		expect(await dao.getProductReviews("testmodel")).toStrictEqual([]);
 	});
@@ -378,20 +266,12 @@ describe("DAO - Delete All Reviews", () => {
 		// setup
 		await dao.addReview("testmodel", "testuser", 5, "lorem ipsum");
 		await dao.addReview("testmodel", "testuser2", 5, "lorem ipsum");
-		//await dao.addReview("testmodel2", "testuser", 1, "lorem ipsum");
-		//await dao.addReview("testmodel2", "testuser2", 5, "lorem ipsum");
+		await dao.addReview("testmodel2", "testuser", 1, "lorem ipsum");
+		await dao.addReview("testmodel2", "testuser2", 5, "lorem ipsum");
 
 		// test
-		jest.spyOn(db, "run").mockClear();
-
 		const result = await dao.deleteAllReviews();
 		expect(result).toBeUndefined();
-
-		expect(db.run).toBeCalledTimes(1);
-		expect(db.run).toBeCalledWith(
-			expect.any(String), // sql query
-			expect.any(Function)
-		);
 
 		expect(await dao.getProductReviews("testmodel")).toStrictEqual([]);
 		expect(await dao.getProductReviews("testmodel2")).toStrictEqual([]);

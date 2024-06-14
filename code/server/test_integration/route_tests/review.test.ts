@@ -1,4 +1,4 @@
-import { jest, beforeEach, describe, test, expect, afterEach } from "@jest/globals";
+import { beforeEach, describe, test, expect, afterEach } from "@jest/globals";
 import { app } from "../../index";
 
 import request from "supertest";
@@ -6,10 +6,6 @@ import { Role } from "../../src/components/user";
 import { cleanup } from "../../src/db/cleanup";
 import { Time } from "../../src/utilities";
 import { Category } from "../../src/components/product";
-import { log } from "console";
-import exp from "constants";
-import { exitCode } from "process";
-
 const baseURL = "/ezelectronics/reviews";
 let agent: any = undefined;
 
