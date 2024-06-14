@@ -195,7 +195,7 @@ describe("Delete All Reviews of a Product", () => {
 
 		const controller = new ReviewController();
 		expect(
-			controller.deleteReview("notamodel", testuser)
+			controller.deleteReviewsOfProduct("notamodel")
 		).rejects.toThrowError(ProductNotFoundError);
 
 		expect(ProductDAO.prototype.existsProduct).toHaveBeenCalledTimes(1);
