@@ -196,9 +196,7 @@ describe("Controller - Delete All Reviews of a Product", () => {
 		await controller.addReview("model2", testuser1, 5, "comment");
 
 		await controller.deleteReviewsOfProduct("model1");
-		expect(controller.getProductReviews("model1")).resolves.toStrictEqual(
-			[]
-		);
+		expect(await controller.getProductReviews("model1")).toStrictEqual([]);
 		const res = await controller.getProductReviews("model2");
 		expect(res).toStrictEqual([
 			new ProductReview(
