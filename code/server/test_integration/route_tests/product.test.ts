@@ -118,7 +118,6 @@ describe("ProductRouter tests:", () => {
         sellingPrice: 123,
         arrivalDate: "",
       });
-      console.log(response.body.error);
 
       expect(response.status).toBe(okStatus);
     });
@@ -195,7 +194,6 @@ describe("ProductRouter tests:", () => {
         sellingPrice: 123,
         arrivalDate: "2024-02-03",
       });
-      console.log(response.body.error);
 
       expect(response.status).toBe(401);
     });
