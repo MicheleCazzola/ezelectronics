@@ -126,7 +126,68 @@
 =====GIUSEPPE
 | Test case name | Object(s) tested | Test level | Technique used |
 | :------------: | :--------------: | :--------: | :------------: |
-| | | | |
+| TP1: ProductDAO - createProduct test | createProduct (ProductDAO) | unit | WB (statement coverage) |
+| TP2: ProductDAO - existsProduct test | existProduct (ProductDAO) | unit | WB (statement coverage) |
+| TP3: ProductDAO - getProductByModel test | getProductByModel (ProductDAO) | unit | WB (statement coverage) |
+| TP4: ProductDAO - increaseQuantity tests | increaseQuantity (ProductDAO) | unit | WB (statement coverage) |
+| TP5: ProductDAO - decreaseQuantity test | decreaseQuantity (ProductDAO) | unit | WB (statement coverage) |
+| TP6: ProductDAO - getAllProducts test| getAllProducts (ProductDAO) | unit | WB (statement coverage) |
+| TP7: ProductDAO - getAllAvailableProducts test | getAllAvailableProducts (ProductDAO) | unit | WB (statement coverage) |
+| TP8: ProductDAO - deleteProducts test| deleteProducts (ProductDAO) | unit | WB (statement coverage) |
+| TP8: ProductDAO - deleteProductByModel test| deleteProductByModel (ProductDAO) | unit | WB (statement coverage) |
+| TP9: ProductDAO - getProductQuantity test| getProductQuantity (ProductDAO) | unit | WB (statement coverage) |
+| TP10: ProductController - registerProducts tests| registerProducts (ProductController) | unit | WB (statement coverage) |
+| TP11: ProductController - productExist test | productExist (ProductController) | unit | WB (statement coverage) |
+| TP12: ProductController - productByModel test | productByModel (ProductController) | unit | WB (statement coverage) |
+| TP13: ProductController - changeProductquantity test| changeProductQuantity (ProductController) | unit | WB (statement coverage) |
+| TP14: ProductController - sellProducts test| sellProduct (ProductController) | unit | WB (statement coverage) |
+| TP15: ProductController - getProducts tests| getProducts (ProductController) | unit | WB (statement coverage) |
+| TP16: ProductController - getAvailableProducts test | getAllAvailableProducts (ProductController) | unit | WB (statement coverage) |
+| TP17: ProductController - deleteAllProducts test | deleteAllProducts (ProductController) | unit | WB (statement coverage) |
+| TP18: ProductController - deleteProduct test | deleteProduct (ProductController) | unit | WB (statement coverage) |
+| TP19: ProductRoute - POST - Testing of the Route for registering the arrival of a set of product | POST ezelectronics/products (ProductRoute) | unit | WB (statement coverage) |
+| TP20: ProductRoute - Testing body content | POST ezelectronics/products (ProductRoute) | unit | WB (statement coverage) |
+| TP21: ProductRoute - PATCH - Testing of the Route for registering the increase in quantity of a product | PATCH ezelectronics/products/:model (ProductRoute) | unit | WB (statement coverage) |
+| TP22: ProductRoute - Date validation testing | PATCH ezelectronics/products/:model (ProductRoute) | unit | WB (statement coverage) |
+| TP23: ProductRoute - PATCH - Testing of the Route for selling a product| PATCH ezelectronics/products/:model/sell (ProductRoute) | unit | WB (statement coverage) |
+| TP24: ProductRoute - Date validation testing | PATCH ezelectronics/products/:model/sell (ProductRoute) | unit | WB (statement coverage) |
+| TP25: ProductRoute - GET - Testing of Route for retrieving all products | GET ezelectronics/products (ProductRoute) | unit | WB (statement coverage) |
+| TP26: ProductRoute - It should return a 422 error if `grouping` is null and any of `category` or `model` is not null | GET ezelectronics/products (ProductRoute) | unit | WB (statement coverage) |
+| TP27: ProductRoute - It should return a 422 error if `grouping` is `category` and `category` is null OR `model` is not null | GET ezelectronics/products (ProductRoute) | unit | WB (statement coverage) |
+| TP28: ProductRoute - It should return a 422 error if `grouping` is `model` and `model` is null OR `category` is not null | GET ezelectronics/products (ProductRoute) | unit | WB (statement coverage) |
+| TP29: ProductRoute - GET - Testing of the Route for retrieving all available products | GET ezelectronics/products/available (ProductRoute) | unit | WB (statement coverage) |
+| TP30: ProductRoute - It should return a 422 error if `grouping` is null and any of `category` or `model` is not null | GET ezelectronics/products/available (ProductRoute) | unit | WB (statement coverage) |
+| TP31: ProductRoute - It should return a 422 error if `grouping` is `category` and `category` is null OR `model` is not null | GET ezelectronics/products/available (ProductRoute) | unit | WB (statement coverage) |
+| TP32: ProductRoute - It should return a 422 error if `grouping` is `model` and `model` is null OR `category` is not null | GET ezelectronics/products/available (ProductRoute) | unit | WB (statement coverage) |
+| TP33: ProductRoute - DELETE - Testing of the Route for deleting all products | DELETE ezelectronics/products (ProductRoute) | unit | WB (statement coverage) |
+| TP33: ProductRoute - DELETE - Testing of the Route for deleting a product | DELETE ezelectronics/products/:model (ProductRoute) | unit | WB (statement coverage) |
+| TP34: ProductDao - createProduct test  | createProduct (ProductDao) | integration | BB (equivalent classes partitioning) |
+| TP35: ProductDao - existProducts tests  | existsProduct (ProductDao) | integration | BB (equivalent classes partitioning) |
+| TP36: ProductDao - getProductByModel tests | getProductByModel (ProductDao) | integration | BB (equivalent classes partitioning) |
+| TP37: ProductDao - increaseQuantity Test  | increaseQuantity (ProductDao) | integration | BB (equivalent classes partitioning) |
+| TP38: ProductDao - decreaseQuantity test | decreaseQuantity (ProductDao) | integration | BB (equivalent classes partitioning) |
+| TP39: ProductDao - getAllProducts test | getAllProducts  (ProductDao) | integration | BB (equivalent classes partitioning) |
+| TP40: ProductDao - getAllAvailableProducts test | getAllAvailableProducts (ProductDao) | integration | BB (equivalent classes partitioning) |
+| TP41: ProductDao - deleteProducts test | deleteProducts (ProductDao) | integration | BB (equivalent classes partitioning) |
+| TP42: ProductDao - deleteProductByModel tests | deleteProductByModel (ProductDao) | integration | BB (equivalent classes partitioning) |
+| TP43: ProductDao - getProductQuantity test | getProductQuantity (ProductDao) | integration | BB (equivalent classes partitioning) |
+| TP44: ProductController - registerProduct test | registerProducts (ProductController) | integration | BB (equivalent classes partitioning) |
+| TP45: ProductController - productExist test | productExist (ProductController) | integration | BB (equivalent classes partitioning) |
+| TP46: ProductController - productByModel test | productByModel (ProductController) | integration | BB (equivalent classes partitioning) |
+| TP47: ProductController - changeProductQuantity test | changeProductQuantity (ProductController) | integration | BB (equivalent classes partitioning) |
+| TP48: ProductController - sellProduct test | sellProduct (ProductController) | integration | BB (equivalent classes partitioning) |
+| TP49: ProductController - getProducts test | getProducts (ProductController) | integration | BB (equivalent classes partitioning) |
+| TP50: ProductController - getAvailableProducts test| getAvailableProducts (ProductController) | integration | BB (equivalent classes partitioning) |
+| TP51: ProductController - deleteAllProducts test | deleteAllProducts (ProductController) | integration | BB (equivalent classes partitioning) |
+| TP52: ProductController - deleteProduct test | deleteProduct (ProductController) | integration | BB (equivalent classes partitioning) |
+| TP53: ProductRoute - POST -  Route for registering the arrival of a set of products | POST ezelectronics/products (ProductRoute) | integration | BB (equivalent classes partitioning) |
+| TP54: ProductRoute - PATCH - Route for registering the increase in quantity of a product | PATCH ezelectronics/products/:model (ProductRoute) | integration | BB (equivalent classes partitioning) |
+| TP55: ProductRoute - PATCH -  Route for selling a product | PATCH ezelectronics/products/:model/sell (ProductRoute) | integration | BB (equivalent classes partitioning) |
+| TP56: ProductRoute - GET - Route for retrieving all products | GET ezelectronics/products (ProductRoute) | integration | BB (equivalent classes partitioning) |
+| TP57: ProductRoute - GET - Route for retrieving all Available products | GET ezelectronics/products/available (ProductRoute) | integration | BB (equivalent classes partitioning) |
+| TP58: ProductRoute - DELETE - Deletes one product from the database | DELETE ezelectronics/products/:model (ProductRoute) | integration | BB (equivalent classes partitioning) |
+| TP59: ProductRoute - DELETE - Deletes all products from the database | DELETE ezelectronics/products (ProductRoute) | integration | BB (equivalent classes partitioning) |
+
 
 =====FLAVIANA
 | Test case name | Object(s) tested | Test level | Technique used |
