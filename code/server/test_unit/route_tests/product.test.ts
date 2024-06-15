@@ -15,19 +15,6 @@ const mockMiddleware = jest.fn((req, res, next: any) => next());
  
 
 jest.mock("../../src/routers/auth");
-/*
-jest.mock('express-validator', () => ({
-    check: jest.fn().mockImplementation(() => ({
-        isIn: jest.fn().mockReturnThis(),
-        optional: jest.fn().mockReturnThis(),
-        isString: jest.fn().mockReturnThis(),
-    })),
-    validationResult: jest.fn().mockImplementation((req) => ({
-        isEmpty: () => true,
-        array: () => [],
-    })),
-}));
-*/
 
 
 describe("Product router test:", () => {
@@ -63,7 +50,6 @@ describe("Product router test:", () => {
 
         test("it should return 200 if the body content is valid", async () =>{
 
-            //const testProduct = new Product(123, "TestModel", Category.SMARTPHONE, "2024-02-03", "TestDetails", 10);
             const statusOk = 200;
             
             const mockControllerRegisterProducts = jest.spyOn(ProductController.prototype, "registerProducts").mockResolvedValueOnce();
