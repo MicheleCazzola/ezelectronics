@@ -103,7 +103,6 @@ class CartDAO {
 				let rowid = this.lastID;
 				const sql2 = "SELECT CartId FROM CART WHERE rowid = ?";
 				db.get(sql2, [rowid], (err, row: any) => {
-					//console.log(row);
 					if (err) reject(err);
 					else if (!row) reject(new CartNotFoundError());
 					else resolve(row.CartId);
@@ -117,7 +116,6 @@ class CartDAO {
 			const sql =
 				"SELECT CartId FROM CART WHERE Username = ? AND Paid = 0";
 			db.get(sql, [user.username], (err, row: any) => {
-				//console.log(err, row);
 				if (err) reject(err);
 				else if (!row) reject(new CartNotFoundError());
 				else resolve(row.CartId);

@@ -35,13 +35,6 @@ class ReviewDAO {
 					[username, model, today, comment, score],
 					function (err: Error) {
 						if (err) {
-							//console.log(err);
-
-							// console.log(`Name: ${err.name}`);
-							// console.log(`Message: ${err.message}`);
-
-							// console.log(`Error: ${err.stack}`);
-
 							// Only foreign key failure is due to missing model
 							if (
 								err.message.includes(
@@ -64,7 +57,6 @@ class ReviewDAO {
 					}
 				);
 			} catch (error) {
-				//console.log(`Error caught: ${error}`);
 				reject(error);
 			}
 		});
@@ -162,7 +154,6 @@ class ReviewDAO {
 				db.run(query, [model], function (err: Error | null) {
 					// Should not happen
 					if (err) {
-						//console.log(err);
 						reject(err);
 					} else {
 						// Standard case

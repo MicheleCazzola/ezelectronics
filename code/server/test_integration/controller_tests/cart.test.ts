@@ -494,7 +494,7 @@ describe("Controller tests", () => {
 			).rejects.toBeInstanceOf(CartNotFoundError);
 		});
 
-		test("Checkout failed - Unpaid cart present, but not products inside", async () => {
+		test("Checkout failed - Unpaid cart present, but no products inside", async () => {
 			const testUser = new User(
 				"test",
 				"test",
@@ -616,7 +616,6 @@ describe("Controller tests", () => {
 			expect(product2.quantity).toBe(testNewProductInCart2.quantity + 1);
 		});
 
-		// Fails because of productController not certain behavior
 		test("Checkout failed - Unpaid cart present, but at least a product with empty stock", async () => {
 			const testUser1 = new User(
 				"test1",

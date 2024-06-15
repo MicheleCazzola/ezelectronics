@@ -77,11 +77,8 @@ class CartController {
     let unavailable_product = false;
     let empty_stock: boolean;
 
-    //console.log(cart);
-
     for (let product of cart.products) {
       let quantity = await this.prod_dao.getProductQuantity(product.model);
-      //console.log(quantity);
       if (quantity === 0) {
         empty_stock = true;
         break;

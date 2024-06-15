@@ -50,7 +50,6 @@ class ReviewRoutes {
 						req.body.comment
 					)
 					.then(() => {
-						//console.log("200 OK!!!");
 						res.status(200).send();
 					})
 					.catch((err) => {
