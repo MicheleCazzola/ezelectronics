@@ -277,11 +277,11 @@ Per ognuno dei quattro componenti presenti (User, Cart, Review, Product) è stat
 |         FR3.7          |                                                                |
 |         FR3.8          |                                                                |
 |        **FR4**         |                                                                |
-|         FR4.1          |                                                                |
-|         FR4.2          |                                                                |
-|         FR4.3          |                                                                |
-|         FR4.4          |                                                                |
-|         FR4.5          |                                                                |
+|         FR4.1          |                TR1, TR6, TR11, TR16, TR21, TR26                |
+|         FR4.2          |                TR2, TR7, TR12, TR17, TR22, TR27                |
+|         FR4.3          |                TR3, TR8, TR13, TR18, TR23, TR28                |
+|         FR4.4          |                TR4, TR9, TR14, TR19, TR24, TR29                |
+|         FR4.5          |               TR5, TR10, TR15, TR20, TR25, TR30                |
 |        **FR5**         |                           TC1 - TC56                           |
 |         FR5.1          |                  TC1,TC13,TC21,TC31,TC42,TC50                  |
 |         FR5.2          |    TC2,TC3,TC5,TC7,TC16,TC22,TC29,TC30,TC32,TC33,TC41,TC49     |
@@ -348,11 +348,11 @@ Per ognuno dei quattro componenti presenti (User, Cart, Review, Product) è stat
 |   14.1   |                                             |
 |   15.1   | TC11,TC12,TC15,TC28,TC39,TC40,TC47,TC56     |
 |   16.1   | TC10,TC20,TC27,TC38,TC48,TC55               |
-|   17.1   |                                             |
-|   17.2   |                                             |
-|   18.1   |                                             |
-|   19.1   |                                             |
-|   19.2   |                                             |
+|   17.1   |      TR1, TR6, TR11, TR16, TR21, TR26       |
+|   17.2   |      TR3, TR8, TR13, TR18, TR23, TR28       |
+|   18.1   |      TR2, TR7, TR12, TR17, TR22, TR27       |
+|   19.1   |      TR4, TR9, TR14, TR19, TR24, TR29       |
+|   19.2   |      TR5, TR10, TR15, TR20, TR25, TR30      |
 
 ## Coverage white box
 
