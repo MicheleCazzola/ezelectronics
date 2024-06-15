@@ -18,10 +18,11 @@
 ![alt text](media/dependency_graph.png)
 
 # Integration approach
-
-    1. DAO + DB
-    2. Controller + DAO + DB
-    3. Route + Controller + DAO + DB
+Per ognuno dei quattro componenti presenti (User, Cart, Review, Product) è stato seguito il seguente approccio:
+  1. DAO unit test, Controller unit test, Route unit test
+  2. DAO + DB integration test
+  3. Controller + DAO + DB integration test
+  4. API test, invocando direttamente le routes del server
 
 # Tests
 
@@ -50,44 +51,43 @@
 | TC18: CartController - Clear cart | clearCart (CartController) | unit | WB (statement coverage) |
 | TC19: CartController - Remove product from cart | removeProductFromCart (CartController) | unit | WB (statement coverage) |
 | TC20: CartController - Delete all carts | deleteAllCarts (CartController) | unit | WB (statement coverage) |
-| TC21: CartController - Contains product utility function | containsProduct (CartController) | unit | WB (statement coverage) |
-| TC22: CartRoutes - Get current cart | GET ezelectronics/carts (CartRoutes) | unit | WB (statement coverage) |
-| TC23: CartRoutes - Add product to cart | POST ezelectronics/carts (CartRoutes) | unit | WB (statement coverage) |
-| TC24: CartRoutes - Checkout cart | PATCH ezelectronics/carts (CartRoutes) | unit | WB (statement coverage) |
-| TC25: CartRoutes - Get paid carts | GET ezelectronics/carts/history (CartRoutes) | unit | WB (statement coverage) |
-| TC26: CartRoutes - Remove product from cart | DELETE ezelectronics/carts/products/:model (CartRoutes) | unit | WB (statement coverage) |
-| TC27: CartRoutes - Empty current cart | DELETE ezelectronics/carts/current (CartRoutes) | unit | WB (statement coverage) |
-| TC28: CartRoutes - Delete all carts | DELETE ezelectronics/carts (CartRoutes) | unit | WB (statement coverage) |
-| TC29: CartRoutes - Get all carts | GET ezelectronics/carts/all (CartRoutes) | unit | WB (statement coverage) |
-| TC30: CartDAO - Create cart | createCart (CartDAO) | integration | BB (equivalent classes partitioning) |
-| TC31: CartDAO - Add product to cart | addProductToCart (CartDAO) | integration | BB (equivalent classes partitioning) |
-| TC32: CartDAO - Get current cart | getCurrentCart (CartDAO) | integration | BB (equivalent classes partitioning) |
-| TC33: CartDAO - Get product | getProduct (CartDAO) | integration | BB (equivalent classes partitioning) |
-| TC34: CartDAO - Get current cart id | getCurrentCartId (CartDAO) | integration | BB (equivalent classes partitioning) |
-| TC35: CartDAO - Checkout cart | checkoutCart (CartDAO) | integration | BB (equivalent classes partitioning) |
-| TC36: CartDAO - Get paid carts | fetchPaidCarts (CartDAO) | integration | BB (equivalent classes partitioning) |
-| TC37: CartDAO - Remove product from cart | removeProductFromCart (CartDAO) | integration | BB (equivalent classes partitioning) |
-| TC38: CartDAO - Clear cart | clearCart (CartDAO) | integration | BB (equivalent classes partitioning) |
-| TC39: CartDAO - Delete all carts | deleteAllCarts (CartDAO) | integration | BB (equivalent classes partitioning) |
-| TC40: CartDAO - Get all carts | fetchAllCarts (CartDAO) | integration | BB (equivalent classes partitioning) |
-| TC41: CartDAO - Fetch product in cart | fetchProducts (CartDAO) | integration | BB (equivalent classes partitioning) |
-| TC42: CartController - Add product to cart | addToCart (CartController) | integration | BB (equivalent classes partitioning) |
-| TC43: CartController - Get cart | getCart (CartController) | integration | BB (equivalent classes partitioning) |
-| TC44: CartController - Checkout cart | checkoutCart (CartController) | integration | BB (equivalent classes partitioning) |
-| TC45: CartController - Clear current cart | clearCart (CartController) | integration | BB (equivalent classes partitioning) |
-| TC46: CartController - Remove product from cart | removeProductFromCart (CartController) | integration | BB (equivalent classes partitioning) |
-| TC47: CartController - Get all customer carts | getCustomerCarts (CartController) | integration | BB (equivalent classes partitioning) |
-| TC48: CartController - Get all carts | getAllCarts (CartController) | integration | BB (equivalent classes partitioning) |
-| TC49: CartController - Delete all carts | deleteAllCarts (CartController) | integration | BB (equivalent classes partitioning) |
-| TC50: CartRoutes - Add product to cart | POST ezelectronics/carts (CartRoutes) | API | BB (equivalent classes partitioning) |
-| TC51: CartRoutes - Get current cart | GET ezelectronics/carts (CartRoutes) | API | BB (equivalent classes partitioning) |
-| TC52: CartRoutes - Checkout cart | PATCH ezelectronics/carts (CartRoutes) | API | BB (equivalent classes partitioning) |
-| TC53: CartRoutes - Get paid carts | GET ezelectronics/carts/history (CartRoutes) | API | BB (equivalent classes partitioning) |
-| TC54: CartRoutes - Remove product from cart | DELETE ezelectronics/carts/products/:model (CartRoutes) | API | BB (equivalent classes partitioning) |
-| TC54.1: CartRoutes - Remove product from cart failed - Model string empty | DELETE ezelectronics/carts/products/:model (CartRoutes) | API | WB (statement coverage) |
-| TC55: CartRoutes - Empty current cart | DELETE ezelectronics/carts/current (CartRoutes) | API | BB (equivalent classes partitioning) |
-| TC56: CartRoutes - Delete all carts | DELETE ezelectronics/carts (CartRoutes) | API | BB (equivalent classes partitioning) |
-| TC57: CartRoutes - Get all carts | GET ezelectronics/carts/all (CartRoutes) | API | BB (equivalent classes partitioning) |
+| TC21: CartRoutes - Get current cart | GET ezelectronics/carts (CartRoutes) | unit | WB (statement coverage) |
+| TC22: CartRoutes - Add product to cart | POST ezelectronics/carts (CartRoutes) | unit | WB (statement coverage) |
+| TC23: CartRoutes - Checkout cart | PATCH ezelectronics/carts (CartRoutes) | unit | WB (statement coverage) |
+| TC24: CartRoutes - Get paid carts | GET ezelectronics/carts/history (CartRoutes) | unit | WB (statement coverage) |
+| TC25: CartRoutes - Remove product from cart | DELETE ezelectronics/carts/products/:model (CartRoutes) | unit | WB (statement coverage) |
+| TC26: CartRoutes - Empty current cart | DELETE ezelectronics/carts/current (CartRoutes) | unit | WB (statement coverage) |
+| TC27: CartRoutes - Delete all carts | DELETE ezelectronics/carts (CartRoutes) | unit | WB (statement coverage) |
+| TC28: CartRoutes - Get all carts | GET ezelectronics/carts/all (CartRoutes) | unit | WB (statement coverage) |
+| TC29: CartDAO - Create cart | createCart (CartDAO) | integration | BB (equivalent classes partitioning) |
+| TC30: CartDAO - Add product to cart | addProductToCart (CartDAO) | integration | BB (equivalent classes partitioning) |
+| TC31: CartDAO - Get current cart | getCurrentCart (CartDAO) | integration | BB (equivalent classes partitioning) |
+| TC32: CartDAO - Get product | getProduct (CartDAO) | integration | BB (equivalent classes partitioning) |
+| TC33: CartDAO - Get current cart id | getCurrentCartId (CartDAO) | integration | BB (equivalent classes partitioning) |
+| TC34: CartDAO - Checkout cart | checkoutCart (CartDAO) | integration | BB (equivalent classes partitioning) |
+| TC35: CartDAO - Get paid carts | fetchPaidCarts (CartDAO) | integration | BB (equivalent classes partitioning) |
+| TC36: CartDAO - Remove product from cart | removeProductFromCart (CartDAO) | integration | BB (equivalent classes partitioning) |
+| TC37: CartDAO - Clear cart | clearCart (CartDAO) | integration | BB (equivalent classes partitioning) |
+| TC38: CartDAO - Delete all carts | deleteAllCarts (CartDAO) | integration | BB (equivalent classes partitioning) |
+| TC39: CartDAO - Get all carts | fetchAllCarts (CartDAO) | integration | BB (equivalent classes partitioning) |
+| TC40: CartDAO - Fetch products in cart | fetchProducts (CartDAO) | integration | BB (equivalent classes partitioning) |
+| TC41: CartController - Add product to cart | addToCart (CartController) | integration | BB (equivalent classes partitioning) |
+| TC42: CartController - Get cart | getCart (CartController) | integration | BB (equivalent classes partitioning) |
+| TC43: CartController - Checkout cart | checkoutCart (CartController) | integration | BB (equivalent classes partitioning) |
+| TC44: CartController - Clear current cart | clearCart (CartController) | integration | BB (equivalent classes partitioning) |
+| TC45: CartController - Remove product from cart | removeProductFromCart (CartController) | integration | BB (equivalent classes partitioning) |
+| TC46: CartController - Get all customer carts | getCustomerCarts (CartController) | integration | BB (equivalent classes partitioning) |
+| TC47: CartController - Get all carts | getAllCarts (CartController) | integration | BB (equivalent classes partitioning) |
+| TC48: CartController - Delete all carts | deleteAllCarts (CartController) | integration | BB (equivalent classes partitioning) |
+| TC49: CartRoutes - Add product to cart | POST ezelectronics/carts (CartRoutes) | API | BB (equivalent classes partitioning) |
+| TC50: CartRoutes - Get current cart | GET ezelectronics/carts (CartRoutes) | API | BB (equivalent classes partitioning) |
+| TC51: CartRoutes - Checkout cart | PATCH ezelectronics/carts (CartRoutes) | API | BB (equivalent classes partitioning) |
+| TC52: CartRoutes - Get paid carts | GET ezelectronics/carts/history (CartRoutes) | API | BB (equivalent classes partitioning) |
+| TC53: CartRoutes - Remove product from cart | DELETE ezelectronics/carts/products/:model (CartRoutes) | API | BB (equivalent classes partitioning) |
+| TC53.1: CartRoutes - Remove product from cart failed - Model string empty | DELETE ezelectronics/carts/products/:model (CartRoutes) | API | WB (statement coverage) |
+| TC54: CartRoutes - Empty current cart | DELETE ezelectronics/carts/current (CartRoutes) | API | BB (equivalent classes partitioning) |
+| TC55: CartRoutes - Delete all carts | DELETE ezelectronics/carts (CartRoutes) | API | BB (equivalent classes partitioning) |
+| TC56: CartRoutes - Get all carts | GET ezelectronics/carts/all (CartRoutes) | API | BB (equivalent classes partitioning) |
 
 =====FRANCESCO
 | Test case name | Object(s) tested | Test level | Technique used |
@@ -282,15 +282,15 @@
 |         FR4.3          |                                                                |
 |         FR4.4          |                                                                |
 |         FR4.5          |                                                                |
-|        **FR5**         |                           TC1 - TC57                           |
-|         FR5.1          |                  TC1,TC13,TC22,TC32,TC43,TC51                  |
-|         FR5.2          |    TC2,TC3,TC5,TC7,TC16,TC23,TC30,TC31,TC33,TC34,TC42,TC50     |
-|         FR5.3          |             TC1,TC4,TC17,TC24,TC32,TC35,TC44,TC52              |
-|         FR5.4          |             TC6,TC12,TC14,TC25,TC36,TC41,TC47,TC53             |
-|         FR5.5          |     TC1,TC7,TC8,TC19,TC26,TC32,TC34,TC37,TC46,TC54,TC54.1      |
-|         FR5.6          |             TC7,TC9,TC18,TC27,TC34,TC38,TC45,TC55              |
-|         FR5.7          |            TC11,TC12,TC15,TC28,TC36,TC41,TC48,TC57             |
-|         FR5.8          |                 TC10,TC20,TC29,TC39,TC49,TC56                  |
+|        **FR5**         |                           TC1 - TC56                           |
+|         FR5.1          |                  TC1,TC13,TC21,TC31,TC42,TC50                  |
+|         FR5.2          |    TC2,TC3,TC5,TC7,TC16,TC22,TC29,TC30,TC32,TC33,TC41,TC49     |
+|         FR5.3          |             TC1,TC4,TC17,TC23,TC31,TC34,TC43,TC51              |
+|         FR5.4          |             TC6,TC12,TC14,TC24,TC35,TC40,TC46,TC52             |
+|         FR5.5          |     TC1,TC7,TC8,TC19,TC25,TC31,TC33,TC36,TC45,TC53,TC53.1      |
+|         FR5.6          |             TC7,TC9,TC18,TC26,TC33,TC37,TC44,TC54              |
+|         FR5.7          |            TC11,TC12,TC15,TC27,TC35,TC40,TC47,TC56             |
+|         FR5.8          |                 TC10,TC20,TC28,TC38,TC48,TC55                  |
 
 | Scenario |                   Test(s)                   |
 | :------: | :-----------------------------------------: |
@@ -329,25 +329,25 @@
 |   8.9    |                                             |
 |   9.1    |                                             |
 |   9.2    |                                             |
-|   10.1   |                                             |
-|   10.2   |                                             |
-|   10.3   |                                             |
-|   10.4   |                                             |
-|   10.5   |                                             |
-|   10.6   |                                             |
-|   10.7   |                                             |
-|   10.8   |                                             |
-|   10.9   |                                             |
-|  10.10   |                                             |
-|  10.11   |                                             |
-|  10.12   |                                             |
+|   10.1   |     TC1,TC13,TC21,TC31,TC42,TC50            |
+|   10.2   |     TC6,TC12,TC14,TC24,TC35,TC40,TC46,TC52  |
+|   10.3   | TC2,TC3,TC5,TC7,TC16,TC22,TC29,TC30,TC32,TC33,TC41,TC49 |
+|   10.4   | TC2,TC16,TC22,TC32,TC41,TC49                |
+|   10.5   | TC2,TC16,TC22,TC32,TC41,TC49                |
+|   10.6   |  TC1,TC4,TC17,TC23,TC31,TC34,TC43,TC51      |
+|   10.7   |  TC1,TC17,TC23,TC31,TC43,TC51               |
+|   10.8   |  TC1,TC17,TC23,TC31,TC43,TC51               |
+|   10.9   | TC8,TC19,TC25,TC33,TC36,TC45,TC53,TC53.1,TP2,TP35 |
+|  10.10   | TC8,TC19,TC25,TC36,TC45,TC53,TC53.1,TP2,TP35 |
+|  10.11   | TC7,TC8,TC19,TC25,TC33,TC36,TC45,TC53,TC53.1,TP2,TP35 |
+|  10.12   | TC7,TC8,TC19,TC25,TC33,TC36,TC45,TC53,TC53.1,TP2,TP35 |
 |   11.1   |                                             |
 |   11.2   |                                             |
 |   12.1   |                                             |
 |   13.1   |                                             |
 |   14.1   |                                             |
-|   15.1   |                                             |
-|   16.1   |                                             |
+|   15.1   | TC11,TC12,TC15,TC28,TC39,TC40,TC47,TC56     |
+|   16.1   | TC10,TC20,TC27,TC38,TC48,TC55               |
 |   17.1   |                                             |
 |   17.2   |                                             |
 |   18.1   |                                             |
