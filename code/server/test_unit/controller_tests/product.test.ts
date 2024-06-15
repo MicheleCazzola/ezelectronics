@@ -411,7 +411,7 @@ describe("Controller tests", () => {
     });
 
 
-    describe("deleteProdutc tess:", () => {
+    describe("deleteProduct test:", () => {
 
         test("It should return true in case of sucess", async () => {
 
