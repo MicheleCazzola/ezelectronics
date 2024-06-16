@@ -331,7 +331,7 @@ Per ognuno dei quattro componenti presenti (User, Cart, Review, Product) è stat
 |   8.8    |         TP7, TP17, TP30, TP32, TP42, TP52, TP59         |
 |   8.9    |         TP7, TP17, TP30, TP33, TP42, TP52, TP59         |
 |   9.1    |               T9, T19, T35 ,T44, T54, T60               |
-|   9.2    |               T8, T18, T34, T43, T53, T61               |
+|   9.2    |               T9, T19, T35 ,T44, T54, T60               |
 |   10.1   |              TC1,TC13,TC21,TC31,TC42,TC50               |
 |   10.2   |         TC6,TC12,TC14,TC24,TC35,TC40,TC46,TC52          |
 |   10.3   | TC2,TC3,TC5,TC7,TC16,TC22,TC29,TC30,TC32,TC33,TC41,TC49 |
@@ -348,7 +348,7 @@ Per ognuno dei quattro componenti presenti (User, Cart, Review, Product) è stat
 |   11.2   |                                                         |
 |   12.1   |              TU9,TU16,TU23,TU35,TU42,TU49               |
 |   13.1   |              TU7,TU15,TU22,TU33,TU41,TU48               |
-|   14.1   |                                                         |
+|   14.1   |               T8, T18, T34, T43, T53, T61               |
 |   15.1   |         TC11,TC12,TC15,TC28,TC39,TC40,TC47,TC56         |
 |   16.1   |              TC10,TC20,TC27,TC38,TC48,TC55              |
 |   17.1   |            TR1, TR6, TR11, TR16, TR21, TR26             |
