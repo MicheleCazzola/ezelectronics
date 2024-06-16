@@ -346,8 +346,8 @@ Per ognuno dei quattro componenti presenti (User, Cart, Review, Product) è stat
 |  10.12   |  TC7,TC8,TC19,TC25,TC33,TC36,TC45,TC53,TC53.1,TP2,TP35  |
 |   11.1   |                                                         |
 |   11.2   |                                                         |
-|   12.1   |                                                         |
-|   13.1   |                                                         |
+|   12.1   |              TU9,TU16,TU23,TU35,TU42,TU49               |
+|   13.1   |              TU7,TU15,TU22,TU33,TU41,TU48               |
 |   14.1   |                                                         |
 |   15.1   |         TC11,TC12,TC15,TC28,TC39,TC40,TC47,TC56         |
 |   16.1   |              TC10,TC20,TC27,TC38,TC48,TC55              |
