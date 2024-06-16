@@ -19,7 +19,7 @@
 
 # Dependency graph
 
-![alt text](media/dependency_graph.png)
+![alt text](media/test_report/dependency_graph.png)
 
 # Integration approach
 
