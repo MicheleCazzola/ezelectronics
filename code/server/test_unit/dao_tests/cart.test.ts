@@ -952,7 +952,7 @@ describe("DAO tests", () => {
 			expect(result).toBe(true);
 		});
 
-		test("Clear cart successful - No cart to clear", async () => {
+		test("Clear cart failed - No cart to clear", async () => {
 			const testUser = new User(
 				"test",
 				"test",

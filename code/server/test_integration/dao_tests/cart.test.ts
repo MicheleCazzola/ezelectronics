@@ -1102,6 +1102,29 @@ describe("DAO tests", () => {
 			expect(result).toBe(true);
 			expect(emptyCart).toStrictEqual(defaultCart);
 		});
+
+		test("Clear cart failed - No unpaid cart", async () => {
+			const testUser = new User(
+				"test",
+				"test",
+				"test",
+				Role.CUSTOMER,
+				"",
+				""
+			);
+
+			// Setup
+			await userDAO.createUser(
+				testUser.username,
+				testUser.name,
+				testUser.surname,
+				"test",
+				testUser.role
+			);
+			
+			// Test
+			const result = await expect(cartDAO.clearCart(testUser)).rejects.toBeInstanceOf(CartNotFoundError);
+		});
 	});
 
 	describe("DAO - Delete all carts", () => {
