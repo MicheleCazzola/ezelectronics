@@ -359,4 +359,4 @@ Per ognuno dei quattro componenti presenti (User, Cart, Review, Product) è stat
 
 ## Coverage white box
 
-Report here the screenshot of coverage values obtained with jest-- coverage
+![coverage values](media/test_report/coverage.png)
