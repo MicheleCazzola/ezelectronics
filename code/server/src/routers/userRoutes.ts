@@ -170,8 +170,7 @@ class UserRoutes {
             
             (req: any, res: any, next: any) => this.authService.isLoggedIn(req, res, () => this.controller.updateUserInfo(req.user, req.body.name, req.body.surname, req.body.address, req.body.birthdate, req.params.username)
                 .then((user: any /**User */) => res.status(200).json(user))
-                .catch((err: any) => {console.log(err.customMessage);
-                    next(err)})
+                .catch((err: any) => {next(err)})
             )
         )   
 

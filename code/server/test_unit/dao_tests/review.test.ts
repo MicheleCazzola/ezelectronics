@@ -192,7 +192,7 @@ describe("ReviewDAO - Get Product's Reviews", () => {
 		try {
 			await dao.getProductReviews(testCase2.model);
 		} catch (err) {
-			console.log(err);
+			//console.log(err);
 			expect(err).toBeInstanceOf(testCase2.expected);
 		}
 		expect(db.all).toBeCalledTimes(1);
