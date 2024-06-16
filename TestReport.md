@@ -1,7 +1,5 @@
 # Test Report
 
-<The goal of this document is to explain how the application was tested, detailing how the test cases were defined and what they cover>
-
 # Contents
 
 - [Test Report](#test-report)
@@ -9,8 +7,14 @@
 - [Dependency graph](#dependency-graph)
 - [Integration approach](#integration-approach)
 - [Tests](#tests)
+  - [Cart tests](#cart-tests)
+  - [Review tests](#review-tests)
+  - [Product tests](#product-tests)
+  - [User tests](#user-tests)
 - [Coverage](#coverage)
   - [Coverage of FR](#coverage-of-fr)
+    - [Functional requirements](#functional-requirements)
+    - [Scenarios](#scenarios)
   - [Coverage white box](#coverage-white-box)
 
 # Dependency graph
@@ -24,13 +28,11 @@ Per ognuno dei quattro componenti presenti (User, Cart, Review, Product) è stat
 1. DAO unit test, Controller unit test, Route unit test
 2. DAO + DB integration test
 3. Controller + DAO + DB integration test
-4. API test, invocando direttamente le routes del server
+4. API test, invocando direttamente le routes dal server
 
 # Tests
 
-<in the table below list the test cases defined For each test report the object tested, the test level (API, integration, unit) and the technique used to define the test case (BB/ eq partitioning, BB/ boundary, WB/ statement coverage, etc)> <split the table if needed>
-
-=====MICHELE
+## Cart tests
 | Test case name | Object(s) tested | Test level | Technique used |
 | :------------: | :--------------: | :--------: | :------------: |
 | TC1: CartDAO - Get current cart | getCurrentCart (CartDAO) | unit | WB (statement coverage) |
@@ -91,7 +93,7 @@ Per ognuno dei quattro componenti presenti (User, Cart, Review, Product) è stat
 | TC55: CartRoutes - Delete all carts | DELETE ezelectronics/carts (CartRoutes) | API | BB (equivalent classes partitioning) |
 | TC56: CartRoutes - Get all carts | GET ezelectronics/carts/all (CartRoutes) | API | BB (equivalent classes partitioning) |
 
-=====FRANCESCO
+## Review tests
 | Test case name | Object(s) tested | Test level | Technique used |
 | :------------: | :--------------: | :--------: | :------------: |
 | TR1: ReviewDAO - Add a Review | ReviewDAO.addReview | unit | WB (statement coverage) |
@@ -125,7 +127,7 @@ Per ognuno dei quattro componenti presenti (User, Cart, Review, Product) è stat
 | TR29: ReviewRoute - Delete All Reviews of a Product | DELETE ezelectronics/reviews/:model/all | integration | BB (eq partitioning) |
 | TR30: ReviewRoute - Delete All Reviews | DELETE ezelectronics/reviews/ | integration | BB (eq partitioning) |
 
-=====GIUSEPPE
+## Product tests
 | Test case name | Object(s) tested | Test level | Technique used |
 | :------------: | :--------------: | :--------: | :------------: |
 | TP1: ProductDAO - createProduct test | createProduct (ProductDAO) | unit | WB (statement coverage) |
@@ -141,7 +143,7 @@ Per ognuno dei quattro componenti presenti (User, Cart, Review, Product) è stat
 | TP11: ProductController - registerProducts tests| registerProducts (ProductController) | unit | WB (statement coverage) |
 | TP12: ProductController - productExist test | productExist (ProductController) | unit | WB (statement coverage) |
 | TP13: ProductController - productByModel test | productByModel (ProductController) | unit | WB (statement coverage) |
-| TP14: ProductController - changeProductquantity test| changeProductQuantity (ProductController) | unit | WB (statement coverage) |
+| TP14: ProductController - changeProductQuantity test| changeProductQuantity (ProductController) | unit | WB (statement coverage) |
 | TP15: ProductController - sellProducts test| sellProduct (ProductController) | unit | WB (statement coverage) |
 | TP16: ProductController - getProducts tests| getProducts (ProductController) | unit | WB (statement coverage) |
 | TP17: ProductController - getAvailableProducts test | getAllAvailableProducts (ProductController) | unit | WB (statement coverage) |
@@ -190,7 +192,7 @@ Per ognuno dei quattro componenti presenti (User, Cart, Review, Product) è stat
 | TP60: ProductRoute - DELETE - Deletes one product from the database | DELETE ezelectronics/products/:model (ProductRoute) | API | BB (equivalent classes partitioning) |
 | TP61: ProductRoute - DELETE - Deletes all products from the database | DELETE ezelectronics/products (ProductRoute) | API | BB (equivalent classes partitioning) |
 
-=====FLAVIANA
+## User tests
 | Test case name | Object(s) tested | Test level | Technique used |
 | :------------: | :--------------: | :--------: | :------------: |
 | TU1: UserDAO - Check login information | getIsUserAuthenticated (UserDAO) | unit | WB (statement coverage) |
@@ -246,14 +248,11 @@ Per ognuno dei quattro componenti presenti (User, Cart, Review, Product) è stat
 | TU51: UserRoutes - Log out the currently logged in user | DELETE ezelectronics/sessions/current (UserRoutes) | API | BB (equivalent classes partitioning) |
 | TU52: UserRoutes - Get the currently logged in user | GET ezelectronics/sessions/current (UserRoutes) | API | BB (equivalent classes partitioning) |
 
-=====END
-
 # Coverage
 
 ## Coverage of FR
 
-<Report in the following table the coverage of functional requirements and scenarios(from official requirements) >
-
+### Functional requirements
 | Functional Requirement |                               Test(s)                                |
 | :--------------------: | :------------------------------------------------------------------: |
 |        **FR1**         |        TU1, TU2, TU10, TU17, TU24-TU28, TU36, TU43, TU50-TU52        |
@@ -279,22 +278,23 @@ Per ognuno dei quattro componenti presenti (User, Cart, Review, Product) è stat
 |        FR3.6.1         | TP3, TP7, TP13, TP17, TP30, TP31, TP33, TP38, TP42, TP48, TP52, TP59 |
 |         FR3.7          |                     T9, T19, T35, T44, T54, T60                      |
 |         FR3.8          |                     T8, T18, T34, T43, T53, T61                      |
-|        **FR4**         |                                                                      |
+|        **FR4**         |                             TR1 - TR30                               |
 |         FR4.1          |                   TR1, TR6, TR11, TR16, TR21, TR26                   |
 |         FR4.2          |                   TR2, TR7, TR12, TR17, TR22, TR27                   |
 |         FR4.3          |                   TR3, TR8, TR13, TR18, TR23, TR28                   |
 |         FR4.4          |                   TR4, TR9, TR14, TR19, TR24, TR29                   |
 |         FR4.5          |                  TR5, TR10, TR15, TR20, TR25, TR30                   |
 |        **FR5**         |                              TC1 - TC56                              |
-|         FR5.1          |                     TC1,TC13,TC21,TC31,TC42,TC50                     |
-|         FR5.2          |       TC2,TC3,TC5,TC7,TC16,TC22,TC29,TC30,TC32,TC33,TC41,TC49        |
-|         FR5.3          |                TC1,TC4,TC17,TC23,TC31,TC34,TC43,TC51                 |
-|         FR5.4          |                TC6,TC12,TC14,TC24,TC35,TC40,TC46,TC52                |
-|         FR5.5          |        TC1,TC7,TC8,TC19,TC25,TC31,TC33,TC36,TC45,TC53,TC53.1         |
-|         FR5.6          |                TC7,TC9,TC18,TC26,TC33,TC37,TC44,TC54                 |
-|         FR5.7          |               TC11,TC12,TC15,TC27,TC35,TC40,TC47,TC56                |
-|         FR5.8          |                    TC10,TC20,TC28,TC38,TC48,TC55                     |
+|         FR5.1          |                     TC1, TC13, TC21, TC31, TC42, TC50                |
+|         FR5.2          | TC2, TC3, TC5, TC7, TC16, TC22, TC29, TC30, TC32, TC33, TC41, TC49   |
+|         FR5.3          |                TC1, TC4, TC17, TC23, TC31, TC34, TC43, TC51          |
+|         FR5.4          |                TC6, TC12, TC14, TC24, TC35, TC40, TC46, TC52         |
+|         FR5.5          |     TC1, TC7, TC8, TC19, TC25, TC31, TC33, TC36, TC45, TC53, TC53.1  |
+|         FR5.6          |           TC7, TC9, TC18, TC26, TC33, TC37, TC44, TC54               |
+|         FR5.7          |               TC11, TC12, TC15, TC27, TC35, TC40, TC47, TC56         |
+|         FR5.8          |                    TC10, TC20, TC28, TC38, TC48, TC55                |
 
+### Scenarios
 | Scenario |                         Test(s)                         |
 | :------: | :-----------------------------------------------------: |
 |   1.1    |                        TU1, TU27                        |
@@ -332,25 +332,25 @@ Per ognuno dei quattro componenti presenti (User, Cart, Review, Product) è stat
 |   8.9    |         TP7, TP17, TP30, TP33, TP42, TP52, TP59         |
 |   9.1    |               T9, T19, T35 ,T44, T54, T60               |
 |   9.2    |               T9, T19, T35 ,T44, T54, T60               |
-|   10.1   |              TC1,TC13,TC21,TC31,TC42,TC50               |
-|   10.2   |         TC6,TC12,TC14,TC24,TC35,TC40,TC46,TC52          |
-|   10.3   | TC2,TC3,TC5,TC7,TC16,TC22,TC29,TC30,TC32,TC33,TC41,TC49 |
-|   10.4   |              TC2,TC16,TC22,TC32,TC41,TC49               |
-|   10.5   |              TC2,TC16,TC22,TC32,TC41,TC49               |
-|   10.6   |          TC1,TC4,TC17,TC23,TC31,TC34,TC43,TC51          |
-|   10.7   |              TC1,TC17,TC23,TC31,TC43,TC51               |
-|   10.8   |              TC1,TC17,TC23,TC31,TC43,TC51               |
-|   10.9   |    TC8,TC19,TC25,TC33,TC36,TC45,TC53,TC53.1,TP2,TP35    |
-|  10.10   |      TC8,TC19,TC25,TC36,TC45,TC53,TC53.1,TP2,TP35       |
-|  10.11   |  TC7,TC8,TC19,TC25,TC33,TC36,TC45,TC53,TC53.1,TP2,TP35  |
-|  10.12   |  TC7,TC8,TC19,TC25,TC33,TC36,TC45,TC53,TC53.1,TP2,TP35  |
-|   11.1   |                                                         |
-|   11.2   |                                                         |
-|   12.1   |              TU9,TU16,TU23,TU35,TU42,TU49               |
-|   13.1   |              TU7,TU15,TU22,TU33,TU41,TU48               |
+|   10.1   |              TC1, TC13, TC21, TC31, TC42, TC50          |
+|   10.2   |         TC6, TC12, TC14, TC24, TC35, TC40, TC46, TC52   |
+|   10.3   | TC2, TC3, TC5, TC7, TC16, TC22, TC29, TC30, TC32, TC33, TC41, TC49 |
+|   10.4   |              TC2, TC16, TC22, TC32, TC41, TC49          |
+|   10.5   |              TC2, TC16, TC22, TC32, TC41, TC49          |
+|   10.6   |          TC1, TC4, TC17, TC23, TC31, TC34, TC43, TC51   |
+|   10.7   |              TC1, TC17, TC23, TC31, TC43, TC51          |
+|   10.8   |              TC1, TC17, TC23, TC31, TC43, TC51          |
+|   10.9   | TC8, TC19, TC25, TC33, TC36, TC45, TC53, TC53.1, TP2, TP35 |
+|  10.10   |  TC8, TC19, TC25, TC36, TC45, TC53, TC53.1, TP2, TP35   |
+|  10.11   | TC7, TC8, TC19, TC25, TC33, TC36, TC45, TC53, TC53.1, TP2, TP35 |
+|  10.12   | TC7, TC8, TC19, TC25, TC33, TC36, TC45, TC53, TC53.1, TP2, TP35 |
+|   11.1   |      TC7, TC9, TC18, TC26, TC33, TC37, TC44, TC54       |
+|   11.2   |      TC7, TC9, TC18, TC26, TC33, TC37, TC44, TC54       |
+|   12.1   |         TU9, TU16, TU23, TU35, TU42, TU49               |
+|   13.1   |         TU7, TU15, TU22, TU33, TU41, TU48               |
 |   14.1   |               T8, T18, T34, T43, T53, T61               |
-|   15.1   |         TC11,TC12,TC15,TC28,TC39,TC40,TC47,TC56         |
-|   16.1   |              TC10,TC20,TC27,TC38,TC48,TC55              |
+|   15.1   |  TC11, TC12, TC15, TC28, TC39, TC40, TC47, TC56         |
+|   16.1   |         TC10, TC20, TC27, TC38, TC48, TC55              |
 |   17.1   |            TR1, TR6, TR11, TR16, TR21, TR26             |
 |   17.2   |            TR3, TR8, TR13, TR18, TR23, TR28             |
 |   18.1   |            TR2, TR7, TR12, TR17, TR22, TR27             |
