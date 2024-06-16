@@ -18,11 +18,13 @@
 ![alt text](media/dependency_graph.png)
 
 # Integration approach
+
 Per ognuno dei quattro componenti presenti (User, Cart, Review, Product) è stato seguito il seguente approccio:
-  1. DAO unit test, Controller unit test, Route unit test
-  2. DAO + DB integration test
-  3. Controller + DAO + DB integration test
-  4. API test, invocando direttamente le routes del server
+
+1. DAO unit test, Controller unit test, Route unit test
+2. DAO + DB integration test
+3. Controller + DAO + DB integration test
+4. API test, invocando direttamente le routes del server
 
 # Tests
 
@@ -134,60 +136,59 @@ Per ognuno dei quattro componenti presenti (User, Cart, Review, Product) è stat
 | TP6: ProductDAO - getAllProducts test| getAllProducts (ProductDAO) | unit | WB (statement coverage) |
 | TP7: ProductDAO - getAllAvailableProducts test | getAllAvailableProducts (ProductDAO) | unit | WB (statement coverage) |
 | TP8: ProductDAO - deleteProducts test| deleteProducts (ProductDAO) | unit | WB (statement coverage) |
-| TP8: ProductDAO - deleteProductByModel test| deleteProductByModel (ProductDAO) | unit | WB (statement coverage) |
-| TP9: ProductDAO - getProductQuantity test| getProductQuantity (ProductDAO) | unit | WB (statement coverage) |
-| TP10: ProductController - registerProducts tests| registerProducts (ProductController) | unit | WB (statement coverage) |
-| TP11: ProductController - productExist test | productExist (ProductController) | unit | WB (statement coverage) |
-| TP12: ProductController - productByModel test | productByModel (ProductController) | unit | WB (statement coverage) |
-| TP13: ProductController - changeProductquantity test| changeProductQuantity (ProductController) | unit | WB (statement coverage) |
-| TP14: ProductController - sellProducts test| sellProduct (ProductController) | unit | WB (statement coverage) |
-| TP15: ProductController - getProducts tests| getProducts (ProductController) | unit | WB (statement coverage) |
-| TP16: ProductController - getAvailableProducts test | getAllAvailableProducts (ProductController) | unit | WB (statement coverage) |
-| TP17: ProductController - deleteAllProducts test | deleteAllProducts (ProductController) | unit | WB (statement coverage) |
-| TP18: ProductController - deleteProduct test | deleteProduct (ProductController) | unit | WB (statement coverage) |
-| TP19: ProductRoute - POST - Testing of the Route for registering the arrival of a set of product | POST ezelectronics/products (ProductRoute) | unit | WB (statement coverage) |
-| TP20: ProductRoute - Testing body content | POST ezelectronics/products (ProductRoute) | unit | WB (statement coverage) |
-| TP21: ProductRoute - PATCH - Testing of the Route for registering the increase in quantity of a product | PATCH ezelectronics/products/:model (ProductRoute) | unit | WB (statement coverage) |
-| TP22: ProductRoute - Date validation testing | PATCH ezelectronics/products/:model (ProductRoute) | unit | WB (statement coverage) |
-| TP23: ProductRoute - PATCH - Testing of the Route for selling a product| PATCH ezelectronics/products/:model/sell (ProductRoute) | unit | WB (statement coverage) |
-| TP24: ProductRoute - Date validation testing | PATCH ezelectronics/products/:model/sell (ProductRoute) | unit | WB (statement coverage) |
-| TP25: ProductRoute - GET - Testing of Route for retrieving all products | GET ezelectronics/products (ProductRoute) | unit | WB (statement coverage) |
-| TP26: ProductRoute - It should return a 422 error if `grouping` is null and any of `category` or `model` is not null | GET ezelectronics/products (ProductRoute) | unit | WB (statement coverage) |
-| TP27: ProductRoute - It should return a 422 error if `grouping` is `category` and `category` is null OR `model` is not null | GET ezelectronics/products (ProductRoute) | unit | WB (statement coverage) |
-| TP28: ProductRoute - It should return a 422 error if `grouping` is `model` and `model` is null OR `category` is not null | GET ezelectronics/products (ProductRoute) | unit | WB (statement coverage) |
-| TP29: ProductRoute - GET - Testing of the Route for retrieving all available products | GET ezelectronics/products/available (ProductRoute) | unit | WB (statement coverage) |
-| TP30: ProductRoute - It should return a 422 error if `grouping` is null and any of `category` or `model` is not null | GET ezelectronics/products/available (ProductRoute) | unit | WB (statement coverage) |
-| TP31: ProductRoute - It should return a 422 error if `grouping` is `category` and `category` is null OR `model` is not null | GET ezelectronics/products/available (ProductRoute) | unit | WB (statement coverage) |
-| TP32: ProductRoute - It should return a 422 error if `grouping` is `model` and `model` is null OR `category` is not null | GET ezelectronics/products/available (ProductRoute) | unit | WB (statement coverage) |
-| TP33: ProductRoute - DELETE - Testing of the Route for deleting all products | DELETE ezelectronics/products (ProductRoute) | unit | WB (statement coverage) |
-| TP33: ProductRoute - DELETE - Testing of the Route for deleting a product | DELETE ezelectronics/products/:model (ProductRoute) | unit | WB (statement coverage) |
-| TP34: ProductDao - createProduct test  | createProduct (ProductDao) | integration | BB (equivalent classes partitioning) |
-| TP35: ProductDao - existProducts tests  | existsProduct (ProductDao) | integration | BB (equivalent classes partitioning) |
-| TP36: ProductDao - getProductByModel tests | getProductByModel (ProductDao) | integration | BB (equivalent classes partitioning) |
-| TP37: ProductDao - increaseQuantity Test  | increaseQuantity (ProductDao) | integration | BB (equivalent classes partitioning) |
-| TP38: ProductDao - decreaseQuantity test | decreaseQuantity (ProductDao) | integration | BB (equivalent classes partitioning) |
-| TP39: ProductDao - getAllProducts test | getAllProducts  (ProductDao) | integration | BB (equivalent classes partitioning) |
-| TP40: ProductDao - getAllAvailableProducts test | getAllAvailableProducts (ProductDao) | integration | BB (equivalent classes partitioning) |
-| TP41: ProductDao - deleteProducts test | deleteProducts (ProductDao) | integration | BB (equivalent classes partitioning) |
-| TP42: ProductDao - deleteProductByModel tests | deleteProductByModel (ProductDao) | integration | BB (equivalent classes partitioning) |
-| TP43: ProductDao - getProductQuantity test | getProductQuantity (ProductDao) | integration | BB (equivalent classes partitioning) |
-| TP44: ProductController - registerProduct test | registerProducts (ProductController) | integration | BB (equivalent classes partitioning) |
-| TP45: ProductController - productExist test | productExist (ProductController) | integration | BB (equivalent classes partitioning) |
-| TP46: ProductController - productByModel test | productByModel (ProductController) | integration | BB (equivalent classes partitioning) |
-| TP47: ProductController - changeProductQuantity test | changeProductQuantity (ProductController) | integration | BB (equivalent classes partitioning) |
-| TP48: ProductController - sellProduct test | sellProduct (ProductController) | integration | BB (equivalent classes partitioning) |
-| TP49: ProductController - getProducts test | getProducts (ProductController) | integration | BB (equivalent classes partitioning) |
-| TP50: ProductController - getAvailableProducts test| getAvailableProducts (ProductController) | integration | BB (equivalent classes partitioning) |
-| TP51: ProductController - deleteAllProducts test | deleteAllProducts (ProductController) | integration | BB (equivalent classes partitioning) |
-| TP52: ProductController - deleteProduct test | deleteProduct (ProductController) | integration | BB (equivalent classes partitioning) |
-| TP53: ProductRoute - POST -  Route for registering the arrival of a set of products | POST ezelectronics/products (ProductRoute) | integration | BB (equivalent classes partitioning) |
-| TP54: ProductRoute - PATCH - Route for registering the increase in quantity of a product | PATCH ezelectronics/products/:model (ProductRoute) | integration | BB (equivalent classes partitioning) |
-| TP55: ProductRoute - PATCH -  Route for selling a product | PATCH ezelectronics/products/:model/sell (ProductRoute) | integration | BB (equivalent classes partitioning) |
-| TP56: ProductRoute - GET - Route for retrieving all products | GET ezelectronics/products (ProductRoute) | integration | BB (equivalent classes partitioning) |
-| TP57: ProductRoute - GET - Route for retrieving all Available products | GET ezelectronics/products/available (ProductRoute) | integration | BB (equivalent classes partitioning) |
-| TP58: ProductRoute - DELETE - Deletes one product from the database | DELETE ezelectronics/products/:model (ProductRoute) | integration | BB (equivalent classes partitioning) |
-| TP59: ProductRoute - DELETE - Deletes all products from the database | DELETE ezelectronics/products (ProductRoute) | integration | BB (equivalent classes partitioning) |
-
+| TP9: ProductDAO - deleteProductByModel test| deleteProductByModel (ProductDAO) | unit | WB (statement coverage) |
+| TP10: ProductDAO - getProductQuantity test| getProductQuantity (ProductDAO) | unit | WB (statement coverage) |
+| TP11: ProductController - registerProducts tests| registerProducts (ProductController) | unit | WB (statement coverage) |
+| TP12: ProductController - productExist test | productExist (ProductController) | unit | WB (statement coverage) |
+| TP13: ProductController - productByModel test | productByModel (ProductController) | unit | WB (statement coverage) |
+| TP14: ProductController - changeProductquantity test| changeProductQuantity (ProductController) | unit | WB (statement coverage) |
+| TP15: ProductController - sellProducts test| sellProduct (ProductController) | unit | WB (statement coverage) |
+| TP16: ProductController - getProducts tests| getProducts (ProductController) | unit | WB (statement coverage) |
+| TP17: ProductController - getAvailableProducts test | getAllAvailableProducts (ProductController) | unit | WB (statement coverage) |
+| TP18: ProductController - deleteAllProducts test | deleteAllProducts (ProductController) | unit | WB (statement coverage) |
+| TP19: ProductController - deleteProduct test | deleteProduct (ProductController) | unit | WB (statement coverage) |
+| TP20: ProductRoute - POST - Testing of the Route for registering the arrival of a set of product | POST ezelectronics/products (ProductRoute) | unit | WB (statement coverage) |
+| TP21: ProductRoute - Testing body content | POST ezelectronics/products (ProductRoute) | unit | WB (statement coverage) |
+| TP22: ProductRoute - PATCH - Testing of the Route for registering the increase in quantity of a product | PATCH ezelectronics/products/:model (ProductRoute) | unit | WB (statement coverage) |
+| TP23: ProductRoute - Date validation testing | PATCH ezelectronics/products/:model (ProductRoute) | unit | WB (statement coverage) |
+| TP24: ProductRoute - PATCH - Testing of the Route for selling a product| PATCH ezelectronics/products/:model/sell (ProductRoute) | unit | WB (statement coverage) |
+| TP25: ProductRoute - Date validation testing | PATCH ezelectronics/products/:model/sell (ProductRoute) | unit | WB (statement coverage) |
+| TP26: ProductRoute - GET - Testing of Route for retrieving all products | GET ezelectronics/products (ProductRoute) | unit | WB (statement coverage) |
+| TP27: ProductRoute - It should return a 422 error if `grouping` is null and any of `category` or `model` is not null | GET ezelectronics/products (ProductRoute) | unit | WB (statement coverage) |
+| TP28: ProductRoute - It should return a 422 error if `grouping` is `category` and `category` is null OR `model` is not null | GET ezelectronics/products (ProductRoute) | unit | WB (statement coverage) |
+| TP29: ProductRoute - It should return a 422 error if `grouping` is `model` and `model` is null OR `category` is not null | GET ezelectronics/products (ProductRoute) | unit | WB (statement coverage) |
+| TP30: ProductRoute - GET - Testing of the Route for retrieving all available products | GET ezelectronics/products/available (ProductRoute) | unit | WB (statement coverage) |
+| TP31: ProductRoute - It should return a 422 error if `grouping` is null and any of `category` or `model` is not null | GET ezelectronics/products/available (ProductRoute) | unit | WB (statement coverage) |
+| TP32: ProductRoute - It should return a 422 error if `grouping` is `category` and `category` is null OR `model` is not null | GET ezelectronics/products/available (ProductRoute) | unit | WB (statement coverage) |
+| TP33: ProductRoute - It should return a 422 error if `grouping` is `model` and `model` is null OR `category` is not null | GET ezelectronics/products/available (ProductRoute) | unit | WB (statement coverage) |
+| TP34: ProductRoute - DELETE - Testing of the Route for deleting all products | DELETE ezelectronics/products (ProductRoute) | unit | WB (statement coverage) |
+| TP35: ProductRoute - DELETE - Testing of the Route for deleting a product | DELETE ezelectronics/products/:model (ProductRoute) | unit | WB (statement coverage) |
+| TP36: ProductDao - createProduct test | createProduct (ProductDao) | integration | BB (equivalent classes partitioning) |
+| TP37: ProductDao - existProducts tests | existsProduct (ProductDao) | integration | BB (equivalent classes partitioning) |
+| TP38: ProductDao - getProductByModel tests | getProductByModel (ProductDao) | integration | BB (equivalent classes partitioning) |
+| TP39: ProductDao - increaseQuantity Test | increaseQuantity (ProductDao) | integration | BB (equivalent classes partitioning) |
+| TP40: ProductDao - decreaseQuantity test | decreaseQuantity (ProductDao) | integration | BB (equivalent classes partitioning) |
+| TP41: ProductDao - getAllProducts test | getAllProducts (ProductDao) | integration | BB (equivalent classes partitioning) |
+| TP42: ProductDao - getAllAvailableProducts test | getAllAvailableProducts (ProductDao) | integration | BB (equivalent classes partitioning) |
+| TP43: ProductDao - deleteProducts test | deleteProducts (ProductDao) | integration | BB (equivalent classes partitioning) |
+| TP44: ProductDao - deleteProductByModel tests | deleteProductByModel (ProductDao) | integration | BB (equivalent classes partitioning) |
+| TP45: ProductDao - getProductQuantity test | getProductQuantity (ProductDao) | integration | BB (equivalent classes partitioning) |
+| TP46: ProductController - registerProduct test | registerProducts (ProductController) | integration | BB (equivalent classes partitioning) |
+| TP47: ProductController - productExist test | productExist (ProductController) | integration | BB (equivalent classes partitioning) |
+| TP48: ProductController - productByModel test | productByModel (ProductController) | integration | BB (equivalent classes partitioning) |
+| TP49: ProductController - changeProductQuantity test | changeProductQuantity (ProductController) | integration | BB (equivalent classes partitioning) |
+| TP50: ProductController - sellProduct test | sellProduct (ProductController) | integration | BB (equivalent classes partitioning) |
+| TP51: ProductController - getProducts test | getProducts (ProductController) | integration | BB (equivalent classes partitioning) |
+| TP52: ProductController - getAvailableProducts test| getAvailableProducts (ProductController) | integration | BB (equivalent classes partitioning) |
+| TP53: ProductController - deleteAllProducts test | deleteAllProducts (ProductController) | integration | BB (equivalent classes partitioning) |
+| TP54: ProductController - deleteProduct test | deleteProduct (ProductController) | integration | BB (equivalent classes partitioning) |
+| TP55: ProductRoute - POST - Route for registering the arrival of a set of products | POST ezelectronics/products (ProductRoute) | API | BB (equivalent classes partitioning) |
+| TP56: ProductRoute - PATCH - Route for registering the increase in quantity of a product | PATCH ezelectronics/products/:model (ProductRoute) | API | BB (equivalent classes partitioning) |
+| TP57: ProductRoute - PATCH - Route for selling a product | PATCH ezelectronics/products/:model/sell (ProductRoute) | API | BB (equivalent classes partitioning) |
+| TP58: ProductRoute - GET - Route for retrieving all products | GET ezelectronics/products (ProductRoute) | API | BB (equivalent classes partitioning) |
+| TP59: ProductRoute - GET - Route for retrieving all Available products | GET ezelectronics/products/available (ProductRoute) | API | BB (equivalent classes partitioning) |
+| TP60: ProductRoute - DELETE - Deletes one product from the database | DELETE ezelectronics/products/:model (ProductRoute) | API | BB (equivalent classes partitioning) |
+| TP61: ProductRoute - DELETE - Deletes all products from the database | DELETE ezelectronics/products (ProductRoute) | API | BB (equivalent classes partitioning) |
 
 =====FLAVIANA
 | Test case name | Object(s) tested | Test level | Technique used |
@@ -253,106 +254,108 @@ Per ognuno dei quattro componenti presenti (User, Cart, Review, Product) è stat
 
 <Report in the following table the coverage of functional requirements and scenarios(from official requirements) >
 
-| Functional Requirement |                            Test(s)                             |
-| :--------------------: | :------------------------------------------------------------: |
-|        **FR1**         |     TU1, TU2, TU10, TU17, TU24-TU28, TU36, TU43, TU50-TU52     |
-|         FR1.1          |               TU1, TU24, TU26, TU27, TU50, TU52                |
-|         FR1.2          |                           TU25, TU51                           |
-|         FR1.3          |               TU2, TU10, TU17, TU28, TU36, TU43                |
-|        **FR2**         | TU3-TU9, TU11-TU16, TU18-TU23, TU29-TU35, TU37-TU42, TU44-TU49 |
-|         FR2.1          |               TU4, TU11, TU18, TU30, TU37, TU44                |
-|         FR2.2          |               TU5, TU12, TU19, TU31, TU38, TU45                |
-|         FR2.3          |               TU3, TU13, TU20, TU29, TU39, TU46                |
-|         FR2.4          |               TU9, TU16, TU23, TU35, TU42, TU49                |
-|         FR2.5          |          TU6, TU8, TU14, TU21, TU32, TU34 TU40, TU47           |
-|         FR2.6          |               TU7, TU15, TU22, TU33, TU41, TU48                |
-|        **FR3**         |                                                                |
-|         FR3.1          |                                                                |
-|         FR3.2          |                                                                |
-|         FR3.3          |                                                                |
-|         FR3.4          |                                                                |
-|        FR3.4.1         |                                                                |
-|         FR3.5          |                                                                |
-|        FR3.5.1         |                                                                |
-|         FR3.7          |                                                                |
-|         FR3.8          |                                                                |
-|        **FR4**         |                                                                |
-|         FR4.1          |                TR1, TR6, TR11, TR16, TR21, TR26                |
-|         FR4.2          |                TR2, TR7, TR12, TR17, TR22, TR27                |
-|         FR4.3          |                TR3, TR8, TR13, TR18, TR23, TR28                |
-|         FR4.4          |                TR4, TR9, TR14, TR19, TR24, TR29                |
-|         FR4.5          |               TR5, TR10, TR15, TR20, TR25, TR30                |
-|        **FR5**         |                           TC1 - TC56                           |
-|         FR5.1          |                  TC1,TC13,TC21,TC31,TC42,TC50                  |
-|         FR5.2          |    TC2,TC3,TC5,TC7,TC16,TC22,TC29,TC30,TC32,TC33,TC41,TC49     |
-|         FR5.3          |             TC1,TC4,TC17,TC23,TC31,TC34,TC43,TC51              |
-|         FR5.4          |             TC6,TC12,TC14,TC24,TC35,TC40,TC46,TC52             |
-|         FR5.5          |     TC1,TC7,TC8,TC19,TC25,TC31,TC33,TC36,TC45,TC53,TC53.1      |
-|         FR5.6          |             TC7,TC9,TC18,TC26,TC33,TC37,TC44,TC54              |
-|         FR5.7          |            TC11,TC12,TC15,TC27,TC35,TC40,TC47,TC56             |
-|         FR5.8          |                 TC10,TC20,TC28,TC38,TC48,TC55                  |
+| Functional Requirement |                               Test(s)                                |
+| :--------------------: | :------------------------------------------------------------------: |
+|        **FR1**         |        TU1, TU2, TU10, TU17, TU24-TU28, TU36, TU43, TU50-TU52        |
+|         FR1.1          |                  TU1, TU24, TU26, TU27, TU50, TU52                   |
+|         FR1.2          |                              TU25, TU51                              |
+|         FR1.3          |                  TU2, TU10, TU17, TU28, TU36, TU43                   |
+|        **FR2**         |    TU3-TU9, TU11-TU16, TU18-TU23, TU29-TU35, TU37-TU42, TU44-TU49    |
+|         FR2.1          |                  TU4, TU11, TU18, TU30, TU37, TU44                   |
+|         FR2.2          |                  TU5, TU12, TU19, TU31, TU38, TU45                   |
+|         FR2.3          |                  TU3, TU13, TU20, TU29, TU39, TU46                   |
+|         FR2.4          |                  TU9, TU16, TU23, TU35, TU42, TU49                   |
+|         FR2.5          |             TU6, TU8, TU14, TU21, TU32, TU34 TU40, TU47              |
+|         FR2.6          |                  TU7, TU15, TU22, TU33, TU41, TU48                   |
+|        **FR3**         |                               TP1-TP61                               |
+|         FR3.1          |       TP1, TP2, TP11, TP12, TP20, TP36, TP37, TP46, TP47, TP55       |
+|         FR3.2          |          TP4, TP10, TP14, TP22, TP23 TP39, TP45 TP49, TP56           |
+|         FR3.3          |          TP5, TP10, TP15, TP24, TP25,TP40, TP45, TP50, TP57          |
+|         FR3.4          |         TP6, TP16, TP26, TP27, TP28, TP29, TP41, TP51, TP58          |
+|        FR3.4.1         |         TP7, TP17, TP30, TP31, TP32, TP33, TP42, TP52, TP59          |
+|         FR3.5          |            TP6, TP16, TP26, TP27, TP28, TP41, TP51, TP58             |
+|        FR3.5.1         |            TP7, TP17, TP31, TP32, TP33, TP42, TP52, TP59             |
+|         FR3.6          | TP3, TP6, TP13, TP16, TP26, TP27, TP29, TP38, TP41, TP48, TP51, TP58 |
+|        FR3.6.1         | TP3, TP7, TP13, TP17, TP30, TP31, TP33, TP38, TP42, TP48, TP52, TP59 |
+|         FR3.7          |                     T9, T19, T35, T44, T54, T60                      |
+|         FR3.8          |                     T8, T18, T34, T43, T53, T61                      |
+|        **FR4**         |                                                                      |
+|         FR4.1          |                   TR1, TR6, TR11, TR16, TR21, TR26                   |
+|         FR4.2          |                   TR2, TR7, TR12, TR17, TR22, TR27                   |
+|         FR4.3          |                   TR3, TR8, TR13, TR18, TR23, TR28                   |
+|         FR4.4          |                   TR4, TR9, TR14, TR19, TR24, TR29                   |
+|         FR4.5          |                  TR5, TR10, TR15, TR20, TR25, TR30                   |
+|        **FR5**         |                              TC1 - TC56                              |
+|         FR5.1          |                     TC1,TC13,TC21,TC31,TC42,TC50                     |
+|         FR5.2          |       TC2,TC3,TC5,TC7,TC16,TC22,TC29,TC30,TC32,TC33,TC41,TC49        |
+|         FR5.3          |                TC1,TC4,TC17,TC23,TC31,TC34,TC43,TC51                 |
+|         FR5.4          |                TC6,TC12,TC14,TC24,TC35,TC40,TC46,TC52                |
+|         FR5.5          |        TC1,TC7,TC8,TC19,TC25,TC31,TC33,TC36,TC45,TC53,TC53.1         |
+|         FR5.6          |                TC7,TC9,TC18,TC26,TC33,TC37,TC44,TC54                 |
+|         FR5.7          |               TC11,TC12,TC15,TC27,TC35,TC40,TC47,TC56                |
+|         FR5.8          |                    TC10,TC20,TC28,TC38,TC48,TC55                     |
 
-| Scenario |                   Test(s)                   |
-| :------: | :-----------------------------------------: |
-|   1.1    |                  TU1, TU27                  |
-|   1.2    |                 TU1, TU27,                  |
-|   1.3    |                 TU24, TU50                  |
-|   1.4    |                 TU24, TU50                  |
-|   2.1    |                 TU25, TU51                  |
-|   2.2    |                 TU25, TU51                  |
-|   3.1    |      TU2, TU10, TU17, TU28, TU36, TU43      |
-|   3.2    |      TU2, TU10, TU17, TU28, TU36, TU43      |
-|   3.3    |      TU2, TU10, TU17, TU28, TU36, TU43      |
-|   4.1    |      TU3, TU13, TU20, TU29, TU39, TU46      |
-|   4.2    |      TU3, TU13, TU20, TU29, TU39, TU46      |
-|   4.3    |      TU4, TU11, TU18, TU30, TU37, TU44      |
-|   4.4    |      TU5, TU12, TU19, TU31, TU38, TU45      |
-|   4.5    |      TU5, TU12, TU19, TU31, TU38, TU45      |
-|   5.1    | TU6, TU8, TU14, TU21, TU32, TU34 TU40, TU47 |
-|   5.2    | TU6, TU8, TU14, TU21, TU32, TU34 TU40, TU47 |
-|   6.1    |                                             |
-|   6.2    |                                             |
-|   6.3    |                                             |
-|   6.4    |                                             |
-|   6.5    |                                             |
-|   7.1    |                                             |
-|   7.2    |                                             |
-|   7.3    |                                             |
-|   8.1    |                                             |
-|   8.2    |                                             |
-|   8.3    |                                             |
-|   8.4    |                                             |
-|   8.5    |                                             |
-|   8.6    |                                             |
-|   8.7    |                                             |
-|   8.8    |                                             |
-|   8.9    |                                             |
-|   9.1    |                                             |
-|   9.2    |                                             |
-|   10.1   |     TC1,TC13,TC21,TC31,TC42,TC50            |
-|   10.2   |     TC6,TC12,TC14,TC24,TC35,TC40,TC46,TC52  |
+| Scenario |                         Test(s)                         |
+| :------: | :-----------------------------------------------------: |
+|   1.1    |                        TU1, TU27                        |
+|   1.2    |                       TU1, TU27,                        |
+|   1.3    |                       TU24, TU50                        |
+|   1.4    |                       TU24, TU50                        |
+|   2.1    |                       TU25, TU51                        |
+|   2.2    |                       TU25, TU51                        |
+|   3.1    |            TU2, TU10, TU17, TU28, TU36, TU43            |
+|   3.2    |            TU2, TU10, TU17, TU28, TU36, TU43            |
+|   3.3    |            TU2, TU10, TU17, TU28, TU36, TU43            |
+|   4.1    |            TU3, TU13, TU20, TU29, TU39, TU46            |
+|   4.2    |            TU3, TU13, TU20, TU29, TU39, TU46            |
+|   4.3    |            TU4, TU11, TU18, TU30, TU37, TU44            |
+|   4.4    |            TU5, TU12, TU19, TU31, TU38, TU45            |
+|   4.5    |            TU5, TU12, TU19, TU31, TU38, TU45            |
+|   5.1    |       TU6, TU8, TU14, TU21, TU32, TU34 TU40, TU47       |
+|   5.2    |       TU6, TU8, TU14, TU21, TU32, TU34 TU40, TU47       |
+|   6.1    |            TP1, TP11, TP20, TP36, TP46, TP55            |
+|   6.2    |            TP1, TP11, TP20, TP36, TP46, TP55            |
+|   6.3    |            TP1, TP11, TP20, TP36, TP46, TP55            |
+|   6.4    |    TP4, TP10, TP14, TP22, TP23 TP39, TP45 TP49, TP56    |
+|   6.5    |    TP4, TP10, TP14, TP22, TP23 TP39, TP45 TP49, TP56    |
+|   7.1    |   TP5, TP10, TP15, TP24, TP25,TP40, TP45, TP50, TP57    |
+|   7.2    |   TP5, TP10, TP15, TP24, TP25,TP40, TP45, TP50, TP57    |
+|   7.3    |   TP5, TP10, TP15, TP24, TP25,TP40, TP45, TP50, TP57    |
+|   8.1    |               TP3, TP13, TP38, TP48, TP59               |
+|   8.2    |               TP3, TP13, TP38, TP48, TP59               |
+|   8.3    |         TP6, TP16, TP26, TP27, TP41, TP51, TP58         |
+|   8.4    |         TP6, TP16, TP26, TP28, TP41, TP51, TP58         |
+|   8.5    |         TP6, TP16, TP26, TP28, TP41, TP51, TP58         |
+|   8.6    |         TP6, TP16, TP26, TP29, TP41, TP51, TP58         |
+|   8.7    |         TP7, TP17, TP30, TP31, TP42, TP52, TP59         |
+|   8.8    |         TP7, TP17, TP30, TP32, TP42, TP52, TP59         |
+|   8.9    |         TP7, TP17, TP30, TP33, TP42, TP52, TP59         |
+|   9.1    |               T9, T19, T35 ,T44, T54, T60               |
+|   9.2    |               T8, T18, T34, T43, T53, T61               |
+|   10.1   |              TC1,TC13,TC21,TC31,TC42,TC50               |
+|   10.2   |         TC6,TC12,TC14,TC24,TC35,TC40,TC46,TC52          |
 |   10.3   | TC2,TC3,TC5,TC7,TC16,TC22,TC29,TC30,TC32,TC33,TC41,TC49 |
-|   10.4   | TC2,TC16,TC22,TC32,TC41,TC49                |
-|   10.5   | TC2,TC16,TC22,TC32,TC41,TC49                |
-|   10.6   |  TC1,TC4,TC17,TC23,TC31,TC34,TC43,TC51      |
-|   10.7   |  TC1,TC17,TC23,TC31,TC43,TC51               |
-|   10.8   |  TC1,TC17,TC23,TC31,TC43,TC51               |
-|   10.9   | TC8,TC19,TC25,TC33,TC36,TC45,TC53,TC53.1,TP2,TP35 |
-|  10.10   | TC8,TC19,TC25,TC36,TC45,TC53,TC53.1,TP2,TP35 |
-|  10.11   | TC7,TC8,TC19,TC25,TC33,TC36,TC45,TC53,TC53.1,TP2,TP35 |
-|  10.12   | TC7,TC8,TC19,TC25,TC33,TC36,TC45,TC53,TC53.1,TP2,TP35 |
-|   11.1   |                                             |
-|   11.2   |                                             |
-|   12.1   |                                             |
-|   13.1   |                                             |
-|   14.1   |                                             |
-|   15.1   | TC11,TC12,TC15,TC28,TC39,TC40,TC47,TC56     |
-|   16.1   | TC10,TC20,TC27,TC38,TC48,TC55               |
-|   17.1   |      TR1, TR6, TR11, TR16, TR21, TR26       |
-|   17.2   |      TR3, TR8, TR13, TR18, TR23, TR28       |
-|   18.1   |      TR2, TR7, TR12, TR17, TR22, TR27       |
-|   19.1   |      TR4, TR9, TR14, TR19, TR24, TR29       |
-|   19.2   |      TR5, TR10, TR15, TR20, TR25, TR30      |
+|   10.4   |              TC2,TC16,TC22,TC32,TC41,TC49               |
+|   10.5   |              TC2,TC16,TC22,TC32,TC41,TC49               |
+|   10.6   |          TC1,TC4,TC17,TC23,TC31,TC34,TC43,TC51          |
+|   10.7   |              TC1,TC17,TC23,TC31,TC43,TC51               |
+|   10.8   |              TC1,TC17,TC23,TC31,TC43,TC51               |
+|   10.9   |    TC8,TC19,TC25,TC33,TC36,TC45,TC53,TC53.1,TP2,TP35    |
+|  10.10   |      TC8,TC19,TC25,TC36,TC45,TC53,TC53.1,TP2,TP35       |
+|  10.11   |  TC7,TC8,TC19,TC25,TC33,TC36,TC45,TC53,TC53.1,TP2,TP35  |
+|  10.12   |  TC7,TC8,TC19,TC25,TC33,TC36,TC45,TC53,TC53.1,TP2,TP35  |
+|   11.1   |                                                         |
+|   11.2   |                                                         |
+|   12.1   |                                                         |
+|   13.1   |                                                         |
+|   14.1   |                                                         |
+|   15.1   |         TC11,TC12,TC15,TC28,TC39,TC40,TC47,TC56         |
+|   16.1   |              TC10,TC20,TC27,TC38,TC48,TC55              |
+|   17.1   |            TR1, TR6, TR11, TR16, TR21, TR26             |
+|   17.2   |            TR3, TR8, TR13, TR18, TR23, TR28             |
+|   18.1   |            TR2, TR7, TR12, TR17, TR22, TR27             |
+|   19.1   |            TR4, TR9, TR14, TR19, TR24, TR29             |
+|   19.2   |            TR5, TR10, TR15, TR20, TR25, TR30            |
 
 ## Coverage white box
 
