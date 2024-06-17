@@ -128,3 +128,14 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# nixos
+flake.lock
+flake.nix
+.direnv
+.envrc
+
+.vscode/*
+
+# databases
+*testdb.db

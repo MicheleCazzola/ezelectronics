@@ -1,4 +1,5 @@
-import { User } from "../components/user"
+import {  UserNotFoundError, UserNotManagerError, UserNotCustomerError, UserAlreadyExistsError, UserNotAdminError, UserIsAdminError, UnauthorizedUserError, InvalidDateError } from "../errors/userError";
+import { Role, User } from "../components/user"
 import UserDAO from "../dao/userDAO"
 
 /**
@@ -21,22 +22,30 @@ class UserController {
      * @param role - The role of the new user. It must not be null and it can only be one of the three allowed types ("Manager", "Customer", "Admin")
      * @returns A Promise that resolves to true if the user has been created.
      */
-    async createUser(username: string, name: string, surname: string, password: string, role: string) /**:Promise<Boolean> */ {
-        return this.dao.createUser(username, name, surname, password, role)
+    async createUser(username: string, name: string, surname: string, password: string, role: string):Promise<Boolean> {
+        //console.log("Creating user");
+        return this.dao.createUser(username, name, surname, password, role);
     }
 
     /**
      * Returns all users.
      * @returns A Promise that resolves to an array of users.
      */
-    async getUsers() /**:Promise<User[]> */ { }
+    async getUsers():Promise<User[]>{ 
+
+        return this.dao.getUser();
+    }
 
     /**
      * Returns all users with a specific role.
      * @param role - The role of the users to retrieve. It can only be one of the three allowed types ("Manager", "Customer", "Admin")
      * @returns A Promise that resolves to an array of users with the specified role.
      */
-    async getUsersByRole(role: string) /**:Promise<User[]> */ { }
+    async getUsersByRole(role: string): Promise<User[]>  {
+
+        return this.dao.getUserByRole(role);
+
+    }
 
     /**
      * Returns a specific user.
@@ -46,7 +55,22 @@ class UserController {
      * @param username - The username of the user to retrieve. The user must exist.
      * @returns A Promise that resolves to the user with the specified username.
      */
-    async getUserByUsername(user: User, username: string) /**:Promise<User> */ { }
+    async getUserByUsername(user: User, username: string):Promise<User>{ 
+    
+        if(user.role !== "Admin"){
+            //se l'utente non è admin può vedere solo le sue informazioni
+
+            if(username !== user.username){
+                //se il nome è diverso da quello dell'user che ha chiamato la route ->errore
+                throw new UnauthorizedUserError();
+            }
+
+        }
+
+        return this.dao.getUserByUsername(username);
+
+    }
+
 
     /**
      * Deletes a specific user
@@ -56,13 +80,36 @@ class UserController {
      * @param username - The username of the user to delete. The user must exist.
      * @returns A Promise that resolves to true if the user has been deleted.
      */
-    async deleteUser(user: User, username: string) /**:Promise<Boolean> */ { }
+    async deleteUser(user: User, username: string):Promise<Boolean> { 
+
+    
+        if(user.role !== "Admin"){
+            //se l'utente non è admin può vedere solo le sue informazioni
+
+            if(username !== user.username){
+                //se il nome è diverso da quello dell'user che ha chiamato la route ->errore
+                throw new UnauthorizedUserError();
+            }
+
+        }
+
+        const userIsAdmin = await this.dao.isAdminByUsername(username);
+
+        if(user.role === "Admin" && userIsAdmin){
+            //Si evita che l'admin cancelli l'account di un altro admin
+            throw new UserIsAdminError();
+        }
+        
+        return this.dao.deleteUser(username);
+    }
 
     /**
      * Deletes all non-Admin users
      * @returns A Promise that resolves to true if all non-Admin users have been deleted.
      */
-    async deleteAll() { }
+    async deleteAll(): Promise<Boolean> { 
+        return this.dao.deleteAll();
+    }
 
     /**
      * Updates the personal information of one user. The user can only update their own information.
@@ -74,7 +121,39 @@ class UserController {
      * @param username The username of the user to update. It must be equal to the username of the user parameter.
      * @returns A Promise that resolves to the updated user
      */
-    async updateUserInfo(user: User, name: string, surname: string, address: string, birthdate: string, username: string) /**:Promise<User> */ { }
+    async updateUserInfo(user: User, name: string, surname: string, address: string, birthdate: string, username: string):Promise<User> {
+        
+        //la data di nascita non deve essere dopo la data odierna
+        const date = new Date(birthdate);
+        const today = new Date();
+
+       
+
+        if(date > today) {
+            throw new InvalidDateError();
+        }
+
+        if(user.role !== "Admin"){
+            //se l'utente non è admin 
+
+            if(username !== user.username){
+                //e se il nome è diverso da quello dell'user che ha chiamato la route ->errore
+                throw new UnauthorizedUserError();
+            }
+
+        }else if(user.role == "Admin"){
+            //se l'utente è admin non può modificare altri utenti admin 
+            const userToUpdate = await this.dao.getUserByUsername(username);
+            if(userToUpdate.role == "Admin" && username !== user.username){
+                throw new UnauthorizedUserError();
+            }
+    
+        }
+
+
+        return this.dao.updateUserInformation(name, surname, address, birthdate, username);
+
+    }
 }
 
 export default UserController

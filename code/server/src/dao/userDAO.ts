@@ -15,7 +15,7 @@ class UserDAO {
      * @param plainPassword The password of the user (in plain text).
      * @returns A Promise that resolves to true if the user is authenticated, false otherwise.
      */
-    getIsUserAuthenticated(username: string, plainPassword: string): Promise<boolean> {
+    async getIsUserAuthenticated(username: string, plainPassword: string): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
             try {
                 /**
@@ -27,7 +27,8 @@ class UserDAO {
                     if (err) reject(err)
                     //If there is no user with the given username, or the user salt is not saved in the database, the user is not authenticated.
                     if (!row || row.username !== username || !row.salt) {
-                        resolve(false)
+                        resolve(false);
+                        return;
                     } else {
                         //Hashes the plain password using the salt and then compares it with the hashed password stored in the database
                         const hashedPassword = crypto.scryptSync(plainPassword, row.salt, 16)
@@ -44,6 +45,7 @@ class UserDAO {
         });
     }
 
+
     /**
      * Creates a new user and saves their information in the database
      * @param username The username of the user. It must be unique.
@@ -53,7 +55,7 @@ class UserDAO {
      * @param role The role of the user. It must be one of the three allowed types ("Manager", "Customer", "Admin")
      * @returns A Promise that resolves to true if the user has been created.
      */
-    createUser(username: string, name: string, surname: string, password: string, role: string): Promise<boolean> {
+    async createUser(username: string, name: string, surname: string, password: string, role: string): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
             try {
                 const salt = crypto.randomBytes(16)
@@ -62,9 +64,10 @@ class UserDAO {
                 db.run(sql, [username, name, surname, role, hashedPassword, salt], (err: Error | null) => {
                     if (err) {
                         if (err.message.includes("UNIQUE constraint failed: users.username")) reject(new UserAlreadyExistsError)
-                        reject(err)
+                        reject(err);
+                        return;
                     }
-                    resolve(true)
+                    resolve(true);
                 })
             } catch (error) {
                 reject(error)
@@ -78,18 +81,18 @@ class UserDAO {
      * @param username The username of the user to retrieve
      * @returns A Promise that resolves the information of the requested user
      */
-    getUserByUsername(username: string): Promise<User> {
+    async getUserByUsername(username: string): Promise<User> {
         return new Promise<User>((resolve, reject) => {
             try {
                 const sql = "SELECT * FROM users WHERE username = ?"
                 db.get(sql, [username], (err: Error | null, row: any) => {
                     if (err) {
-                        reject(err)
-                        return
+                        reject(err);
+                        return;
                     }
                     if (!row) {
                         reject(new UserNotFoundError())
-                        return
+                        return;
                     }
                     const user: User = new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate)
                     resolve(user)
@@ -100,5 +103,200 @@ class UserDAO {
 
         })
     }
+
+    async getUser(): Promise<User[]>{
+        return new Promise<User[]>((resolve, reject) => {
+            try{
+                const sql = "SELECT * FROM users"
+                db.all(sql, [], (err: Error | null, rows: any[]) => {
+                    if(err){
+                        reject(err);
+                        return;
+                    }
+
+                    const user: User[] = rows.map((row) =>{return new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate);} );
+                    resolve(user);
+
+
+                })
+
+            }catch (error){
+                reject(error);
+            }
+
+        })
+    }
+
+
+    //Ritorna un array di oggetti utenti in base al ruolo scelto.
+    async getUserByRole(role: string): Promise<User[]> {
+        return new Promise<User[]>((resolve, reject) => {
+            try {
+                const sql = "SELECT * FROM users WHERE role = ?";
+                db.all(sql, [role], (err: Error | null, rows: any[]) => { 
+                    if (err) {
+                        reject(err);
+                        return;
+                    }
+    
+                    const users: User[] = rows.map(row => new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate));
+                    resolve(users);
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+
+
+    //Elimina un utente specifico.
+    async deleteUser(username: string): Promise<Boolean>{
+        return new Promise<Boolean>((resolve, reject) =>{
+            try{
+
+                let usExist = 0;
+                const sql = "SELECT * FROM users WHERE username = ?";
+
+                db.get(sql, [username], (err: Error | null, row: any) => {
+
+                    if (err){
+                        reject(err);
+                        return;
+                    }
+                    if (!row){
+                        reject(new UserNotFoundError);
+                        return;
+                    }else{
+
+                        const sql2 = "DELETE FROM users WHERE username = ?";
+
+                        db.run(sql2, [username], (err: Error | null) => {
+                            if (err) {               
+                                reject(err);
+                                return;
+                            }
+                            resolve(true);
+                        });
+                    }
+        
+                });
+
+
+            }catch (error){
+                reject(error);
+            }
+
+        });
+
+    }
+
+    //elimina tutti gli utenti
+    async deleteAll(): Promise<Boolean>{
+        return new Promise<Boolean>((resolve, reject) =>{
+            try{
+
+            const sql = "DELETE FROM users WHERE role = 'Customer' OR role = 'Manager'";
+                db.run(sql, [], (err: Error | null) => {
+                    if (err) {
+                        reject(err);
+                        return;
+                    }
+
+                    resolve(true);
+
+                });
+
+            }catch (error){
+                reject(error);
+            }
+
+        });
+    }
+
+    //verifica se il ruolo di un utente è Admin
+    async isAdminByUsername(username: string): Promise<Boolean>{
+        return new Promise<Boolean>((resolve, reject) =>{
+            try{
+                const sql = "SELECT username FROM users WHERE username = ? and role = ?";
+
+                db.get(
+                  sql,
+                  [username, "Admin"],
+                  (err: Error | null, row: any) => {
+                    if (err) {
+                      return reject(err);
+                    }
+                    // `!!row` restituisce `true` se l'user inserito è admin,
+                    // altrimenti `false`
+                    resolve(!!row);
+                  }
+                );
+
+            } catch (error) {
+                reject(error);
+            }
+
+
+        });
+
+    }
+
+    async updateUserInformation(name: string, surname: string, address: string, birthdate: string, username: string):Promise<User>{
+        return new Promise<User>((resolve, reject) =>{
+            try{
+
+                const sql2 = "SELECT * FROM users WHERE username = ?"
+                db.get(sql2, [username], (err: Error | null, row: any) => {
+                    if (err) {
+                        reject(err);
+                        return;
+                    }
+                    if(!row){
+                    
+                        reject(new UserNotFoundError());
+                        return;
+          
+                    }else{
+                        const sql = "UPDATE users SET name = ?, surname = ?, address = ?, birthdate = ? WHERE username = ?";
+
+                        db.run(sql, [name, surname, address, birthdate, username],(err: Error | null) => {
+                            if (err){
+                                reject(err);
+                                return;
+                            }
+                            
+                            const sql3 = "SELECT * FROM users WHERE username = ?"
+
+                            db.get(sql3, [username], (err: Error | null, row: any) => {
+                                if (err){
+                                    reject(err);
+                                    return;
+                                }
+                                const user: User = new User(row.username, row.name, row.surname, row.role, row.address, row.birthdate);
+                                resolve(user);
+                    
+                            });
+
+                        });
+
+                        
+                    }
+            
+                
+                });
+            
+            }catch (error) {
+                reject(error);
+
+            }
+
+        });
+
+    }
+
+
+
 }
+
+
 export default UserDAO

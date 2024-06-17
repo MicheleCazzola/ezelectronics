@@ -28,6 +28,18 @@ class Utility {
 
 }
 
+class Time {
+    static today(): string {
+		return new Date().toISOString().split("T")[0];
+		/* return new Date().toLocaleString("en-ZA")
+            .split(",")[0]
+            .split("/")
+            //.map((field, index) => index == 2 ? field.padStart(4, "0") : field.padStart(2, "0"))
+            //.reverse()
+            .join("-"); */
+	}
+}
+
 class DateError extends Error {
     customMessage: string
     customCode: number
@@ -39,4 +51,4 @@ class DateError extends Error {
     }
 }
 
-export { Utility, DateError }
+export { Utility, Time, DateError }

@@ -21,6 +21,7 @@ class CartNotFoundError extends Error {
 /**
  * Represents an error that occurs when a product is already in a cart.
  */
+// Not necessary to use in this version, as said in GitLab issue
 class ProductInCartError extends Error {
     customMessage: string
     customCode: number
