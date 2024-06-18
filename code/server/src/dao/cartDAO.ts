@@ -215,7 +215,6 @@ class CartDAO {
 		const cartid = await this.getCurrentCartId(user);
 		let cart = await this.getCurrentCart(user);
 		let found = false;
-		let emptyCart = cart.products.length === 0;
 		let new_quantity: number = undefined;
 		for (let cart_product of cart.products) {
 			if (cart_product.model === product) {
@@ -232,12 +231,10 @@ class CartDAO {
 		}
 
 		return new Promise((resolve, reject) => {
-			if (emptyCart) {
-				reject(new EmptyCartError());
+			if (!found) {
+				reject(new ProductNotInCartError());
 			} else if (!productExists) {
 				reject(new ProductNotFoundError());
-			} else if (!found) {
-				reject(new ProductNotInCartError());
 			} else {
 				const sql =
 					"UPDATE CART SET (Total, Paid, PaymentDate) = (?, ?, ?) WHERE Username = ? AND Paid = 0";
@@ -249,7 +246,6 @@ class CartDAO {
 						else if (new_quantity === 0) {
 							const sql2 =
 								"DELETE FROM PRODUCT_IN_CART WHERE CartId = ? AND Model = ?";
-
 							db.run(sql2, [cartid, product], (err) => {
 								if (err) reject(err);
 								else resolve(true);
