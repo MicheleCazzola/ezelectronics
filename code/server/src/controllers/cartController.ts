@@ -168,7 +168,9 @@ class CartController {
     for (let cart of carts) {
       cart.cart.products = await this.dao.fetchProducts(cart.id);
     }
-    return carts.map((cart) => cart.cart);
+    return carts
+		.map((cart) => cart.cart)
+		.filter((cart) => cart.products.length > 0);
   }
 }
 
