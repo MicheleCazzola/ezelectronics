@@ -358,5 +358,6 @@ Per ognuno dei quattro componenti presenti (User, Cart, Review, Product) è stat
 |   19.2   |            TR5, TR10, TR15, TR20, TR25, TR30            |
 
 ## Coverage white box
+La seguente schermata è stata generata in seguito all'esecuzione delle test suite presenti nella sola cartella `/code/server/src/test_unit`, in quanto solo gli unit test effettuati sono white box.
 
 ![coverage values](media/test_report/coverage.png)
