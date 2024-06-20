@@ -51,15 +51,24 @@ class CartController {
   async getCart(user: User): Promise<Cart> {
     return new Promise((resolve, reject) => {
       this.dao
-        .getCurrentCart(user)
-        .then((cart) => resolve(cart))
-        .catch((err) => {
-          if (err === CartNotFoundError || err instanceof CartNotFoundError) {
-            resolve(new Cart(user.username, false, "", 0, []));
-          } else {
-            reject(err);
-          }
-        });
+			.getCurrentCart(user)
+			.then((cart) =>
+				resolve({
+					...cart,
+					paymentDate:
+						cart.paymentDate === "" ? null : cart.paymentDate,
+				} as Cart)
+			)
+			.catch((err) => {
+				if (
+					err === CartNotFoundError ||
+					err instanceof CartNotFoundError
+				) {
+					resolve(new Cart(user.username, false, null, 0, []));
+				} else {
+					reject(err);
+				}
+			});
     });
   }
 
@@ -169,7 +178,13 @@ class CartController {
       cart.cart.products = await this.dao.fetchProducts(cart.id);
     }
     return carts
-		.map((cart) => cart.cart)
+		.map((cart) => {
+			return {
+				...cart.cart,
+				paymentDate:
+					cart.cart.paymentDate === "" ? null : cart.cart.paymentDate,
+			} as Cart;
+		})
 		.filter((cart) => cart.products.length > 0);
   }
 }
