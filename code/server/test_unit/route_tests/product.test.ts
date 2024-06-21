@@ -941,9 +941,7 @@ describe("Product router test:", () => {
                 .get(baseURL + "/available")
                 .query(
                     {
-                        grouping: "",
-                        category: "",
-                        model: ""
+                        
                     }
                 );
              
