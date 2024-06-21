@@ -168,6 +168,7 @@ class ProductRoutes {
 				.isString()
 				.isIn(["category", "model"])
 				.custom((value, { req }) => {
+					console.log(value)
 					if (value == "model" && req.query.model == undefined)
 						return false;
 					else if (
@@ -181,7 +182,7 @@ class ProductRoutes {
 						return false;
 					else return true;
 				})
-				.optional({ nullable: true, checkFalsy: true }),
+				.optional({ nullable: true }),
 			query("category")
 				.isString()
 				.custom((value, { req }) => {
@@ -258,7 +259,7 @@ class ProductRoutes {
 						return false;
 					else return true;
 				})
-				.optional({ nullable: true, checkFalsy: true }),
+				.optional({ nullable: true }),
 			query("category")
 				.isString()
 				.custom((value, { req }) => {
