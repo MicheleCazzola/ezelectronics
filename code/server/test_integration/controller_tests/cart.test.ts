@@ -45,7 +45,7 @@ describe("Controller tests", () => {
 				Category.APPLIANCE,
 				100.0
 			);
-			const testCart = new Cart(testUser.username, false, "", 100, [
+			const testCart = new Cart(testUser.username, false, null, 100, [
 				testNewProductInCart,
 			]);
 
@@ -100,7 +100,7 @@ describe("Controller tests", () => {
 				Category.APPLIANCE,
 				200.0
 			);
-			const testCart = new Cart(testUser.username, false, "", 300.0, [
+			const testCart = new Cart(testUser.username, false, null, 300.0, [
 				testNewProductInCart1,
 				testNewProductInCart2,
 			]);
@@ -168,7 +168,7 @@ describe("Controller tests", () => {
 				Category.APPLIANCE,
 				200.0
 			);
-			const testCart = new Cart(testUser.username, false, "", 500, [
+			const testCart = new Cart(testUser.username, false, null, 500, [
 				testNewProductInCart1,
 				testNewProductInCart2,
 			]);
@@ -322,7 +322,7 @@ describe("Controller tests", () => {
 				Category.APPLIANCE,
 				100.0
 			);
-			const testCart = new Cart(testUser.username, false, "", 100, [
+			const testCart = new Cart(testUser.username, false, null, 100, [
 				testNewProductInCart,
 			]);
 
@@ -362,7 +362,7 @@ describe("Controller tests", () => {
 				"test",
 				"test"
 			);
-			const testCart = new Cart(testUser.username, false, "", 0, []);
+			const testCart = new Cart(testUser.username, false, null, 0, []);
 
 			// Test
 			const currentCart = await cartController.getCart(testUser);
@@ -456,14 +456,17 @@ describe("Controller tests", () => {
 
 			// Check
 			// Cart was just checked out, so the current cart is empty
-			const checkedOutCarts = await cartController.getCustomerCarts(testUser)
-			const checkedOut = checkedOutCarts.filter(cart => 
-				cart.customer === testCart.customer &&
-				cart.paid === testCart.paid &&
-				cart.paymentDate === testCart.paymentDate &&
-				cart.total === testCart.total
+			const checkedOutCarts = await cartController.getCustomerCarts(
+				testUser
 			);
-			
+			const checkedOut = checkedOutCarts.filter(
+				(cart) =>
+					cart.customer === testCart.customer &&
+					cart.paid === testCart.paid &&
+					cart.paymentDate === testCart.paymentDate &&
+					cart.total === testCart.total
+			);
+
 			expect(result).toBe(true);
 			expect(checkedOut.length).toBe(1);
 			expect(checkedOut[0]).toStrictEqual(testCart);
@@ -626,7 +629,7 @@ describe("Controller tests", () => {
 				"test"
 			);
 			const testUser2 = new User(
-				"test2", 
+				"test2",
 				"test",
 				"test",
 				Role.CUSTOMER,
@@ -704,14 +707,14 @@ describe("Controller tests", () => {
 			// Test
 
 			const result1 = await cartController.checkoutCart(testUser2);
-			
+
 			expect(result1).toBe(true);
 			await expect(
 				cartController.checkoutCart(testUser1)
 			).rejects.toBeInstanceOf(EmptyProductStockError);
 
 			// Check
-			
+
 			//await expect(productController.productByModel(testNewProductInCart1.model)).rejects.toBeInstanceOf(ProductNotFoundError);
 			const prod1 = await productController.productByModel(
 				testNewProductInCart1.model
@@ -721,7 +724,6 @@ describe("Controller tests", () => {
 			);
 			expect(prod1.quantity).toBe(0);
 			expect(prod2.quantity).toBe(testNewProductInCart2.quantity);
-			
 		});
 	});
 
@@ -763,7 +765,7 @@ describe("Controller tests", () => {
 				Category.APPLIANCE,
 				200.0
 			);
-			const testCart = new Cart(testUser.username, false, "", 0, []);
+			const testCart = new Cart(testUser.username, false, null, 0, []);
 
 			// Setup
 			await userController.createUser(
@@ -821,7 +823,7 @@ describe("Controller tests", () => {
 				"test",
 				"test"
 			);
-			const testCart = new Cart(testUser.username, false, "", 0, []);
+			const testCart = new Cart(testUser.username, false, null, 0, []);
 
 			// Setup
 			await userController.createUser(
@@ -833,7 +835,9 @@ describe("Controller tests", () => {
 			);
 
 			// Test
-			await expect(cartController.clearCart(testUser)).rejects.toBeInstanceOf(CartNotFoundError);
+			await expect(
+				cartController.clearCart(testUser)
+			).rejects.toBeInstanceOf(CartNotFoundError);
 		});
 
 		// According to the comment on the route it should fail in this case
@@ -858,7 +862,7 @@ describe("Controller tests", () => {
 				Category.APPLIANCE,
 				200.0
 			);
-			const testCart = new Cart(testUser.username, false, "", 0, []);
+			const testCart = new Cart(testUser.username, false, null, 0, []);
 
 			// Setup
 			await userController.createUser(
@@ -899,7 +903,9 @@ describe("Controller tests", () => {
 			await cartController.checkoutCart(testUser);
 
 			// Test
-			await expect(cartController.clearCart(testUser)).rejects.toBeInstanceOf(CartNotFoundError);
+			await expect(
+				cartController.clearCart(testUser)
+			).rejects.toBeInstanceOf(CartNotFoundError);
 		});
 	});
 
@@ -941,7 +947,7 @@ describe("Controller tests", () => {
 				Category.APPLIANCE,
 				200.0
 			);
-			const testCart = new Cart(testUser.username, false, "", 100, [
+			const testCart = new Cart(testUser.username, false, null, 100, [
 				testNewProductInCart1,
 			]);
 
@@ -1012,7 +1018,7 @@ describe("Controller tests", () => {
 				Category.APPLIANCE,
 				200.0
 			);
-			const testCart = new Cart(testUser.username, false, "", 300, [
+			const testCart = new Cart(testUser.username, false, null, 300, [
 				testNewProductInCart1,
 				new ProductInCart(
 					testNewProductInCart2.model,
@@ -1208,7 +1214,7 @@ describe("Controller tests", () => {
 			// Test
 			await expect(
 				cartController.removeProductFromCart(testUser, "Test")
-			).rejects.toBeInstanceOf(EmptyCartError);
+			).rejects.toBeInstanceOf(ProductNotInCartError);
 		});
 
 		test("Product delete failure: product not found in db", async () => {
@@ -1471,7 +1477,7 @@ describe("Controller tests", () => {
 				new Cart(
 					testUser1.username,
 					false,
-					"",
+					null,
 					700,
 					testProductsInCart2
 				),

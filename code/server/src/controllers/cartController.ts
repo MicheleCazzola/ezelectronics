@@ -53,11 +53,13 @@ class CartController {
       this.dao
 			.getCurrentCart(user)
 			.then((cart) =>
-				resolve({
-					...cart,
-					paymentDate:
-						cart.paymentDate === "" ? null : cart.paymentDate,
-				} as Cart)
+				resolve(
+					Object.assign(new Cart("", false, null, 0, []), {
+						...cart,
+						paymentDate:
+							cart.paymentDate === "" ? null : cart.paymentDate,
+					})
+				)
 			)
 			.catch((err) => {
 				if (
@@ -178,13 +180,13 @@ class CartController {
       cart.cart.products = await this.dao.fetchProducts(cart.id);
     }
     return carts
-		.map((cart) => {
-			return {
+		.map((cart) =>
+			Object.assign(new Cart("", false, null, 0, []), {
 				...cart.cart,
 				paymentDate:
 					cart.cart.paymentDate === "" ? null : cart.cart.paymentDate,
-			} as Cart;
-		})
+			})
+		)
 		.filter((cart) => cart.products.length > 0);
   }
 }

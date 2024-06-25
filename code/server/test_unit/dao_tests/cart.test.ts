@@ -874,7 +874,7 @@ describe("DAO tests", () => {
 
 			await expect(
 				cartDAO.removeProductFromCart(testUser, "HP")
-			).rejects.toBeInstanceOf(EmptyCartError);
+			).rejects.toBeInstanceOf(ProductNotInCartError);
 
 			expect(mockDAOExistsProduct).toBeCalledTimes(1);
 			expect(mockDAOGetId).toBeCalledTimes(1);

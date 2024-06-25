@@ -231,10 +231,10 @@ class CartDAO {
 		}
 
 		return new Promise((resolve, reject) => {
-			if (!found) {
-				reject(new ProductNotInCartError());
-			} else if (!productExists) {
+			if (!productExists) {
 				reject(new ProductNotFoundError());
+			} else if (!found) {
+				reject(new ProductNotInCartError());
 			} else {
 				const sql =
 					"UPDATE CART SET (Total, Paid, PaymentDate) = (?, ?, ?) WHERE Username = ? AND Paid = 0";

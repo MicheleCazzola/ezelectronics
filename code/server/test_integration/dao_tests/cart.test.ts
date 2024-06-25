@@ -565,7 +565,7 @@ describe("DAO tests", () => {
 			expect(result).toBe(true);
 		});
 	});
-	
+
 	describe("DAO - Get paid carts", () => {
 		let cartDAO: CartDAO;
 		let userDAO: UserDAO;
@@ -613,27 +613,9 @@ describe("DAO tests", () => {
 				new ProductInCart("iPhone6", 3, Category.SMARTPHONE, 200.0),
 			];
 			const testCarts = [
-				new Cart(
-					testUser1.username,
-					false,
-					"",
-					4600.0,
-					[]
-				),
-				new Cart(
-					testUser1.username,
-					true,
-					Time.today(),
-					5200.0,
-					[]
-				),
-				new Cart(
-					testUser2.username,
-					true,
-					Time.today(),
-					800.0,
-					[]
-				),
+				new Cart(testUser1.username, false, "", 4600.0, []),
+				new Cart(testUser1.username, true, Time.today(), 5200.0, []),
+				new Cart(testUser2.username, true, Time.today(), 800.0, []),
 			];
 
 			// Setup
@@ -905,7 +887,14 @@ describe("DAO tests", () => {
 				testProductInCart.price,
 				null
 			);
-			await productDAO.createProduct("iPhone15", Category.SMARTPHONE, 2, "", 100, "");
+			await productDAO.createProduct(
+				"iPhone15",
+				Category.SMARTPHONE,
+				2,
+				"",
+				100,
+				""
+			);
 			await cartDAO.addProductToCart(cartId, testProductInCart);
 
 			// Test
@@ -995,7 +984,7 @@ describe("DAO tests", () => {
 			// Test
 			await expect(
 				cartDAO.removeProductFromCart(testUser, "iPhone13")
-			).rejects.toBeInstanceOf(EmptyCartError);
+			).rejects.toBeInstanceOf(ProductNotInCartError);
 		});
 
 		test("Remove failed - Product not found", async () => {
@@ -1121,9 +1110,11 @@ describe("DAO tests", () => {
 				"test",
 				testUser.role
 			);
-			
+
 			// Test
-			const result = await expect(cartDAO.clearCart(testUser)).rejects.toBeInstanceOf(CartNotFoundError);
+			const result = await expect(
+				cartDAO.clearCart(testUser)
+			).rejects.toBeInstanceOf(CartNotFoundError);
 		});
 	});
 
@@ -1316,13 +1307,7 @@ describe("DAO tests", () => {
 			const testCarts = [
 				{
 					id: 1,
-					cart: new Cart(
-						testUser1.username,
-						false,
-						"",
-						5600.0,
-						[]
-					),
+					cart: new Cart(testUser1.username, false, "", 5600.0, []),
 				},
 				{
 					id: 2,
@@ -1395,7 +1380,6 @@ describe("DAO tests", () => {
 				await cartDAO.addProductToCart(cartId2, prod);
 			}
 			await cartDAO.checkoutCart(testUser2.username);
-			
 
 			// Test
 			const result = await cartDAO.fetchAllCarts();
