@@ -594,7 +594,9 @@ describe("ProductRouter tests:", () => {
       });
 
       const response = await agent.get(baseURL + customURL).query({
-        
+        grouping: "",
+        category: "",
+        model: "",
       });
 
       expect(response.status).toBe(okStatus);
@@ -1091,7 +1093,11 @@ describe("ProductRouter tests:", () => {
       await logout();
 
       await login("c1");
-      const response = await agent.get(baseURL + customURL).query({});
+      const response = await agent.get(baseURL + customURL).query({
+        grouping: "",
+        category: "",
+        model: "",
+      });
 
       expect(response.status).toBe(okStatus);
 
@@ -1884,7 +1890,11 @@ describe("ProductRouter tests:", () => {
 
       const response = await agent.delete(baseURL + "/").send({});
 
-      const check = await agent.get(baseURL + "/")
+      const check = await agent.get(baseURL + "/").query({
+        grouping: "",
+        category: "",
+        model: "",
+      });
 
       expect(response.status).toBe(okStatus);
 
