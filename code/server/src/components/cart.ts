@@ -4,33 +4,27 @@ import { Category } from "./product"
  * Represents a shopping cart.
  */
 class Cart {
-	customer: string;
-	paid: boolean;
-	paymentDate: string;
-	total: number;
-	products: ProductInCart[];
+    customer: string
+    paid: boolean
+    paymentDate: string
+    total: number
+    products: ProductInCart[]
 
-	/**
-	 * Creates a new instance of the Cart class.
-	 * @param customer - The username of the customer who owns the cart.
-	 * @param paid - A boolean value indicating whether the cart has been paid for.
-	 * @param paymentDate - The date the cart was paid for. This is null if the cart has not been paid for.
-	 * @param total - The total amount of the cart. It corresponds to the sum of the prices of all the products in the cart, computed as price * quantity.
-	 * @param products - The products in the cart.
-	 */
-	constructor(
-		customer: string,
-		paid: boolean,
-		paymentDate: string | null,
-		total: number,
-		products: ProductInCart[]
-	) {
-		this.customer = customer;
-		this.paid = paid;
-		this.paymentDate = paymentDate;
-		this.total = total;
-		this.products = products;
-	}
+    /**
+     * Creates a new instance of the Cart class.
+     * @param customer - The username of the customer who owns the cart.
+     * @param paid - A boolean value indicating whether the cart has been paid for.
+     * @param paymentDate - The date the cart was paid for. This is null if the cart has not been paid for.
+     * @param total - The total amount of the cart. It corresponds to the sum of the prices of all the products in the cart, computed as price * quantity.
+     * @param products - The products in the cart.
+     */
+    constructor(customer: string, paid: boolean, paymentDate: string | null, total: number, products: ProductInCart[]) {
+        this.customer = customer
+        this.paid = paid
+        this.paymentDate = paymentDate
+        this.total = total
+        this.products = products
+    }
 }
 
 /**
