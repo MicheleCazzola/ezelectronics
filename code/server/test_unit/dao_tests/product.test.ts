@@ -235,7 +235,7 @@ describe("ProductDao test:", () => {
 
             expect(mockDBRun).toHaveBeenCalledWith(
                 expect.any(String),
-                expect.arrayContaining([updatedQuantity, testModel]),
+                expect.arrayContaining([updatedQuantity, testDate, testModel]),
                 expect.any(Function)
             );
 
@@ -289,7 +289,7 @@ describe("ProductDao test:", () => {
            
             expect(mockDBRun).toHaveBeenCalledWith(
                 expect.any(String),
-                expect.arrayContaining([updatedQuantity, testModel]),
+                expect.arrayContaining([updatedQuantity, testDate, testModel]),
                 expect.any(Function)
             );
 
@@ -321,7 +321,7 @@ describe("ProductDao test:", () => {
            
             expect(mockDBRun).toHaveBeenCalledWith(
                 expect.any(String),
-                [updatedQuantity, testModel],
+                [updatedQuantity, changeDate, testModel],
                 expect.any(Function)
             );
 
@@ -388,7 +388,7 @@ describe("ProductDao test:", () => {
 
             expect(mockDBRun).toHaveBeenCalledWith(
                 expect.any(String),
-                expect.arrayContaining([updatedQuantity, testModel]),
+                expect.arrayContaining([updatedQuantity, testDate, testModel]),
                 expect.any(Function)
             );
 
@@ -437,7 +437,7 @@ describe("ProductDao test:", () => {
            
             expect(mockDBRun).toHaveBeenCalledWith(
                 expect.any(String),
-                expect.arrayContaining([updatedQuantity, testModel]),
+                expect.arrayContaining([updatedQuantity, testDate, testModel]),
                 expect.any(Function)
             );
 
@@ -469,7 +469,7 @@ describe("ProductDao test:", () => {
            
             expect(mockDBRun).toHaveBeenCalledWith(
                 expect.any(String),
-                [updatedQuantity, testModel],
+                [updatedQuantity, changeDate, testModel],
                 expect.any(Function)
             );
 
