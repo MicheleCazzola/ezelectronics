@@ -84,7 +84,7 @@ describe("Carts router tests", () => {
 
       beforeAll(async () => {
         customURL = "/";
-
+    
         await cleanup();
       });
 
@@ -179,7 +179,7 @@ describe("Carts router tests", () => {
 
       beforeAll(async () => {
         customURL = "/";
-
+    
         await cleanup();
       });
 
@@ -225,7 +225,7 @@ describe("Carts router tests", () => {
         const response = await
           agent.get(baseURL + customURL)
           .send({});
-
+        
         expect(response.status).toBe(okStatus);
         expect(response.body).toEqual(testCart);
       });
@@ -267,7 +267,7 @@ describe("Carts router tests", () => {
 
       beforeAll(async () => {
         customURL = "/";
-
+    
         await cleanup();
       });
 
@@ -390,7 +390,7 @@ describe("Carts router tests", () => {
 
       beforeAll(async () => {
         customURL = "/history";
-
+    
         await cleanup();
       });
 
@@ -461,7 +461,7 @@ describe("Carts router tests", () => {
         expect(response.body).toEqual(testCarts1);
 
         await logout();
-
+        
         // Setup 2: different user
         await login("c2");
         await agent.post(baseURL + "/").send({model: "p1"});
@@ -506,7 +506,7 @@ describe("Carts router tests", () => {
         expect(response.body).toEqual(testCarts1);
 
         await logout();
-
+        
         // Setup 2: different user
         await login("c2");
 
@@ -536,7 +536,7 @@ describe("Carts router tests", () => {
         expect(response.body).toEqual([]);
 
         await logout();
-
+        
         // Setup 2: different user
         await login("c2");
         await agent.post(baseURL + "/").send({model: "p1"});
@@ -575,7 +575,7 @@ describe("Carts router tests", () => {
 
       beforeAll(async () => {
         customURL = "/products";
-
+    
         await cleanup();
       });
 
@@ -612,7 +612,7 @@ describe("Carts router tests", () => {
             await agent.post(baseURL + "/").send({model: "p1"});
             await agent.post(baseURL + "/").send({model: "p2"});
             await agent.post(baseURL + "/").send({model: "p3"});
-
+            
             let response = await agent.delete(baseURL + customURL + "/p1").send({});
 
             expect(response.status).toBe(okStatus);
@@ -636,7 +636,7 @@ describe("Carts router tests", () => {
           await agent.post(baseURL + "/").send({model: "p1"});
           await agent.post(baseURL + "/").send({model: "p2"});
           await agent.post(baseURL + "/").send({model: "p3"});
-
+          
           let response = await agent.delete(baseURL + customURL + "/p3").send({});
 
           expect(response.status).toBe(okStatus);
@@ -653,7 +653,7 @@ describe("Carts router tests", () => {
             await agent.post(baseURL + "/").send({model: "p1"});
             await agent.post(baseURL + "/").send({model: "p1"});
             await agent.post(baseURL + "/").send({model: "p2"});
-
+            
             let response = await agent.delete(baseURL + customURL + "/p3").send({});
 
             //expect(response.status).toBe(productNotInCart.status);
@@ -662,7 +662,7 @@ describe("Carts router tests", () => {
 
         test("Remove product from cart failed - No unpaid cart", async () => {
           await login("c1");
-
+          
           let response = await agent.delete(baseURL + customURL + "/p1").send({});
 
           expect(response.status).toBe(cartNotFound.status);
@@ -683,7 +683,7 @@ describe("Carts router tests", () => {
         test("Remove product from cart failed - Product not found", async () => {
           await login("c1");
           await agent.post(baseURL + "/").send({model: "p1"});
-
+          
           let response = await agent.delete(baseURL + customURL + "/pippo").send({});
 
           //expect(response.status).toBe(productNotFound.status);
@@ -705,17 +705,17 @@ describe("Carts router tests", () => {
           const response = await agent
             .delete(baseURL + customURL + "/pippo")
             .send({});
-
+  
           expect(response.status).toBe(unauthenticated.status);
           expect(getError(response.text)).toBe(unauthenticated.text);
         });
-
+  
         test("Remove product from cart failed - Not a customer", async () => {
           await login("m1");
           const response = await agent
             .delete(baseURL + customURL + "/pippo")
             .send({});
-
+  
           expect(response.status).toBe(notACustomer.status);
           expect(getError(response.text)).toBe(notACustomer.text);
         });
@@ -726,7 +726,7 @@ describe("Carts router tests", () => {
 
       beforeAll(async () => {
         customURL = "/current";
-
+    
         await cleanup();
       });
 
@@ -814,7 +814,7 @@ describe("Carts router tests", () => {
 
       beforeAll(async () => {
         customURL = "/";
-
+    
         await cleanup();
       });
 
@@ -852,7 +852,7 @@ describe("Carts router tests", () => {
 
             // Test
             let response = await agent.delete(baseURL + customURL).send({});
-
+            
             expect(response.status).toBe(okStatus);
 
             // Check
@@ -867,7 +867,7 @@ describe("Carts router tests", () => {
 
           // Test
           let response = await agent.delete(baseURL + customURL).send({});
-
+          
           expect(response.status).toBe(okStatus);
 
           // Check
@@ -885,7 +885,7 @@ describe("Carts router tests", () => {
 
         // Test
         let response = await agent.delete(baseURL + customURL).send({});
-
+        
         expect(response.status).toBe(okStatus);
 
         // Check
@@ -920,7 +920,7 @@ describe("Carts router tests", () => {
 
       beforeAll(async () => {
         customURL = "/all";
-
+    
         await cleanup();
       });
 
@@ -965,10 +965,10 @@ describe("Carts router tests", () => {
               new Cart("c1", true, Time.today(), 200.0, testProductsInCart1),
               new Cart("c1", true, Time.today(), 300.0, testProductsInCart2)
           ];
-
+          
           await login("m1");
           const response = await agent.get(baseURL + customURL).send({});
-
+          
           expect(response.status).toBe(okStatus);
           expect(response.body).toEqual(testCarts);
       });
@@ -986,10 +986,10 @@ describe("Carts router tests", () => {
             new Cart("c1", true, Time.today(), 200.0, testProductsInCart1),
             new Cart("c1", true, Time.today(), 300.0, testProductsInCart2)
         ];
-
+        
         await login("a1");
         const response = await agent.get(baseURL + customURL).send({});
-
+        
         expect(response.status).toBe(okStatus);
         expect(response.body).toEqual(testCarts);
       });
@@ -1002,7 +1002,7 @@ describe("Carts router tests", () => {
 
         // Test
         const response = await agent.get(baseURL + customURL).send({});
-
+        
         expect(response.status).toBe(okStatus);
         expect(response.body).toEqual([]);
       });

@@ -565,7 +565,7 @@ describe("DAO tests", () => {
 			expect(result).toBe(true);
 		});
 	});
-
+	
 	describe("DAO - Get paid carts", () => {
 		let cartDAO: CartDAO;
 		let userDAO: UserDAO;
@@ -1121,7 +1121,7 @@ describe("DAO tests", () => {
 				"test",
 				testUser.role
 			);
-
+			
 			// Test
 			const result = await expect(cartDAO.clearCart(testUser)).rejects.toBeInstanceOf(CartNotFoundError);
 		});
@@ -1395,7 +1395,7 @@ describe("DAO tests", () => {
 				await cartDAO.addProductToCart(cartId2, prod);
 			}
 			await cartDAO.checkoutCart(testUser2.username);
-
+			
 
 			// Test
 			const result = await cartDAO.fetchAllCarts();

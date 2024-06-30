@@ -457,13 +457,13 @@ describe("Controller tests", () => {
 			// Check
 			// Cart was just checked out, so the current cart is empty
 			const checkedOutCarts = await cartController.getCustomerCarts(testUser)
-			const checkedOut = checkedOutCarts.filter(cart =>
+			const checkedOut = checkedOutCarts.filter(cart => 
 				cart.customer === testCart.customer &&
 				cart.paid === testCart.paid &&
 				cart.paymentDate === testCart.paymentDate &&
 				cart.total === testCart.total
 			);
-
+			
 			expect(result).toBe(true);
 			expect(checkedOut.length).toBe(1);
 			expect(checkedOut[0]).toStrictEqual(testCart);
@@ -626,7 +626,7 @@ describe("Controller tests", () => {
 				"test"
 			);
 			const testUser2 = new User(
-				"test2",
+				"test2", 
 				"test",
 				"test",
 				Role.CUSTOMER,
@@ -704,14 +704,14 @@ describe("Controller tests", () => {
 			// Test
 
 			const result1 = await cartController.checkoutCart(testUser2);
-
+			
 			expect(result1).toBe(true);
 			await expect(
 				cartController.checkoutCart(testUser1)
 			).rejects.toBeInstanceOf(EmptyProductStockError);
 
 			// Check
-
+			
 			//await expect(productController.productByModel(testNewProductInCart1.model)).rejects.toBeInstanceOf(ProductNotFoundError);
 			const prod1 = await productController.productByModel(
 				testNewProductInCart1.model
@@ -721,7 +721,7 @@ describe("Controller tests", () => {
 			);
 			expect(prod1.quantity).toBe(0);
 			expect(prod2.quantity).toBe(testNewProductInCart2.quantity);
-
+			
 		});
 	});
 

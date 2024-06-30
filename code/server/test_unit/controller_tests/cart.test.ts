@@ -85,7 +85,7 @@ describe("Controller tests", () => {
         expect(CartDAO.prototype.getCurrentCart).toHaveBeenCalledWith(testUser);
       });
     });
-
+    
     describe("Controller - Get all customer carts", () => {
         afterEach(() => {
             jest.clearAllMocks();
@@ -128,8 +128,8 @@ describe("Controller tests", () => {
 
           expect(response).toStrictEqual(testCarts.map(testCart => testCart.cart));
         });
-
-
+        
+        
         test("Get carts successful, still no carts paid", async () => {
           const testUser = new User(
             "test",
@@ -176,7 +176,7 @@ describe("Controller tests", () => {
           expect(CartDAO.prototype.fetchPaidCarts).toHaveBeenCalledWith(testUser.username);
         });
     });
-
+    
     describe("Controller - Get all carts", () => {
       afterEach(() => {
         jest.clearAllMocks();
@@ -240,7 +240,7 @@ describe("Controller tests", () => {
         expect(CartDAO.prototype.fetchAllCarts).toHaveBeenCalledWith();
       });
     });
-
+    
     describe("Controller - Add product to cart", () => {
       afterEach(() => {
         jest.clearAllMocks();
