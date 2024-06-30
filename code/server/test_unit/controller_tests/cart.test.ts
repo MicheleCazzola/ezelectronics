@@ -31,7 +31,7 @@ describe("Controller tests", () => {
         const testCart = new Cart(
           "test",
           false,
-          null,
+          "",
           1000.0,
           testProductsInCart
         );
@@ -43,7 +43,7 @@ describe("Controller tests", () => {
 
         expect(CartDAO.prototype.getCurrentCart).toBeCalledTimes(1);
         expect(CartDAO.prototype.getCurrentCart).toHaveBeenCalledWith(testUser);
-        expect(response).toEqual(testCart);
+        expect(response).toBe(testCart);
       });
 
       test("Get current cart, if empty", async () => {
@@ -55,7 +55,7 @@ describe("Controller tests", () => {
           "test",
           "test"
         );
-        const testCart = new Cart("test", false, null, 0.0, []);
+        const testCart = new Cart("test", false, "", 0.0, []);
         jest
           .spyOn(CartDAO.prototype, "getCurrentCart")
           .mockRejectedValueOnce(CartNotFoundError);
@@ -187,9 +187,9 @@ describe("Controller tests", () => {
           new ProductInCart("iPhone13", 1, Category.SMARTPHONE, 1000.0),
         ];
         const testCarts = [
-          {id: 1, cart: new Cart("test", true, "2024-07-12", 1000.0, testProductsInCart)},
-          {id: 2, cart: new Cart("test2", true, "2024-07-12", 1000.0, testProductsInCart)},
-          {id: 3, cart: new Cart("test2", false, null, 1000.0, testProductsInCart)}
+          {id: 1, cart: new Cart("test", true, "", 1000.0, testProductsInCart)},
+          {id: 2, cart: new Cart("test2", true, "", 1000.0, testProductsInCart)},
+          {id: 3, cart: new Cart("test2", false, "", 1000.0, testProductsInCart)}
         ];
         jest
           .spyOn(CartDAO.prototype, "fetchAllCarts")
@@ -211,7 +211,7 @@ describe("Controller tests", () => {
           expect(mockDAOFetchProducts).toHaveBeenNthCalledWith(index+1, testCart.id);
         });
 
-        expect(response).toEqual(testCarts.map(testCart => testCart.cart));
+        expect(response).toStrictEqual(testCarts.map(testCart => testCart.cart));
       });
 
       test("Get all carts successful: no carts", async () => {

@@ -45,7 +45,7 @@ describe("Controller tests", () => {
 				Category.APPLIANCE,
 				100.0
 			);
-			const testCart = new Cart(testUser.username, false, null, 100, [
+			const testCart = new Cart(testUser.username, false, "", 100, [
 				testNewProductInCart,
 			]);
 
@@ -100,7 +100,7 @@ describe("Controller tests", () => {
 				Category.APPLIANCE,
 				200.0
 			);
-			const testCart = new Cart(testUser.username, false, null, 300.0, [
+			const testCart = new Cart(testUser.username, false, "", 300.0, [
 				testNewProductInCart1,
 				testNewProductInCart2,
 			]);
@@ -168,7 +168,7 @@ describe("Controller tests", () => {
 				Category.APPLIANCE,
 				200.0
 			);
-			const testCart = new Cart(testUser.username, false, null, 500, [
+			const testCart = new Cart(testUser.username, false, "", 500, [
 				testNewProductInCart1,
 				testNewProductInCart2,
 			]);
@@ -322,7 +322,7 @@ describe("Controller tests", () => {
 				Category.APPLIANCE,
 				100.0
 			);
-			const testCart = new Cart(testUser.username, false, null, 100, [
+			const testCart = new Cart(testUser.username, false, "", 100, [
 				testNewProductInCart,
 			]);
 
@@ -362,7 +362,7 @@ describe("Controller tests", () => {
 				"test",
 				"test"
 			);
-			const testCart = new Cart(testUser.username, false, null, 0, []);
+			const testCart = new Cart(testUser.username, false, "", 0, []);
 
 			// Test
 			const currentCart = await cartController.getCart(testUser);
@@ -456,12 +456,12 @@ describe("Controller tests", () => {
 
 			// Check
 			// Cart was just checked out, so the current cart is empty
-			const checkedOutCarts = await cartController.getCustomerCarts(testUser);
+			const checkedOutCarts = await cartController.getCustomerCarts(testUser)
 			const checkedOut = checkedOutCarts.filter(cart =>
-					cart.customer === testCart.customer &&
-					cart.paid === testCart.paid &&
-					cart.paymentDate === testCart.paymentDate &&
-					cart.total === testCart.total
+				cart.customer === testCart.customer &&
+				cart.paid === testCart.paid &&
+				cart.paymentDate === testCart.paymentDate &&
+				cart.total === testCart.total
 			);
 
 			expect(result).toBe(true);
@@ -763,7 +763,7 @@ describe("Controller tests", () => {
 				Category.APPLIANCE,
 				200.0
 			);
-			const testCart = new Cart(testUser.username, false, null, 0, []);
+			const testCart = new Cart(testUser.username, false, "", 0, []);
 
 			// Setup
 			await userController.createUser(
@@ -821,7 +821,7 @@ describe("Controller tests", () => {
 				"test",
 				"test"
 			);
-			const testCart = new Cart(testUser.username, false, null, 0, []);
+			const testCart = new Cart(testUser.username, false, "", 0, []);
 
 			// Setup
 			await userController.createUser(
@@ -858,7 +858,7 @@ describe("Controller tests", () => {
 				Category.APPLIANCE,
 				200.0
 			);
-			const testCart = new Cart(testUser.username, false, null, 0, []);
+			const testCart = new Cart(testUser.username, false, "", 0, []);
 
 			// Setup
 			await userController.createUser(
@@ -941,7 +941,7 @@ describe("Controller tests", () => {
 				Category.APPLIANCE,
 				200.0
 			);
-			const testCart = new Cart(testUser.username, false, null, 100, [
+			const testCart = new Cart(testUser.username, false, "", 100, [
 				testNewProductInCart1,
 			]);
 
@@ -1012,7 +1012,7 @@ describe("Controller tests", () => {
 				Category.APPLIANCE,
 				200.0
 			);
-			const testCart = new Cart(testUser.username, false, null, 300, [
+			const testCart = new Cart(testUser.username, false, "", 300, [
 				testNewProductInCart1,
 				new ProductInCart(
 					testNewProductInCart2.model,
@@ -1471,7 +1471,7 @@ describe("Controller tests", () => {
 				new Cart(
 					testUser1.username,
 					false,
-					null,
+					"",
 					700,
 					testProductsInCart2
 				),

@@ -72,7 +72,7 @@ describe("Carts router tests", () => {
       neitherAdminNorManager = {status: 401, text: "User is not an admin or manager"};
       cartNotFound = {status: 404, text: "Cart not found"};
       productNotFound = {status: 404, text: "Product not found"};
-      productNotInCart = {status: 404, text: "Product not in cart"};
+      productNotInCart = {status: 409, text: "Product not in cart"};
       emptyProductStock = {status: 409, text: "Product stock is empty"};
       lowProductStock = {status: 409, text: "Product stock cannot satisfy the requested quantity"};
       invalidStatus = 422;
@@ -95,7 +95,7 @@ describe("Carts router tests", () => {
         await register_user("m1", Role.MANAGER);
         await register_user("a1", Role.ADMIN);
         await login("m1");
-		    await create_product("p1", 10)
+        await create_product("p1", 10)
         await create_product("p2", 10);
         await create_product("p3", 10);
         await create_product("p4", 1);
@@ -210,7 +210,7 @@ describe("Carts router tests", () => {
         const testCart = new Cart(
           "c1",
           false,
-          null,
+          "",
           400.0,
           testProductsInCart
         );
@@ -231,7 +231,7 @@ describe("Carts router tests", () => {
       });
 
       test("Get current cart successful - Unpaid cart not yet present", async () => {
-        const testCart = new Cart("c1", false, null, 0.0, []);
+        const testCart = new Cart("c1", false, "", 0.0, []);
 
         await login("c1");
         const response = await agent
@@ -604,7 +604,7 @@ describe("Carts router tests", () => {
               new ProductInCart("p2", 1, Category.LAPTOP, 100),
               new ProductInCart("p3", 1, Category.LAPTOP, 100)
             ];
-            const testCart = new Cart("c1", false, null, 400.0, testProductsInCart);
+            const testCart = new Cart("c1", false, "", 400.0, testProductsInCart);
 
             await login("c1");
             await agent.post(baseURL + "/").send({model: "p1"});
@@ -628,7 +628,7 @@ describe("Carts router tests", () => {
             new ProductInCart("p1", 3, Category.LAPTOP, 100),
             new ProductInCart("p2", 1, Category.LAPTOP, 100)
           ];
-          const testCart = new Cart("c1", false, null, 400.0, testProductsInCart);
+          const testCart = new Cart("c1", false, "", 400.0, testProductsInCart);
 
           await login("c1");
           await agent.post(baseURL + "/").send({model: "p1"});
@@ -750,7 +750,7 @@ describe("Carts router tests", () => {
       });
 
         test("Empty cart successful", async () => {
-            const testCart = new Cart("c1", false, null, 0.0, []);
+            const testCart = new Cart("c1", false, "", 0.0, []);
 
             await login("c1");
             await agent.post(baseURL + "/").send({model: "p1"});
