@@ -62,10 +62,7 @@ class CartController {
 				)
 			)
 			.catch((err) => {
-				if (
-					err === CartNotFoundError ||
-					err instanceof CartNotFoundError
-				) {
+				if (err === CartNotFoundError || err instanceof CartNotFoundError) {
 					resolve(new Cart(user.username, false, null, 0, []));
 				} else {
 					reject(err);

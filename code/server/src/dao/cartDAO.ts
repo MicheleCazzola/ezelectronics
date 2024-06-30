@@ -246,6 +246,7 @@ class CartDAO {
 						else if (new_quantity === 0) {
 							const sql2 =
 								"DELETE FROM PRODUCT_IN_CART WHERE CartId = ? AND Model = ?";
+
 							db.run(sql2, [cartid, product], (err) => {
 								if (err) reject(err);
 								else resolve(true);

@@ -31,18 +31,18 @@ const login = async (userInfo: any) => {
 
 describe("Tests for Product Routes", () => {
     beforeAll(async () => {
-		await cleanup();
-		//The cleanup function may not finish in time for the next operation, leading to potential issues
-		//We wait 15 seconds before writing to the database, ensuring that the test suite contains what we need
-		//await new Promise(resolve => setTimeout(resolve, 15000))
-		//We create one user for each role and log them in
-		await postUser(customer);
-		await postUser(manager);
-		await postUser(admin);
-		customerCookie = await login(customer);
-		managerCookie = await login(manager);
-		adminCookie = await login(admin);
-	})
+        await cleanup()
+        //The cleanup function may not finish in time for the next operation, leading to potential issues
+        //We wait 15 seconds before writing to the database, ensuring that the test suite contains what we need
+        //await new Promise(resolve => setTimeout(resolve, 15000))
+        //We create one user for each role and log them in
+        await postUser(customer)
+        await postUser(manager)
+        await postUser(admin)
+        customerCookie = await login(customer)
+        managerCookie = await login(manager)
+        adminCookie = await login(admin)
+    })
 
     afterAll(async () => {
         await cleanup()

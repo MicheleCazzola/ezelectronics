@@ -456,11 +456,8 @@ describe("Controller tests", () => {
 
 			// Check
 			// Cart was just checked out, so the current cart is empty
-			const checkedOutCarts = await cartController.getCustomerCarts(
-				testUser
-			);
-			const checkedOut = checkedOutCarts.filter(
-				(cart) =>
+			const checkedOutCarts = await cartController.getCustomerCarts(testUser);
+			const checkedOut = checkedOutCarts.filter(cart =>
 					cart.customer === testCart.customer &&
 					cart.paid === testCart.paid &&
 					cart.paymentDate === testCart.paymentDate &&
@@ -724,6 +721,7 @@ describe("Controller tests", () => {
 			);
 			expect(prod1.quantity).toBe(0);
 			expect(prod2.quantity).toBe(testNewProductInCart2.quantity);
+
 		});
 	});
 
@@ -835,9 +833,7 @@ describe("Controller tests", () => {
 			);
 
 			// Test
-			await expect(
-				cartController.clearCart(testUser)
-			).rejects.toBeInstanceOf(CartNotFoundError);
+			await expect(cartController.clearCart(testUser)).rejects.toBeInstanceOf(CartNotFoundError);
 		});
 
 		// According to the comment on the route it should fail in this case
@@ -903,9 +899,7 @@ describe("Controller tests", () => {
 			await cartController.checkoutCart(testUser);
 
 			// Test
-			await expect(
-				cartController.clearCart(testUser)
-			).rejects.toBeInstanceOf(CartNotFoundError);
+			await expect(cartController.clearCart(testUser)).rejects.toBeInstanceOf(CartNotFoundError);
 		});
 	});
 

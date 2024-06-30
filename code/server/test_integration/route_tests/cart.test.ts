@@ -95,7 +95,7 @@ describe("Carts router tests", () => {
         await register_user("m1", Role.MANAGER);
         await register_user("a1", Role.ADMIN);
         await login("m1");
-		await create_product("p1", 10);
+		    await create_product("p1", 10)
         await create_product("p2", 10);
         await create_product("p3", 10);
         await create_product("p4", 1);

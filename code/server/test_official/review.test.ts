@@ -39,24 +39,24 @@ const createProduct = async (product: any, cookie: string) => {
 
 describe("Tests for Review Routes", () => {
     beforeAll(async () => {
-		await cleanup();
-		//The cleanup function may not finish in time for the next operation, leading to potential issues
-		//We wait 15 seconds before writing to the database, ensuring that the test suite contains what we need
-		//await new Promise(resolve => setTimeout(resolve, 15000))
-		//We create all 4 users we need and then log them in
-		await postUser(customer);
-		await postUser(manager);
-		await postUser(admin);
-		await postUser(secondCustomer);
-		customerCookie = await login(customer);
-		managerCookie = await login(manager);
-		adminCookie = await login(admin);
-		secondCustomerCookie = await login(secondCustomer);
-		//We create the products we need
-		await createProduct(prod1, managerCookie);
-		await createProduct(prod2, managerCookie);
-		await createProduct(prod3, managerCookie);
-	})
+        await cleanup()
+        //The cleanup function may not finish in time for the next operation, leading to potential issues
+        //We wait 15 seconds before writing to the database, ensuring that the test suite contains what we need
+        //await new Promise(resolve => setTimeout(resolve, 15000))
+        //We create all 4 users we need and then log them in
+        await postUser(customer)
+        await postUser(manager)
+        await postUser(admin)
+        await postUser(secondCustomer)
+        customerCookie = await login(customer)
+        managerCookie = await login(manager)
+        adminCookie = await login(admin)
+        secondCustomerCookie = await login(secondCustomer)
+        //We create the products we need
+        await createProduct(prod1, managerCookie)
+        await createProduct(prod2, managerCookie)
+        await createProduct(prod3, managerCookie)
+    })
 
     afterAll(async () => {
         await cleanup()
