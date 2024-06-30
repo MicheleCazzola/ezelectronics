@@ -11,11 +11,11 @@ const prefix = "/ezelectronics"
 
 /**
  * Initializes the routes for the application.
- *
+ * 
  * @remarks
  * This function sets up the routes for the application.
  * It defines the routes for the user, authentication, product, and cart resources.
- *
+ * 
  * @param {express.Application} app - The express application instance.
  */
 function initRoutes(app: express.Application) {
