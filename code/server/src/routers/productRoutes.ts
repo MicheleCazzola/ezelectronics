@@ -181,7 +181,7 @@ class ProductRoutes {
 						return false;
 					else return true;
 				})
-				.optional({ nullable: true, checkFalsy: true }),
+				.optional({ nullable: true }),
 			query("category")
 				.isString()
 				.custom((value, { req }) => {
@@ -258,7 +258,7 @@ class ProductRoutes {
 						return false;
 					else return true;
 				})
-				.optional({ nullable: true, checkFalsy: true }),
+				.optional({ nullable: true }),
 			query("category")
 				.isString()
 				.custom((value, { req }) => {

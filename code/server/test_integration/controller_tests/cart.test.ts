@@ -1208,7 +1208,7 @@ describe("Controller tests", () => {
 			// Test
 			await expect(
 				cartController.removeProductFromCart(testUser, "Test")
-			).rejects.toBeInstanceOf(EmptyCartError);
+			).rejects.toBeInstanceOf(ProductNotInCartError);
 		});
 
 		test("Product delete failure: product not found in db", async () => {

@@ -215,7 +215,6 @@ class CartDAO {
 		const cartid = await this.getCurrentCartId(user);
 		let cart = await this.getCurrentCart(user);
 		let found = false;
-		let emptyCart = cart.products.length === 0;
 		let new_quantity: number = undefined;
 		for (let cart_product of cart.products) {
 			if (cart_product.model === product) {
@@ -232,9 +231,7 @@ class CartDAO {
 		}
 
 		return new Promise((resolve, reject) => {
-			if (emptyCart) {
-				reject(new EmptyCartError());
-			} else if (!productExists) {
+			if (!productExists) {
 				reject(new ProductNotFoundError());
 			} else if (!found) {
 				reject(new ProductNotInCartError());

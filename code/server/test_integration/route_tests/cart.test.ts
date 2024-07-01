@@ -676,8 +676,8 @@ describe("Carts router tests", () => {
           await agent.delete(baseURL + customURL + "/p1").send({});
           let response = await agent.delete(baseURL + customURL + "/p2").send({});
 
-          expect(response.status).toBe(emptyCart.status);
-          expect(getError(response.text)).toBe(emptyCart.text);
+          expect(response.status).toBe(productNotInCart.status);
+          expect(getError(response.text)).toBe(productNotInCart.text);
         });
 
         test("Remove product from cart failed - Product not found", async () => {

@@ -141,8 +141,8 @@ class ProductDAO {
           let qt = row.AvailableQuantity;
           qt = qt + newQuantity;
           let sqlUpdate =
-            "UPDATE product_descriptor SET AvailableQuantity = ?, ArrivalDate = ? WHERE Model = ?";
-          db.run(sqlUpdate, [qt, changeDate, model], (err: Error | null) => {
+            "UPDATE product_descriptor SET AvailableQuantity = ? WHERE Model = ?";
+          db.run(sqlUpdate, [qt, model], (err: Error | null) => {
             if (err) reject(err);
             resolve(qt);
           });
@@ -196,8 +196,8 @@ class ProductDAO {
           qt = qt - quantity;
 
           let sqlUpdate =
-            "UPDATE product_descriptor SET AvailableQuantity = ?, ArrivalDate = ? WHERE Model = ?";
-          db.run(sqlUpdate, [qt, sellingDate, model], (err: Error | null) => {
+            "UPDATE product_descriptor SET AvailableQuantity = ? WHERE Model = ?";
+          db.run(sqlUpdate, [qt, model], (err: Error | null) => {
             if (err) reject(err);
             resolve(qt);
           });

@@ -995,7 +995,7 @@ describe("DAO tests", () => {
 			// Test
 			await expect(
 				cartDAO.removeProductFromCart(testUser, "iPhone13")
-			).rejects.toBeInstanceOf(EmptyCartError);
+			).rejects.toBeInstanceOf(ProductNotInCartError);
 		});
 
 		test("Remove failed - Product not found", async () => {
