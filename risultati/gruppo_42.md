@@ -59,9 +59,9 @@ Le percentuali di v2 sono state riscalate in quanto la media pesata delle percen
 
 ## Studenti
 
-| Nome | Matricola | Email | Bonus | Voto Primo Appello | Voto Progetto | Voto Finale |
-| --- | --- | --- | --- | --- | --- | --- |
-| FRANCESCO BASILE | 327797 | s327797@studenti.polito.it | 0 | 17.0 | 12.41 | 29 |
-| FLAVIANA SCHIOPPA | 331418 | s331418@studenti.polito.it | 1 | 15.2 | 10.77 | 27 |
-| GIUSEPPE VACANTE | 332155 | s332155@studenti.polito.it | 1 | 13.25 | 11.61 | 26 |
-| MICHELE CAZZOLA | 323270 | s323270@studenti.polito.it | 1 |  | 12.40 |  |
+| Nome | Matricola | Email | Bonus | Voto Primo Appello | Voto Secondo Appello | Voto Progetto | Voto Finale |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| FRANCESCO BASILE | 327797 | s327797@studenti.polito.it | 0 | 17.0 | | 12.41 | 29 |
+| FLAVIANA SCHIOPPA | 331418 | s331418@studenti.polito.it | 1 | 15.2 | | 10.77 | 27 |
+| GIUSEPPE VACANTE | 332155 | s332155@studenti.polito.it | 1 | 13.25 | | 11.61 | 26 |
+| MICHELE CAZZOLA | 323270 | s323270@studenti.polito.it | 1 |  | 17.4 | 12.40 | 30 |
